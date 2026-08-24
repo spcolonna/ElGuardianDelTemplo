@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="815" height="1110" viewBox="0 0 815 1110" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <clipPath id="trim"><rect x="35" y="35" width="745" height="1040" rx="34"/></clipPath>
+    <g id="iconoCarta">
+      <rect x="5" y="0" width="20" height="28" rx="3" fill="none" stroke="currentColor" stroke-width="3.5"/>
+      <rect x="0" y="6" width="20" height="28" rx="3" fill="#F4EFE6" stroke="currentColor" stroke-width="3.5"/>
+    </g>
+    <path id="iconoRayo" d="M21,0 L6,20 L15,20 L10,36 L27,14 L18,14 Z"/>
+    <g id="iconoCorazonRoto">
+      <path d="M16,31 C16,31 2,20 2,10.5 C2,4.8 6.9,1.6 11.2,3.8 C13.4,4.8 16,7.5 16,7.5 C16,7.5 18.6,4.8 20.8,3.8 C25.1,1.6 30,4.8 30,10.5 C30,20 16,31 16,31 Z"
+            fill="currentColor"/>
+      <path d="M16,5.5 L12.2,14 L18.2,18.2 L13.8,29" fill="none" stroke="#F4EFE6"
+            stroke-width="3.2" stroke-linejoin="round"/>
+    </g>
+  </defs>
+
+  <!-- ===== SANGRADO 3 mm (se corta al troquelar) ===== -->
+  <rect width="815" height="1110" fill="#8B4A46"/>
+
+  <g clip-path="url(#trim)">
+    <rect x="35" y="35" width="745" height="1040" fill="#F4EFE6"/>
+
+    <!-- ================================================================== -->
+    <!--  MITAD PELIGRO  ·  y 35 → 555  (520 px)                            -->
+    <!-- ================================================================== -->
+
+    <!-- A · banda de fase · y 35→87 (52) -->
+    <rect x="35" y="35" width="745" height="52" fill="#C85450"/>
+    <text x="407" y="71" text-anchor="middle" fill="#F4EFE6" font-size="25"
+          font-weight="bold" letter-spacing="9">O C A S O</text>
+
+    <!-- B · fila de números · y 87→163 (76) -->
+    <circle cx="118" cy="125" r="44" fill="#F4EFE6" stroke="#C85450" stroke-width="6.5"/>
+    <text x="118" y="147" text-anchor="middle" font-size="60" font-weight="bold" fill="#1A1A1F">8</text>
+
+    <g color="#C85450"><use href="#iconoCorazonRoto" x="545" y="109"/></g>
+    <text x="592" y="145" font-size="48" font-weight="bold" fill="#1A1A1F">3</text>
+
+    <g color="#3E3A36"><use href="#iconoCarta" x="658" y="108"/></g>
+    <text x="705" y="145" font-size="48" font-weight="bold" fill="#1A1A1F">4</text>
+
+    <!-- C · nombre del peligro · y 163→238 (75) -->
+    <text x="407" y="197" text-anchor="middle" font-size="32" font-weight="bold"
+          fill="#1A1A1F" font-family="Georgia, serif">Prueba del Gran Maestro</text>
+    <text x="407" y="226" text-anchor="middle" font-size="22"
+          fill="#5C554E" font-family="Georgia, serif" font-style="italic">(en sueños)</text>
+
+    <!-- D · ilustración 265 × 265 · y 238→503 -->
+    <rect x="275" y="238" width="265" height="265" rx="12" fill="#EBE2D3"
+          stroke="#C4B7A4" stroke-width="3" stroke-dasharray="10 8"/>
+    <text x="407" y="363" text-anchor="middle" font-size="19" fill="#A2957F">ILUSTRACIÓN</text>
+    <text x="407" y="390" text-anchor="middle" font-size="17" fill="#A2957F">265 × 265 px</text>
+
+    <!-- ================================================================== -->
+    <!--  MITAD TÉCNICA  ·  y 555 → 1075  ·  ROTADA 180° sobre (407.5, 815) -->
+    <!-- ================================================================== -->
+    <g transform="rotate(180, 407.5, 815)">
+
+      <!-- E · texto de sabor · y 555→607 -->
+      <text x="407" y="601" text-anchor="middle" font-size="19" font-style="italic"
+            fill="#6B635A" font-family="Georgia, serif">“Te despertaste empapado. Pero iluminado.”</text>
+
+      <!-- D · ilustración 265 × 265 · y 607→872 -->
+      <rect x="275" y="607" width="265" height="265" rx="12" fill="#E3E9EF"
+            stroke="#A9B9C7" stroke-width="3" stroke-dasharray="10 8"/>
+      <text x="407" y="732" text-anchor="middle" font-size="19" fill="#8095A6">ILUSTRACIÓN</text>
+      <text x="407" y="759" text-anchor="middle" font-size="17" fill="#8095A6">265 × 265 px</text>
+
+      <!-- C · nombre de la técnica · y 872→930 -->
+      <text x="407" y="912" text-anchor="middle" font-size="36" font-weight="bold"
+            fill="#1A1A1F" font-family="Georgia, serif">Iluminación</text>
+
+      <!-- B · fila de números · y 930→1023 -->
+      <circle cx="118" cy="975" r="44" fill="#F4EFE6" stroke="#6FA8DC" stroke-width="6.5"/>
+      <text x="118" y="997" text-anchor="middle" font-size="60" font-weight="bold" fill="#1A1A1F">5</text>
+
+      <text x="470" y="995" font-size="48" font-weight="bold" fill="#1A1A1F">+2</text>
+      <g color="#3E3A36"><use href="#iconoCarta" x="538" y="958"/></g>
+      <text x="630" y="995" font-size="48" font-weight="bold" fill="#1A1A1F">+1</text>
+      <g fill="#D9A21B"><use href="#iconoRayo" x="694" y="959"/></g>
+
+      <!-- A · banda de técnica · y 1023→1075 -->
+      <rect x="35" y="1023" width="745" height="52" fill="#6FA8DC"/>
+      <text x="407" y="1059" text-anchor="middle" fill="#12212C" font-size="25"
+            font-weight="bold" letter-spacing="9">T É C N I C A</text>
+    </g>
+
+    <!-- ===== LÍNEA DIVISORIA · centrada en y 555 · va por encima ===== -->
+    <rect x="35" y="549" width="745" height="12" fill="#1A1A1F"/>
+    <circle cx="407" cy="555" r="28" fill="#F4EFE6" stroke="#1A1A1F" stroke-width="7"/>
+    <circle cx="407" cy="555" r="10" fill="#1A1A1F"/>
+  </g>
+
+  <!-- ===== GUÍAS DE PRODUCCIÓN (no se imprimen) ===== -->
+  <rect x="35" y="35" width="745" height="1040" rx="34" fill="none"
+        stroke="#00A0FF" stroke-width="2" stroke-dasharray="12 8" opacity="0.9"/>
+  <rect x="82" y="82" width="651" height="946" rx="18" fill="none"
+        stroke="#00C853" stroke-width="2" stroke-dasharray="6 8" opacity="0.75"/>
+  <text x="44" y="25" font-size="16" fill="#00A0FF">corte 744×1039</text>
+  <text x="330" y="25" font-size="16" fill="#00C853">zona segura 651×946</text>
+  <text x="628" y="25" font-size="16" fill="#F4EFE6">sangrado 3 mm</text>
+  <text x="44" y="1098" font-size="16" fill="#F4EFE6">carta completa 815 × 1110 px  ·  69 × 94 mm @ 300 dpi</text>
+</svg>

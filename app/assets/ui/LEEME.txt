@@ -1,0 +1,2 @@
+Acá van las piezas de interfaz. Ver ASSETS_UI.md en la raíz del proyecto
+para las medidas exactas y los prompts de cada archivo.

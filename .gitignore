@@ -1,6 +1,5 @@
 # Miscellaneous
 *.class
-*.lock
 *.log
 *.pyc
 *.swp
@@ -117,3 +116,26 @@ app.*.symbols
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 !/dev/ci/**/Gemfile.lock
+
+
+# ---------------------------------------------------------------------------
+# El Guardián del Templo
+# ---------------------------------------------------------------------------
+
+# --- macOS ---
+.DS_Store
+
+# --- Estado local de Claude Code (la config del proyecto sí se versiona) ---
+.claude/settings.local.json
+
+# --- Salidas que la herramienta regenera ---
+# print/ lo reconstruye entero `python3 bin/imprimir.py` desde app/assets/ y
+# Assets/. El propio script borra los .png viejos al correr, así que
+# versionarlo no aportaría nada y duplicaría ~100 MB en cada re-exportación.
+print/
+
+# PDF bajados de la Imprenta desde el navegador. Se vuelven a generar con
+# `node imprenta/servidor.mjs`.
+imprenta/muestras/
+Assets/Imprimir/*.pdf
+Assets/Imprimir/*.zip

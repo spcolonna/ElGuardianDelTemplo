@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Librillo — El Guardián del Templo</title>
+<link rel="stylesheet" href="librillo.css">
+</head>
+<body>
+
+<div id="barra">
+  <h1 id="tituloDoc">Librillo</h1>
+  <label>Documento
+    <select id="doc">
+      <option value="reglamento">Reglamento</option>
+      <option value="comic">Cómic</option>
+    </select>
+  </label>
+  <label>Armado
+    <select id="modo">
+      <option value="librillo">Cuadernillo (doblar y abrochar)</option>
+      <option value="pila">Pila (cortar y apilar, una cara)</option>
+    </select>
+  </label>
+  <label>Grosor del papel (mm)
+    <input type="number" id="grosor" value="0.1" min="0" max="0.5" step="0.01">
+  </label>
+  <button id="imprimir">Imprimir</button>
+</div>
+<div id="aviso">cargando…</div>
+
+<div id="hojas"></div>
+
+<script src="librillo.js"></script>
+<script src="paginador.js"></script>
+<script src="referencias.js"></script>
+<script src="contenido_es.js"></script>
+<script src="render.js"></script>
+<script>
+'use strict';
+/* Arma el librillo: expandir → paginar → resolver remisiones → imponer.
+ *
+ * Necesita el servidor. Con doble clic sobre el archivo no funciona: usa
+ * `fetch` para los datos y `@font-face` para las tipografías, y `file://`
+ * bloquea las dos cosas.
+ */
+
+const q = new URLSearchParams(location.search);
+const $ = (id) => document.getElementById(id);
+
+// Alto útil de una página A5 con los márgenes del CSS: 210 - 16 - 14 - folio.
+const ALTO_UTIL = 210 - 16 - 14 - 6;
+const ANCHO_UTIL = 148 - 14 * 2;
+
+let datos = null;
+
+async function arrancar() {
+  const doc = q.get('doc') || 'reglamento';
+  $('doc').value = doc;
+  $('modo').value = q.get('modo') || 'librillo';
+  try {
+    const r = await fetch('../datos/juego_templo_es.json');
+    if (!r.ok) throw new Error(`no encontré imprenta/datos/juego_templo_es.json (${r.status})`);
+    datos = await r.json();
+  } catch (e) {
+    return fallar(
+      `${e.message}. Corré <code>dart run bin/export_libro.dart</code> desde <code>app/</code>, ` +
+      'y abrí esta página desde el servidor (<code>node imprenta/servidor.mjs</code>), no con doble clic.'
+    );
+  }
+  // Las dos esperas son obligatorias y por el mismo motivo: si se mide antes,
+  // se mide mal. Sin las tipografías cargadas el texto ocupa otro alto; con
+  // las imágenes sin cargar, un <img> mide CERO y la página que lo contiene
+  // parece vacía. Sin esto el reglamento paginaba con cinco páginas
+  // desbordadas, una de ellas por 194 mm.
+  await document.fonts.ready;
+  await precargar();
+  construir();
+}
+
+/** Carga todas las imágenes de los dos documentos antes de medir nada. */
+async function precargar() {
+  const urls = new Set();
+  for (const doc of ['reglamento', 'comic']) {
+    for (const b of window.CONTENIDO_ES[doc](datos)) {
+      if (b.carta) urls.add(`../../print/${b.carta}`);
+      if (b.archivo) urls.add(`../../print/${b.archivo}`);
+    }
+  }
+  await Promise.all([...urls].map((u) => new Promise((listo) => {
+    const im = new Image();
+    // `listo` en los dos casos: una imagen que falta no puede colgar la
+    // página. Se va a ver el hueco, que es aviso suficiente.
+    im.onload = im.onerror = listo;
+    im.src = u;
+  })));
+}
+
+function fallar(html) {
+  const a = $('aviso');
+  a.className = 'mal';
+  a.innerHTML = html;
+}
+
+function construir() {
+  const doc = $('doc').value;
+  const modo = $('modo').value;
+  const grosor = modo === 'librillo' ? parseFloat($('grosor').value) || 0 : 0;
+
+  $('tituloDoc').textContent = doc === 'comic' ? 'Cómic' : 'Reglamento';
+
+  const bloques = window.RENDER.expandir(window.CONTENIDO_ES[doc](datos), datos);
+
+  const quejas = window.REFS.comprobar(bloques, datos, null)
+    .concat(doc === 'comic' ? window.REFS.comprobarBifurcaciones(bloques) : []);
+  if (quejas.length) return fallar('El contenido tiene problemas:<br>' + quejas.join('<br>'));
+
+  const medidor = document.querySelector('.medidor') || window.RENDER.hacerMedidor(ANCHO_UTIL);
+  const medir = window.RENDER.hacerMedir(medidor, datos);
+  const dividir = window.RENDER.hacerDividir(medir, medidor, datos);
+  const opciones = { medir, dividir, altoUtil: ALTO_UTIL };
+
+  // PRIMERA PASADA: las remisiones salen como hueco de ancho reservado.
+  const uno = window.PAGINADOR.paginar(bloques, opciones);
+  // SEGUNDA: con los números de verdad. Como el hueco ya reservó tres dígitos
+  // y las cifras son tabulares, no puede moverse ni un corte de línea.
+  const dos = window.PAGINADOR.paginar(bloques, opciones);
+  if (dos.paginas.length !== uno.paginas.length) {
+    return fallar(
+      `Las dos pasadas dieron distinto (${uno.paginas.length} y ${dos.paginas.length} páginas). ` +
+      'Es un bug del paginador: mejor eso que imprimir números de página equivocados.'
+    );
+  }
+
+  pintar(dos.paginas, dos.anclas, modo, grosor);
+  if (q.get('prueba')) revisarDesbordes();
+}
+
+/** Lo único que `pruebas.mjs` no puede mirar: la maquetación de verdad.
+ *
+ * No hay headless sin dependencias, así que esto corre acá adentro. Los
+ * bloques que ocupan la página entera —portada, viñeta, bifurcación— se
+ * saltean: llenan la caja a propósito.
+ */
+function revisarDesbordes() {
+  const enteros = ['portada', 'vineta', 'bifurcacion'];
+  const malas = [];
+  document.querySelectorAll('.pagina:not(.medidor)').forEach((pag) => {
+    const caja = pag.getBoundingClientRect();
+    const hijos = [...pag.children].filter((c) => !c.classList.contains('folio'));
+    if (!hijos.length || enteros.some((c) => hijos[0].classList.contains(c))) return;
+    const sobra = hijos[hijos.length - 1].getBoundingClientRect().bottom -
+      (caja.bottom - 20 * window.RENDER.MM);
+    const folio = pag.querySelector('.folio');
+    if (sobra > 2) malas.push(`${folio ? folio.textContent : '?'} (+${Math.round(sobra / window.RENDER.MM)} mm)`);
+  });
+  const a = $('aviso');
+  if (malas.length) {
+    a.className = 'mal';
+    a.innerHTML = `<b>Se desbordan ${malas.length} páginas:</b> ${malas.join(', ')}`;
+  } else {
+    a.innerHTML = `<b>Prueba en verde.</b> ${a.innerHTML}`;
+  }
+}
+
+function pintar(paginas, anclas, modo, grosor) {
+  const plan = window.LIBRILLO.plan(paginas.length, { modo, grosor });
+  const cont = $('hojas');
+  cont.innerHTML = '';
+
+  for (const cara of plan.caras) {
+    const hoja = document.createElement('div');
+    hoja.className = `hoja ${modo}`;
+    for (const m of cara.mitades) {
+      const div = document.createElement('div');
+      div.className = 'mitad';
+      div.style.left = `${m.x}mm`;
+      const pag = document.createElement('div');
+      pag.className = 'pagina';
+      const cuerpo = paginas[m.pagina - 1];
+      if (cuerpo) {
+        pag.innerHTML =
+          cuerpo.map((b) => window.RENDER.html(b, datos, anclas)).join('') +
+          `<div class="folio">${m.pagina}</div>`;
+      }
+      div.appendChild(pag);
+      hoja.appendChild(div);
+    }
+    // La regla de control, en cada hoja. El modo «Márgenes: predeterminado»
+    // de Chrome escala para entrar sin decirlo, y no se nota a ojo.
+    const regla = document.createElement('div');
+    regla.className = 'regla';
+    regla.innerHTML =
+      '<div class="barra"></div><span>100 mm exactos — si no mide 100, ' +
+      'imprimiste con escala. Poné Márgenes: Ninguno.</span>';
+    hoja.appendChild(regla);
+    cont.appendChild(hoja);
+  }
+
+  const a = $('aviso');
+  a.className = '';
+  a.innerHTML =
+    `<b>${paginas.length} páginas</b> en <b>${plan.hojas} hojas</b> A4 apaisadas` +
+    (plan.relleno ? ` (${plan.relleno} en blanco para que cierre el pliego)` : '') +
+    '. Al imprimir: <b>escala 100 %</b>, <b>márgenes ninguno</b>, sin encabezados ni pies, ' +
+    (modo === 'librillo'
+      ? '<b>doble faz girando por el lado corto</b>. Después doblá al medio y abrochá sobre el pliegue.'
+      : '<b>una sola cara</b>. Después cortá por la línea del medio, apilá en orden y abrochá en la esquina.');
+}
+
+for (const id of ['doc', 'modo', 'grosor']) {
+  $(id).addEventListener('change', () => {
+    if (id === 'doc') {
+      q.set('doc', $('doc').value);
+      history.replaceState(null, '', `?${q}`);
+    }
+    construir();
+  });
+}
+$('imprimir').addEventListener('click', () => window.print());
+
+arrancar();
+</script>
+</body>
+</html>

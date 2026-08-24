@@ -1,0 +1,1452 @@
+{
+  "tema": "templo",
+  "idioma": "en",
+  "generado": "2026-08-24T13:45:29.434202",
+  "juego": {
+    "nombre": "Guardian of the Temple",
+    "bajada": "Shifu is gone for seven days. Don't burn the temple down.",
+    "recurso": "Energy"
+  },
+  "config": {
+    "energiaInicial": 20,
+    "energiaMaxima": 20,
+    "cantidadJefes": 2,
+    "peligrosPorFase": 7,
+    "robosGratisIlimitados": false,
+    "costeRoboExtra": 1,
+    "costeMeditar": 1,
+    "cartasPorMeditacion": 1,
+    "meditarSoloAlPerder": true,
+    "peligroPerdidoSaleDelJuego": true,
+    "cartasGratisExtra": 0,
+    "modoCansancio": false,
+    "poderCansancio": 0,
+    "disparoCansancio": 0,
+    "modoEncargos": false
+  },
+  "reglas": [
+    {
+      "titulo": "Objetivo",
+      "lineas": [
+        "Sobrevivís tres fases de peligro (Alba, Mediodía, Ocaso) mejorando tu mazo de técnicas, y después enfrentás 2 jefe(s) final(es).",
+        "Perdés si tu Energía llega a 0 o menos."
+      ]
+    },
+    {
+      "titulo": "Preparación",
+      "lineas": [
+        "Barajá el mazo inicial de combate (20 cartas).",
+        "Separá los tres mazos de peligro y elegí 2 jefe(s) al azar.",
+        "Empezás con 20 de Energía (tope al curarte: 20)."
+      ]
+    },
+    {
+      "titulo": "Turno",
+      "lineas": [
+        "1. Revelá el peligro superior del mazo de la fase actual.",
+        "2. Robá gratis hasta el número de \"cartas gratis\" del peligro. Cada carta adicional cuesta 1 de Energía.",
+        "3. Sumá el Poder de las cartas jugadas y comparalo con el Poder del peligro.",
+        "4. Si tu suma ≥ el peligro, ganás: la carta de peligro entra a tu descarte como la técnica de recompensa.",
+        "5. Si perdés, restás el Daño del peligro a tu Energía y la carta de peligro sale del juego.",
+        "6. Todas las cartas jugadas van al descarte. Cuando el mazo se acaba, barajá el descarte."
+      ]
+    },
+    {
+      "titulo": "Ganar o perder un combate (importante)",
+      "lineas": [
+        "GANÁS si la suma de tus cartas ≥ el Poder del peligro. La carta de peligro se da vuelta y entra a tu pila de descarte convertida en la técnica de recompensa: a partir de ahí es una carta más de tu mazo.",
+        "PERDÉS si te plantás por debajo del Poder. Restás el Daño del peligro a tu Energía y la carta de peligro se descarta del juego: NO te la llevás. Nunca ganás una carta perdiendo un combate.",
+        "Plantarse por debajo no es un \"precio\" que pagás para quedarte la carta: es rendirte. A veces conviene igual, cuando pagar más robos costaría más Energía que el propio Daño.",
+        "Ganes o pierdas, todas las cartas que jugaste van a tu descarte."
+      ]
+    },
+    {
+      "titulo": "Cómo se recupera Energía",
+      "lineas": [
+        "No existe ninguna acción para curarte: no podés \"descansar\" ni gastar un turno en recuperarte.",
+        "La Energía sube SÓLO por efectos de cartas de combate, y esos efectos se disparan automáticamente cuando la carta sale durante un combate. No elegís cuándo usarlas.",
+        "Efecto \"+X Energía\": se aplica en el momento en que robás la carta, ganes o pierdas después. Ej.: Reflejo +1, Disciplina +2, Escama de Dragón +1, Puño del Dragón +2, Serenidad +3, Agua Sagrada +2, Iluminación +1.",
+        "Efecto \"+X Energía si ganás\": se aplica recién al resolver, y sólo si ganaste ese combate. Ej.: Puño del Bambú +1, Ala de Grulla +1, Vuelo de Grulla +2.",
+        "Nunca superás el tope de 20 de Energía: lo que sobra se pierde.",
+        "Consecuencia de diseño: curarte depende de haber metido cartas de curación en tu mazo y de que salgan. Por eso conviene meditar para eliminar cartas malas: un mazo más chico hace que las buenas aparezcan más seguido."
+      ]
+    },
+    {
+      "titulo": "Meditar: sacar cartas malas de tu mazo",
+      "lineas": [
+        "Meditar es la ÚNICA forma de sacar cartas de tu mazo. No hay otra.",
+        "Cuándo: sólo en el paso posterior a un combate que PERDISTE.",
+        "Cómo: pagá 1 de Energía y eliminá 1 carta(s) de tu pila de descarte. Salen del juego para siempre: no vuelven al mazo.",
+        "Podés repetirlo varias veces seguidas, pagando cada vez, mientras te quede Energía.",
+        "LIMITACIÓN CLAVE: sólo podés eliminar cartas que estén en el DESCARTE. Una Duda Existencial que sigue enterrada en el mazo es intocable: primero tiene que salir en algún combate. Por eso el mejor momento para meditar es justo después de un combate donde salieron tus peores cartas: todas las que acabás de jugar están en el descarte.",
+        "Cuando el mazo se agota, el descarte se baraja y vuelve a ser mazo: ahí perdés la oportunidad de purgar esas cartas hasta que vuelvan a salir.",
+        "Por qué conviene: quitar una Duda Existencial (-1) o una Respiración Agitada (0) no sube tu poder total, pero achica el mazo y hace que las cartas buenas (y las que curan Energía) salgan más seguido."
+      ]
+    },
+    {
+      "titulo": "Enfrentamiento final",
+      "lineas": [
+        "Revelá los jefes y enfrentalos en orden, igual que un peligro normal.",
+        "Si perdés contra un jefe, restás su Daño y volvés a enfrentarlo.",
+        "Ganás la partida cuando derrotás al último."
+      ]
+    }
+  ],
+  "dificultades": [
+    {
+      "clave": "aprendiz",
+      "nombre": "Apprentice",
+      "bajada": "Learn the game without suffering.",
+      "energiaInicial": 26,
+      "energiaMaxima": 26,
+      "peligrosPorFase": 10,
+      "cantidadJefes": 1,
+      "costeRoboExtra": 1,
+      "costeMeditar": 1,
+      "cartasPorMeditacion": 1,
+      "meditarSoloAlPerder": false,
+      "cartasGratisExtra": 1
+    },
+    {
+      "clave": "novato",
+      "nombre": "Novice",
+      "bajada": "You know what to do. It still hurts.",
+      "energiaInicial": 22,
+      "energiaMaxima": 22,
+      "peligrosPorFase": 9,
+      "cantidadJefes": 2,
+      "costeRoboExtra": 1,
+      "costeMeditar": 1,
+      "cartasPorMeditacion": 1,
+      "meditarSoloAlPerder": true,
+      "cartasGratisExtra": 0
+    },
+    {
+      "clave": "guardian",
+      "nombre": "Guardian",
+      "bajada": "The game as it was balanced.",
+      "energiaInicial": 20,
+      "energiaMaxima": 20,
+      "peligrosPorFase": 7,
+      "cantidadJefes": 2,
+      "costeRoboExtra": 1,
+      "costeMeditar": 1,
+      "cartasPorMeditacion": 1,
+      "meditarSoloAlPerder": true,
+      "cartasGratisExtra": 0
+    },
+    {
+      "clave": "maestro",
+      "nombre": "Master",
+      "bajada": "Shifu will find out anyway.",
+      "energiaInicial": 18,
+      "energiaMaxima": 18,
+      "peligrosPorFase": 6,
+      "cantidadJefes": 3,
+      "costeRoboExtra": 2,
+      "costeMeditar": 1,
+      "cartasPorMeditacion": 1,
+      "meditarSoloAlPerder": true,
+      "cartasGratisExtra": 0
+    }
+  ],
+  "cansancio": {
+    "disparos": [
+      "finDeFase",
+      "alRebarajar"
+    ],
+    "poderes": [
+      0,
+      -1,
+      -2
+    ],
+    "cartas": [
+      {
+        "id": "cans_bostezo",
+        "nombre": "cans_bostezo",
+        "ajustePoder": 0
+      },
+      {
+        "id": "cans_vista",
+        "nombre": "cans_vista",
+        "ajustePoder": 0
+      },
+      {
+        "id": "cans_piernas",
+        "nombre": "cans_piernas",
+        "ajustePoder": -1
+      },
+      {
+        "id": "cans_hombro",
+        "nombre": "cans_hombro",
+        "ajustePoder": 0
+      },
+      {
+        "id": "cans_ampolla",
+        "nombre": "cans_ampolla",
+        "ajustePoder": 0
+      },
+      {
+        "id": "cans_nudillo",
+        "nombre": "cans_nudillo",
+        "ajustePoder": -1
+      },
+      {
+        "id": "cans_calambre",
+        "nombre": "cans_calambre",
+        "ajustePoder": 0
+      },
+      {
+        "id": "cans_zumbido",
+        "nombre": "cans_zumbido",
+        "ajustePoder": 0
+      },
+      {
+        "id": "cans_espalda",
+        "nombre": "cans_espalda",
+        "ajustePoder": -1
+      },
+      {
+        "id": "cans_renunciar",
+        "nombre": "cans_renunciar",
+        "ajustePoder": -1
+      }
+    ]
+  },
+  "libre": {
+    "energiaInicial": {
+      "min": 1,
+      "max": 30
+    },
+    "peligrosPorFase": {
+      "min": 1,
+      "max": 10
+    },
+    "jefes": {
+      "min": 1,
+      "max": 5
+    },
+    "modosCansancio": {
+      "min": 1,
+      "max": 5
+    }
+  },
+  "mazoInicial": [
+    {
+      "id": "puno_torpe",
+      "archivo": "inicial_puno_torpe.jpg",
+      "nombre": "Clumsy Punch",
+      "poder": 1,
+      "efecto": {
+        "roba": 0,
+        "energiaAlJugar": 0,
+        "energiaSiGanas": 0,
+        "reducePeligro": 0,
+        "texto": ""
+      },
+      "sabor": "",
+      "copias": 8
+    },
+    {
+      "id": "postura_flamenco",
+      "archivo": "inicial_postura_flamenco.jpg",
+      "nombre": "Flamingo Stance",
+      "poder": 0,
+      "efecto": {
+        "roba": 1,
+        "energiaAlJugar": 0,
+        "energiaSiGanas": 0,
+        "reducePeligro": 0,
+        "texto": "Roba 1"
+      },
+      "sabor": "Not a Shaolin stance, but it does the job.",
+      "copias": 4
+    },
+    {
+      "id": "patada_descuidada",
+      "archivo": "inicial_patada_descuidada.jpg",
+      "nombre": "Sloppy Kick",
+      "poder": 2,
+      "efecto": {
+        "roba": 0,
+        "energiaAlJugar": 0,
+        "energiaSiGanas": -1,
+        "reducePeligro": 0,
+        "texto": "-1 Energía si ganás"
+      },
+      "sabor": "You almost fell over backwards.",
+      "copias": 3
+    },
+    {
+      "id": "respiracion_agitada",
+      "archivo": "inicial_respiracion_agitada.jpg",
+      "nombre": "Ragged Breathing",
+      "poder": 0,
+      "efecto": {
+        "roba": 0,
+        "energiaAlJugar": 0,
+        "energiaSiGanas": 0,
+        "reducePeligro": 0,
+        "texto": ""
+      },
+      "sabor": "You sound like a broken bellows.",
+      "copias": 3
+    },
+    {
+      "id": "duda_existencial",
+      "archivo": "inicial_duda_existencial.jpg",
+      "nombre": "Existential Doubt",
+      "poder": -1,
+      "efecto": {
+        "roba": 0,
+        "energiaAlJugar": 0,
+        "energiaSiGanas": 0,
+        "reducePeligro": 0,
+        "texto": ""
+      },
+      "sabor": "What if kung fu is just aerobics with attitude?",
+      "copias": 2
+    }
+  ],
+  "peligros": {
+    "alba": [
+      {
+        "id": "alba1",
+        "archivo": "alba1.jpg",
+        "nombre": "Temple Mosquito",
+        "poder": 1,
+        "dano": 1,
+        "cartasGratis": 2,
+        "recompensa": {
+          "nombre": "First Claw",
+          "poder": 2,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": ""
+          },
+          "sabor": "Your first move that looks like you meant it."
+        }
+      },
+      {
+        "id": "alba2",
+        "archivo": "alba2.jpg",
+        "nombre": "Bandit with a Rotten Stick",
+        "poder": 2,
+        "dano": 1,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Bamboo Fist",
+          "poder": 2,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 1,
+            "reducePeligro": 0,
+            "texto": "+1 Energía si ganás"
+          },
+          "sabor": ""
+        }
+      },
+      {
+        "id": "alba3",
+        "archivo": "alba3.jpg",
+        "nombre": "Spilled Teapot",
+        "poder": 1,
+        "dano": 1,
+        "cartasGratis": 2,
+        "recompensa": {
+          "nombre": "Balance",
+          "poder": 1,
+          "efecto": {
+            "roba": 1,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "Roba 1"
+          },
+          "sabor": "You learned not to trip over your own foot."
+        }
+      },
+      {
+        "id": "alba4",
+        "archivo": "alba4.jpg",
+        "nombre": "Tempting Nap",
+        "poder": 2,
+        "dano": 2,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Rude Awakening",
+          "poder": 3,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": -1,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "-1 Energía"
+          },
+          "sabor": "The Master threw a bucket of cold water at you."
+        }
+      },
+      {
+        "id": "alba5",
+        "archivo": "alba5.jpg",
+        "nombre": "Temple Guard Cat",
+        "poder": 1,
+        "dano": 1,
+        "cartasGratis": 2,
+        "recompensa": {
+          "nombre": "Cat Scratch",
+          "poder": 2,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": ""
+          },
+          "sabor": "You learned from the best fighter in the temple."
+        }
+      },
+      {
+        "id": "alba6",
+        "archivo": "alba6.jpg",
+        "nombre": "Smug Classmate",
+        "poder": 2,
+        "dano": 1,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Dead Stare",
+          "poder": 1,
+          "efecto": {
+            "roba": 2,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "Roba 2"
+          },
+          "sabor": "You scared him off with your hungry rookie eyes."
+        }
+      },
+      {
+        "id": "alba7",
+        "archivo": "alba7.jpg",
+        "nombre": "Pebble in Your Shoe",
+        "poder": 1,
+        "dano": 1,
+        "cartasGratis": 2,
+        "recompensa": {
+          "nombre": "Steady Step",
+          "poder": 2,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": ""
+          },
+          "sabor": "You finally got proper training shoes."
+        }
+      },
+      {
+        "id": "alba8",
+        "archivo": "alba8.jpg",
+        "nombre": "Snapped Jump Rope",
+        "poder": 2,
+        "dano": 2,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Rookie Leap",
+          "poder": 3,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": ""
+          },
+          "sabor": "You rang the temple bells with your head."
+        }
+      },
+      {
+        "id": "alba9",
+        "archivo": "alba9.jpg",
+        "nombre": "Spider in the Rice Bowl",
+        "poder": 1,
+        "dano": 1,
+        "cartasGratis": 2,
+        "recompensa": {
+          "nombre": "Reflex",
+          "poder": 1,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 1,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "+1 Energía"
+          },
+          "sabor": "The spider made it. So did you."
+        }
+      },
+      {
+        "id": "alba10",
+        "archivo": "alba10.jpg",
+        "nombre": "Cold Morning Wind",
+        "poder": 2,
+        "dano": 1,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Endurance",
+          "poder": 2,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": ""
+          },
+          "sabor": "Cold strengthens the spirit. You just want a blanket."
+        }
+      }
+    ],
+    "mediodia": [
+      {
+        "id": "med1",
+        "archivo": "med1.jpg",
+        "nombre": "Three Hungry Bandits",
+        "poder": 4,
+        "dano": 2,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Tiger Fist",
+          "poder": 4,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": -1,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "-1 Energía"
+          },
+          "sabor": "Roars like a kitten. Hits like a tiger."
+        }
+      },
+      {
+        "id": "med2",
+        "archivo": "med2.jpg",
+        "nombre": "Mercenary with a Toy Sword",
+        "poder": 3,
+        "dano": 2,
+        "cartasGratis": 2,
+        "recompensa": {
+          "nombre": "Crane Wing",
+          "poder": 2,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 1,
+            "reducePeligro": 0,
+            "texto": "+1 Energía si ganás"
+          },
+          "sabor": "Grace over force."
+        }
+      },
+      {
+        "id": "med3",
+        "archivo": "med3.jpg",
+        "nombre": "Doubt: \"Is Any of This Working?\"",
+        "poder": 3,
+        "dano": 2,
+        "cartasGratis": 2,
+        "recompensa": {
+          "nombre": "Renewed Faith",
+          "poder": 3,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": ""
+          },
+          "sabor": "Shifu never lied. Well, almost never."
+        }
+      },
+      {
+        "id": "med4",
+        "archivo": "med4.jpg",
+        "nombre": "Uncontrollable Rage",
+        "poder": 4,
+        "dano": 3,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Snake Fang",
+          "poder": 3,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 1,
+            "texto": "-1 al peligro"
+          },
+          "sabor": ""
+        }
+      },
+      {
+        "id": "med5",
+        "archivo": "med5.jpg",
+        "nombre": "The Crooked Governor's Soldier",
+        "poder": 5,
+        "dano": 2,
+        "cartasGratis": 4,
+        "recompensa": {
+          "nombre": "Leopard Stride",
+          "poder": 3,
+          "efecto": {
+            "roba": 1,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "Roba 1"
+          },
+          "sabor": "Fast. Elegant. Confusing for the enemy."
+        }
+      },
+      {
+        "id": "med6",
+        "archivo": "med6.jpg",
+        "nombre": "The Cupboard Calls",
+        "poder": 3,
+        "dano": 2,
+        "cartasGratis": 2,
+        "recompensa": {
+          "nombre": "Discipline",
+          "poder": 2,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 2,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "+2 Energía"
+          },
+          "sabor": "Shifu's cookies are still there. Untouched. You are a hero."
+        }
+      },
+      {
+        "id": "med7",
+        "archivo": "med7.jpg",
+        "nombre": "Street-Corner Fake Master",
+        "poder": 4,
+        "dano": 2,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Dragon Scale",
+          "poder": 3,
+          "efecto": {
+            "roba": 1,
+            "energiaAlJugar": 1,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "Roba 1 · +1 Energía"
+          },
+          "sabor": "You learned what NOT to do. That counts."
+        }
+      },
+      {
+        "id": "med8",
+        "archivo": "med8.jpg",
+        "nombre": "Broken Rope Bridge",
+        "poder": 3,
+        "dano": 3,
+        "cartasGratis": 2,
+        "recompensa": {
+          "nombre": "Bamboo Flight",
+          "poder": 4,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": -1,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "-1 Energía"
+          },
+          "sabor": "You crossed the gorge. With style."
+        }
+      },
+      {
+        "id": "med9",
+        "archivo": "med9.jpg",
+        "nombre": "The Classmate Who Sold You Out",
+        "poder": 4,
+        "dano": 2,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Loyalty",
+          "poder": 3,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": ""
+          },
+          "sabor": "You forgave the traitor. Better person than fighter."
+        }
+      },
+      {
+        "id": "med10",
+        "archivo": "med10.jpg",
+        "nombre": "Sudden Sandstorm",
+        "poder": 5,
+        "dano": 3,
+        "cartasGratis": 4,
+        "recompensa": {
+          "nombre": "Desert Endurance",
+          "poder": 4,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": ""
+          },
+          "sabor": "Sand in the eyes is just advanced training."
+        }
+      }
+    ],
+    "ocaso": [
+      {
+        "id": "oca1",
+        "archivo": "oca1.jpg",
+        "nombre": "The Bandit Chief",
+        "poder": 6,
+        "dano": 3,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Tiger Roar",
+          "poder": 5,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": -2,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "-2 Energía"
+          },
+          "sabor": "Now it really does roar like a tiger."
+        }
+      },
+      {
+        "id": "oca2",
+        "archivo": "oca2.jpg",
+        "nombre": "Silent Assassin",
+        "poder": 7,
+        "dano": 3,
+        "cartasGratis": 4,
+        "recompensa": {
+          "nombre": "Crane Flight",
+          "poder": 4,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 2,
+            "reducePeligro": 0,
+            "texto": "+2 Energía si ganás"
+          },
+          "sabor": "You never saw him coming. He never saw you either."
+        }
+      },
+      {
+        "id": "oca3",
+        "archivo": "oca3.jpg",
+        "nombre": "Demon of Pride",
+        "poder": 6,
+        "dano": 3,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Humility",
+          "poder": 4,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": ""
+          },
+          "sabor": "You came down off your cloud. The hard way."
+        }
+      },
+      {
+        "id": "oca4",
+        "archivo": "oca4.jpg",
+        "nombre": "Demon of Sloth",
+        "poder": 5,
+        "dano": 4,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Resolve",
+          "poder": 5,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": -1,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "-1 Energía"
+          },
+          "sabor": "You got up at 4 AM. Once. But it counts."
+        }
+      },
+      {
+        "id": "oca5",
+        "archivo": "oca5.jpg",
+        "nombre": "Master of the Rival Temple",
+        "poder": 8,
+        "dano": 3,
+        "cartasGratis": 4,
+        "recompensa": {
+          "nombre": "Dragon Fist",
+          "poder": 5,
+          "efecto": {
+            "roba": 1,
+            "energiaAlJugar": 2,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "Roba 1 · +2 Energía"
+          },
+          "sabor": "His temple has a bigger budget. You have heart."
+        }
+      },
+      {
+        "id": "oca6",
+        "archivo": "oca6.jpg",
+        "nombre": "Mercenary Army",
+        "poder": 9,
+        "dano": 4,
+        "cartasGratis": 5,
+        "recompensa": {
+          "nombre": "Tiger Kick",
+          "poder": 6,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": -2,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "-2 Energía"
+          },
+          "sabor": "One kick. Many mercenaries. Simple math."
+        }
+      },
+      {
+        "id": "oca7",
+        "archivo": "oca7.jpg",
+        "nombre": "Demon of Wrath",
+        "poder": 7,
+        "dano": 4,
+        "cartasGratis": 4,
+        "recompensa": {
+          "nombre": "Serenity",
+          "poder": 4,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 3,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "+3 Energía"
+          },
+          "sabor": "You took a deep breath. The demon didn't."
+        }
+      },
+      {
+        "id": "oca8",
+        "archivo": "oca8.jpg",
+        "nombre": "Fire in the Temple Kitchen",
+        "poder": 6,
+        "dano": 4,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Sacred Water",
+          "poder": 5,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 2,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "+2 Energía"
+          },
+          "sabor": "You put it out. Nobody knows how it started. It was Shifu, right?"
+        }
+      },
+      {
+        "id": "oca9",
+        "archivo": "oca9.jpg",
+        "nombre": "The Favorite Disciple's Betrayal",
+        "poder": 7,
+        "dano": 3,
+        "cartasGratis": 4,
+        "recompensa": {
+          "nombre": "Forgiveness",
+          "poder": 4,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": ""
+          },
+          "sabor": "You gave him a second chance. And a kick."
+        }
+      },
+      {
+        "id": "oca10",
+        "archivo": "oca10.jpg",
+        "nombre": "The Grandmaster's Test (In a Dream)",
+        "poder": 8,
+        "dano": 3,
+        "cartasGratis": 4,
+        "recompensa": {
+          "nombre": "Enlightenment",
+          "poder": 5,
+          "efecto": {
+            "roba": 2,
+            "energiaAlJugar": 1,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "Roba 2 · +1 Energía"
+          },
+          "sabor": "You woke up soaked. But enlightened."
+        }
+      }
+    ]
+  },
+  "jefes": [
+    {
+      "id": "jefe1",
+      "archivo": "jefe1.jpg",
+      "nombre": "The Fallen Monk",
+      "poder": 20,
+      "dano": 5,
+      "cartasGratis": 7,
+      "lore": "Star pupil. Left because Shifu never gave him the cookies he wanted. Now he wants revenge. And cookies."
+    },
+    {
+      "id": "jefe2",
+      "archivo": "jefe2.jpg",
+      "nombre": "Your Own Reflection",
+      "poder": 22,
+      "dano": 4,
+      "cartasGratis": 8,
+      "lore": "It had your face. And it was right about everything."
+    },
+    {
+      "id": "jefe3",
+      "archivo": "jefe3.jpg",
+      "nombre": "The Mercenary Lord",
+      "poder": 18,
+      "dano": 5,
+      "cartasGratis": 7,
+      "lore": "Pays his men well. Smells terrible. Genuinely terrible."
+    },
+    {
+      "id": "jefe4",
+      "archivo": "jefe4.jpg",
+      "nombre": "Grandmaster of the Black Lotus Temple",
+      "poder": 24,
+      "dano": 4,
+      "cartasGratis": 9,
+      "lore": "His temple has a pool, a sauna and an all-you-can-eat buffet. Yours has a rock."
+    },
+    {
+      "id": "jefe5",
+      "archivo": "jefe5.jpg",
+      "nombre": "The Paper Dragon",
+      "poder": 16,
+      "dano": 6,
+      "cartasGratis": 6,
+      "lore": "Imposing, breathes fire. But if it rains, it turns to mush."
+    }
+  ],
+  "comic": [
+    {
+      "clave": "intro",
+      "disparo": "Antes de empezar la partida.",
+      "paneles": [
+        {
+          "archivo": "01_templo_amanecer.png",
+          "narracion": "High on the mountain, where the wind complains and the tea is never quite hot enough, stands the Temple of the Crooked Lotus.",
+          "dichos": [
+            {
+              "quien": "",
+              "texto": "(One hundred and eight steps up to the gate.)",
+              "acotacion": true
+            },
+            {
+              "quien": "",
+              "texto": "(The Rookie sweeps them every morning. Every morning they get dirty again.)",
+              "acotacion": true
+            }
+          ]
+        },
+        {
+          "archivo": "02_shifu_se_va.png",
+          "narracion": "This morning, Grandmaster Shifu left for the Annual Congress of Martial Arts Masters and Jasmine Tea.",
+          "dichos": [
+            {
+              "quien": "Shifu",
+              "texto": "Back in seven days. I trust you.",
+              "acotacion": false
+            },
+            {
+              "quien": "Rookie",
+              "texto": "Seven days on my own?",
+              "acotacion": false
+            },
+            {
+              "quien": "Shifu",
+              "texto": "Not on your own. Mei is here.",
+              "acotacion": false
+            },
+            {
+              "quien": "",
+              "texto": "(Mei had already gone to sleep.)",
+              "acotacion": true
+            }
+          ]
+        },
+        {
+          "archivo": "03_la_nota.png",
+          "narracion": "Before leaving he left a note, in flawless calligraphy.",
+          "dichos": [
+            {
+              "quien": "The note",
+              "texto": "Dear rookie: don't burn the temple down. Don't eat the cookies in the cupboard (they are mine). Sweep the courtyard every morning.",
+              "acotacion": false
+            },
+            {
+              "quien": "The note",
+              "texto": "And above all: DO NOT LET STRANGERS IN.",
+              "acotacion": false
+            },
+            {
+              "quien": "Rookie",
+              "texto": "Easy.",
+              "acotacion": false
+            }
+          ]
+        },
+        {
+          "archivo": "04_posdata.png",
+          "narracion": "And below, in smaller letters, a postscript.",
+          "dichos": [
+            {
+              "quien": "The note",
+              "texto": "P.S.: If anyone asks about the \"Great Illegal Martial Arts Tournament\", tell them we firmly declined.",
+              "acotacion": false
+            },
+            {
+              "quien": "Rookie",
+              "texto": "The what?",
+              "acotacion": false
+            },
+            {
+              "quien": "Rookie",
+              "texto": "We declined WHAT?",
+              "acotacion": false
+            }
+          ]
+        },
+        {
+          "archivo": "05_llegan_los_problemas.png",
+          "narracion": "Shifu rounded the first bend in the road. Twelve seconds later, they started climbing.",
+          "dichos": [
+            {
+              "quien": "Rookie",
+              "texto": "Well. That escalated fast.",
+              "acotacion": false
+            },
+            {
+              "quien": "",
+              "texto": "(There were fourteen of them, to begin with.)",
+              "acotacion": true
+            }
+          ]
+        },
+        {
+          "archivo": "06_tentaciones.png",
+          "narracion": "And the worst of it wasn't coming from outside.",
+          "dichos": [
+            {
+              "quien": "Rookie",
+              "texto": "One cookie is not going to show.",
+              "acotacion": false
+            },
+            {
+              "quien": "Rookie",
+              "texto": "He didn't count them. No way he counted them.",
+              "acotacion": false
+            },
+            {
+              "quien": "",
+              "texto": "(Shifu had counted them.)",
+              "acotacion": true
+            }
+          ]
+        },
+        {
+          "archivo": "07_entrenamiento.png",
+          "narracion": "The day is only starting. You will train with whatever shows up, and turn every beating into a new technique.",
+          "dichos": [
+            {
+              "quien": "",
+              "texto": "(Dawn. Noon. Dusk.)",
+              "acotacion": true
+            },
+            {
+              "quien": "",
+              "texto": "(Three times the mountain gets climbed, and each time by something worse.)",
+              "acotacion": true
+            },
+            {
+              "quien": "Rookie",
+              "texto": "I can do this.",
+              "acotacion": false
+            }
+          ]
+        },
+        {
+          "archivo": "08_campeones.png",
+          "narracion": "And once the sun sinks behind the mountain, two Tournament Champions will knock on the gate to take the temple.",
+          "dichos": [
+            {
+              "quien": "Rookie",
+              "texto": "Can I protect the temple?",
+              "acotacion": false
+            },
+            {
+              "quien": "Rookie",
+              "texto": "And Shifu's cookies?",
+              "acotacion": false
+            },
+            {
+              "quien": "",
+              "texto": "(One of those two answers was going to be no.)",
+              "acotacion": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "clave": "mediodia",
+      "disparo": "Cuando se acaba el mazo del Alba.",
+      "paneles": [
+        {
+          "archivo": "10_fin_alba.png",
+          "narracion": "You held the Dawn. Everything hurts, but you are still standing and the courtyard is still yours.",
+          "dichos": [
+            {
+              "quien": "Rookie",
+              "texto": "One down.",
+              "acotacion": false
+            },
+            {
+              "quien": "",
+              "texto": "(The sun was only just climbing.)",
+              "acotacion": true
+            }
+          ]
+        },
+        {
+          "archivo": "11_mei_juzga.png",
+          "narracion": "Mei, the guardian cat, reviewed your performance from the roof. She was not impressed.",
+          "dichos": [
+            {
+              "quien": "Mei",
+              "texto": "(devastating feline silence)",
+              "acotacion": true
+            },
+            {
+              "quien": "Rookie",
+              "texto": "I won, you know.",
+              "acotacion": false
+            },
+            {
+              "quien": "Mei",
+              "texto": "(slow blink)",
+              "acotacion": true
+            },
+            {
+              "quien": "Rookie",
+              "texto": "Fine. I tied.",
+              "acotacion": false
+            }
+          ]
+        },
+        {
+          "archivo": "12_llega_tao.png",
+          "narracion": "By Noon the curious have stopped climbing. Now it is the ones who get paid to be here.",
+          "dichos": [
+            {
+              "quien": "Tao",
+              "texto": "Not bad for someone who couldn't make a fist this morning.",
+              "acotacion": false
+            },
+            {
+              "quien": "Tao",
+              "texto": "The ones at this hour hit different, though.",
+              "acotacion": false
+            },
+            {
+              "quien": "Rookie",
+              "texto": "And whose side are you on?",
+              "acotacion": false
+            },
+            {
+              "quien": "Tao",
+              "texto": "The winning one.",
+              "acotacion": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "clave": "ocaso",
+      "disparo": "Cuando se acaba el mazo del Mediodía.",
+      "paneles": [
+        {
+          "archivo": "20_fin_mediodia.png",
+          "narracion": "Noon left your hands raw, but the gate never opened for anyone you didn't want in.",
+          "dichos": [
+            {
+              "quien": "Rookie",
+              "texto": "Two.",
+              "acotacion": false
+            },
+            {
+              "quien": "",
+              "texto": "(The shadows in the courtyard were already stretching.)",
+              "acotacion": true
+            }
+          ]
+        },
+        {
+          "archivo": "21_traicion_tao.png",
+          "narracion": "Tao left as the sun started going down. He did not say goodbye.",
+          "dichos": [
+            {
+              "quien": "Rookie",
+              "texto": "Ah. So that was it.",
+              "acotacion": false
+            },
+            {
+              "quien": "Tao",
+              "texto": "The winning one, kid. I told you up front.",
+              "acotacion": false
+            }
+          ]
+        },
+        {
+          "archivo": "22_cae_la_noche.png",
+          "narracion": "At Dusk the bandits stop climbing: bandits are afraid of the mountain in the dark too. Something else climbs.",
+          "dichos": [
+            {
+              "quien": "",
+              "texto": "(The shadows in the courtyard stopped matching the courtyard.)",
+              "acotacion": true
+            },
+            {
+              "quien": "Rookie",
+              "texto": "There is nobody there.",
+              "acotacion": false
+            },
+            {
+              "quien": "Rookie",
+              "texto": "There is nobody there.",
+              "acotacion": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "clave": "jefes",
+      "disparo": "Cuando se acaba el mazo del Ocaso.",
+      "paneles": [
+        {
+          "archivo": "30_fin_ocaso.png",
+          "narracion": "You held the whole Dusk, the ones wearing your face included. The mountain went quiet.",
+          "dichos": [
+            {
+              "quien": "Rookie",
+              "texto": "It is over.",
+              "acotacion": false
+            },
+            {
+              "quien": "",
+              "texto": "(It was not over.)",
+              "acotacion": true
+            }
+          ]
+        },
+        {
+          "archivo": "31_golpean_el_porton.png",
+          "narracion": "Three knocks on the gate. Not one of them asked permission.",
+          "dichos": [
+            {
+              "quien": "",
+              "texto": "(One.)",
+              "acotacion": true
+            },
+            {
+              "quien": "",
+              "texto": "(Two.)",
+              "acotacion": true
+            },
+            {
+              "quien": "",
+              "texto": "(Three.)",
+              "acotacion": true
+            },
+            {
+              "quien": "Rookie",
+              "texto": "All right. Come in.",
+              "acotacion": false
+            }
+          ]
+        },
+        {
+          "archivo": "32_los_campeones.png",
+          "narracion": "The Great Illegal Martial Arts Tournament needs a venue. They came for yours.",
+          "dichos": [
+            {
+              "quien": "The Champions",
+              "texto": "We were told nobody was here.",
+              "acotacion": false
+            },
+            {
+              "quien": "Rookie",
+              "texto": "You were told wrong.",
+              "acotacion": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "clave": "victoria",
+      "disparo": "Cuando derrotás al último jefe.",
+      "paneles": [
+        {
+          "archivo": "40_victoria_campeones.png",
+          "narracion": "Both Champions left the way they came. One of them limping.",
+          "dichos": [
+            {
+              "quien": "Rookie",
+              "texto": "The temple is not for sale.",
+              "acotacion": false
+            },
+            {
+              "quien": "",
+              "texto": "(Mei came down from the roof for the first time all day.)",
+              "acotacion": true
+            }
+          ]
+        },
+        {
+          "archivo": "41_vuelve_shifu.png",
+          "narracion": "When the deadline was up, Shifu came back. Same hat, same bag, same face.",
+          "dichos": [
+            {
+              "quien": "Shifu",
+              "texto": "The courtyard is swept. The temple stands. Good.",
+              "acotacion": false
+            },
+            {
+              "quien": "Rookie",
+              "texto": "It was quiet.",
+              "acotacion": false
+            },
+            {
+              "quien": "Shifu",
+              "texto": "Mm.",
+              "acotacion": false
+            }
+          ]
+        },
+        {
+          "archivo": "42_las_galletas.png",
+          "narracion": "Then he opened the cupboard.",
+          "dichos": [
+            {
+              "quien": "Shifu",
+              "texto": "Two are missing.",
+              "acotacion": false
+            },
+            {
+              "quien": "Rookie",
+              "texto": "Mei.",
+              "acotacion": false
+            },
+            {
+              "quien": "Mei",
+              "texto": "(was no longer in frame)",
+              "acotacion": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "clave": "derrota",
+      "disparo": "Cuando tu Energía baja de 0, en CUALQUIER fase.",
+      "paneles": [
+        {
+          "archivo": "50_derrota_patio.png",
+          "narracion": "You have nothing left. No Energy, no techniques, no excuses.",
+          "dichos": [
+            {
+              "quien": "",
+              "texto": "(The gate stayed open. Nobody closed it.)",
+              "acotacion": true
+            }
+          ]
+        },
+        {
+          "archivo": "51_shifu_ve_el_desastre.png",
+          "narracion": "Shifu came back on time, as always.",
+          "dichos": [
+            {
+              "quien": "Shifu",
+              "texto": "...",
+              "acotacion": false
+            },
+            {
+              "quien": "Rookie",
+              "texto": "I can explain.",
+              "acotacion": false
+            },
+            {
+              "quien": "Shifu",
+              "texto": "...",
+              "acotacion": false
+            }
+          ]
+        },
+        {
+          "archivo": "52_la_pregunta.png",
+          "narracion": "And then he asked the only question that mattered.",
+          "dichos": [
+            {
+              "quien": "Shifu",
+              "texto": "And the cookies?",
+              "acotacion": false
+            },
+            {
+              "quien": "",
+              "texto": "(That was the hard part to explain.)",
+              "acotacion": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

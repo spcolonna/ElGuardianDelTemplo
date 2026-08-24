@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Imprenta — El Guardián del Templo</title>
+<style>
+  :root {
+    --papel: #F7F1E1; --papel-claro: #FDF8EC; --madera: #C4915A;
+    --madera-oscura: #8A5F33; --tinta: #4A3728; --tinta-suave: #8A7862;
+    --oro: #F2C14E; --oro-borde: #C99A2E; --verde: #6E8F4A; --rojo: #B2403C;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 24px; background: var(--papel); color: var(--tinta);
+    font: 15px/1.5 "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  }
+  .marco { max-width: 940px; margin: 0 auto; }
+  h1 { font-size: 26px; margin: 0 0 2px; letter-spacing: .5px; }
+  .bajada { color: var(--tinta-suave); margin: 0 0 22px; font-size: 14px; }
+  .panel {
+    background: var(--papel-claro); border: 1.5px solid var(--oro-borde);
+    border-radius: 10px; padding: 18px 20px; margin-bottom: 16px;
+  }
+  .panel h2 {
+    font-size: 12px; letter-spacing: 1.4px; text-transform: uppercase;
+    color: var(--madera-oscura); margin: 0 0 14px;
+  }
+  .fila { display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-end; }
+  label.campo { display: flex; flex-direction: column; gap: 5px; font-size: 12px;
+    color: var(--tinta-suave); letter-spacing: .4px; }
+  select, input[type=number] {
+    font: inherit; font-size: 14px; padding: 7px 10px; border-radius: 7px;
+    border: 1.5px solid var(--madera); background: #fff; color: var(--tinta);
+    min-width: 92px;
+  }
+  .grupo { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    display: flex; align-items: center; gap: 7px; padding: 7px 12px;
+    border: 1.5px solid var(--madera); border-radius: 20px; cursor: pointer;
+    user-select: none; font-size: 13.5px; background: #fff;
+  }
+  .chip.on { background: #EAF0E0; border-color: var(--verde); }
+  .chip input { margin: 0; accent-color: var(--verde); }
+  button {
+    font: inherit; font-weight: 600; padding: 11px 22px; border-radius: 9px;
+    border: 1.5px solid var(--madera-oscura); background: var(--oro);
+    color: var(--tinta); cursor: pointer;
+  }
+  button:hover:not(:disabled) { background: var(--oro-borde); }
+  button:disabled { opacity: .45; cursor: default; }
+  button.suave { background: #fff; }
+  #zona {
+    border: 2.5px dashed var(--madera); border-radius: 12px; padding: 26px;
+    text-align: center; cursor: pointer; background: #fffdf7;
+  }
+  #zona.encima { background: #EAF0E0; border-color: var(--verde); }
+  #zona b { display: block; font-size: 16px; margin-bottom: 4px; }
+  #zona span { color: var(--tinta-suave); font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid #E6DCC6; }
+  th { font-size: 11px; letter-spacing: .8px; text-transform: uppercase;
+       color: var(--tinta-suave); }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .aviso { padding: 11px 14px; border-radius: 8px; margin-top: 12px; font-size: 13.5px; }
+  .aviso.mal { background: #F6E0DE; border-left: 4px solid var(--rojo); }
+  .aviso.bien { background: #E7EFDC; border-left: 4px solid var(--verde); }
+  .aviso.ojo { background: #FBEFD2; border-left: 4px solid var(--oro-borde); }
+  .salida a {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 11px 14px; border: 1.5px solid var(--madera); border-radius: 8px;
+    margin-bottom: 8px; text-decoration: none; color: var(--tinta);
+    background: #fff;
+  }
+  .salida a:hover { background: #FBF6E8; }
+  .salida .meta { color: var(--tinta-suave); font-size: 12.5px; }
+  .oculto { display: none; }
+  ul.check { margin: 8px 0 0; padding-left: 20px; font-size: 13.5px; line-height: 1.7; }
+</style>
+</head>
+<body>
+<div class="marco">
+  <h1>La Imprenta</h1>
+  <p class="bajada">Reparte las cartas en pliegos listos para guillotina, con sus dorsos alineados.</p>
+
+  <div class="panel">
+    <h2>1 · El arte</h2>
+    <div id="zona">
+      <b>Arrastrá acá la carpeta <code>print/</code></b>
+      <span>o hacé clic para elegirla. Son los archivos que genera <code>bin/imprimir.py</code>.</span>
+      <input type="file" id="entrada" webkitdirectory multiple class="oculto">
+    </div>
+    <div id="estadoCarga"></div>
+  </div>
+
+  <div class="panel oculto" id="panelConfig">
+    <h2>2 · El pliego</h2>
+    <div class="fila">
+      <label class="campo">Hoja
+        <select id="hoja"><option>A4</option><option>A3</option><option>Carta</option><option>Tabloide</option></select>
+      </label>
+      <label class="campo">Margen (mm)
+        <input type="number" id="margen" value="5" min="0" max="25" step="0.5">
+      </label>
+      <label class="campo">Sangrado (mm)
+        <input type="number" id="sangrado" value="3" min="0" max="5" step="0.5">
+      </label>
+      <label class="campo">Calle entre cartas (mm)
+        <select id="calle">
+          <option value="0">0 — corte compartido</option>
+          <option value="6">6 — cada una con su sangrado</option>
+        </select>
+      </label>
+    </div>
+    <div class="aviso ojo" id="avisoCalle"></div>
+
+    <h2 style="margin-top:20px">Tablero y fichas de Energía</h2>
+    <div class="fila">
+      <label class="campo">Ancho del tablero (mm)
+        <input type="number" id="tableroAncho" value="270" min="80" max="420" step="5">
+      </label>
+      <label class="campo">Plegado del tablero
+        <select id="tableroPliegues">
+          <option value="1">sin plegar</option>
+          <option value="2">en 2</option>
+          <option value="3">en 3</option>
+          <option value="4">en 4</option>
+        </select>
+      </label>
+      <label class="campo">Diámetro de la ficha (mm)
+        <input type="number" id="fichaDiametro" value="20" min="10" max="40" step="1">
+      </label>
+      <label class="campo">Cuántas fichas
+        <input type="number" id="fichaCantidad" value="6" min="1" max="60" step="1">
+      </label>
+    </div>
+    <div class="aviso ojo" id="avisoTablero"></div>
+
+    <h2 style="margin-top:20px">Qué entra</h2>
+    <div class="grupo" id="grupos"></div>
+
+    <h2 style="margin-top:20px">Marcas</h2>
+    <div class="grupo">
+      <label class="chip on"><input type="checkbox" id="mCorte" checked> Líneas de corte</label>
+      <label class="chip on"><input type="checkbox" id="mRegistro" checked> Registro en esquinas</label>
+      <label class="chip on"><input type="checkbox" id="mRegla" checked> Regla de control</label>
+    </div>
+
+    <div id="resumen" style="margin-top:18px"></div>
+  </div>
+
+  <div class="panel oculto" id="panelGenerar">
+    <h2>3 · Los PDF</h2>
+    <button id="generar">Generar los pliegos</button>
+    <button id="revisar" class="suave">Ver las piezas detectadas</button>
+    <div class="salida" id="salida" style="margin-top:16px"></div>
+    <div id="tablaPiezas" class="oculto" style="margin-top:16px"></div>
+  </div>
+
+  <div class="panel">
+    <h2>4 · Los librillos</h2>
+    <p class="bajada" style="margin-bottom:12px">
+      El reglamento y el cómic, en A5 para doblar al medio y abrochar. No salen
+      de acá como PDF: se abren en su propia página y el PDF lo hace el navegador
+      con <b>Imprimir → Guardar como PDF</b>, que es lo único que compone bien el
+      texto y usa las tipografías del juego.
+    </p>
+    <div class="salida">
+      <a href="librillo/?doc=reglamento" target="_blank">
+        <span><b>Reglamento</b> — reglas, ejemplos, niveles y Modo Libre</span>
+        <span class="meta">A5 · ~29 páginas</span>
+      </a>
+      <a href="librillo/?doc=comic" target="_blank">
+        <span><b>Cómic</b> — las 23 viñetas con sus bifurcaciones</span>
+        <span class="meta">A5 · ~26 páginas</span>
+      </a>
+    </div>
+    <div class="aviso ojo">
+      Los librillos <b>necesitan el servidor</b>: con doble clic sobre el archivo
+      no funcionan. Y si cambiaste el balance del juego, regenerá los datos con
+      <code>cd app &amp;&amp; dart run bin/export_libro.dart</code> — el reglamento
+      lee los números del motor, no los tiene escritos.
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Antes de tirar todo el mazo</h2>
+    <ul class="check">
+      <li><b>Imprimí al 100 %.</b> Nada de «ajustar a página»: escala al 96 % sin avisar y no se nota a ojo.</li>
+      <li><b>Medí la regla</b> del pie de página con una regla de verdad. Si no da 100 mm, salió con escala.</li>
+      <li><b>Probá una hoja</b> de frentes y una de dorsos antes que el resto. Mirá las dos a contraluz: las cruces de las esquinas tienen que coincidir.</li>
+      <li><b>Cortá dos cartas</b> y medilas: 57 × 89 mm. Los jefes son otro troquel: <b>112 × 70 mm</b>, y llevan su propio dorso.</li>
+    </ul>
+  </div>
+</div>
+
+<script src="pdf.js"></script>
+<script src="imposicion.js"></script>
+<script src="pliegos.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

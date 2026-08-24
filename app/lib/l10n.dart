@@ -1,0 +1,422 @@
+/// Textos de la interfaz (botones, títulos, etiquetas), por idioma.
+///
+/// No usa ARB/gen_l10n a propósito: el juego YA tiene una capa de textos por
+/// idioma (`TextosTema`) para el contenido. Meter un segundo sistema con
+/// codegen para 60 strings duplicaría el mecanismo sin ganar nada, y además
+/// esta versión se puede testear headless — `bin/check.dart` verifica que no
+/// falte ninguna clave en ningún idioma.
+///
+/// Las pantallas **Balance** y **Simulador** quedan sólo en español a
+/// propósito: son herramientas internas de playtesting, no las ve el jugador.
+class TextosUi {
+  final Map<String, String> _m;
+  const TextosUi(this._m);
+
+  String call(String clave) => _m[clave] ?? clave;
+
+  static const idiomas = ['es', 'en'];
+
+  static TextosUi de(String idioma) => switch (idioma) {
+    'en' => const TextosUi(_en),
+    _ => const TextosUi(_es),
+  };
+
+  /// Las claves que tiene que definir todo idioma.
+  static Iterable<String> get claves => _es.keys;
+
+  static Map<String, String> mapaDe(String idioma) =>
+      idioma == 'en' ? _en : _es;
+
+  static const _es = <String, String>{
+    // navegación
+    'nav.inicio': 'Inicio',
+    'nav.volver': 'Volver',
+    'medita.confirmar': '¿Eliminar {carta}?',
+    'medita.confirmarSub': 'Sale del juego para siempre. No vuelve al mazo.',
+    'medita.eliminar': 'Eliminar',
+    'logro.primer_dia.titulo': 'Primer día',
+    'logro.primer_dia.desc': 'Ganaste tu primera partida.',
+    'logro.sin_una_derrota.titulo': 'Sin un rasguño',
+    'logro.sin_una_derrota.desc': 'Ganaste sin perder un solo combate.',
+    'logro.mente_limpia.titulo': 'Mente limpia',
+    'logro.mente_limpia.desc': 'Ganaste después de eliminar 8 cartas o más.',
+    'logro.nada_que_soltar.titulo': 'Nada que soltar',
+    'logro.nada_que_soltar.desc': 'Ganaste sin meditar ni una vez.',
+    'logro.pulmon.titulo': 'Pulmón',
+    'logro.pulmon.desc': 'Ganaste con 12 de Energía o más.',
+    'logro.por_un_pelo.titulo': 'Por un pelo',
+    'logro.por_un_pelo.desc': 'Ganaste con 2 de Energía o menos.',
+    'logro.sin_pagar_nada.titulo': 'Sin pagar nada',
+    'logro.sin_pagar_nada.desc': 'Ganaste sin gastar Energía en robos.',
+    'logro.relampago.titulo': 'Relámpago',
+    'logro.relampago.desc': 'Ganaste en 20 turnos o menos.',
+    'logro.alba_intacta.titulo': 'Alba intacta',
+    'logro.alba_intacta.desc': 'Cruzaste el Alba sin perder un combate.',
+    'logro.tres_jefes.titulo': 'Los tres',
+    'logro.tres_jefes.desc': 'Ganaste una partida con tres jefes finales.',
+    'logro.contra_el_cansancio.titulo': 'Contra el cansancio',
+    'logro.contra_el_cansancio.desc':
+        'Ganaste con el Mazo de Cansancio activado.',
+    'logro.alumno_aplicado.titulo': 'Alumno aplicado',
+    'logro.alumno_aplicado.desc': 'Cumpliste un encargo de Shifu.',
+    'logro.maraton.titulo': 'Maratón',
+    'logro.maraton.desc': 'Jugaste 25 partidas.',
+    'logro.perseverante.titulo': 'Perseverante',
+    'logro.perseverante.desc': 'Perdiste 10 veces y seguiste jugando.',
+    'logro.racha7.titulo': 'Guardián del Templo',
+    'logro.racha7.desc': 'Siete días seguidos defendiendo el templo.',
+    'nav.logros': 'Misiones',
+    'nav.modos': 'Modos',
+    'nav.ajustes': 'Ajustes',
+    'nav.mazo': 'Mazo',
+    'logros.titulo': 'Misiones y logros',
+    'logros.contador': '{a} de {b} desbloqueados',
+    'logros.bloqueado': 'Todavía no lo conseguiste.',
+    'logros.nuevo': '¡Logro desbloqueado!',
+    'modos.titulo': 'Antes de empezar',
+    'modos.dificultad': 'El camino',
+    'modos.jefes': 'Jefes finales',
+    'modos.extras': 'Reglas opcionales',
+    'modos.empezar': 'Empezar',
+    'modos.jefesAuto': 'Auto',
+    'modos.energia': '{n} de Energía',
+    'dif.aprendiz': 'Aprendiz',
+    'dif.aprendizSub': 'Para aprender el juego sin sufrir.',
+    'dif.novato': 'Novato',
+    'dif.novatoSub': 'Ya sabés qué hacer. Igual duele.',
+    'dif.guardian': 'Guardián',
+    'dif.guardianSub': 'El juego como fue balanceado.',
+    'dif.maestro': 'Maestro',
+    'dif.maestroSub': 'Shifu se va a enterar igual.',
+    'modos.encargosT': 'Encargos de Shifu',
+    'modos.encargosSub':
+        'Shifu deja una nota con una condición extra. Es la misma todo el '
+        'día y cambia mañana. Si ganás cumpliéndola, tu próxima partida '
+        'arranca con una ventaja.',
+    'modos.encargoHoy': 'La nota de hoy',
+    'modos.encargoPremio': 'Si ganás cumpliéndola: {r}',
+    'modos.encargoApagado': 'Prendelo para ver la nota de hoy.',
+    'modos.cansancioT': 'Mazo de Cansancio',
+    'modos.cansancioSub': 'Se te cuelan cartas de fatiga. Mucho más difícil.',
+    'ajustes.titulo': 'Ajustes',
+    'ajustes.musica': 'Música',
+    'ajustes.efectos': 'Efectos de sonido',
+    'ajustes.sobre': 'El Guardián del Templo — Loto Torcido',
+    'patio.jugar': 'Jugar',
+    'patio.rachaCorta': 'Racha {a}/{b}',
+    'nav.bitacora': 'Bitácora',
+    'medita.noAhora': '{motivo}',
+    'medita.motivoGano':
+        'Ganaste el combate: sólo podés meditar después de perder. (Se puede cambiar en Balance.)',
+    'medita.motivoVacio':
+        'Tu descarte está vacío: no hay ninguna carta que puedas eliminar.',
+    'medita.motivoEnergia': 'Necesitás más de {n} de Energía para meditar.',
+    'medita.explica':
+        'Elegí una carta para eliminar del juego (−{coste} de Energía).',
+    'encargo.beneficio': 'Beneficio de ayer aplicado: {b}',
+    'encargo.titulo': 'Encargo: {t}',
+    'encargo.cumplido': 'Cumplido. Mañana arrancás con: {r}.',
+    'encargo.fallado': 'No lo cumpliste. Shifu no dice nada, que es peor.',
+    'juego.poderBase': 'Poder base {a} · reducido en {b}',
+    'juego.teEspera': 'Te espera {n}.',
+    'juego.sinPeligro':
+        'Sin peligro revelado. Da vuelta la carta superior del mazo del {fase}.',
+    'juego.revelar': 'Revelar',
+    'juego.enfrentarJefe': 'Enfrentar al jefe',
+    'juego.finGano': 'Las galletas de Shifu siguen intactas.',
+    'juego.finPerdio': 'Caíste en {fase} con {n} de Energía.',
+    'juego.resGanados': 'Ganados {n}',
+    'juego.resPerdidos': 'Perdidos {n}',
+    'juego.resEliminadas': 'Cartas eliminadas {n}',
+    'juego.resEnergiaRobos': 'Energía en robos {n}',
+    'juego.resCansancio': 'Cansancio acumulado {n}',
+    'juego.semanaCompleta': '¡Semana completa! Logro conseguido',
+    'juego.diaMarcado': 'Día marcado · racha {a}/{b}',
+    'nav.jugar': 'Jugar',
+    'nav.progreso': 'Progreso',
+    'progreso.logroTitulo': '¡Semana completa!',
+    'nav.balance': 'Balance',
+    'nav.simulador': 'Simulador',
+    'nav.reglas': 'Reglas',
+
+    // partida
+    'juego.empezar': 'Empezar partida',
+    'juego.nueva': 'Nueva partida',
+    'juego.robarGratis': 'Robar',
+    'juego.robarPago': 'Robar (−{n})',
+    'juego.resolverGanas': 'Resolver',
+    'juego.rendirse': 'Rendirse',
+    'juego.continuarPeligro': 'Continuar',
+    'juego.diario': 'Diario del Novato',
+    'juego.peligrosRestantes': 'Peligros restantes {n}',
+    'juego.jefes': 'Jefes {a}/{b}',
+    'juego.mazo': 'Mazo {n}',
+    'juego.barajando': 'Barajás el descarte',
+    'juego.barajandoSub': 'El mazo se rehace en otro orden',
+    'juego.cansancioEntra': 'El cansancio se acumula',
+    'juego.cansancioSub': 'Se baraja en tu mazo',
+    'juego.descarte': 'Descarte {n}',
+    'juego.eliminadas': 'Eliminadas {n}',
+    'juego.racha': 'Racha {a}/{b}',
+    'juego.danoSiPerdes': 'Daño si perdés: {n}',
+    'juego.cartasGratis': 'Cartas gratis: {a}/{b}',
+    'juego.recompensa': 'Recompensa: ',
+    'juego.enMesa': 'En mesa ({n} cartas · suma {s})',
+    'juego.tuSumaGana': 'Tu suma {s} ≥ {o} — ganás si resolvés ahora.',
+    'juego.tuSumaFalta': 'Tu suma {s} · te faltan {f}.',
+    'juego.ganaste': '¡Protegiste el templo!',
+    'juego.perdiste': 'El templo cayó',
+    'juego.turnos': 'Turnos {n}',
+
+    // meditar
+
+    // cómic
+    'comic.saltar': 'Saltar',
+    'comic.siguiente': 'Siguiente',
+    'comic.anterior': 'Anterior',
+    'comic.continuar': 'Continuar',
+    'comic.verResumen': 'Ver el resumen',
+    'comic.enfrentar': 'Enfrentar a los Campeones',
+    'comic.seguir': 'Seguir jugando',
+    'comic.ilustracion': 'ILUSTRACIÓN',
+
+    // progreso
+    'progreso.titulo': 'La semana del Guardián',
+    'progreso.explicacion':
+        'Ganá una partida por día. El día siguiente no se habilita hasta que '
+        'cambie la fecha. Si pasa un día entero sin ganar, la cadena se '
+        'corta y hay que rehacer los siete.',
+    'progreso.dia': 'Día {n}',
+    'progreso.hecho': 'El templo aguantó hoy.',
+    'progreso.pendiente': 'El templo todavía no está defendido hoy.',
+    'progreso.volveManana': 'Volvé mañana para el día {n}.',
+    'progreso.ganaHoy': 'Ganá una partida para marcar el día {n}.',
+    'progreso.rachaActual': 'Racha actual {a}/{b}',
+    'progreso.mejorRacha': 'Mejor racha {n}',
+    'progreso.semanas': 'Semanas completadas {n}',
+    'progreso.logro': 'Guardián del Templo',
+    'progreso.logroSub':
+        'Siete días seguidos. Shifu no se va a enterar, pero vos sí.',
+    'progreso.perderCorta': 'Perder una partida también corta la racha',
+    'progreso.perderCortaSub':
+        'Apagado: podés reintentar todas las veces que quieras dentro del día. '
+        'Prendido: una derrota te vuelve a cero.',
+    'progreso.reiniciar': 'Reiniciar la racha',
+    'progreso.aviso':
+        'El progreso se guarda en este dispositivo y usa su reloj: cambiando la '
+        'fecha del sistema se saltea la espera.',
+    'progreso.encargoHoy': 'Encargo de hoy: {t}',
+    'progreso.recompensa': 'Recompensa: {r}',
+
+    // tutorial
+    'tutorial.titulo': 'Cómo se juega',
+    'tutorial.siguiente': 'Siguiente',
+    'tutorial.saltar': 'Saltar',
+    'tutorial.terminar': 'Empezar a jugar',
+    'tutorial.ver': 'Ver el tutorial',
+    'tutorial.tuTurno': 'Tocá el botón resaltado',
+
+    // ajustes
+    'ajustes.idioma': 'Idioma',
+    'ajustes.idiomaSistema': 'El del sistema',
+    'ajustes.salir': '¿Salir de la partida?',
+    'ajustes.salirSub': 'Vas a perder el progreso de esta partida.',
+    'ajustes.cancelar': 'Cancelar',
+    'ajustes.salirOk': 'Salir',
+  };
+
+  static const _en = <String, String>{
+    'nav.inicio': 'Home',
+    'nav.volver': 'Back',
+    'medita.confirmar': 'Remove {carta}?',
+    'medita.confirmarSub': 'It leaves the game for good. It never comes back.',
+    'medita.eliminar': 'Remove',
+    'logro.primer_dia.titulo': 'First day',
+    'logro.primer_dia.desc': 'You won your first run.',
+    'logro.sin_una_derrota.titulo': 'Not a scratch',
+    'logro.sin_una_derrota.desc': 'You won without losing a single fight.',
+    'logro.mente_limpia.titulo': 'Clear mind',
+    'logro.mente_limpia.desc': 'You won after removing 8 cards or more.',
+    'logro.nada_que_soltar.titulo': 'Nothing to let go',
+    'logro.nada_que_soltar.desc': 'You won without meditating once.',
+    'logro.pulmon.titulo': 'Deep breath',
+    'logro.pulmon.desc': 'You won with 12 Energy or more.',
+    'logro.por_un_pelo.titulo': 'By a hair',
+    'logro.por_un_pelo.desc': 'You won with 2 Energy or less.',
+    'logro.sin_pagar_nada.titulo': 'Nothing paid',
+    'logro.sin_pagar_nada.desc': 'You won without spending Energy on draws.',
+    'logro.relampago.titulo': 'Lightning',
+    'logro.relampago.desc': 'You won in 20 turns or fewer.',
+    'logro.alba_intacta.titulo': 'Flawless dawn',
+    'logro.alba_intacta.desc': 'You crossed Dawn without losing a fight.',
+    'logro.tres_jefes.titulo': 'All three',
+    'logro.tres_jefes.desc': 'You won a run with three final bosses.',
+    'logro.contra_el_cansancio.titulo': 'Against fatigue',
+    'logro.contra_el_cansancio.desc': 'You won with the Fatigue Deck on.',
+    'logro.alumno_aplicado.titulo': 'Model student',
+    'logro.alumno_aplicado.desc': "You completed one of Shifu's errands.",
+    'logro.maraton.titulo': 'Marathon',
+    'logro.maraton.desc': 'You played 25 runs.',
+    'logro.perseverante.titulo': 'Stubborn',
+    'logro.perseverante.desc': 'You lost 10 times and kept playing.',
+    'logro.racha7.titulo': 'Guardian of the Temple',
+    'logro.racha7.desc': 'Seven days in a row defending the temple.',
+    'nav.logros': 'Quests',
+    'nav.modos': 'Modes',
+    'nav.ajustes': 'Settings',
+    'nav.mazo': 'Deck',
+    'logros.titulo': 'Quests and achievements',
+    'logros.contador': '{a} of {b} unlocked',
+    'logros.bloqueado': 'Not earned yet.',
+    'logros.nuevo': 'Achievement unlocked!',
+    'modos.titulo': 'Before you start',
+    'modos.dificultad': 'The path',
+    'modos.jefes': 'Final bosses',
+    'modos.extras': 'Optional rules',
+    'modos.empezar': 'Start',
+    'modos.jefesAuto': 'Auto',
+    'modos.energia': '{n} Energy',
+    'dif.aprendiz': 'Apprentice',
+    'dif.aprendizSub': 'Learn the game without suffering.',
+    'dif.novato': 'Novice',
+    'dif.novatoSub': 'You know what to do. It still hurts.',
+    'dif.guardian': 'Guardian',
+    'dif.guardianSub': 'The game as it was balanced.',
+    'dif.maestro': 'Master',
+    'dif.maestroSub': 'Shifu will find out anyway.',
+    'modos.encargosT': "Shifu's errands",
+    'modos.encargosSub':
+        'Shifu leaves a note with an extra condition. It stays the same all '
+        'day and changes tomorrow. Win while meeting it and your next game '
+        'starts with an edge.',
+    'modos.encargoHoy': "Today's note",
+    'modos.encargoPremio': 'Win while meeting it: {r}',
+    'modos.encargoApagado': "Turn it on to see today's note.",
+    'modos.cansancioT': 'Fatigue Deck',
+    'modos.cansancioSub': 'Fatigue cards sneak into your deck. Much harder.',
+    'ajustes.titulo': 'Settings',
+    'ajustes.musica': 'Music',
+    'ajustes.efectos': 'Sound effects',
+    'ajustes.sobre': 'Guardian of the Temple — Loto Torcido',
+    'patio.jugar': 'Play',
+    'patio.rachaCorta': 'Streak {a}/{b}',
+    'nav.bitacora': 'Log',
+    'medita.noAhora': '{motivo}',
+    'medita.motivoGano':
+        'You won the fight: you can only meditate after losing. (Changeable in Balance.)',
+    'medita.motivoVacio':
+        'Your discard pile is empty: there is no card you could remove.',
+    'medita.motivoEnergia': 'You need more than {n} Energy to meditate.',
+    'medita.explica': 'Pick a card to remove from the game (−{coste} Energy).',
+    'encargo.beneficio': "Yesterday's benefit applied: {b}",
+    'encargo.titulo': 'Errand: {t}',
+    'encargo.cumplido': 'Done. Tomorrow you start with: {r}.',
+    'encargo.fallado': 'You did not do it. Shifu says nothing, which is worse.',
+    'juego.poderBase': 'Base power {a} · reduced by {b}',
+    'juego.teEspera': '{n} awaits you.',
+    'juego.sinPeligro':
+        'No danger revealed. Flip the top card of the {fase} deck.',
+    'juego.revelar': 'Reveal',
+    'juego.enfrentarJefe': 'Face the boss',
+    'juego.finGano': "Shifu's cookies are still intact.",
+    'juego.finPerdio': 'You fell in {fase} with {n} Energy.',
+    'juego.resGanados': 'Won {n}',
+    'juego.resPerdidos': 'Lost {n}',
+    'juego.resEliminadas': 'Cards removed {n}',
+    'juego.resEnergiaRobos': 'Energy spent drawing {n}',
+    'juego.resCansancio': 'Fatigue accumulated {n}',
+    'juego.semanaCompleta': 'Week complete! Achievement unlocked',
+    'juego.diaMarcado': 'Day marked · streak {a}/{b}',
+    'nav.jugar': 'Play',
+    'nav.progreso': 'Progress',
+    'progreso.logroTitulo': 'Week complete!',
+    'nav.balance': 'Balance',
+    'nav.simulador': 'Simulator',
+    'nav.reglas': 'Rules',
+
+    'juego.empezar': 'Start game',
+    'juego.nueva': 'New game',
+    'juego.robarGratis': 'Draw',
+    'juego.robarPago': 'Draw (−{n})',
+    'juego.resolverGanas': 'Resolve',
+    'juego.rendirse': 'Give up',
+    'juego.continuarPeligro': 'Continue',
+    'juego.diario': "Rookie's Diary",
+    'juego.peligrosRestantes': 'Dangers left {n}',
+    'juego.jefes': 'Champions {a}/{b}',
+    'juego.mazo': 'Deck {n}',
+    'juego.barajando': 'You shuffle the discard',
+    'juego.barajandoSub': 'The deck is rebuilt in a new order',
+    'juego.cansancioEntra': 'Fatigue builds up',
+    'juego.cansancioSub': 'Shuffled into your deck',
+    'juego.descarte': 'Discard {n}',
+    'juego.eliminadas': 'Removed {n}',
+    'juego.racha': 'Streak {a}/{b}',
+    'juego.danoSiPerdes': 'Damage if you lose: {n}',
+    'juego.cartasGratis': 'Free cards: {a}/{b}',
+    'juego.recompensa': 'Reward: ',
+    'juego.enMesa': 'On the table ({n} cards · total {s})',
+    'juego.tuSumaGana': 'Your total {s} ≥ {o} — resolve now and you win.',
+    'juego.tuSumaFalta': 'Your total {s} · {f} to go.',
+    'juego.ganaste': 'You saved the temple!',
+    'juego.perdiste': 'The temple fell',
+    'juego.turnos': 'Turns {n}',
+
+    'comic.saltar': 'Skip',
+    'comic.siguiente': 'Next',
+    'comic.anterior': 'Previous',
+    'comic.continuar': 'Continue',
+    'comic.verResumen': 'See the summary',
+    'comic.enfrentar': 'Face the Champions',
+    'comic.seguir': 'Keep playing',
+    'comic.ilustracion': 'ARTWORK',
+
+    'progreso.titulo': "The Guardian's Week",
+    'progreso.explicacion':
+        'Win one game per day. The next day does not unlock until the date '
+        'changes. If a whole day goes by without a win, the chain breaks '
+        'and you start the seven over.',
+    'progreso.dia': 'Day {n}',
+    'progreso.hecho': 'The temple held today.',
+    'progreso.pendiente': 'The temple has not been defended today.',
+    'progreso.volveManana': 'Come back tomorrow for day {n}.',
+    'progreso.ganaHoy': 'Win a game to mark day {n}.',
+    'progreso.rachaActual': 'Current streak {a}/{b}',
+    'progreso.mejorRacha': 'Best streak {n}',
+    'progreso.semanas': 'Weeks completed {n}',
+    'progreso.logro': 'Guardian of the Temple',
+    'progreso.logroSub':
+        'Seven days straight. Shifu will never know, but you will.',
+    'progreso.perderCorta': 'Losing a game also breaks the streak',
+    'progreso.perderCortaSub':
+        'Off: retry as many times as you like within the day. '
+        'On: one loss sends you back to zero.',
+    'progreso.reiniciar': 'Reset the streak',
+    'progreso.aviso':
+        'Progress is stored on this device and uses its clock: changing the '
+        'system date skips the wait.',
+    'progreso.encargoHoy': "Today's errand: {t}",
+    'progreso.recompensa': 'Reward: {r}',
+
+    'tutorial.titulo': 'How to play',
+    'tutorial.siguiente': 'Next',
+    'tutorial.saltar': 'Skip',
+    'tutorial.terminar': 'Start playing',
+    'tutorial.ver': 'Replay the tutorial',
+    'tutorial.tuTurno': 'Tap the highlighted button',
+
+    'ajustes.idioma': 'Language',
+    'ajustes.idiomaSistema': 'System default',
+    'ajustes.salir': 'Leave the game?',
+    'ajustes.salirSub': 'You will lose this run.',
+    'ajustes.cancelar': 'Cancel',
+    'ajustes.salirOk': 'Leave',
+  };
+}
+
+/// Reemplaza `{clave}` por su valor. `t('juego.mazo', {'n': 20})`.
+String fmt(String plantilla, [Map<String, Object?> vals = const {}]) {
+  var s = plantilla;
+  vals.forEach((k, v) => s = s.replaceAll('{$k}', '$v'));
+  return s;
+}

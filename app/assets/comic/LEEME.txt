@@ -1,0 +1,3 @@
+Dejá acá los PNG del cómic con los nombres exactos que pide ASSETS.md.
+Mientras un archivo no exista, la app muestra un placeholder con el nombre
+que falta y la descripción de la viñeta.

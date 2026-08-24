@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "guardian",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["imprenta/servidor.mjs"],
+      "port": 8123,
+      "autoPort": true
+    }
+  ]
+}

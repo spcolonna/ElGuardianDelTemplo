@@ -1,0 +1,179 @@
+/* Los dos librillos: A5 impuestos de a dos en A4 apaisada.
+ *
+ * Al navegador se le pide UNA sola cosa: cortar entre hojas de alto fijo que
+ * llenan la página exacta. La paginación la hace `paginador.js`.
+ */
+
+@font-face {
+  font-family: 'Titulo';
+  src: url('../../app/fonts/PatrickHandSC-Regular.ttf') format('truetype');
+  font-display: block;
+}
+@font-face {
+  font-family: 'Cuerpo';
+  src: url('../../app/fonts/AtkinsonHyperlegible-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Cuerpo';
+  src: url('../../app/fonts/AtkinsonHyperlegible-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: block;
+}
+
+:root {
+  --papel: #FDF8EC; --tinta: #4A3728; --tinta-suave: #8A7862;
+  --madera: #C4915A; --madera-oscura: #8A5F33;
+  --oro: #F2C14E; --oro-borde: #C99A2E;
+  --verde: #6E8F4A; --rojo: #B2403C;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #6E6257;
+  color: var(--tinta);
+  font-family: 'Cuerpo', system-ui, sans-serif;
+  /* 10 pt. El librillo se lee en la mano, no a la distancia de una carta. */
+  font-size: 10pt;
+  line-height: 1.45;
+  hyphens: auto;
+}
+
+/* ------------------------------------------------------------- la barra */
+#barra {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--papel); border-bottom: 2px solid var(--oro-borde);
+  padding: 10px 16px; display: flex; gap: 16px; align-items: center;
+  flex-wrap: wrap; font-size: 13px;
+}
+#barra h1 { font-size: 16px; margin: 0 12px 0 0; font-family: 'Titulo', serif; }
+#barra label { display: flex; gap: 6px; align-items: center; color: var(--tinta-suave); }
+#barra select, #barra input { font: inherit; padding: 4px 8px; border-radius: 6px;
+  border: 1.5px solid var(--madera); background: #fff; }
+#barra button { font: inherit; font-weight: 700; padding: 7px 16px; border-radius: 8px;
+  border: 1.5px solid var(--madera-oscura); background: var(--oro); cursor: pointer; }
+#aviso { padding: 8px 16px; background: #FBEFD2; border-bottom: 1px solid var(--oro-borde);
+  font-size: 13px; }
+#aviso.mal { background: #F6E0DE; }
+
+/* --------------------------------------------------------------- la hoja */
+.hoja {
+  position: relative;
+  width: 297mm; height: 210mm;
+  background: var(--papel);
+  overflow: hidden;
+  margin: 14px auto;
+  box-shadow: 0 3px 14px rgba(0,0,0,.35);
+}
+.mitad { position: absolute; top: 0; width: 148mm; height: 210mm; }
+
+/* La marca del pliegue: al doblar, se dobla por ahí. */
+.hoja::after {
+  content: ''; position: absolute; top: 0; bottom: 0; left: 148.5mm;
+  border-left: .2mm dashed rgba(74,55,40,.35);
+}
+.hoja.pila::after { border-left-style: solid; }
+
+.pagina {
+  width: 148mm; height: 210mm;
+  padding: 16mm 14mm 14mm;
+  overflow: hidden;
+  position: relative;
+}
+.folio {
+  position: absolute; bottom: 7mm; left: 14mm; right: 14mm;
+  text-align: center; font-size: 8pt; color: var(--tinta-suave);
+}
+.medidor {
+  position: absolute; visibility: hidden; left: -9999px; top: 0;
+  height: auto; padding: 0; overflow: visible;
+}
+
+/* --------------------------------------------------------- la tipografía */
+h1, h2, h3 { font-family: 'Titulo', serif; font-weight: 400; line-height: 1.15; }
+h1.capitulo {
+  font-size: 22pt; margin: 0 0 6mm; color: var(--madera-oscura);
+  border-bottom: .6mm solid var(--oro-borde); padding-bottom: 2mm;
+}
+h2 { font-size: 14pt; margin: 5mm 0 2mm; color: var(--madera-oscura); }
+h3 { font-size: 12pt; margin: 4mm 0 1.5mm; }
+p { margin: 0 0 2.5mm; text-align: justify; }
+ul, ol { margin: 0 0 3mm; padding-left: 5mm; }
+li { margin-bottom: 1.5mm; }
+
+.np { font-variant-numeric: tabular-nums; font-weight: 700; }
+
+.portada { height: calc(100% - 8mm); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center; }
+.portada h1 { font-size: 30pt; margin: 0 0 4mm; }
+.portada .bajada { font-size: 12pt; color: var(--tinta-suave); font-style: italic; }
+.portada .pie { margin-top: 12mm; font-size: 9pt; color: var(--tinta-suave); }
+
+table { width: 100%; border-collapse: collapse; font-size: 8.5pt; margin: 0 0 3mm; }
+th, td { text-align: left; padding: 1.2mm 1.6mm; border-bottom: .2mm solid #E6DCC6;
+  vertical-align: top; }
+th { font-size: 7.5pt; text-transform: uppercase; letter-spacing: .4px;
+  color: var(--madera-oscura); }
+.pie-tabla { font-size: 8pt; color: var(--tinta-suave); font-style: italic; }
+
+.aparte { padding: 2.5mm 3mm; margin: 0 0 3mm; border-left: 1mm solid var(--oro-borde);
+  background: #FBEFD2; font-size: 9.5pt; }
+.aparte.bien { background: #E7EFDC; border-color: var(--verde); }
+.aparte.mal { background: #F6E0DE; border-color: var(--rojo); }
+
+.ejemplo img, .anatomia img { display: block; margin: 2mm auto; max-width: 46mm; height: auto; }
+.anatomia img { max-width: 52mm; }
+.ejemplo ol, .anatomia .llamadas { font-size: 9.5pt; }
+
+/* ----------------------------------------------------------------- cómic */
+.vineta { height: calc(100% - 8mm); display: flex; flex-direction: column; }
+.vineta img { display: block; width: 100%; height: auto; max-height: 96mm;
+  object-fit: contain; margin-bottom: 3mm; }
+/* La banda de «cuándo se lee esto». Va arriba de la primera viñeta de cada
+   tanda y es lo que engancha el librillo con la mesa. */
+.vineta .entrada { font-size: 8.5pt; color: var(--madera-oscura); text-align: center;
+  margin-bottom: 2.5mm; padding: 1.5mm 2mm; border: .3mm dashed var(--madera);
+  border-radius: 2mm; }
+.vineta .entrada span { display: block; font-size: 6.5pt; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--tinta-suave); margin-bottom: .8mm; }
+.vineta .narracion { font-size: 10pt; margin-bottom: 3mm; }
+.dichos { font-size: 9.5pt; }
+.dicho { margin-bottom: 1.8mm; }
+.dicho .quien { font-weight: 700; color: var(--madera-oscura); margin-right: 1.5mm; }
+.dicho .quien::after { content: ':'; }
+.acotacion { font-style: italic; color: var(--tinta-suave); margin-bottom: 1.8mm;
+  text-align: center; }
+
+.bifurcacion { height: calc(100% - 8mm); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center; }
+.bifurcacion .alto { font-family: 'Titulo', serif; font-size: 34pt; line-height: 1;
+  letter-spacing: .18em; text-transform: uppercase; margin: 0 0 5mm;
+  padding: 3mm 8mm; border: .8mm solid var(--madera-oscura); border-radius: 4mm; }
+.bifurcacion .cierre { font-size: 12pt; font-style: italic; margin: 0 0 3mm; }
+.bifurcacion .jugar { font-size: 14pt; margin: 0 0 8mm; }
+.bifurcacion .volve { font-size: 9pt; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--tinta-suave); margin: 0 0 3mm; }
+.ramas { list-style: none; padding: 0; margin: 0; width: 100%; }
+.ramas li { padding: 3mm 4mm; margin-bottom: 3mm; border: .3mm solid var(--madera);
+  border-radius: 3mm; }
+.ramas .cond { display: block; font-size: 11pt; font-weight: 700; margin-bottom: 1mm; }
+.ramas .dest { display: block; font-size: 9.5pt; color: var(--madera-oscura); }
+
+/* -------------------------------------------------- la regla de control */
+.regla { position: absolute; bottom: 4mm; left: 14mm; }
+.regla .barra { width: 100mm; height: 2mm; border: .25mm solid var(--tinta-suave);
+  border-top: none; }
+.regla span { font-size: 6pt; color: var(--tinta-suave); }
+
+/* ----------------------------------------------------------- impresión */
+@page { size: A4 landscape; margin: 0; }
+
+@media print {
+  body { background: #fff; }
+  #barra, #aviso { display: none; }
+  .hoja { margin: 0; box-shadow: none; break-after: page; }
+  .hoja:last-child { break-after: auto; }
+}

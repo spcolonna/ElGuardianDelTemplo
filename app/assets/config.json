@@ -1,0 +1,17 @@
+{
+  "energiaInicial": 20,
+  "energiaMaxima": 20,
+  "cantidadJefes": 2,
+  "robosGratisIlimitados": false,
+  "costeRoboExtra": 1,
+  "costeMeditar": 1,
+  "cartasPorMeditacion": 1,
+  "meditarSoloAlPerder": true,
+  "peligroPerdidoSaleDelJuego": true,
+  "cartasGratisExtra": 0,
+  "modoCansancio": false,
+  "poderCansancio": 0,
+  "disparoCansancio": 0,
+  "modoEncargos": false,
+  "peligrosPorFase": 7
+}

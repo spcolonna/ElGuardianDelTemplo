@@ -1,0 +1,1452 @@
+{
+  "tema": "templo",
+  "idioma": "es",
+  "generado": "2026-08-24T13:45:28.892166",
+  "juego": {
+    "nombre": "El Guardián del Templo",
+    "bajada": "Shifu se fue siete días. No quemés el templo.",
+    "recurso": "Energía"
+  },
+  "config": {
+    "energiaInicial": 20,
+    "energiaMaxima": 20,
+    "cantidadJefes": 2,
+    "peligrosPorFase": 7,
+    "robosGratisIlimitados": false,
+    "costeRoboExtra": 1,
+    "costeMeditar": 1,
+    "cartasPorMeditacion": 1,
+    "meditarSoloAlPerder": true,
+    "peligroPerdidoSaleDelJuego": true,
+    "cartasGratisExtra": 0,
+    "modoCansancio": false,
+    "poderCansancio": 0,
+    "disparoCansancio": 0,
+    "modoEncargos": false
+  },
+  "reglas": [
+    {
+      "titulo": "Objetivo",
+      "lineas": [
+        "Sobrevivís tres fases de peligro (Alba, Mediodía, Ocaso) mejorando tu mazo de técnicas, y después enfrentás 2 jefe(s) final(es).",
+        "Perdés si tu Energía llega a 0 o menos."
+      ]
+    },
+    {
+      "titulo": "Preparación",
+      "lineas": [
+        "Barajá el mazo inicial de combate (20 cartas).",
+        "Separá los tres mazos de peligro y elegí 2 jefe(s) al azar.",
+        "Empezás con 20 de Energía (tope al curarte: 20)."
+      ]
+    },
+    {
+      "titulo": "Turno",
+      "lineas": [
+        "1. Revelá el peligro superior del mazo de la fase actual.",
+        "2. Robá gratis hasta el número de \"cartas gratis\" del peligro. Cada carta adicional cuesta 1 de Energía.",
+        "3. Sumá el Poder de las cartas jugadas y comparalo con el Poder del peligro.",
+        "4. Si tu suma ≥ el peligro, ganás: la carta de peligro entra a tu descarte como la técnica de recompensa.",
+        "5. Si perdés, restás el Daño del peligro a tu Energía y la carta de peligro sale del juego.",
+        "6. Todas las cartas jugadas van al descarte. Cuando el mazo se acaba, barajá el descarte."
+      ]
+    },
+    {
+      "titulo": "Ganar o perder un combate (importante)",
+      "lineas": [
+        "GANÁS si la suma de tus cartas ≥ el Poder del peligro. La carta de peligro se da vuelta y entra a tu pila de descarte convertida en la técnica de recompensa: a partir de ahí es una carta más de tu mazo.",
+        "PERDÉS si te plantás por debajo del Poder. Restás el Daño del peligro a tu Energía y la carta de peligro se descarta del juego: NO te la llevás. Nunca ganás una carta perdiendo un combate.",
+        "Plantarse por debajo no es un \"precio\" que pagás para quedarte la carta: es rendirte. A veces conviene igual, cuando pagar más robos costaría más Energía que el propio Daño.",
+        "Ganes o pierdas, todas las cartas que jugaste van a tu descarte."
+      ]
+    },
+    {
+      "titulo": "Cómo se recupera Energía",
+      "lineas": [
+        "No existe ninguna acción para curarte: no podés \"descansar\" ni gastar un turno en recuperarte.",
+        "La Energía sube SÓLO por efectos de cartas de combate, y esos efectos se disparan automáticamente cuando la carta sale durante un combate. No elegís cuándo usarlas.",
+        "Efecto \"+X Energía\": se aplica en el momento en que robás la carta, ganes o pierdas después. Ej.: Reflejo +1, Disciplina +2, Escama de Dragón +1, Puño del Dragón +2, Serenidad +3, Agua Sagrada +2, Iluminación +1.",
+        "Efecto \"+X Energía si ganás\": se aplica recién al resolver, y sólo si ganaste ese combate. Ej.: Puño del Bambú +1, Ala de Grulla +1, Vuelo de Grulla +2.",
+        "Nunca superás el tope de 20 de Energía: lo que sobra se pierde.",
+        "Consecuencia de diseño: curarte depende de haber metido cartas de curación en tu mazo y de que salgan. Por eso conviene meditar para eliminar cartas malas: un mazo más chico hace que las buenas aparezcan más seguido."
+      ]
+    },
+    {
+      "titulo": "Meditar: sacar cartas malas de tu mazo",
+      "lineas": [
+        "Meditar es la ÚNICA forma de sacar cartas de tu mazo. No hay otra.",
+        "Cuándo: sólo en el paso posterior a un combate que PERDISTE.",
+        "Cómo: pagá 1 de Energía y eliminá 1 carta(s) de tu pila de descarte. Salen del juego para siempre: no vuelven al mazo.",
+        "Podés repetirlo varias veces seguidas, pagando cada vez, mientras te quede Energía.",
+        "LIMITACIÓN CLAVE: sólo podés eliminar cartas que estén en el DESCARTE. Una Duda Existencial que sigue enterrada en el mazo es intocable: primero tiene que salir en algún combate. Por eso el mejor momento para meditar es justo después de un combate donde salieron tus peores cartas: todas las que acabás de jugar están en el descarte.",
+        "Cuando el mazo se agota, el descarte se baraja y vuelve a ser mazo: ahí perdés la oportunidad de purgar esas cartas hasta que vuelvan a salir.",
+        "Por qué conviene: quitar una Duda Existencial (-1) o una Respiración Agitada (0) no sube tu poder total, pero achica el mazo y hace que las cartas buenas (y las que curan Energía) salgan más seguido."
+      ]
+    },
+    {
+      "titulo": "Enfrentamiento final",
+      "lineas": [
+        "Revelá los jefes y enfrentalos en orden, igual que un peligro normal.",
+        "Si perdés contra un jefe, restás su Daño y volvés a enfrentarlo.",
+        "Ganás la partida cuando derrotás al último."
+      ]
+    }
+  ],
+  "dificultades": [
+    {
+      "clave": "aprendiz",
+      "nombre": "Aprendiz",
+      "bajada": "Para aprender el juego sin sufrir.",
+      "energiaInicial": 26,
+      "energiaMaxima": 26,
+      "peligrosPorFase": 10,
+      "cantidadJefes": 1,
+      "costeRoboExtra": 1,
+      "costeMeditar": 1,
+      "cartasPorMeditacion": 1,
+      "meditarSoloAlPerder": false,
+      "cartasGratisExtra": 1
+    },
+    {
+      "clave": "novato",
+      "nombre": "Novato",
+      "bajada": "Ya sabés qué hacer. Igual duele.",
+      "energiaInicial": 22,
+      "energiaMaxima": 22,
+      "peligrosPorFase": 9,
+      "cantidadJefes": 2,
+      "costeRoboExtra": 1,
+      "costeMeditar": 1,
+      "cartasPorMeditacion": 1,
+      "meditarSoloAlPerder": true,
+      "cartasGratisExtra": 0
+    },
+    {
+      "clave": "guardian",
+      "nombre": "Guardián",
+      "bajada": "El juego como fue balanceado.",
+      "energiaInicial": 20,
+      "energiaMaxima": 20,
+      "peligrosPorFase": 7,
+      "cantidadJefes": 2,
+      "costeRoboExtra": 1,
+      "costeMeditar": 1,
+      "cartasPorMeditacion": 1,
+      "meditarSoloAlPerder": true,
+      "cartasGratisExtra": 0
+    },
+    {
+      "clave": "maestro",
+      "nombre": "Maestro",
+      "bajada": "Shifu se va a enterar igual.",
+      "energiaInicial": 18,
+      "energiaMaxima": 18,
+      "peligrosPorFase": 6,
+      "cantidadJefes": 3,
+      "costeRoboExtra": 2,
+      "costeMeditar": 1,
+      "cartasPorMeditacion": 1,
+      "meditarSoloAlPerder": true,
+      "cartasGratisExtra": 0
+    }
+  ],
+  "cansancio": {
+    "disparos": [
+      "finDeFase",
+      "alRebarajar"
+    ],
+    "poderes": [
+      0,
+      -1,
+      -2
+    ],
+    "cartas": [
+      {
+        "id": "cans_bostezo",
+        "nombre": "cans_bostezo",
+        "ajustePoder": 0
+      },
+      {
+        "id": "cans_vista",
+        "nombre": "cans_vista",
+        "ajustePoder": 0
+      },
+      {
+        "id": "cans_piernas",
+        "nombre": "cans_piernas",
+        "ajustePoder": -1
+      },
+      {
+        "id": "cans_hombro",
+        "nombre": "cans_hombro",
+        "ajustePoder": 0
+      },
+      {
+        "id": "cans_ampolla",
+        "nombre": "cans_ampolla",
+        "ajustePoder": 0
+      },
+      {
+        "id": "cans_nudillo",
+        "nombre": "cans_nudillo",
+        "ajustePoder": -1
+      },
+      {
+        "id": "cans_calambre",
+        "nombre": "cans_calambre",
+        "ajustePoder": 0
+      },
+      {
+        "id": "cans_zumbido",
+        "nombre": "cans_zumbido",
+        "ajustePoder": 0
+      },
+      {
+        "id": "cans_espalda",
+        "nombre": "cans_espalda",
+        "ajustePoder": -1
+      },
+      {
+        "id": "cans_renunciar",
+        "nombre": "cans_renunciar",
+        "ajustePoder": -1
+      }
+    ]
+  },
+  "libre": {
+    "energiaInicial": {
+      "min": 1,
+      "max": 30
+    },
+    "peligrosPorFase": {
+      "min": 1,
+      "max": 10
+    },
+    "jefes": {
+      "min": 1,
+      "max": 5
+    },
+    "modosCansancio": {
+      "min": 1,
+      "max": 5
+    }
+  },
+  "mazoInicial": [
+    {
+      "id": "puno_torpe",
+      "archivo": "inicial_puno_torpe.jpg",
+      "nombre": "Puño Torpe",
+      "poder": 1,
+      "efecto": {
+        "roba": 0,
+        "energiaAlJugar": 0,
+        "energiaSiGanas": 0,
+        "reducePeligro": 0,
+        "texto": ""
+      },
+      "sabor": "",
+      "copias": 8
+    },
+    {
+      "id": "postura_flamenco",
+      "archivo": "inicial_postura_flamenco.jpg",
+      "nombre": "Postura del Flamenco",
+      "poder": 0,
+      "efecto": {
+        "roba": 1,
+        "energiaAlJugar": 0,
+        "energiaSiGanas": 0,
+        "reducePeligro": 0,
+        "texto": "Roba 1"
+      },
+      "sabor": "No es una postura Shaolin, pero funciona.",
+      "copias": 4
+    },
+    {
+      "id": "patada_descuidada",
+      "archivo": "inicial_patada_descuidada.jpg",
+      "nombre": "Patada Descuidada",
+      "poder": 2,
+      "efecto": {
+        "roba": 0,
+        "energiaAlJugar": 0,
+        "energiaSiGanas": -1,
+        "reducePeligro": 0,
+        "texto": "-1 Energía si ganás"
+      },
+      "sabor": "Casi te caés para atrás.",
+      "copias": 3
+    },
+    {
+      "id": "respiracion_agitada",
+      "archivo": "inicial_respiracion_agitada.jpg",
+      "nombre": "Respiración Agitada",
+      "poder": 0,
+      "efecto": {
+        "roba": 0,
+        "energiaAlJugar": 0,
+        "energiaSiGanas": 0,
+        "reducePeligro": 0,
+        "texto": ""
+      },
+      "sabor": "Sonás como un fuelle roto.",
+      "copias": 3
+    },
+    {
+      "id": "duda_existencial",
+      "archivo": "inicial_duda_existencial.jpg",
+      "nombre": "Duda Existencial",
+      "poder": -1,
+      "efecto": {
+        "roba": 0,
+        "energiaAlJugar": 0,
+        "energiaSiGanas": 0,
+        "reducePeligro": 0,
+        "texto": ""
+      },
+      "sabor": "¿Y si el Kung Fu es aeróbic con actitud?",
+      "copias": 2
+    }
+  ],
+  "peligros": {
+    "alba": [
+      {
+        "id": "alba1",
+        "archivo": "alba1.jpg",
+        "nombre": "Mosquito del Templo",
+        "poder": 1,
+        "dano": 1,
+        "cartasGratis": 2,
+        "recompensa": {
+          "nombre": "Garra Inicial",
+          "poder": 2,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": ""
+          },
+          "sabor": "Tu primer movimiento que parece intencional."
+        }
+      },
+      {
+        "id": "alba2",
+        "archivo": "alba2.jpg",
+        "nombre": "Bandido con Palo Podrido",
+        "poder": 2,
+        "dano": 1,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Puño del Bambú",
+          "poder": 2,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 1,
+            "reducePeligro": 0,
+            "texto": "+1 Energía si ganás"
+          },
+          "sabor": ""
+        }
+      },
+      {
+        "id": "alba3",
+        "archivo": "alba3.jpg",
+        "nombre": "Jarra de Té Volcada",
+        "poder": 1,
+        "dano": 1,
+        "cartasGratis": 2,
+        "recompensa": {
+          "nombre": "Equilibrio",
+          "poder": 1,
+          "efecto": {
+            "roba": 1,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "Roba 1"
+          },
+          "sabor": "Aprendiste a no tropezar con tu propio pie."
+        }
+      },
+      {
+        "id": "alba4",
+        "archivo": "alba4.jpg",
+        "nombre": "Siesta Tentadora",
+        "poder": 2,
+        "dano": 2,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Despertar Brusco",
+          "poder": 3,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": -1,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "-1 Energía"
+          },
+          "sabor": "El Maestro te tiró un balde de agua fría."
+        }
+      },
+      {
+        "id": "alba5",
+        "archivo": "alba5.jpg",
+        "nombre": "Gato Guardián del Templo",
+        "poder": 1,
+        "dano": 1,
+        "cartasGratis": 2,
+        "recompensa": {
+          "nombre": "Rascada Felina",
+          "poder": 2,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": ""
+          },
+          "sabor": "Aprendiste del mejor luchador del templo."
+        }
+      },
+      {
+        "id": "alba6",
+        "archivo": "alba6.jpg",
+        "nombre": "Compañero Burlón",
+        "poder": 2,
+        "dano": 1,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Mirada Fija",
+          "poder": 1,
+          "efecto": {
+            "roba": 2,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "Roba 2"
+          },
+          "sabor": "Lo asustaste con tus ojos de novato hambriento."
+        }
+      },
+      {
+        "id": "alba7",
+        "archivo": "alba7.jpg",
+        "nombre": "Piedra en el Zapato",
+        "poder": 1,
+        "dano": 1,
+        "cartasGratis": 2,
+        "recompensa": {
+          "nombre": "Paso Firme",
+          "poder": 2,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": ""
+          },
+          "sabor": "Por fin usás zapatillas de entrenamiento."
+        }
+      },
+      {
+        "id": "alba8",
+        "archivo": "alba8.jpg",
+        "nombre": "Soga de Saltar Rota",
+        "poder": 2,
+        "dano": 2,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Salto del Novato",
+          "poder": 3,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": ""
+          },
+          "sabor": "Tocaste las campanas del templo con la cabeza."
+        }
+      },
+      {
+        "id": "alba9",
+        "archivo": "alba9.jpg",
+        "nombre": "Araña en el Tazón de Arroz",
+        "poder": 1,
+        "dano": 1,
+        "cartasGratis": 2,
+        "recompensa": {
+          "nombre": "Reflejo",
+          "poder": 1,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 1,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "+1 Energía"
+          },
+          "sabor": "La araña sobrevivió. Vos también."
+        }
+      },
+      {
+        "id": "alba10",
+        "archivo": "alba10.jpg",
+        "nombre": "Viento Frío de la Mañana",
+        "poder": 2,
+        "dano": 1,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Resistencia",
+          "poder": 2,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": ""
+          },
+          "sabor": "El frío fortalece el espíritu. Vos solo querés una frazada."
+        }
+      }
+    ],
+    "mediodia": [
+      {
+        "id": "med1",
+        "archivo": "med1.jpg",
+        "nombre": "Tres Bandidos Hambrientos",
+        "poder": 4,
+        "dano": 2,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Puño del Tigre",
+          "poder": 4,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": -1,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "-1 Energía"
+          },
+          "sabor": "Ruge como un gatito. Pega como un tigre."
+        }
+      },
+      {
+        "id": "med2",
+        "archivo": "med2.jpg",
+        "nombre": "Mercenario con Espada de Juguete",
+        "poder": 3,
+        "dano": 2,
+        "cartasGratis": 2,
+        "recompensa": {
+          "nombre": "Ala de Grulla",
+          "poder": 2,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 1,
+            "reducePeligro": 0,
+            "texto": "+1 Energía si ganás"
+          },
+          "sabor": "Elegancia sobre fuerza."
+        }
+      },
+      {
+        "id": "med3",
+        "archivo": "med3.jpg",
+        "nombre": "Duda: \"¿Sirve esto?\"",
+        "poder": 3,
+        "dano": 2,
+        "cartasGratis": 2,
+        "recompensa": {
+          "nombre": "Fe Renovada",
+          "poder": 3,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": ""
+          },
+          "sabor": "Shifu nunca mintió. Bueno, casi nunca."
+        }
+      },
+      {
+        "id": "med4",
+        "archivo": "med4.jpg",
+        "nombre": "Ira Incontrolable",
+        "poder": 4,
+        "dano": 3,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Colmillo de Serpiente",
+          "poder": 3,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 1,
+            "texto": "-1 al peligro"
+          },
+          "sabor": ""
+        }
+      },
+      {
+        "id": "med5",
+        "archivo": "med5.jpg",
+        "nombre": "Soldado del Gobernador Corrupto",
+        "poder": 5,
+        "dano": 2,
+        "cartasGratis": 4,
+        "recompensa": {
+          "nombre": "Zancada de Leopardo",
+          "poder": 3,
+          "efecto": {
+            "roba": 1,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "Roba 1"
+          },
+          "sabor": "Rápido. Elegante. Confuso para el enemigo."
+        }
+      },
+      {
+        "id": "med6",
+        "archivo": "med6.jpg",
+        "nombre": "Tentación de la Alacena",
+        "poder": 3,
+        "dano": 2,
+        "cartasGratis": 2,
+        "recompensa": {
+          "nombre": "Disciplina",
+          "poder": 2,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 2,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "+2 Energía"
+          },
+          "sabor": "Las galletas de Shifu siguen ahí. Intactas. Sos un héroe."
+        }
+      },
+      {
+        "id": "med7",
+        "archivo": "med7.jpg",
+        "nombre": "Maestro Falso de la Calle",
+        "poder": 4,
+        "dano": 2,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Escama de Dragón",
+          "poder": 3,
+          "efecto": {
+            "roba": 1,
+            "energiaAlJugar": 1,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "Roba 1 · +1 Energía"
+          },
+          "sabor": "Aprendiste lo que NO hay que hacer. Eso cuenta."
+        }
+      },
+      {
+        "id": "med8",
+        "archivo": "med8.jpg",
+        "nombre": "Puente Colgante Roto",
+        "poder": 3,
+        "dano": 3,
+        "cartasGratis": 2,
+        "recompensa": {
+          "nombre": "Vuelo del Bambú",
+          "poder": 4,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": -1,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "-1 Energía"
+          },
+          "sabor": "Cruzaste el abismo. Con estilo."
+        }
+      },
+      {
+        "id": "med9",
+        "archivo": "med9.jpg",
+        "nombre": "Compañero Traidor",
+        "poder": 4,
+        "dano": 2,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Lealtad",
+          "poder": 3,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": ""
+          },
+          "sabor": "Perdonaste al traidor. Sos mejor persona que luchador."
+        }
+      },
+      {
+        "id": "med10",
+        "archivo": "med10.jpg",
+        "nombre": "Tormenta de Arena Repentina",
+        "poder": 5,
+        "dano": 3,
+        "cartasGratis": 4,
+        "recompensa": {
+          "nombre": "Resistencia del Desierto",
+          "poder": 4,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": ""
+          },
+          "sabor": "La arena en los ojos es entrenamiento avanzado."
+        }
+      }
+    ],
+    "ocaso": [
+      {
+        "id": "oca1",
+        "archivo": "oca1.jpg",
+        "nombre": "Líder de los Bandidos",
+        "poder": 6,
+        "dano": 3,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Rugido del Tigre",
+          "poder": 5,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": -2,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "-2 Energía"
+          },
+          "sabor": "Ahora sí ruge como un tigre de verdad."
+        }
+      },
+      {
+        "id": "oca2",
+        "archivo": "oca2.jpg",
+        "nombre": "Asesino Silencioso",
+        "poder": 7,
+        "dano": 3,
+        "cartasGratis": 4,
+        "recompensa": {
+          "nombre": "Vuelo de Grulla",
+          "poder": 4,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 2,
+            "reducePeligro": 0,
+            "texto": "+2 Energía si ganás"
+          },
+          "sabor": "Ni lo viste venir. Él tampoco te vio a vos."
+        }
+      },
+      {
+        "id": "oca3",
+        "archivo": "oca3.jpg",
+        "nombre": "Demonio del Orgullo",
+        "poder": 6,
+        "dano": 3,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Humildad",
+          "poder": 4,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": ""
+          },
+          "sabor": "Te bajaste de tu nube. A los golpes."
+        }
+      },
+      {
+        "id": "oca4",
+        "archivo": "oca4.jpg",
+        "nombre": "Demonio de la Pereza",
+        "poder": 5,
+        "dano": 4,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Determinación",
+          "poder": 5,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": -1,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "-1 Energía"
+          },
+          "sabor": "Te levantaste a las 4 AM. Una vez. Pero cuenta."
+        }
+      },
+      {
+        "id": "oca5",
+        "archivo": "oca5.jpg",
+        "nombre": "Maestro del Templo Rival",
+        "poder": 8,
+        "dano": 3,
+        "cartasGratis": 4,
+        "recompensa": {
+          "nombre": "Puño del Dragón",
+          "poder": 5,
+          "efecto": {
+            "roba": 1,
+            "energiaAlJugar": 2,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "Roba 1 · +2 Energía"
+          },
+          "sabor": "Su templo tiene mejor presupuesto. Vos tenés corazón."
+        }
+      },
+      {
+        "id": "oca6",
+        "archivo": "oca6.jpg",
+        "nombre": "Ejército de Mercenarios",
+        "poder": 9,
+        "dano": 4,
+        "cartasGratis": 5,
+        "recompensa": {
+          "nombre": "Patada del Tigre",
+          "poder": 6,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": -2,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "-2 Energía"
+          },
+          "sabor": "Una patada. Muchos mercenarios. Matemática simple."
+        }
+      },
+      {
+        "id": "oca7",
+        "archivo": "oca7.jpg",
+        "nombre": "Demonio de la Ira",
+        "poder": 7,
+        "dano": 4,
+        "cartasGratis": 4,
+        "recompensa": {
+          "nombre": "Serenidad",
+          "poder": 4,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 3,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "+3 Energía"
+          },
+          "sabor": "Respiraste hondo. El demonio no."
+        }
+      },
+      {
+        "id": "oca8",
+        "archivo": "oca8.jpg",
+        "nombre": "Incendio en la Cocina del Templo",
+        "poder": 6,
+        "dano": 4,
+        "cartasGratis": 3,
+        "recompensa": {
+          "nombre": "Agua Sagrada",
+          "poder": 5,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 2,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "+2 Energía"
+          },
+          "sabor": "Apagaste el fuego. Nadie sabe cómo empezó. Fue Shifu, ¿no?"
+        }
+      },
+      {
+        "id": "oca9",
+        "archivo": "oca9.jpg",
+        "nombre": "Traición del Discípulo Favorito",
+        "poder": 7,
+        "dano": 3,
+        "cartasGratis": 4,
+        "recompensa": {
+          "nombre": "Perdón",
+          "poder": 4,
+          "efecto": {
+            "roba": 0,
+            "energiaAlJugar": 0,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": ""
+          },
+          "sabor": "Le diste una segunda oportunidad. Y una patada."
+        }
+      },
+      {
+        "id": "oca10",
+        "archivo": "oca10.jpg",
+        "nombre": "Prueba del Gran Maestro (en sueños)",
+        "poder": 8,
+        "dano": 3,
+        "cartasGratis": 4,
+        "recompensa": {
+          "nombre": "Iluminación",
+          "poder": 5,
+          "efecto": {
+            "roba": 2,
+            "energiaAlJugar": 1,
+            "energiaSiGanas": 0,
+            "reducePeligro": 0,
+            "texto": "Roba 2 · +1 Energía"
+          },
+          "sabor": "Te despertaste empapado. Pero iluminado."
+        }
+      }
+    ]
+  },
+  "jefes": [
+    {
+      "id": "jefe1",
+      "archivo": "jefe1.jpg",
+      "nombre": "El Monje Caído",
+      "poder": 20,
+      "dano": 5,
+      "cartasGratis": 7,
+      "lore": "Ex alumno estrella. Busca venganza... y galletas."
+    },
+    {
+      "id": "jefe2",
+      "archivo": "jefe2.jpg",
+      "nombre": "Tu Propio Reflejo",
+      "poder": 22,
+      "dano": 4,
+      "cartasGratis": 8,
+      "lore": "Tenía tu cara. Y tenía razón en todo."
+    },
+    {
+      "id": "jefe3",
+      "archivo": "jefe3.jpg",
+      "nombre": "El Señor de los Mercenarios",
+      "poder": 18,
+      "dano": 5,
+      "cartasGratis": 7,
+      "lore": "Paga bien a sus hombres. Huele mal. Muy mal."
+    },
+    {
+      "id": "jefe4",
+      "archivo": "jefe4.jpg",
+      "nombre": "El Gran Maestro del Templo del Loto Negro",
+      "poder": 24,
+      "dano": 4,
+      "cartasGratis": 9,
+      "lore": "Su templo tiene pileta, sauna y tenedor libre. El tuyo tiene una piedra."
+    },
+    {
+      "id": "jefe5",
+      "archivo": "jefe5.jpg",
+      "nombre": "El Dragón de Papel",
+      "poder": 16,
+      "dano": 6,
+      "cartasGratis": 6,
+      "lore": "Imponente, escupe fuego. Pero si llueve, se hace papilla."
+    }
+  ],
+  "comic": [
+    {
+      "clave": "intro",
+      "disparo": "Antes de empezar la partida.",
+      "paneles": [
+        {
+          "archivo": "01_templo_amanecer.png",
+          "narracion": "En lo alto de la montaña, donde el viento se queja y el té nunca está lo bastante caliente, está el Templo del Loto Torcido.",
+          "dichos": [
+            {
+              "quien": "",
+              "texto": "(Ciento ocho escalones hasta el portón.)",
+              "acotacion": true
+            },
+            {
+              "quien": "",
+              "texto": "(El Novato los barre todas las mañanas. Todas las mañanas se vuelven a ensuciar.)",
+              "acotacion": true
+            }
+          ]
+        },
+        {
+          "archivo": "02_shifu_se_va.png",
+          "narracion": "Esta mañana, el Gran Maestro Shifu se fue al Congreso Anual de Maestros de Artes Marciales y Té de Jazmín.",
+          "dichos": [
+            {
+              "quien": "Shifu",
+              "texto": "Vuelvo en siete días. Confío en vos.",
+              "acotacion": false
+            },
+            {
+              "quien": "Novato",
+              "texto": "¿Siete días yo solo?",
+              "acotacion": false
+            },
+            {
+              "quien": "Shifu",
+              "texto": "Solo no. Está Mei.",
+              "acotacion": false
+            },
+            {
+              "quien": "",
+              "texto": "(Mei ya se había ido a dormir.)",
+              "acotacion": true
+            }
+          ]
+        },
+        {
+          "archivo": "03_la_nota.png",
+          "narracion": "Antes de irse dejó una nota, escrita con caligrafía impecable.",
+          "dichos": [
+            {
+              "quien": "La nota",
+              "texto": "Querido novato: no quemés el templo. No te comas las galletas de la alacena (son mías). Barré el patio todas las mañanas.",
+              "acotacion": false
+            },
+            {
+              "quien": "La nota",
+              "texto": "Y sobre todo: NO DEJES ENTRAR A EXTRAÑOS.",
+              "acotacion": false
+            },
+            {
+              "quien": "Novato",
+              "texto": "Fácil.",
+              "acotacion": false
+            }
+          ]
+        },
+        {
+          "archivo": "04_posdata.png",
+          "narracion": "Y abajo, con letra más chica, una posdata.",
+          "dichos": [
+            {
+              "quien": "La nota",
+              "texto": "P.D.: Si alguien pregunta por el \"Gran Torneo Ilegal de Artes Marciales\", decile que nos negamos rotundamente.",
+              "acotacion": false
+            },
+            {
+              "quien": "Novato",
+              "texto": "¿El qué?",
+              "acotacion": false
+            },
+            {
+              "quien": "Novato",
+              "texto": "¿Nos negamos a QUÉ?",
+              "acotacion": false
+            }
+          ]
+        },
+        {
+          "archivo": "05_llegan_los_problemas.png",
+          "narracion": "Shifu dobló la primera curva del camino. Doce segundos después, empezaron a subir.",
+          "dichos": [
+            {
+              "quien": "Novato",
+              "texto": "Bueno. Esto escaló rápido.",
+              "acotacion": false
+            },
+            {
+              "quien": "",
+              "texto": "(Al principio eran catorce.)",
+              "acotacion": true
+            }
+          ]
+        },
+        {
+          "archivo": "06_tentaciones.png",
+          "narracion": "Y lo peor de todo no venía de afuera.",
+          "dichos": [
+            {
+              "quien": "Novato",
+              "texto": "Una sola galleta no se va a notar.",
+              "acotacion": false
+            },
+            {
+              "quien": "Novato",
+              "texto": "Ni las contó, seguro.",
+              "acotacion": false
+            },
+            {
+              "quien": "",
+              "texto": "(Shifu las había contado.)",
+              "acotacion": true
+            }
+          ]
+        },
+        {
+          "archivo": "07_entrenamiento.png",
+          "narracion": "El día recién empieza. Vas a entrenar con lo que venga y vas a convertir cada paliza en una técnica nueva.",
+          "dichos": [
+            {
+              "quien": "",
+              "texto": "(Alba. Mediodía. Ocaso.)",
+              "acotacion": true
+            },
+            {
+              "quien": "",
+              "texto": "(Tres veces sube la montaña, y cada vez sube algo peor.)",
+              "acotacion": true
+            },
+            {
+              "quien": "Novato",
+              "texto": "Puedo con esto.",
+              "acotacion": false
+            }
+          ]
+        },
+        {
+          "archivo": "08_campeones.png",
+          "narracion": "Y cuando el sol se hunda detrás de la montaña, dos Campeones del Torneo van a golpear el portón para quedarse con el templo.",
+          "dichos": [
+            {
+              "quien": "Novato",
+              "texto": "¿Voy a poder proteger el templo?",
+              "acotacion": false
+            },
+            {
+              "quien": "Novato",
+              "texto": "¿Y las galletas de Shifu?",
+              "acotacion": false
+            },
+            {
+              "quien": "",
+              "texto": "(Una de las dos respuestas iba a ser que no.)",
+              "acotacion": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "clave": "mediodia",
+      "disparo": "Cuando se acaba el mazo del Alba.",
+      "paneles": [
+        {
+          "archivo": "10_fin_alba.png",
+          "narracion": "Aguantaste el Alba. Te duele todo, pero seguís parado y el patio sigue siendo tuyo.",
+          "dichos": [
+            {
+              "quien": "Novato",
+              "texto": "Uno menos.",
+              "acotacion": false
+            },
+            {
+              "quien": "",
+              "texto": "(El sol recién estaba subiendo.)",
+              "acotacion": true
+            }
+          ]
+        },
+        {
+          "archivo": "11_mei_juzga.png",
+          "narracion": "Mei, la gata guardiana, evaluó tu desempeño desde el techo. No quedó impresionada.",
+          "dichos": [
+            {
+              "quien": "Mei",
+              "texto": "(silencio felino demoledor)",
+              "acotacion": true
+            },
+            {
+              "quien": "Novato",
+              "texto": "Gané, ¿sabés?",
+              "acotacion": false
+            },
+            {
+              "quien": "Mei",
+              "texto": "(parpadeo lento)",
+              "acotacion": true
+            },
+            {
+              "quien": "Novato",
+              "texto": "Bueno. Empaté.",
+              "acotacion": false
+            }
+          ]
+        },
+        {
+          "archivo": "12_llega_tao.png",
+          "narracion": "Al Mediodía ya no suben curiosos. Suben los que cobran por estar acá.",
+          "dichos": [
+            {
+              "quien": "Tao",
+              "texto": "Nada mal para alguien que a la mañana no sabía cerrar el puño.",
+              "acotacion": false
+            },
+            {
+              "quien": "Tao",
+              "texto": "Igual los de esta hora pegan distinto, eh.",
+              "acotacion": false
+            },
+            {
+              "quien": "Novato",
+              "texto": "¿Y vos de qué lado estás?",
+              "acotacion": false
+            },
+            {
+              "quien": "Tao",
+              "texto": "Del que gana.",
+              "acotacion": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "clave": "ocaso",
+      "disparo": "Cuando se acaba el mazo del Mediodía.",
+      "paneles": [
+        {
+          "archivo": "20_fin_mediodia.png",
+          "narracion": "El Mediodía te dejó las manos en carne viva, pero el portón nunca se abrió para nadie que no quisieras.",
+          "dichos": [
+            {
+              "quien": "Novato",
+              "texto": "Dos.",
+              "acotacion": false
+            },
+            {
+              "quien": "",
+              "texto": "(Las sombras del patio ya empezaban a estirarse.)",
+              "acotacion": true
+            }
+          ]
+        },
+        {
+          "archivo": "21_traicion_tao.png",
+          "narracion": "Tao se fue cuando el sol empezó a bajar. No se despidió.",
+          "dichos": [
+            {
+              "quien": "Novato",
+              "texto": "Ah. Así que era eso.",
+              "acotacion": false
+            },
+            {
+              "quien": "Tao",
+              "texto": "Del que gana, pibe. Te lo dije de entrada.",
+              "acotacion": false
+            }
+          ]
+        },
+        {
+          "archivo": "22_cae_la_noche.png",
+          "narracion": "Con el Ocaso dejan de subir bandidos: los bandidos también le tienen miedo a la montaña a oscuras. Sube lo otro.",
+          "dichos": [
+            {
+              "quien": "",
+              "texto": "(Las sombras del patio dejaron de coincidir con el patio.)",
+              "acotacion": true
+            },
+            {
+              "quien": "Novato",
+              "texto": "No hay nadie ahí.",
+              "acotacion": false
+            },
+            {
+              "quien": "Novato",
+              "texto": "No hay nadie ahí.",
+              "acotacion": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "clave": "jefes",
+      "disparo": "Cuando se acaba el mazo del Ocaso.",
+      "paneles": [
+        {
+          "archivo": "30_fin_ocaso.png",
+          "narracion": "Aguantaste el Ocaso entero, incluidos los que tenían tu cara. La montaña quedó en silencio.",
+          "dichos": [
+            {
+              "quien": "Novato",
+              "texto": "Se terminó.",
+              "acotacion": false
+            },
+            {
+              "quien": "",
+              "texto": "(No se había terminado.)",
+              "acotacion": true
+            }
+          ]
+        },
+        {
+          "archivo": "31_golpean_el_porton.png",
+          "narracion": "Tres golpes en el portón. Ninguno pidió permiso.",
+          "dichos": [
+            {
+              "quien": "",
+              "texto": "(Uno.)",
+              "acotacion": true
+            },
+            {
+              "quien": "",
+              "texto": "(Dos.)",
+              "acotacion": true
+            },
+            {
+              "quien": "",
+              "texto": "(Tres.)",
+              "acotacion": true
+            },
+            {
+              "quien": "Novato",
+              "texto": "Está bien. Vengan.",
+              "acotacion": false
+            }
+          ]
+        },
+        {
+          "archivo": "32_los_campeones.png",
+          "narracion": "El Gran Torneo Ilegal de Artes Marciales necesita sede. Vinieron a buscar la tuya.",
+          "dichos": [
+            {
+              "quien": "Los Campeones",
+              "texto": "Nos dijeron que acá no había nadie.",
+              "acotacion": false
+            },
+            {
+              "quien": "Novato",
+              "texto": "Les dijeron mal.",
+              "acotacion": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "clave": "victoria",
+      "disparo": "Cuando derrotás al último jefe.",
+      "paneles": [
+        {
+          "archivo": "40_victoria_campeones.png",
+          "narracion": "Los dos Campeones se fueron por donde vinieron. Uno de ellos cojeando.",
+          "dichos": [
+            {
+              "quien": "Novato",
+              "texto": "El templo no está en venta.",
+              "acotacion": false
+            },
+            {
+              "quien": "",
+              "texto": "(Mei bajó del techo por primera vez en todo el día.)",
+              "acotacion": true
+            }
+          ]
+        },
+        {
+          "archivo": "41_vuelve_shifu.png",
+          "narracion": "Cumplido el plazo, Shifu volvió. El mismo sombrero, el mismo bolso, la misma cara.",
+          "dichos": [
+            {
+              "quien": "Shifu",
+              "texto": "El patio está barrido. El templo está en pie. Bien.",
+              "acotacion": false
+            },
+            {
+              "quien": "Novato",
+              "texto": "Estuvo tranquilo.",
+              "acotacion": false
+            },
+            {
+              "quien": "Shifu",
+              "texto": "Mm.",
+              "acotacion": false
+            }
+          ]
+        },
+        {
+          "archivo": "42_las_galletas.png",
+          "narracion": "Después abrió la alacena.",
+          "dichos": [
+            {
+              "quien": "Shifu",
+              "texto": "Faltan dos.",
+              "acotacion": false
+            },
+            {
+              "quien": "Novato",
+              "texto": "Mei.",
+              "acotacion": false
+            },
+            {
+              "quien": "Mei",
+              "texto": "(ya no estaba en el cuadro)",
+              "acotacion": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "clave": "derrota",
+      "disparo": "Cuando tu Energía baja de 0, en CUALQUIER fase.",
+      "paneles": [
+        {
+          "archivo": "50_derrota_patio.png",
+          "narracion": "No te quedó nada. Ni Energía, ni técnicas, ni excusas.",
+          "dichos": [
+            {
+              "quien": "",
+              "texto": "(El portón quedó abierto. Nadie lo cerró.)",
+              "acotacion": true
+            }
+          ]
+        },
+        {
+          "archivo": "51_shifu_ve_el_desastre.png",
+          "narracion": "Shifu volvió puntual, como siempre.",
+          "dichos": [
+            {
+              "quien": "Shifu",
+              "texto": "...",
+              "acotacion": false
+            },
+            {
+              "quien": "Novato",
+              "texto": "Puedo explicarlo.",
+              "acotacion": false
+            },
+            {
+              "quien": "Shifu",
+              "texto": "...",
+              "acotacion": false
+            }
+          ]
+        },
+        {
+          "archivo": "52_la_pregunta.png",
+          "narracion": "Y después hizo la única pregunta que importaba.",
+          "dichos": [
+            {
+              "quien": "Shifu",
+              "texto": "¿Y las galletas?",
+              "acotacion": false
+            },
+            {
+              "quien": "",
+              "texto": "(Ésa fue la parte difícil de explicar.)",
+              "acotacion": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
