@@ -1,7 +1,7 @@
 {
   "tema": "templo",
   "idioma": "en",
-  "generado": "2026-08-24T13:45:29.434202",
+  "generado": "2026-08-24T15:59:31.513232",
   "juego": {
     "nombre": "Guardian of the Temple",
     "bajada": "Shifu is gone for seven days. Don't burn the temple down.",
@@ -28,7 +28,8 @@
     {
       "titulo": "Objetivo",
       "lineas": [
-        "Sobrevivís tres fases de peligro (Alba, Mediodía, Ocaso) mejorando tu mazo de técnicas, y después enfrentás 2 jefe(s) final(es).",
+        "Sobrevivís tres fases de peligro (Alba, Mediodía, Ocaso) mejorando tu mazo de técnicas, y después enfrentás a los Campeones del Torneo.",
+        "Cuántos Campeones enfrentás lo decide el nivel de dificultad que elijas.",
         "Perdés si tu Energía llega a 0 o menos."
       ]
     },
@@ -36,8 +37,8 @@
       "titulo": "Preparación",
       "lineas": [
         "Barajá el mazo inicial de combate (20 cartas).",
-        "Separá los tres mazos de peligro y elegí 2 jefe(s) al azar.",
-        "Empezás con 20 de Energía (tope al curarte: 20)."
+        "Separá los tres mazos de peligro y elegí al azar los jefes que pida tu nivel: 2 en esta configuración.",
+        "Empezás con 20 de Energía en esta configuración (tope al curarte: 20)."
       ]
     },
     {

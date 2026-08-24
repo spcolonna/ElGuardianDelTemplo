@@ -213,8 +213,15 @@ además el forro completo de 188 × 232 mm con solapas de 15 mm, los cuatro
 laterales y el fondo (`PRODUCCION.md` §4). Eso es armado de troquel, y el arte
 de los laterales todavía no existe.
 
-Los **modos de Cansancio 4 y 5** que describe el reglamento (los dos disparos a
-la vez, y las diez fatigas barajadas en el mazo inicial) **no existen en el
-motor**: son reglas de mesa. Y los tres niveles de dificultad que el reglamento
-agrega —Vigilia, El Séptimo Día y Shifu— llevan números estimados a mano, no
-simulados. El propio reglamento lo dice.
+Los **modos de Cansancio «Sin descanso» y «Ya venías cansado»** que describe el
+reglamento (los dos disparos a la vez, y las diez fatigas barajadas en el mazo
+inicial) **no existen en el motor**: son reglas de mesa. Lo mismo con los tres
+niveles altos —Vigilia, El Séptimo Día y Shifu—, que viven en
+`librillo/contenido_es.js` y no en `modos/dificultad.dart`.
+
+El reglamento los presenta **sin salvedades**, como niveles del juego, porque es
+el documento con el que se juega y no un borrador. La contrapartida es que sus
+números no pasaron por `bin/sim.dart`: si el balance de esos tres se ajusta
+jugando, hay que editarlos a mano en `NIVELES_DE_PAPEL`, y ninguna prueba va a
+avisar si quedan desalineados con el motor. Los cuatro niveles de la app sí
+salen del JSON exportado y no se pueden desincronizar.

@@ -22,22 +22,37 @@ function expandir(bloques, d) {
         fuera.push({ t: 'lista', orden: 'punto', items: r.lineas });
       }
     } else if (b.t === 'tabla-dificultades') {
+      // La columna de Cansancio dice la ACCIÓN, no un número de modo. Decía
+      // «1 · ninguno», que no significa nada si no tenés la otra tabla
+      // delante. Y la del coste de robo decía «Robo extra», que se lee como
+      // «cuántas cartas robás» cuando en realidad es lo que cuesta cada una.
+      const SIN_CANSANCIO = 'No se usa: queda en la caja';
       const filas = d.dificultades.map((x) => [
         `<b>${x.nombre}</b>`, x.energiaInicial, x.peligrosPorFase, x.cantidadJefes,
-        '1 · ninguno', x.costeRoboExtra,
+        x.costeRoboExtra, SIN_CANSANCIO,
       ]);
       for (const n of window.CONTENIDO_ES.NIVELES_DE_PAPEL) {
-        filas.push([`<b>${n.nombre}</b> *`, n.energia, n.peligros, n.jefes, n.cansancio, n.robo]);
+        filas.push([`<b>${n.nombre}</b>`, n.energia, n.peligros, n.jefes, n.robo, n.cansancio]);
       }
       fuera.push({
         t: 'tabla',
-        cabeceras: ['Nivel', 'Energía', 'Peligros<br>por fase', 'Jefes', 'Cansancio', 'Robo<br>extra'],
+        cabeceras: ['Nivel', 'Energía<br>inicial', 'Peligros<br>por fase', 'Jefes',
+                    'Cada carta extra<br>cuesta (Energía)', 'Mazo de Cansancio'],
         filas,
-        pie: '* Sin simular. Números estimados: ajustalos jugando.',
       });
+      // Las reglas propias de cada nivel que la tabla no puede mostrar sin
+      // volverse ilegible: sólo se listan las que se apartan de lo normal.
+      const especiales = (x) => {
+        const e = [];
+        if (x.cartasGratisExtra > 0) {
+          e.push(`robás ${x.cartasGratisExtra} carta gratis de más en cada peligro`);
+        }
+        if (!x.meditarSoloAlPerder) e.push('podés meditar también después de ganar');
+        return e.length ? ` <i>Además: ${e.join('; ')}.</i>` : '';
+      };
       fuera.push({
         t: 'lista', orden: 'punto',
-        items: d.dificultades.map((x) => `<b>${x.nombre}</b> — ${x.bajada}`)
+        items: d.dificultades.map((x) => `<b>${x.nombre}</b> — ${x.bajada}${especiales(x)}`)
           .concat(window.CONTENIDO_ES.NIVELES_DE_PAPEL.map((n) => `<b>${n.nombre}</b> — ${n.bajada}`)),
       });
     } else if (b.t === 'referencia-cartas') {

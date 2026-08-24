@@ -25,15 +25,23 @@ List<BloqueReglas> reglasDe(Config c, Contenido contenido) {
   );
 
   return [
+    // El Objetivo NO lleva la cantidad de jefes. Es la definición del juego, y
+    // el número de jefes lo decide el nivel elegido: escrito acá se leería como
+    // ley, y en el reglamento impreso —donde no hay un nivel seleccionado—
+    // sería directamente falso. El número va en Preparación, donde corresponde
+    // a la partida que estás por armar.
     BloqueReglas('Objetivo', [
       'Sobrevivís tres fases de peligro (Alba, Mediodía, Ocaso) mejorando tu '
-          'mazo de técnicas, y después enfrentás ${c.cantidadJefes} jefe(s) final(es).',
+          'mazo de técnicas, y después enfrentás a los Campeones del Torneo.',
+      'Cuántos Campeones enfrentás lo decide el nivel de dificultad que elijas.',
       'Perdés si tu Energía llega a 0 o menos.',
     ]),
     BloqueReglas('Preparación', [
       'Barajá el mazo inicial de combate ($cartasIniciales cartas).',
-      'Separá los tres mazos de peligro y elegí ${c.cantidadJefes} jefe(s) al azar.',
-      'Empezás con ${c.energiaInicial} de Energía (tope al curarte: ${c.energiaMaxima}).',
+      'Separá los tres mazos de peligro y elegí al azar los jefes que pida tu nivel: '
+          '${c.cantidadJefes} en esta configuración.',
+      'Empezás con ${c.energiaInicial} de Energía en esta configuración '
+          '(tope al curarte: ${c.energiaMaxima}).',
     ]),
     BloqueReglas('Turno', [
       '1. Revelá el peligro superior del mazo de la fase actual.',

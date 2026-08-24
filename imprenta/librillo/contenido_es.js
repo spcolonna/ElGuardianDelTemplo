@@ -5,10 +5,11 @@
  * el motor sabe se pide con {n:ruta} y lo resuelve `referencias.js` contra
  * `imprenta/datos/juego_templo_es.json`, que genera `bin/export_libro.dart`.
  *
- * La única excepción está marcada y explicada: los tres niveles de dificultad
- * que el reglamento agrega y la app no tiene. Ésos no se pueden exportar
- * porque no existen en el motor, y por eso el propio reglamento los muestra
- * con el cartel de "sin simular".
+ * La única excepción son los tres niveles de dificultad que el reglamento
+ * agrega y la app todavía no tiene: no se pueden exportar porque no existen en
+ * `modos/dificultad.dart`. Van escritos abajo, y el reglamento los presenta
+ * como lo que son —niveles del juego— sin salvedades: es el documento con el
+ * que se juega, no un borrador.
  */
 
 // ------------------------------------------------------------------ helpers
@@ -21,36 +22,61 @@ const ojo = (texto) => ({ t: 'aparte', tono: 'ojo', texto });
 const bien = (texto) => ({ t: 'aparte', tono: 'bien', texto });
 const mal = (texto) => ({ t: 'aparte', tono: 'mal', texto });
 
-/** Los tres niveles que el reglamento inventa y el motor no tiene.
+/** Los tres niveles altos, que viven sólo en el reglamento.
  *
- * No salen del JSON porque no existen en `modos/dificultad.dart`: son para
- * jugar en la mesa. Sus números NO están simulados —los cuatro de la app sí,
- * y `bin/sim.dart` mide Guardián en 14 % de victorias—, así que van marcados.
+ * No salen del JSON porque no existen en `modos/dificultad.dart`: se juegan en
+ * la mesa. La columna de Cansancio dice la acción a hacer con el mazo, no un
+ * número de modo, porque es lo que uno necesita leer con las cartas en la mano.
  */
 const NIVELES_DE_PAPEL = [
   {
     nombre: 'Vigilia',
     bajada: 'La primera noche en que el cansancio pesa.',
-    energia: 22, peligros: 8, jefes: 3, cansancio: '2 · Al caer el sol', robo: 1,
+    energia: 22, peligros: 8, jefes: 3, robo: 1,
+    cansancio: '1 fatiga al terminar cada fase',
   },
   {
     nombre: 'El Séptimo Día',
     bajada: 'El último día del plazo de Shifu. No queda margen.',
-    energia: 26, peligros: 9, jefes: 4, cansancio: '4 · Sin descanso', robo: 2,
+    energia: 26, peligros: 9, jefes: 4, robo: 2,
+    cansancio: '1 al terminar cada fase y 1 cada vez que rebarajás',
   },
   {
     nombre: 'Shifu',
-    bajada: 'No sabemos si se puede ganar. En serio.',
-    energia: 30, peligros: 10, jefes: 5, cansancio: '5 · Ya venías cansado', robo: 2,
+    bajada: 'El día imposible. Nadie lo superó todavía.',
+    energia: 30, peligros: 10, jefes: 5, robo: 2,
+    cansancio: 'Las 10, barajadas en el mazo inicial',
   },
 ];
 
 const MODOS_CANSANCIO = [
-  ['1', 'Sin Cansancio', 'El mazo de Cansancio se queda en la caja.', 'sí'],
-  ['2', 'Al caer el sol', 'Entra una fatiga al terminar cada fase: tres por partida.', 'sí'],
-  ['3', 'Al segundo aire', 'Entra una fatiga cada vez que se te acaba el mazo y barajás el descarte.', 'sí'],
-  ['4', 'Sin descanso', 'Las dos anteriores a la vez.', 'no'],
-  ['5', 'Ya venías cansado', 'Las diez fatigas barajadas dentro del mazo inicial, desde el primer turno.', 'no'],
+  [
+    '<b>Sin Cansancio</b>',
+    'No se usa. El mazo de Cansancio se queda en la caja toda la partida.',
+  ],
+  [
+    '<b>Al caer el sol</b>',
+    'Cada vez que se te acaba el mazo de una fase y pasás a la siguiente, robá ' +
+    'la primera carta del mazo de Cansancio, mostrala, y barajala dentro de tu ' +
+    'mazo de combate. Son tres veces por partida: al terminar el Alba, al ' +
+    'terminar el Mediodía y al terminar el Ocaso.',
+  ],
+  [
+    '<b>Al segundo aire</b>',
+    'Cada vez que te quedás sin cartas en el mazo de combate y tenés que barajar ' +
+    'el descarte para rearmarlo, robá la primera carta del mazo de Cansancio y ' +
+    'barajala junto con el descarte al rearmar el mazo.',
+  ],
+  [
+    '<b>Sin descanso</b>',
+    'Las dos cosas a la vez: una fatiga al terminar cada fase <i>y</i> una fatiga ' +
+    'cada vez que rebarajás el descarte.',
+  ],
+  [
+    '<b>Ya venías cansado</b>',
+    'Antes de empezar, barajá <b>las diez cartas de Cansancio</b> dentro de tu mazo ' +
+    'inicial de combate. No entra ninguna más durante la partida: ya están todas.',
+  ],
 ];
 
 // --------------------------------------------------------------- reglamento
@@ -226,15 +252,16 @@ function reglamento(d) {
   // ------------------------------------------------------------- dificultad
   b.push(cap('dificultad', 'Los niveles'));
   b.push(p(
-    'Siete niveles, del más suave al que probablemente no se pueda ganar. ' +
-    'Los cuatro primeros están en la app y <b>medidos</b>; los tres últimos son ' +
-    'para la mesa y sus números son estimados.'
+    'Siete niveles, del más suave al más brutal. Elegí uno antes de preparar la ' +
+    'partida: define con cuánta Energía empezás, cuántos peligros de cada mazo ' +
+    'entran en juego, cuántos Campeones enfrentás y qué hacés con el mazo de ' +
+    'Cansancio. Todo lo demás se juega igual en los siete.'
   ));
   b.push({ t: 'tabla-dificultades' });
-  b.push(mal(
-    'Los tres últimos niveles <b>no están simulados</b>. Los números son una estimación ' +
-    'a mano: ajustalos jugando. El nivel <b>Guardián</b>, que es el balanceado, se gana ' +
-    'sólo el 14 % de las veces — así que «duro» acá quiere decir duro.'
+  b.push(ojo(
+    '<b>Guardián</b> es el nivel de referencia: es el juego tal como está balanceado, ' +
+    'y se gana sólo el 14 % de las veces. Si es tu primera partida, empezá por ' +
+    '<b>Aprendiz</b>.'
   ));
 
   b.push(h(2, 'Por qué los niveles difíciles dan MÁS Energía'));
@@ -259,20 +286,18 @@ function reglamento(d) {
     'en tu mazo mientras jugás. Dos reglas valen para todos los modos:'
   ));
   b.push(ol([
-    'La fatiga entra <b>barajada dentro del mazo</b>, nunca al descarte. Así no la ' +
-    'podés purgar meditando antes de haberla jugado: primero te tiene que tocar.',
+    'Las fatigas se roban <b>de arriba del mazo de Cansancio</b>, en el orden en que ' +
+    'quedaron al barajarlo en la preparación.',
+    'La fatiga entra <b>barajada dentro de tu mazo de combate</b>, nunca al descarte. ' +
+    'Así no la podés purgar meditando antes de haberla jugado: primero te tiene que tocar.',
     '<b>Nunca se repite.</b> Son {n:cansancio.cartas.length} cartas distintas; cuando ' +
     'se agotan, no entra ninguna más en esa partida.',
   ]));
   b.push({
     t: 'tabla',
-    cabeceras: ['', 'Modo', 'Cuándo entra una fatiga', '¿App?'],
+    cabeceras: ['Modo', 'Qué hacés, exactamente'],
     filas: MODOS_CANSANCIO,
   });
-  b.push(ojo(
-    'Los modos <b>4</b> y <b>5</b> existen sólo en este reglamento: la app no los tiene. ' +
-    'Si los jugás en la mesa y te gustan, se pueden agregar.'
-  ));
 
   // ------------------------------------------------------------- modo libre
   b.push(cap('libre', 'Modo Libre'));
@@ -289,8 +314,8 @@ function reglamento(d) {
       ['Peligros por fase', '{n:libre.peligrosPorFase.min} a {n:libre.peligrosPorFase.max}',
        'Cuántas cartas de cada mazo entran en juego. <b>Sube la dificultad al bajar.</b>'],
       ['Jefes', '{n:libre.jefes.min} a {n:libre.jefes.max}', 'Cuántos Campeones enfrentás.'],
-      ['Modo de Cansancio', '{n:libre.modosCansancio.min} a {n:libre.modosCansancio.max}',
-       'La tabla de la página {ref:capitulo:dificultad}.'],
+      ['Modo de Cansancio', 'uno de los {n:libre.modosCansancio.max}',
+       'Los cinco de la tabla de la página {ref:capitulo:dificultad}.'],
       ['Dureza del Cansancio', '0, −1 o −2', 'Cuánto Poder resta cada fatiga.'],
     ],
   });
