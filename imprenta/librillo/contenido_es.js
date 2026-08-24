@@ -22,24 +22,41 @@ const ojo = (texto) => ({ t: 'aparte', tono: 'ojo', texto });
 const bien = (texto) => ({ t: 'aparte', tono: 'bien', texto });
 const mal = (texto) => ({ t: 'aparte', tono: 'mal', texto });
 
-/** Los tres niveles altos, que viven sólo en el reglamento.
+/** Los cuatro niveles altos, que viven sólo en el reglamento.
  *
  * No salen del JSON porque no existen en `modos/dificultad.dart`: se juegan en
  * la mesa. La columna de Cansancio dice la acción a hacer con el mazo, no un
  * número de modo, porque es lo que uno necesita leer con las cartas en la mano.
+ *
+ * ORDEN DE LA ESCALERA. Los cuatro ejes que endurecen suben o se mantienen,
+ * nunca bajan: jefes 3→3→4→5, coste 2 en todos, y el Cansancio empeora modo a
+ * modo (fin de fase → rebarajada → las dos → todas al inicio). La Energía y
+ * los peligros por fase SUBEN, que parece un error y no lo es: son la
+ * compensación, y el capítulo lo explica. Si tocás un número, revisá que los
+ * cuatro primeros ejes sigan sin bajar o la tabla impresa se lee como una
+ * errata.
+ *
+ * El Cansancio «antes de cada rebarajada» dispara más veces por partida que el
+ * de fin de fase —unas cinco o seis contra tres fijas—, y por eso va después.
  */
 const NIVELES_DE_PAPEL = [
   {
-    nombre: 'Vigilia',
-    bajada: 'La primera noche en que el cansancio pesa.',
-    energia: 22, peligros: 8, jefes: 3, robo: 1,
-    cansancio: '1 fatiga al terminar cada fase',
+    nombre: 'Gran Maestro',
+    bajada: 'La primera vez que el cuerpo pasa factura.',
+    energia: 20, peligros: 8, jefes: 3, robo: 2,
+    cansancio: '1 al terminar cada fase',
   },
   {
-    nombre: 'El Séptimo Día',
-    bajada: 'El último día del plazo de Shifu. No queda margen.',
+    nombre: 'Anciano del Templo',
+    bajada: 'Ya no te alcanza con aguantar: hay que administrar.',
+    energia: 22, peligros: 8, jefes: 3, robo: 2,
+    cansancio: '1 antes de cada rebarajada',
+  },
+  {
+    nombre: 'Sombra de Shifu',
+    bajada: 'Casi él. Casi.',
     energia: 26, peligros: 9, jefes: 4, robo: 2,
-    cansancio: '1 al terminar cada fase y 1 cada vez que rebarajás',
+    cansancio: '1 al terminar cada fase y 1 antes de cada rebarajada',
   },
   {
     nombre: 'Shifu',
@@ -252,10 +269,10 @@ function reglamento(d) {
   // ------------------------------------------------------------- dificultad
   b.push(cap('dificultad', 'Los niveles'));
   b.push(p(
-    'Siete niveles, del más suave al más brutal. Elegí uno antes de preparar la ' +
+    'Ocho niveles, del más suave al más brutal. Elegí uno antes de preparar la ' +
     'partida: define con cuánta Energía empezás, cuántos peligros de cada mazo ' +
     'entran en juego, cuántos Campeones enfrentás y qué hacés con el mazo de ' +
-    'Cansancio. Todo lo demás se juega igual en los siete.'
+    'Cansancio. Todo lo demás se juega igual en los ocho.'
   ));
   b.push({ t: 'tabla-dificultades' });
   b.push(ojo(
@@ -264,10 +281,12 @@ function reglamento(d) {
     '<b>Aprendiz</b>.'
   ));
 
-  b.push(h(2, 'Por qué los niveles difíciles dan MÁS Energía'));
+  b.push(h(2, 'Cómo leer la tabla'));
   b.push(p(
-    'Mirando la tabla parece un error: de Vigilia para arriba sube la Energía inicial ' +
-    '<i>y</i> suben los peligros por fase. No es un error.'
+    'La dificultad sube por cuatro columnas y baja por dos. Las que <b>endurecen</b> ' +
+    'sólo suben: los jefes, el coste de cada carta extra y el Cansancio, que empeora ' +
+    'nivel a nivel. Las que <b>aflojan</b> —la Energía inicial y los peligros por ' +
+    'fase— suben también, y eso es lo que parece un error.'
   ));
   b.push(ul([
     '<b>Más peligros por fase es un mazo más fuerte</b>, no más difícil. Cada peligro ' +
@@ -276,9 +295,17 @@ function reglamento(d) {
     '<b>Las fatigas y los jefes de más hay que poder pagarlos.</b> Con cinco jefes y ' +
     'diez cartas de Cansancio en el mazo, 20 de Energía no alcanza para llegar al ' +
     'segundo jefe.',
-    'Bajar los tres números a la vez no da un juego difícil: da uno imposible, y ' +
+    'Bajar los seis números a la vez no da un juego difícil: da uno imposible, y ' +
     'aburrido, porque perdés siempre en el mismo lugar.',
   ]));
+  b.push(p(
+    'De <b>Maestro</b> para arriba cambia la <i>forma</i> de la dificultad, no sólo su ' +
+    'cantidad. Hasta ahí el juego aprieta quitándote recursos: menos Energía, menos ' +
+    'peligros, mazo más pobre. De ahí en adelante te da recursos y te pone a pelear ' +
+    'contra el reloj y contra tu propio mazo, que se va ensuciando de Cansancio ' +
+    'mientras jugás. Son dos experiencias distintas, y por eso Maestro es el nivel ' +
+    'más magro de la tabla y no el más difícil.'
+  ));
 
   b.push(h(2, 'El Cansancio'));
   b.push(p(
@@ -302,8 +329,9 @@ function reglamento(d) {
   // ------------------------------------------------------------- modo libre
   b.push(cap('libre', 'Modo Libre'));
   b.push(p(
-    'El tablero de Energía llega hasta <b>30</b> y el juego sólo necesita ' +
-    '{n:dificultades.0.energiaInicial}. Los que sobran son para esto: armar tu propio nivel.'
+    'El tablero de Energía llega hasta <b>30</b> porque Shifu lo usa entero. Entre ' +
+    '{n:libre.energiaInicial.min} y {n:libre.energiaInicial.max} hay muchísimas ' +
+    'partidas que ningún nivel de la tabla cubre: esta sección es para armarte la tuya.'
   ));
   b.push({
     t: 'tabla',
@@ -324,9 +352,27 @@ function reglamento(d) {
   b.push(ul([
     'Cada <b>jefe</b> de más: sumá 4 de Energía.',
     'Cada <b>peligro por fase</b> de menos: sumá 1 de Energía.',
-    'Prender el <b>Cansancio</b> (modo 2 o 3): sumá 2. El modo 4: sumá 4. El modo 5: sumá 8.',
+    'Prender el <b>Cansancio</b> en «Al caer el sol» o «Al segundo aire»: sumá 2. ' +
+    'En «Sin descanso»: sumá 4. En «Ya venías cansado»: sumá 8.',
     'Subir el <b>coste de robo extra</b> a 2: sumá 3.',
   ]));
+  b.push(h(2, 'Un punto de referencia probado'));
+  b.push(p(
+    'Esta configuración se jugó cuatro veces y se ganó tres. Si querés una partida ' +
+    'pareja, donde se gane más de lo que se pierde y el Cansancio se sienta sin ' +
+    'ahogar, arrancá por acá:'
+  ));
+  b.push({
+    t: 'tabla',
+    cabeceras: ['Perilla', 'Valor'],
+    filas: [
+      ['Energía inicial', '20'],
+      ['Peligros por fase', '8'],
+      ['Jefes', '2'],
+      ['Cada carta extra cuesta', '1 de Energía'],
+      ['Mazo de Cansancio', '1 antes de cada rebarajada'],
+    ],
+  });
   b.push(bien(
     'Anotá con qué configuración jugaste y si ganaste. En cuatro o cinco partidas vas ' +
     'a saber dónde está tu nivel mejor que cualquier tabla.'
