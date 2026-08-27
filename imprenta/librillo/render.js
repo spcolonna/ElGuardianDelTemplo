@@ -27,13 +27,16 @@ function expandir(bloques, d) {
       // delante. Y la del coste de robo decía «Robo extra», que se lee como
       // «cuántas cartas robás» cuando en realidad es lo que cuesta cada una.
       const SIN_CANSANCIO = 'No se usa: queda en la caja';
+      const CANSANCIO = {
+        finDeFase: 'Al terminar cada fase',
+        alRebarajar: 'Antes de cada rebarajada',
+        ambos: 'Al terminar cada fase y al rebarajar',
+      };
       const filas = d.dificultades.map((x) => [
         `<b>${x.nombre}</b>`, x.energiaInicial, x.peligrosPorFase, x.cantidadJefes,
-        x.costeRoboExtra, SIN_CANSANCIO,
+        x.costeRoboExtra,
+        x.modoCansancio ? CANSANCIO[x.disparoCansancio] : SIN_CANSANCIO,
       ]);
-      for (const n of window.CONTENIDO_ES.NIVELES_DE_PAPEL) {
-        filas.push([`<b>${n.nombre}</b>`, n.energia, n.peligros, n.jefes, n.robo, n.cansancio]);
-      }
       fuera.push({
         t: 'tabla',
         cabeceras: ['Nivel', 'Energía<br>inicial', 'Peligros<br>por fase', 'Jefes',
@@ -52,8 +55,7 @@ function expandir(bloques, d) {
       };
       fuera.push({
         t: 'lista', orden: 'punto',
-        items: d.dificultades.map((x) => `<b>${x.nombre}</b> — ${x.bajada}${especiales(x)}`)
-          .concat(window.CONTENIDO_ES.NIVELES_DE_PAPEL.map((n) => `<b>${n.nombre}</b> — ${n.bajada}`)),
+        items: d.dificultades.map((x) => `<b>${x.nombre}</b> — ${x.bajada}${especiales(x)}`),
       });
     } else if (b.t === 'referencia-cartas') {
       fuera.push({ t: 'titulo', nivel: 2, texto: 'Mazo inicial' });

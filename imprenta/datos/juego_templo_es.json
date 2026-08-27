@@ -1,7 +1,7 @@
 {
   "tema": "templo",
   "idioma": "es",
-  "generado": "2026-08-24T15:59:31.002483",
+  "generado": "2026-08-27T16:44:07.174848",
   "juego": {
     "nombre": "El Guardián del Templo",
     "bajada": "Shifu se fue siete días. No quemés el templo.",
@@ -106,7 +106,9 @@
       "costeMeditar": 1,
       "cartasPorMeditacion": 1,
       "meditarSoloAlPerder": false,
-      "cartasGratisExtra": 1
+      "cartasGratisExtra": 1,
+      "modoCansancio": false,
+      "disparoCansancio": "finDeFase"
     },
     {
       "clave": "novato",
@@ -120,7 +122,9 @@
       "costeMeditar": 1,
       "cartasPorMeditacion": 1,
       "meditarSoloAlPerder": true,
-      "cartasGratisExtra": 0
+      "cartasGratisExtra": 0,
+      "modoCansancio": false,
+      "disparoCansancio": "finDeFase"
     },
     {
       "clave": "guardian",
@@ -134,7 +138,9 @@
       "costeMeditar": 1,
       "cartasPorMeditacion": 1,
       "meditarSoloAlPerder": true,
-      "cartasGratisExtra": 0
+      "cartasGratisExtra": 0,
+      "modoCansancio": false,
+      "disparoCansancio": "finDeFase"
     },
     {
       "clave": "maestro",
@@ -148,13 +154,80 @@
       "costeMeditar": 1,
       "cartasPorMeditacion": 1,
       "meditarSoloAlPerder": true,
-      "cartasGratisExtra": 0
+      "cartasGratisExtra": 0,
+      "modoCansancio": false,
+      "disparoCansancio": "finDeFase"
+    },
+    {
+      "clave": "granMaestro",
+      "nombre": "Gran Maestro",
+      "bajada": "La primera vez que el cuerpo pasa factura.",
+      "energiaInicial": 20,
+      "energiaMaxima": 20,
+      "peligrosPorFase": 8,
+      "cantidadJefes": 3,
+      "costeRoboExtra": 2,
+      "costeMeditar": 1,
+      "cartasPorMeditacion": 1,
+      "meditarSoloAlPerder": true,
+      "cartasGratisExtra": 0,
+      "modoCansancio": true,
+      "disparoCansancio": "finDeFase"
+    },
+    {
+      "clave": "ancianoDelTemplo",
+      "nombre": "Anciano del Templo",
+      "bajada": "Ya no alcanza con aguantar: hay que administrar.",
+      "energiaInicial": 22,
+      "energiaMaxima": 22,
+      "peligrosPorFase": 8,
+      "cantidadJefes": 3,
+      "costeRoboExtra": 2,
+      "costeMeditar": 1,
+      "cartasPorMeditacion": 1,
+      "meditarSoloAlPerder": true,
+      "cartasGratisExtra": 0,
+      "modoCansancio": true,
+      "disparoCansancio": "alRebarajar"
+    },
+    {
+      "clave": "sombraDeShifu",
+      "nombre": "Sombra de Shifu",
+      "bajada": "Casi él. Casi.",
+      "energiaInicial": 26,
+      "energiaMaxima": 26,
+      "peligrosPorFase": 9,
+      "cantidadJefes": 4,
+      "costeRoboExtra": 2,
+      "costeMeditar": 1,
+      "cartasPorMeditacion": 1,
+      "meditarSoloAlPerder": true,
+      "cartasGratisExtra": 0,
+      "modoCansancio": true,
+      "disparoCansancio": "ambos"
+    },
+    {
+      "clave": "shifu",
+      "nombre": "Shifu",
+      "bajada": "El día imposible. Nadie lo superó todavía.",
+      "energiaInicial": 30,
+      "energiaMaxima": 30,
+      "peligrosPorFase": 10,
+      "cantidadJefes": 5,
+      "costeRoboExtra": 2,
+      "costeMeditar": 1,
+      "cartasPorMeditacion": 1,
+      "meditarSoloAlPerder": true,
+      "cartasGratisExtra": 0,
+      "modoCansancio": true,
+      "disparoCansancio": "ambos"
     }
   ],
   "cansancio": {
     "disparos": [
       "finDeFase",
-      "alRebarajar"
+      "alRebarajar",
+      "ambos"
     ],
     "poderes": [
       0,

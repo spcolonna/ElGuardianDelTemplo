@@ -328,8 +328,10 @@ void main() {
   for (final d in Dificultad.values) {
     final c = aplicarDificultad(Config(), d);
     print(
-      '    ${d.name.padRight(9)} energía ${c.energiaInicial}, '
-      'jefes ${c.cantidadJefes}',
+      '    ${d.name.padRight(17)} energía ${c.energiaInicial}, '
+      'peligros ${c.peligrosPorFase}, jefes ${c.cantidadJefes}, '
+      'robo ${c.costeRoboExtra}'
+      '${c.modoCansancio ? ', cansancio ${c.disparoCansancio}' : ''}',
     );
   }
 
@@ -507,7 +509,9 @@ void main() {
                   b[b.length - 5] == 0x44)
             : (b[b.length - 2] == 0xFF && b[b.length - 1] == 0xD9);
         if (!cerrada) {
-          print('    CORTADA assets/comic/${panel.archivo} (${b.length} bytes)');
+          print(
+            '    CORTADA assets/comic/${panel.archivo} (${b.length} bytes)',
+          );
           vinetasMal++;
         }
       }

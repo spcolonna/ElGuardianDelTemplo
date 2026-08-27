@@ -22,50 +22,17 @@ const ojo = (texto) => ({ t: 'aparte', tono: 'ojo', texto });
 const bien = (texto) => ({ t: 'aparte', tono: 'bien', texto });
 const mal = (texto) => ({ t: 'aparte', tono: 'mal', texto });
 
-/** Los cuatro niveles altos, que viven sólo en el reglamento.
+/** Las cinco maneras de usar el mazo de Cansancio, en la mesa.
  *
- * No salen del JSON porque no existen en `modos/dificultad.dart`: se juegan en
- * la mesa. La columna de Cansancio dice la acción a hacer con el mazo, no un
- * número de modo, porque es lo que uno necesita leer con las cartas en la mano.
- *
- * ORDEN DE LA ESCALERA. Los cuatro ejes que endurecen suben o se mantienen,
- * nunca bajan: jefes 3→3→4→5, coste 2 en todos, y el Cansancio empeora modo a
- * modo (fin de fase → rebarajada → las dos → todas al inicio). La Energía y
- * los peligros por fase SUBEN, que parece un error y no lo es: son la
- * compensación, y el capítulo lo explica. Si tocás un número, revisá que los
- * cuatro primeros ejes sigan sin bajar o la tabla impresa se lee como una
- * errata.
+ * Las cuatro primeras son las que el motor sabe hacer, y son las que usan los
+ * cuatro niveles altos de la tabla. La quinta —«Ya venías cansado»— existe
+ * sólo acá: barajar las diez fatigas en el mazo inicial es trivial con las
+ * cartas en la mano y no encaja en un motor que reparte el Cansancio por
+ * disparos. Queda como variante de mesa y ningún nivel la pide.
  *
  * El Cansancio «antes de cada rebarajada» dispara más veces por partida que el
  * de fin de fase —unas cinco o seis contra tres fijas—, y por eso va después.
  */
-const NIVELES_DE_PAPEL = [
-  {
-    nombre: 'Gran Maestro',
-    bajada: 'La primera vez que el cuerpo pasa factura.',
-    energia: 20, peligros: 8, jefes: 3, robo: 2,
-    cansancio: '1 al terminar cada fase',
-  },
-  {
-    nombre: 'Anciano del Templo',
-    bajada: 'Ya no te alcanza con aguantar: hay que administrar.',
-    energia: 22, peligros: 8, jefes: 3, robo: 2,
-    cansancio: '1 antes de cada rebarajada',
-  },
-  {
-    nombre: 'Sombra de Shifu',
-    bajada: 'Casi él. Casi.',
-    energia: 26, peligros: 9, jefes: 4, robo: 2,
-    cansancio: '1 al terminar cada fase y 1 antes de cada rebarajada',
-  },
-  {
-    nombre: 'Shifu',
-    bajada: 'El día imposible. Nadie lo superó todavía.',
-    energia: 30, peligros: 10, jefes: 5, robo: 2,
-    cansancio: 'Las 10, barajadas en el mazo inicial',
-  },
-];
-
 const MODOS_CANSANCIO = [
   [
     '<b>Sin Cansancio</b>',
@@ -280,6 +247,11 @@ function reglamento(d) {
     'y se gana sólo el 14 % de las veces. Si es tu primera partida, empezá por ' +
     '<b>Aprendiz</b>.'
   ));
+  b.push(p(
+    'La aplicación juega estos mismos ocho niveles, con los mismos números. Los ' +
+    'cuatro de arriba traen el mazo de Cansancio puesto: ahí no es un modo que se ' +
+    'prende aparte, es parte del nivel.'
+  ));
 
   b.push(h(2, 'Cómo leer la tabla'));
   b.push(p(
@@ -493,4 +465,4 @@ function comic(d) {
 // Se asigna directo y sin variable intermedia: los cinco archivos de
 // `librillo/` se cargan como <script> clásicos y comparten el ámbito
 // global, así que cualquier `const` repetido tumba la página entera.
-if (typeof window !== 'undefined') window.CONTENIDO_ES = { reglamento, comic, NIVELES_DE_PAPEL, MODOS_CANSANCIO };
+if (typeof window !== 'undefined') window.CONTENIDO_ES = { reglamento, comic, MODOS_CANSANCIO };

@@ -233,10 +233,7 @@ class Juego {
       descarte = [];
       vecesBarajado++;
       _log('Barajás el descarte para rehacer el mazo.');
-      if (cfg.modoCansancio &&
-          cfg.disparoCansancio == DisparoCansancio.alRebarajar.index) {
-        _agregarCansancio();
-      }
+      if (_cansancioAlBarajar) _agregarCansancio();
     }
     return mazo.removeAt(0);
   }
@@ -375,6 +372,16 @@ class Juego {
   /// revuelve el orden de todo lo que todavía no jugó.
   ///
   /// Sólo se llama con `cfg.modoCansancio` prendido.
+  // Los dos disparos se preguntan por lo que NO son, para que `ambos` entre
+  // por las dos puertas sin repetir la condición en cada sitio.
+  bool get _cansancioAlBarajar =>
+      cfg.modoCansancio &&
+      cfg.disparoCansancio != DisparoCansancio.finDeFase.index;
+
+  bool get _cansancioAlFinDeFase =>
+      cfg.modoCansancio &&
+      cfg.disparoCansancio != DisparoCansancio.alRebarajar.index;
+
   void _agregarCansancio() {
     // Se sortea SIN reposición: cada fatiga es una sola, y verla dos veces
     // rompía la idea de que el cuerpo se te va gastando de a pedazos
@@ -468,10 +475,7 @@ class Juego {
         case Fase.jefes:
           break;
       }
-      if (cfg.modoCansancio &&
-          cfg.disparoCansancio == DisparoCansancio.finDeFase.index) {
-        _agregarCansancio();
-      }
+      if (_cansancioAlFinDeFase) _agregarCansancio();
     }
     estado = EstadoJuego.esperandoPeligro;
     revelarPeligro();

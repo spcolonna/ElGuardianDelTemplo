@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../models.dart';
+import 'cansancio.dart';
 
 /// Presets de dificultad y opciones de partida.
 ///
@@ -17,7 +18,24 @@ import '../models.dart';
 /// Por eso los presets NO viven en `assets/config.json`: el chequeo 12 de
 /// `bin/check.dart` exige que ese archivo sea idéntico a `Config()`, y
 /// `bin/sim.dart` —la referencia de balance— construye sus `Config` a mano.
-enum Dificultad { aprendiz, novato, guardian, maestro }
+/// Los ocho caminos, del más suave al más brutal, en el mismo orden y con los
+/// mismos números que la tabla del reglamento de papel.
+///
+/// Los cuatro primeros aprietan **sacándote recursos**: menos Energía, menos
+/// peligros por fase —o sea un mazo más pobre—, más jefes. De `granMaestro`
+/// para arriba la dificultad cambia de forma: te devuelve recursos y te pone a
+/// pelear contra tu propio mazo, que se ensucia de Cansancio mientras jugás.
+/// Por eso `maestro` es el nivel más magro de la tabla y no el más difícil.
+enum Dificultad {
+  aprendiz,
+  novato,
+  guardian,
+  maestro,
+  granMaestro,
+  ancianoDelTemplo,
+  sombraDeShifu,
+  shifu,
+}
 
 extension DificultadX on Dificultad {
   /// Clave de traducción del nombre y de la línea de sabor.
@@ -26,7 +44,15 @@ extension DificultadX on Dificultad {
     Dificultad.novato => 'novato',
     Dificultad.guardian => 'guardian',
     Dificultad.maestro => 'maestro',
+    Dificultad.granMaestro => 'granMaestro',
+    Dificultad.ancianoDelTemplo => 'ancianoDelTemplo',
+    Dificultad.sombraDeShifu => 'sombraDeShifu',
+    Dificultad.shifu => 'shifu',
   };
+
+  /// Los cuatro niveles altos traen el mazo de Cansancio puesto: no es un
+  /// extra que se prende aparte, es lo que los define.
+  bool get traeCansancio => index >= Dificultad.granMaestro.index;
 }
 
 /// Devuelve un CLONE con el preset aplicado. Nunca muta [base].
@@ -60,6 +86,47 @@ Config aplicarDificultad(Config base, Dificultad d) {
       c.cantidadJefes = 3;
       c.costeRoboExtra = 2;
       c.peligrosPorFase = 6;
+
+    // De acá para arriba el Cansancio es parte del nivel. `poderCansancio` no
+    // se fija acá: lo pone `OpcionesPartida.aplicar()` en -1, que es el valor
+    // con el que `bin/sim_cansancio.dart` midió el modo.
+    case Dificultad.granMaestro:
+      c.energiaInicial = 20;
+      c.energiaMaxima = 20;
+      c.cantidadJefes = 3;
+      c.costeRoboExtra = 2;
+      c.peligrosPorFase = 8;
+      c.modoCansancio = true;
+      c.disparoCansancio = DisparoCansancio.finDeFase.index;
+    case Dificultad.ancianoDelTemplo:
+      c.energiaInicial = 22;
+      c.energiaMaxima = 22;
+      c.cantidadJefes = 3;
+      c.costeRoboExtra = 2;
+      c.peligrosPorFase = 8;
+      c.modoCansancio = true;
+      c.disparoCansancio = DisparoCansancio.alRebarajar.index;
+    case Dificultad.sombraDeShifu:
+      c.energiaInicial = 26;
+      c.energiaMaxima = 26;
+      c.cantidadJefes = 4;
+      c.costeRoboExtra = 2;
+      c.peligrosPorFase = 9;
+      c.modoCansancio = true;
+      c.disparoCansancio = DisparoCansancio.ambos.index;
+    // El papel pedía para Shifu las diez fatigas barajadas en el mazo inicial.
+    // El motor reparte el Cansancio por disparos y no por mazo de arranque, y
+    // forzarlo pedía tocar la preparación de la partida para un solo nivel.
+    // Se juega con los dos disparos a la vez: llega a las mismas diez cartas,
+    // repartidas a lo largo del día en vez de todas encima desde el principio.
+    case Dificultad.shifu:
+      c.energiaInicial = 30;
+      c.energiaMaxima = 30;
+      c.cantidadJefes = 5;
+      c.costeRoboExtra = 2;
+      c.peligrosPorFase = 10;
+      c.modoCansancio = true;
+      c.disparoCansancio = DisparoCansancio.ambos.index;
   }
   return c;
 }
@@ -85,11 +152,15 @@ class OpcionesPartida {
   Config aplicar(Config base) {
     final c = aplicarDificultad(base, dificultad);
     if (jefes != null) c.cantidadJefes = jefes!;
-    c.modoCansancio = cansancio;
+    // El interruptor SUMA el Cansancio, no lo manda: en los cuatro niveles
+    // altos el preset ya lo trae puesto y apagarlo ahí sería jugar otro nivel
+    // con el nombre de éste. En los cuatro bajos el preset no lo toca, así que
+    // el interruptor decide solo.
+    if (cansancio) c.modoCansancio = true;
     c.modoEncargos = encargos;
     // El cansancio sin poder configurado no haría nada: le damos el valor
     // que `bin/sim_cansancio.dart` usa para medirlo.
-    if (cansancio && c.poderCansancio == 0) c.poderCansancio = -1;
+    if (c.modoCansancio && c.poderCansancio == 0) c.poderCansancio = -1;
     return c;
   }
 

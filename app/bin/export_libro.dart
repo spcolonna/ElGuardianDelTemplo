@@ -58,9 +58,9 @@ void main(List<String> args) {
   final contenido = contenidoDe(tema, idioma);
   final base = Config();
 
-  // Las cuatro dificultades salen del motor, no de una tabla escrita a mano.
-  // Las que el reglamento agrega encima —las que no existen en la app— van en
-  // el contenido de la web y llevan su propio cartel de "sin simular".
+  // Los ocho niveles salen del motor, no de una tabla escrita a mano: el
+  // reglamento de papel ya no agrega ninguno por su cuenta, así que la caja y
+  // la app no se pueden desincronizar.
   final dificultades = Dificultad.values.map((d) {
     final c = aplicarDificultad(base, d);
     return {
@@ -76,6 +76,10 @@ void main(List<String> args) {
       'cartasPorMeditacion': c.cartasPorMeditacion,
       'meditarSoloAlPerder': c.meditarSoloAlPerder,
       'cartasGratisExtra': c.cartasGratisExtra,
+      'modoCansancio': c.modoCansancio,
+      // Por nombre y no por índice: el reglamento no tiene por qué saber en
+      // qué orden está declarado el enum.
+      'disparoCansancio': DisparoCansancio.values[c.disparoCansancio].name,
     };
   }).toList();
 
@@ -194,9 +198,7 @@ void main(List<String> args) {
 
   final destino = File('../imprenta/datos/juego_${tema.id}_$idioma.json');
   destino.parent.createSync(recursive: true);
-  destino.writeAsStringSync(
-    const JsonEncoder.withIndent('  ').convert(salida),
-  );
+  destino.writeAsStringSync(const JsonEncoder.withIndent('  ').convert(salida));
 
   final vinetas = comic.fold<int>(
     0,

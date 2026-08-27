@@ -213,15 +213,22 @@ además el forro completo de 188 × 232 mm con solapas de 15 mm, los cuatro
 laterales y el fondo (`PRODUCCION.md` §4). Eso es armado de troquel, y el arte
 de los laterales todavía no existe.
 
-Los **modos de Cansancio «Sin descanso» y «Ya venías cansado»** que describe el
-reglamento (los dos disparos a la vez, y las diez fatigas barajadas en el mazo
-inicial) **no existen en el motor**: son reglas de mesa. Lo mismo con los tres
-niveles altos —Vigilia, El Séptimo Día y Shifu—, que viven en
-`librillo/contenido_es.js` y no en `modos/dificultad.dart`.
+Los **ocho niveles ya salen del motor**. Antes los cuatro altos vivían escritos
+a mano en `librillo/contenido_es.js` y podían desalinearse con la app sin que
+ninguna prueba avisara; hoy `bin/export_libro.dart` los exporta —incluida la
+columna de Cansancio— y la tabla impresa se arma con esas filas y nada más. Se
+tocan en `modos/dificultad.dart`, en un solo lugar, y la caja y la app no se
+pueden separar.
 
-El reglamento los presenta **sin salvedades**, como niveles del juego, porque es
-el documento con el que se juega y no un borrador. La contrapartida es que sus
-números no pasaron por `bin/sim.dart`: si el balance de esos tres se ajusta
-jugando, hay que editarlos a mano en `NIVELES_DE_PAPEL`, y ninguna prueba va a
-avisar si quedan desalineados con el motor. Los cuatro niveles de la app sí
-salen del JSON exportado y no se pueden desincronizar.
+Lo único del reglamento que **no existe en el motor** es el modo de Cansancio
+**«Ya venías cansado»** —las diez fatigas barajadas en el mazo inicial—. Con las
+cartas en la mano es trivial; en el motor pedía una preparación de partida
+distinta para un solo caso. Queda como variante de mesa y ningún nivel la pide:
+el camino Shifu usa «Sin descanso», los dos disparos a la vez, que llega a las
+mismas diez cartas repartidas a lo largo del día.
+
+Los cuatro niveles altos **sí están medidos** (2000 partidas con el bot, por
+camino): 0,1 % · 0,3 % · 0,1 % · 0,1 % de victorias, contra 9,4 % de Guardián.
+Arriba de Maestro los cuatro dan prácticamente lo mismo. Es lo que el reglamento
+promete, pero conviene saberlo antes de tocar un número: no hay progresión real
+ahí arriba, hay cuatro formas distintas de perder.

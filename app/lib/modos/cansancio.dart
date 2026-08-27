@@ -33,12 +33,21 @@ enum DisparoCansancio {
   /// Cada vez que se baraja el descarte para rehacer el mazo. Más frecuente y
   /// autorregulado, como en *Friday*.
   alRebarajar,
+
+  /// Los dos disparos a la vez. Es lo que el reglamento de papel llama «Sin
+  /// descanso», y es el techo del modo: las diez cartas entran igual una sola
+  /// vez cada una, así que esto acelera el desgaste, no lo multiplica.
+  ///
+  /// Va último a propósito: `disparoCansancio` se guarda como índice en el
+  /// JSON de configuración y agregar al final no repinta partidas viejas.
+  ambos,
 }
 
 extension DisparoCansancioX on DisparoCansancio {
   String get nombre => switch (this) {
     DisparoCansancio.finDeFase => 'Al terminar cada fase',
     DisparoCansancio.alRebarajar => 'Cada vez que barajás el descarte',
+    DisparoCansancio.ambos => 'Al terminar cada fase y al barajar',
   };
 }
 

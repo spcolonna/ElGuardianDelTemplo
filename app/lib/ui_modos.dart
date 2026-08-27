@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'app_state.dart';
 import 'l10n.dart';
+import 'modos/cansancio.dart';
 import 'modos/dificultad.dart';
 import 'modos/encargos.dart';
 import 'rutas.dart';
@@ -28,6 +29,7 @@ class _ModosScreenState extends State<ModosScreen> {
     final t = TextosUi.de(app.idioma);
     final o = app.opciones;
     final abierto = app.premium;
+    final traeCansancio = o.dificultad.traeCansancio;
 
     // Un solo gesto para todo lo bloqueado: se toca, se abre la tienda, y si
     // el jugador compra la pantalla se redibuja con todo habilitado.
@@ -122,14 +124,21 @@ class _ModosScreenState extends State<ModosScreen> {
             titulo: t('modos.cansancioT'),
             sub: t('modos.cansancioSub'),
             icono: Icons.bedtime_outlined,
-            valor: o.cansancio,
+            // Los cuatro caminos altos lo traen puesto. Mostrarlo apagado
+            // mientras la partida lo va a jugar sería mentirle al jugador.
+            valor: o.cansancio || traeCansancio,
             bloqueado: !abierto,
             textoBloqueado: t('tienda.bloqueado'),
+            forzado: traeCansancio,
+            textoForzado: fmt(t('modos.loTraeElCamino'), {
+              'n': t('dif.${o.dificultad.clave}'),
+            }),
             onTap: () {
               if (!abierto) {
                 ofrecer();
                 return;
               }
+              if (traeCansancio) return;
               tocarUi(context);
               setState(() => o.cansancio = !o.cansancio);
             },
@@ -222,11 +231,34 @@ class _Camino extends StatelessWidget {
                         compacta: true,
                       ),
                       Pastilla(
-                        '${c.cantidadJefes}',
+                        fmt(t('modos.jefesN'), {'n': c.cantidadJefes}),
                         icono: Icons.local_fire_department,
                         color: kRojo,
                         compacta: true,
                       ),
+                      // Más peligros por fase es un mazo MÁS FUERTE, no más
+                      // difícil: cada peligro ganado es una técnica que te
+                      // llevás. Sin este número, Aprendiz con 10 y Maestro con
+                      // 6 se leen al revés de lo que son.
+                      Pastilla(
+                        fmt(t('modos.peligros'), {'n': c.peligrosPorFase}),
+                        icono: Icons.warning_amber_rounded,
+                        color: kMaderaOscura,
+                        compacta: true,
+                      ),
+                      Pastilla(
+                        fmt(t('modos.roboExtra'), {'n': c.costeRoboExtra}),
+                        icono: Icons.add_card,
+                        color: kTurquesa,
+                        compacta: true,
+                      ),
+                      if (c.modoCansancio)
+                        Pastilla(
+                          t(_claveCansancio(c.disparoCansancio)),
+                          icono: Icons.bedtime_outlined,
+                          color: kRojo,
+                          compacta: true,
+                        ),
                     ],
                   ),
                 ),
@@ -239,9 +271,18 @@ class _Camino extends StatelessWidget {
   }
 }
 
-/// Cuántos jefes finales. Cuatro opciones no entran con etiqueta larga en el
+/// Qué dice la pastilla de Cansancio de un camino que lo trae puesto.
+String _claveCansancio(int disparo) {
+  if (disparo == DisparoCansancio.alRebarajar.index) return 'modos.cansBarajar';
+  if (disparo == DisparoCansancio.ambos.index) return 'modos.cansAmbos';
+  return 'modos.cansFase';
+}
+
+/// Cuántos jefes finales. Seis opciones no entran con etiqueta larga en el
 /// ancho de un teléfono: la automática dice sólo "Auto" y el número elegido
-/// va grande, que es lo único que hay que comparar.
+/// va grande, que es lo único que hay que comparar. Llega a cinco porque el
+/// camino Shifu pelea cinco, y no poder elegir a mano lo que un preset ya
+/// juega sería una tabla mentirosa.
 class _SelectorJefes extends StatelessWidget {
   final int? valor;
   final int automatico;
@@ -264,10 +305,10 @@ class _SelectorJefes extends StatelessWidget {
       final elegido = bloqueado ? v == null : valor == v;
       return Expanded(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 3),
+          padding: const EdgeInsets.symmetric(horizontal: 2),
           child: PanelPapel(
             onTap: () => onElegir(v),
-            padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 2),
+            padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 1),
             color: elegido && !bloqueado
                 ? kOro.withValues(alpha: .30)
                 : kPapelClaro,
@@ -324,9 +365,7 @@ class _SelectorJefes extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           opcion(null, '$automatico', textoAuto.toUpperCase()),
-          opcion(1, '1', null),
-          opcion(2, '2', null),
-          opcion(3, '3', null),
+          for (var n = 1; n <= 5; n++) opcion(n, '$n', null),
         ],
       ),
     );
@@ -343,6 +382,13 @@ class _Interruptor extends StatelessWidget {
   /// Por qué está bloqueado. Reemplaza a `sub` cuando lo está.
   final String textoBloqueado;
 
+  /// El camino elegido ya incluye este modo: se ve prendido y no se apaga.
+  /// No es un candado —no hay nada que comprar—, es una consecuencia.
+  final bool forzado;
+
+  /// Qué camino lo trae. Reemplaza a `sub` cuando [forzado].
+  final String textoForzado;
+
   final VoidCallback onTap;
 
   /// Lo que el modo hace EN CONCRETO hoy. Va debajo, sangrado, y sólo cuando
@@ -357,6 +403,8 @@ class _Interruptor extends StatelessWidget {
     required this.onTap,
     this.bloqueado = false,
     this.textoBloqueado = '',
+    this.forzado = false,
+    this.textoForzado = '',
     this.detalle,
   });
 
@@ -383,11 +431,15 @@ class _Interruptor extends StatelessWidget {
               ),
               const SizedBox(height: 2),
               Text(
-                bloqueado ? textoBloqueado : sub,
+                bloqueado ? textoBloqueado : (forzado ? textoForzado : sub),
                 style: TextStyle(
                   fontSize: 12,
-                  fontWeight: bloqueado ? FontWeight.w600 : FontWeight.normal,
-                  color: bloqueado ? kMaderaOscura : kTintaSuave,
+                  fontWeight: bloqueado || forzado
+                      ? FontWeight.w600
+                      : FontWeight.normal,
+                  color: bloqueado
+                      ? kMaderaOscura
+                      : (forzado ? kMaderaOscura : kTintaSuave),
                   height: 1.25,
                 ),
               ),

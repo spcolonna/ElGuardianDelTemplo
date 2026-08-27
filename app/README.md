@@ -114,6 +114,69 @@ Los dos están **apagados por defecto** y no tocan el juego base.
   **Es un modo duro:** con Energía 20 baja las victorias de 14% a ~5%. Para jugarlo
   conviene subir la Energía inicial a 25, que lo deja en ~32%.
 
+## Los ocho caminos
+
+`lib/modos/dificultad.dart`, y de ahí salen tanto la app como la tabla del
+reglamento impreso: `bin/export_libro.dart` los exporta a
+`imprenta/datos/juego_templo_es.json` y el librillo arma su tabla con esas
+filas. **No hay una segunda tabla escrita a mano en ningún lado.**
+
+| Camino | Energía | Peligros/fase | Jefes | Carta extra | Cansancio |
+|---|--:|--:|--:|--:|---|
+| Aprendiz | 26 | 10 | 1 | 1 | — |
+| Novato | 22 | 9 | 2 | 1 | — |
+| Guardián | 20 | 7 | 2 | 1 | — |
+| Maestro | 18 | 6 | 3 | 2 | — |
+| Gran Maestro | 20 | 8 | 3 | 2 | al cerrar cada fase |
+| Anciano del Templo | 22 | 8 | 3 | 2 | al rebarajar |
+| Sombra de Shifu | 26 | 9 | 4 | 2 | las dos cosas |
+| Shifu | 30 | 10 | 5 | 2 | las dos cosas |
+
+Tres cosas que no se leen solas en esa tabla:
+
+**Más peligros por fase es un mazo más fuerte, no un juego más difícil.** Cada
+peligro ganado es una técnica que te llevás, así que Aprendiz con 10 llega al
+Mediodía con tres cartas buenas más que Guardián con 7.
+
+**De Gran Maestro para arriba la dificultad cambia de forma.** Hasta ahí el
+juego aprieta sacándote recursos; de ahí en adelante te los devuelve —más
+Energía, más peligros— y te pone a pelear contra tu propio mazo, que se ensucia
+de Cansancio mientras jugás. Por eso Maestro es el nivel más magro de la tabla
+y no el más difícil.
+
+**En los cuatro altos el Cansancio no es opcional.** `Dificultad.traeCansancio`
+lo marca, el preset lo prende, y `OpcionesPartida.aplicar()` deja que el
+interruptor lo **sume** pero nunca que lo saque: apagarlo ahí sería jugar otro
+nivel con el nombre de éste. La pantalla de Modos lo muestra prendido, con el
+motivo escrito debajo en vez de un candado, porque no hay nada que comprar.
+
+**Shifu se aparta del reglamento viejo, a propósito.** El papel pedía las diez
+fatigas barajadas en el mazo inicial; el motor reparte el Cansancio por
+disparos y no por mazo de arranque, y forzarlo pedía una preparación de partida
+distinta para un solo nivel. Se juega con los dos disparos a la vez: llega a
+las mismas diez cartas, repartidas a lo largo del día. **El librillo impreso se
+cambió para decir lo mismo**, así que el nivel Shifu es uno solo en la caja y
+en la app.
+
+**Los cuatro altos están medidos y son casi invencibles.** Con el bot de
+`lib/bot.dart`, 2000 partidas por camino:
+
+| | aprendiz | novato | guardián | maestro | granMaestro | anciano | sombra | shifu |
+|---|--:|--:|--:|--:|--:|--:|--:|--:|
+| victorias | 72,5 % | 23,9 % | 9,4 % | 0,9 % | 0,1 % | 0,3 % | 0,1 % | 0,1 % |
+
+O sea que **arriba de Maestro la escalera deja de ser una escalera**: los cuatro
+dan lo mismo, y ese mismo es «casi nunca». Es consistente con lo que promete el
+reglamento —«Shifu: el día imposible, nadie lo superó todavía»— pero significa
+que Gran Maestro, Anciano y Sombra no se distinguen por el resultado, sólo por
+la forma de perder. Si alguna vez se quiere una progresión real ahí arriba, hay
+que aflojar los tres del medio; es una decisión de diseño, no un bug.
+
+El bot es codicioso y juega peor que una persona, así que estos números son un
+piso, no la experiencia real.
+
+---
+
 ## Monetización: gratis el primer camino, el resto se compra
 
 Una compra única, no consumible: `guardian_templo_completo`. Todo vive en
@@ -121,8 +184,8 @@ Una compra única, no consumible: `guardian_templo_completo`. Todo vive en
 
 | Gratis | Comprado |
 |---|---|
-| Sólo el camino **Aprendiz** | Los cuatro caminos |
-| Jefes en **Auto** | El selector de jefes |
+| Sólo el camino **Aprendiz** | Los ocho caminos |
+| Jefes en **Auto** | El selector de jefes, hasta cinco |
 | Sin Encargos ni Cansancio | Los dos modos opcionales |
 | Un aviso de pantalla completa en cada cambio de fase | Ningún aviso |
 
