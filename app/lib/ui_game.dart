@@ -37,6 +37,10 @@ class _GameScreenState extends State<GameScreen> {
 
   /// Cómic que se está mostrando encima de la mesa (interludio o final).
   Secuencia? _comic;
+
+  /// Hay un aviso de pantalla completa arriba de todo. Mientras dure, la
+  /// partida no avanza sola: el jugador no la está viendo.
+  bool _adEnPantalla = false;
   Fase _faseVista = Fase.alba;
   bool _finalMostrado = false;
 
@@ -174,6 +178,7 @@ class _GameScreenState extends State<GameScreen> {
     _auto = null;
     if (j == null || j.estado != EstadoJuego.postCombate) return;
     if (j.puedeMeditar) return;
+    if (_adEnPantalla) return;
     _auto = Timer(_esperaAuto, () {
       if (!mounted) return;
       final actual = AppScope.of(context).juego;
@@ -195,6 +200,7 @@ class _GameScreenState extends State<GameScreen> {
     _cansancioRevelado = null;
     _cansancioVisto = null;
     _cansancioPendiente = null;
+    _adEnPantalla = false;
     _avisoTimer?.cancel();
     _avisoTimer = null;
     _pistaArrancada = false;
@@ -388,7 +394,24 @@ class _GameScreenState extends State<GameScreen> {
           Secuencia.jefes => t('comic.enfrentar'),
           _ => t('comic.seguir'),
         },
-        onTerminar: () {
+        onTerminar: () async {
+          // La publicidad de los cambios de fase va acá: después del cómic del
+          // interludio y antes de devolver la mesa. Es el corte de capítulo, y
+          // el jugador acaba de tocar «seguir» por su cuenta.
+          //
+          // Todo lo que sigue queda detrás del `await` a propósito: el
+          // deslizamiento del paisaje y la carta de Cansancio que esperaba
+          // tienen que pasar con la mesa a la vista, no tapadas por el aviso.
+          // `mostrarEnFase` no muestra nada y vuelve enseguida si el jugador
+          // compró el juego, si no hay aviso cargado o si el SDK falla.
+          _auto?.cancel();
+          if (!app.premium) {
+            setState(() => _adEnPantalla = true);
+            await app.anuncios.mostrarEnFase(j.fase);
+            if (!mounted) return;
+            _adEnPantalla = false;
+          }
+
           setState(() => _comic = null);
           // Acá arranca el deslizamiento del paisaje, ya con la mesa a la
           // vista, y al terminar `onTransicion` cambia la música.
@@ -1846,7 +1869,6 @@ class _EsperaAuto extends StatelessWidget {
     );
   }
 }
-
 
 /// El "+2" que sale de la carta recién jugada y sube.
 ///

@@ -22,6 +22,7 @@ class Preferencias {
   static const _kIntro = 'guardian_intro_vista_v1';
   static const _kLogros = 'guardian_logros_v1';
   static const _kOpciones = 'guardian_opciones_v1';
+  static const _kComprado = 'guardian_comprado_v1';
 
   SharedPreferences? _p;
 
@@ -92,6 +93,14 @@ class Preferencias {
 
   bool get introVista => _p?.getBool(_kIntro) ?? false;
   Future<void> marcarIntroVista(bool v) async => _p?.setBool(_kIntro, v);
+
+  /// El jugador compró el juego completo.
+  ///
+  /// Es una copia local para no tener que preguntarle a la tienda en cada
+  /// arranque, no la verdad: se borra al desinstalar. La verdad la tiene la
+  /// tienda, y se recupera con «Restaurar compra» en Ajustes.
+  bool get comprado => _p?.getBool(_kComprado) ?? false;
+  Future<void> marcarComprado(bool v) async => _p?.setBool(_kComprado, v);
 
   // ------------------------------------------------------------- internos
   String _encode(Map<String, dynamic> m) =>

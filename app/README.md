@@ -114,14 +114,71 @@ Los dos están **apagados por defecto** y no tocan el juego base.
   **Es un modo duro:** con Energía 20 baja las victorias de 14% a ~5%. Para jugarlo
   conviene subir la Energía inicial a 25, que lo deja en ~32%.
 
+## Monetización: gratis el primer camino, el resto se compra
+
+Una compra única, no consumible: `guardian_templo_completo`. Todo vive en
+`lib/tienda/`.
+
+| Gratis | Comprado |
+|---|---|
+| Sólo el camino **Aprendiz** | Los cuatro caminos |
+| Jefes en **Auto** | El selector de jefes |
+| Sin Encargos ni Cansancio | Los dos modos opcionales |
+| Un aviso de pantalla completa en cada cambio de fase | Ningún aviso |
+
+**Los tres avisos son tres y no más:** alba→mediodía, mediodía→ocaso y
+ocaso→jefes. Salen en el `onTerminar` del cómic del interludio
+(`lib/ui_game.dart`), o sea después del corte de capítulo y cuando el jugador
+acaba de tocar «seguir». No hay aviso en victoria ni en derrota.
+
+`Anuncios.mostrarEnFase()` **nunca deja la partida esperando**: si el jugador
+compró, si no hay aviso cargado, si el SDK falla o si tarda más de cuatro
+segundos, vuelve enseguida y el juego sigue. Un aviso que no aparece es plata
+perdida; una partida colgada es un jugador perdido.
+
+### El gate tiene dos puertas, y la que cuenta es la segunda
+
+La primera son los controles bloqueados en la pantalla de modos. La segunda es
+`AppState._apretarOpcionesSiNoCompro()`, que corre en `cargar()` y en cada
+`guardarOpciones()`. Sin ella, unas opciones guardadas por una versión anterior
+al bloqueo —Maestro, tres jefes, los dos modos— abrirían el juego entero sin
+pagar y sin tocar un solo control. `test/tienda_test.dart` lo cubre.
+
+### Restaurar la compra no es opcional
+
+`shared_preferences` no sobrevive a una desinstalación. Sin el botón de
+Ajustes, quien reinstale pierde lo que pagó. Google y Apple además lo exigen
+para aprobar la app.
+
+### Hoy anda con identificadores de prueba
+
+`lib/tienda/ids.dart` tiene `kIdsDePrueba = true`: los avisos son los de prueba
+públicos de Google —dicen «Test Ad»— y la compra se resuelve local, sin hablar
+con ninguna tienda. Anda entero sin cuenta de AdMob ni de las tiendas.
+
+Para producción, ese archivo tiene la lista de los cinco pasos. Dos de ellos son
+archivos nativos y no leen Dart: el App ID va **repetido** en
+`android/app/src/main/AndroidManifest.xml` y en `ios/Runner/Info.plist`. Si no
+coincide con el de `ids.dart`, el SDK tira una excepción y la app se cae al
+arrancar.
+
+**Antes de publicar** faltan, y son tuyos: el keystore de release (hoy
+`android/app/build.gradle.kts` firma con las debug keys y tiene el TODO puesto),
+el formulario de consentimiento UMP para Europa, y decidir si la app se declara
+dirigida a menores —el juego apunta al mismo público que el libro, «a partir de
+9 años», y eso cambia qué avisos se pueden servir.
+
+`google_mobile_ads` está **clavado en 8.0.0**. La 9.1.0 no compila en iOS: pide
+un header privado que el SDK 13.7 no expone. Está explicado en `pubspec.yaml`.
+
 ## Persistencia
 
 `lib/preferencias.dart` guarda todo con `shared_preferences` (que ya es un archivo
 de configuración: NSUserDefaults en iOS, XML en Android, localStorage en web).
 **No hace falta login ni servidor**: el estado son dos objetos chicos.
 
-Se guardan progreso, config de Balance, idioma, tema, y si ya se vieron el cómic y
-el tutorial.
+Se guardan progreso, config de Balance, idioma, tema, si ya se vieron el cómic y
+el tutorial, y si el jugador compró el juego completo.
 
 Contrapartida asumida: desinstalar la app borra el progreso, y la racha usa el
 reloj del dispositivo.

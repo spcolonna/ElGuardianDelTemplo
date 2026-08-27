@@ -36,6 +36,13 @@ dependencies:
   cupertino_icons: ^1.0.8
   shared_preferences: ^2.5.5
   audioplayers: ^6.7.1
+  # Clavado, no `^`, y a proposito. La 9.1.0 incluye
+  # <GoogleMobileAds/GoogleMobileAds_Beta.h>, un header privado que el SDK
+  # 13.7 no expone en su modulo, y la build de iOS muere antes de compilar una
+  # sola linea nuestra. La 8.0.0 pide el SDK 13.2 y compila. Antes de
+  # desclavarla, probar `flutter build ios --simulator`.
+  google_mobile_ads: 8.0.0
+  in_app_purchase: ^3.3.0
 
 dev_dependencies:
   flutter_test:

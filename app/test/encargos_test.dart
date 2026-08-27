@@ -56,6 +56,12 @@ void main() {
     final t = TextosUi.de('es');
     final hoy = app.textos.encargos[encargoDelDia(DateTime.now()).id]!;
 
+    // Encargos es un modo del juego completo. Sin comprar, el interruptor
+    // está bloqueado y tocarlo abre la tienda: no es esto lo que se prueba
+    // acá, así que se abre el juego primero. En `kIdsDePrueba` la compra se
+    // resuelve local y sin red.
+    await app.tienda.comprar();
+
     await tester.pumpWidget(
       MaterialApp(home: AppScope(state: app, child: const ModosScreen())),
     );

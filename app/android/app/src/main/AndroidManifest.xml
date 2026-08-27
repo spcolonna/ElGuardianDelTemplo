@@ -25,6 +25,13 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!-- AdMob. Tiene que ser el MISMO App ID que lib/tienda/ids.dart:
+             si no coinciden, el SDK tira una excepcion al inicializarse y la
+             app se cae al arrancar. Hoy es el ID de prueba publico de Google.
+             -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713" />
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data

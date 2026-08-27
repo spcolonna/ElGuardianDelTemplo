@@ -24,7 +24,9 @@ android {
         applicationId = "com.sebastianperez.guardian_templo"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        // Fijo, no heredado: google_mobile_ads pide 23 o mas y
+        // flutter.minSdkVersion cambia con la version del SDK de Flutter.
+        minSdk = maxOf(23, flutter.minSdkVersion)
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName

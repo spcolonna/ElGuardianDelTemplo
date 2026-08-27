@@ -7,6 +7,7 @@ import 'modos/encargos.dart';
 import 'rutas.dart';
 import 'ui_kit.dart';
 import 'ui_shell.dart';
+import 'ui_tienda.dart';
 
 /// Antes de empezar: el camino, los jefes y las reglas opcionales.
 ///
@@ -26,12 +27,22 @@ class _ModosScreenState extends State<ModosScreen> {
     final app = AppScope.of(context);
     final t = TextosUi.de(app.idioma);
     final o = app.opciones;
+    final abierto = app.premium;
+
+    // Un solo gesto para todo lo bloqueado: se toca, se abre la tienda, y si
+    // el jugador compra la pantalla se redibuja con todo habilitado.
+    Future<void> ofrecer() async {
+      if (await abrirTienda(context) && mounted) setState(() {});
+    }
 
     return PantallaTemplo(
       titulo: t('modos.titulo'),
       conVolver: true,
       textoAccion: t('modos.empezar').toUpperCase(),
       onAccion: () {
+        // `guardarOpciones` vuelve a apretar las opciones a las de la versión
+        // gratis si no compró: los controles bloqueados son la primera puerta,
+        // ésta es la que cuenta.
         app.guardarOpciones();
         app.nuevaPartida();
         Navigator.of(context).pushReplacementNamed(R.partida);
@@ -39,15 +50,23 @@ class _ModosScreenState extends State<ModosScreen> {
       cuerpo: ListView(
         padding: const EdgeInsets.fromLTRB(6, 0, 6, 10),
         children: [
+          if (!abierto) ...[const BannerCompra(), const SizedBox(height: 16)],
           PlacaTitulo(t('modos.dificultad'), icono: Icons.terrain),
           const SizedBox(height: 8),
           for (final d in Dificultad.values) ...[
             _Camino(
               dificultad: d,
               elegido: o.dificultad == d,
+              // El único camino gratis es el primero. Los otros tres se ven
+              // enteros, con sus números: hay que mostrar lo que se compra.
+              bloqueado: !abierto && d != Dificultad.aprendiz,
               base: app.cfg,
               t: t,
               onTap: () {
+                if (!abierto && d != Dificultad.aprendiz) {
+                  ofrecer();
+                  return;
+                }
                 tocarUi(context);
                 setState(() => o.dificultad = d);
               },
@@ -62,7 +81,14 @@ class _ModosScreenState extends State<ModosScreen> {
             valor: o.jefes,
             automatico: aplicarDificultad(app.cfg, o.dificultad).cantidadJefes,
             textoAuto: t('modos.jefesAuto'),
+            // Sin esto el gate se esquiva por la puerta de atrás: Aprendiz con
+            // tres jefes es casi todo el desafío, gratis.
+            bloqueado: !abierto,
             onElegir: (v) {
+              if (!abierto) {
+                ofrecer();
+                return;
+              }
               tocarUi(context);
               setState(() => o.jefes = v);
             },
@@ -76,11 +102,17 @@ class _ModosScreenState extends State<ModosScreen> {
             sub: t('modos.encargosSub'),
             icono: Icons.sticky_note_2_outlined,
             valor: o.encargos,
+            bloqueado: !abierto,
+            textoBloqueado: t('tienda.bloqueado'),
             // Con el modo prendido se ve la nota REAL de hoy, con su premio:
             // el encargo se sortea por fecha, así que ya está decidido antes
             // de empezar y no hay motivo para ocultarlo.
             detalle: _NotaDeHoy(app: app, t: t),
             onTap: () {
+              if (!abierto) {
+                ofrecer();
+                return;
+              }
               tocarUi(context);
               setState(() => o.encargos = !o.encargos);
             },
@@ -91,7 +123,13 @@ class _ModosScreenState extends State<ModosScreen> {
             sub: t('modos.cansancioSub'),
             icono: Icons.bedtime_outlined,
             valor: o.cansancio,
+            bloqueado: !abierto,
+            textoBloqueado: t('tienda.bloqueado'),
             onTap: () {
+              if (!abierto) {
+                ofrecer();
+                return;
+              }
               tocarUi(context);
               setState(() => o.cansancio = !o.cansancio);
             },
@@ -107,6 +145,7 @@ class _ModosScreenState extends State<ModosScreen> {
 class _Camino extends StatelessWidget {
   final Dificultad dificultad;
   final bool elegido;
+  final bool bloqueado;
   final dynamic base;
   final TextosUi t;
   final VoidCallback onTap;
@@ -117,6 +156,7 @@ class _Camino extends StatelessWidget {
     required this.base,
     required this.t,
     required this.onTap,
+    this.bloqueado = false,
   });
 
   @override
@@ -126,15 +166,20 @@ class _Camino extends StatelessWidget {
 
     return PanelPapel(
       onTap: onTap,
-      color: elegido ? kOro.withValues(alpha: .30) : kPapelClaro,
-      borde: elegido ? kOroBorde : kMaderaOscura,
+      color: elegido && !bloqueado ? kOro.withValues(alpha: .30) : kPapelClaro,
+      borde: bloqueado ? kMadera : (elegido ? kOroBorde : kMaderaOscura),
       child: Row(
         children: [
-          Icon(
-            elegido ? Icons.radio_button_checked : Icons.radio_button_unchecked,
-            color: elegido ? kOroBorde : kTintaSuave,
-            size: 22,
-          ),
+          if (bloqueado)
+            const Candado()
+          else
+            Icon(
+              elegido
+                  ? Icons.radio_button_checked
+                  : Icons.radio_button_unchecked,
+              color: elegido ? kOroBorde : kTintaSuave,
+              size: 22,
+            ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -142,36 +187,48 @@ class _Camino extends StatelessWidget {
               children: [
                 Text(
                   t('dif.$clave'),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: fuenteTitulo,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: kTinta,
+                    color: bloqueado ? kTintaSuave : kTinta,
                   ),
                 ),
                 const SizedBox(height: 2),
+                // Bloqueado, la línea de sabor deja lugar al motivo: enterarse
+                // de que algo no se puede tocar y no saber por qué es peor que
+                // el bloqueo.
                 Text(
-                  t('dif.${clave}Sub'),
-                  style: const TextStyle(fontSize: 12, color: kTintaSuave),
+                  bloqueado ? t('tienda.bloqueado') : t('dif.${clave}Sub'),
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: bloqueado ? FontWeight.w600 : FontWeight.normal,
+                    color: bloqueado ? kMaderaOscura : kTintaSuave,
+                  ),
                 ),
                 const SizedBox(height: 6),
-                Wrap(
-                  spacing: 6,
-                  runSpacing: 6,
-                  children: [
-                    Pastilla(
-                      fmt(t('modos.energia'), {'n': c.energiaInicial}),
-                      icono: Icons.bolt,
-                      color: kNaranja,
-                      compacta: true,
-                    ),
-                    Pastilla(
-                      '${c.cantidadJefes}',
-                      icono: Icons.local_fire_department,
-                      color: kRojo,
-                      compacta: true,
-                    ),
-                  ],
+                // Los números se ven igual estando bloqueado: es exactamente
+                // lo que se está comprando.
+                Opacity(
+                  opacity: bloqueado ? .55 : 1,
+                  child: Wrap(
+                    spacing: 6,
+                    runSpacing: 6,
+                    children: [
+                      Pastilla(
+                        fmt(t('modos.energia'), {'n': c.energiaInicial}),
+                        icono: Icons.bolt,
+                        color: kNaranja,
+                        compacta: true,
+                      ),
+                      Pastilla(
+                        '${c.cantidadJefes}',
+                        icono: Icons.local_fire_department,
+                        color: kRojo,
+                        compacta: true,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -189,6 +246,7 @@ class _SelectorJefes extends StatelessWidget {
   final int? valor;
   final int automatico;
   final String textoAuto;
+  final bool bloqueado;
   final ValueChanged<int?> onElegir;
 
   const _SelectorJefes({
@@ -196,23 +254,31 @@ class _SelectorJefes extends StatelessWidget {
     required this.automatico,
     required this.textoAuto,
     required this.onElegir,
+    this.bloqueado = false,
   });
 
   @override
   Widget build(BuildContext context) {
     Widget opcion(int? v, String grande, String? chico) {
-      final elegido = valor == v;
+      // Bloqueado, el único que se ve elegido es Auto: es lo que va a jugar.
+      final elegido = bloqueado ? v == null : valor == v;
       return Expanded(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 3),
           child: PanelPapel(
             onTap: () => onElegir(v),
             padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 2),
-            color: elegido ? kOro.withValues(alpha: .30) : kPapelClaro,
-            borde: elegido ? kOroBorde : kMaderaOscura,
+            color: elegido && !bloqueado
+                ? kOro.withValues(alpha: .30)
+                : kPapelClaro,
+            borde: bloqueado ? kMadera : (elegido ? kOroBorde : kMaderaOscura),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                if (bloqueado && v != null) ...[
+                  const Candado(),
+                  const SizedBox(height: 2),
+                ],
                 FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(
@@ -223,7 +289,9 @@ class _SelectorJefes extends StatelessWidget {
                       fontSize: 20,
                       height: 1,
                       fontWeight: FontWeight.bold,
-                      color: elegido ? kMaderaOscura : kTinta,
+                      color: bloqueado && v != null
+                          ? kTintaSuave
+                          : (elegido ? kMaderaOscura : kTinta),
                     ),
                   ),
                 ),
@@ -270,6 +338,11 @@ class _Interruptor extends StatelessWidget {
   final String sub;
   final IconData icono;
   final bool valor;
+  final bool bloqueado;
+
+  /// Por qué está bloqueado. Reemplaza a `sub` cuando lo está.
+  final String textoBloqueado;
+
   final VoidCallback onTap;
 
   /// Lo que el modo hace EN CONCRETO hoy. Va debajo, sangrado, y sólo cuando
@@ -282,52 +355,58 @@ class _Interruptor extends StatelessWidget {
     required this.icono,
     required this.valor,
     required this.onTap,
+    this.bloqueado = false,
+    this.textoBloqueado = '',
     this.detalle,
   });
 
   @override
   Widget build(BuildContext context) {
     final fila = Row(
-        children: [
+      children: [
+        if (bloqueado)
+          const Candado()
+        else
           Icon(icono, color: valor ? kVerde : kTintaSuave, size: 24),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  titulo,
-                  style: const TextStyle(
-                    fontSize: 14.5,
-                    fontWeight: FontWeight.bold,
-                    color: kTinta,
-                  ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                titulo,
+                style: TextStyle(
+                  fontSize: 14.5,
+                  fontWeight: FontWeight.bold,
+                  color: bloqueado ? kTintaSuave : kTinta,
                 ),
-                const SizedBox(height: 2),
-                Text(
-                  sub,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: kTintaSuave,
-                    height: 1.25,
-                  ),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                bloqueado ? textoBloqueado : sub,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: bloqueado ? FontWeight.w600 : FontWeight.normal,
+                  color: bloqueado ? kMaderaOscura : kTintaSuave,
+                  height: 1.25,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          const SizedBox(width: 8),
-          Icon(
-            valor ? Icons.toggle_on : Icons.toggle_off,
-            size: 36,
-            color: valor ? kVerde : kTintaSuave,
-          ),
-        ],
+        ),
+        const SizedBox(width: 8),
+        Icon(
+          valor && !bloqueado ? Icons.toggle_on : Icons.toggle_off,
+          size: 36,
+          color: valor && !bloqueado ? kVerde : kTintaSuave,
+        ),
+      ],
     );
 
-    if (detalle == null || !valor) {
+    if (detalle == null || !valor || bloqueado) {
       return PanelPapel(
         onTap: onTap,
-        borde: valor ? kVerde : kMaderaOscura,
+        borde: bloqueado ? kMadera : (valor ? kVerde : kMaderaOscura),
         child: fila,
       );
     }
@@ -344,10 +423,7 @@ class _Interruptor extends StatelessWidget {
           const SizedBox(height: 10),
           // Sangrado hasta donde arranca el texto de arriba: se lee como una
           // continuación del modo, no como otra cosa.
-          Padding(
-            padding: const EdgeInsets.only(left: 36),
-            child: detalle!,
-          ),
+          Padding(padding: const EdgeInsets.only(left: 36), child: detalle!),
         ],
       ),
     );

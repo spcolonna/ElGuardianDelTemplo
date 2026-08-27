@@ -6,6 +6,7 @@ import 'l10n.dart';
 import 'rutas.dart';
 import 'ui_kit.dart';
 import 'ui_shell.dart';
+import 'ui_tienda.dart';
 
 /// Ajustes: audio, idioma y el acceso al tutorial.
 ///
@@ -79,6 +80,80 @@ class _AjustesScreenState extends State<AjustesScreen> {
                       fontWeight: FontWeight.w600,
                       color: kTinta,
                     ),
+                  ),
+                ),
+                const Icon(Icons.chevron_right, color: kTintaSuave),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 20),
+          PlacaTitulo(t('tienda.titulo'), icono: Icons.lock_open),
+          const SizedBox(height: 8),
+          if (!app.premium)
+            const BannerCompra()
+          else
+            PanelPapel(
+              borde: kOroBorde,
+              color: kOro.withValues(alpha: .18),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.check_circle,
+                    color: kMaderaOscura,
+                    size: 24,
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      t('tienda.gracias'),
+                      style: const TextStyle(
+                        fontSize: 14.5,
+                        fontWeight: FontWeight.w600,
+                        color: kMaderaOscura,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          const SizedBox(height: 8),
+          // Tiene que estar acá, suelta, y no sólo dentro de la hoja de
+          // compra: las preferencias no sobreviven a una desinstalación, así
+          // que quien reinstala entra creyendo que perdió lo que pagó y este
+          // es el primer lugar donde lo va a buscar.
+          PanelPapel(
+            onTap: () async {
+              tocarUi(context);
+              await app.tienda.restaurar();
+              if (context.mounted) setState(() {});
+            },
+            child: Row(
+              children: [
+                const Icon(Icons.restore, color: kTinta, size: 24),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        t('tienda.restaurar'),
+                        style: const TextStyle(
+                          fontSize: 14.5,
+                          fontWeight: FontWeight.w600,
+                          color: kTinta,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        t('tienda.restaurarSub'),
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: kTintaSuave,
+                          height: 1.25,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const Icon(Icons.chevron_right, color: kTintaSuave),

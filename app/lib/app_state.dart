@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:ui' show PlatformDispatcher;
 
@@ -15,10 +16,21 @@ import 'preferencias.dart';
 import 'progreso.dart';
 import 'ui_texturas.dart';
 import 'temas/temas.dart';
+import 'tienda/anuncios.dart';
+import 'tienda/compra.dart';
 
 class AppState extends ChangeNotifier {
   final prefs = Preferencias();
   final audio = Audio();
+
+  /// La compra única y la publicidad entre fases. Van juntas porque son la
+  /// misma decisión: quien compró no ve anuncios.
+  late final Tienda tienda = Tienda(prefs);
+  late final Anuncios anuncios = Anuncios(tienda);
+
+  /// El jugador tiene el juego completo: las cuatro dificultades, el selector
+  /// de jefes, los modos opcionales y ningún anuncio.
+  bool get premium => tienda.comprado;
 
   Config cfg = Config();
   Tema tema = temaTemplo;
@@ -97,6 +109,11 @@ class AppState extends ChangeNotifier {
     introVista = prefs.introVista;
     progreso.revisarCadena(DateTime.now());
     contenido = contenidoDe(tema, idioma);
+    // La tienda primero: `Anuncios` le pregunta si tiene que existir.
+    await tienda.iniciar();
+    tienda.addListener(_alCambiarLaCompra);
+    unawaited(anuncios.iniciar());
+    _apretarOpcionesSiNoCompro();
     await prefs.guardarProgreso(progreso);
     listo = true;
     notifyListeners();
@@ -105,7 +122,27 @@ class AppState extends ChangeNotifier {
   Future<void> guardar() async => prefs.guardarProgreso(progreso);
 
   Future<void> guardarOpciones() async {
+    _apretarOpcionesSiNoCompro();
     await prefs.guardarOpciones(opciones);
+    notifyListeners();
+  }
+
+  /// Sin compra, la partida es la de la versión gratis y punto.
+  ///
+  /// No alcanza con bloquear los controles en pantalla: `guardian_opciones_v1`
+  /// puede venir de una versión anterior al bloqueo, con Maestro y tres jefes
+  /// guardados, y entonces el juego entero quedaría abierto sin pagar.
+  void _apretarOpcionesSiNoCompro() {
+    if (premium) return;
+    opciones
+      ..dificultad = Dificultad.aprendiz
+      ..jefes = null
+      ..encargos = false
+      ..cansancio = false;
+  }
+
+  void _alCambiarLaCompra() {
+    if (premium) anuncios.soltar();
     notifyListeners();
   }
 
@@ -135,6 +172,9 @@ class AppState extends ChangeNotifier {
   // --------------------------------------------------------------- partida
 
   void nuevaPartida() {
+    // El primer corte de fase llega a los pocos minutos: pedir el aviso ahora
+    // le da tiempo de sobra para bajar, y así el jugador no espera nada.
+    anuncios.precargar();
     final hoy = DateTime.now();
     final c = opciones.aplicar(cfg);
     beneficioAplicado = null;
