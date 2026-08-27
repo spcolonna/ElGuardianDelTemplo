@@ -12,6 +12,7 @@ El repositorio tiene las dos caras del juego: la **app en Flutter** (iOS, Androi
 | Carpeta | Qué hay |
 |---|---|
 | `app/` | La app Flutter. El motor (`lib/engine.dart`, `lib/mecanica.dart`, `lib/models.dart`, `lib/modos/`) es **Dart puro y no importa Flutter**, para que los scripts de `bin/` puedan usarlo. |
+| `cuento/` | El cuento en cinco tomos y la imprenta del libro ilustrado. Es paralelo al juego: no lo toca ni depende de él. Ver `cuento/libro/README.md`. |
 | `Assets/` | El arte original: ilustraciones desnudas de peligros y técnicas, marco, medallones, íconos, jefes y las piezas de la caja. |
 | `imprenta/` | La herramienta de imposición: convierte las cartas en pliegos A4 y arma los PDF. Sin dependencias, JavaScript a mano. |
 | `imprenta/librillo/` | El reglamento y el cómic en A5, con imposición de cuadernillo. |
