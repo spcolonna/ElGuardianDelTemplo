@@ -225,9 +225,10 @@ class _BalanceScreenState extends State<BalanceScreen> {
                 ),
               ),
               const Text(
-                'Medido con el simulador: con Energía 20 el modo baja las '
-                'victorias de 14% a ~5%. Es un modo duro — conviene subir la '
-                'Energía inicial a 25 (queda en ~32%).',
+                'Medido con bin/sim_cansancio.dart (peligros 7, 2 jefes): con '
+                'Energía 20 el modo baja las victorias de 9,4% a 0,5%, y con '
+                'Energía 25 de 42,8% a 6,5%. Es la perilla que más pesa de '
+                'todas: cuesta unos 6 puntos de Energía, no 2.',
                 style: TextStyle(color: Colors.white54, fontSize: 12),
               ),
             ],

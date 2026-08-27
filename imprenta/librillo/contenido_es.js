@@ -5,11 +5,10 @@
  * el motor sabe se pide con {n:ruta} y lo resuelve `referencias.js` contra
  * `imprenta/datos/juego_templo_es.json`, que genera `bin/export_libro.dart`.
  *
- * La única excepción son los tres niveles de dificultad que el reglamento
- * agrega y la app todavía no tiene: no se pueden exportar porque no existen en
- * `modos/dificultad.dart`. Van escritos abajo, y el reglamento los presenta
- * como lo que son —niveles del juego— sin salvedades: es el documento con el
- * que se juega, no un borrador.
+ * Ya no hay excepciones: los seis niveles de dificultad salen del motor, con
+ * su columna de Cansancio incluida. Lo único escrito a mano acá es la prosa
+ * alrededor de la tabla, y hay que revisarla cada vez que se rebalancea: la
+ * tabla se regenera sola y el texto que la explica no.
  */
 
 // ------------------------------------------------------------------ helpers
@@ -236,47 +235,46 @@ function reglamento(d) {
   // ------------------------------------------------------------- dificultad
   b.push(cap('dificultad', 'Los niveles'));
   b.push(p(
-    'Ocho niveles, del más suave al más brutal. Elegí uno antes de preparar la ' +
+    'Seis niveles, del más suave al más brutal. Elegí uno antes de preparar la ' +
     'partida: define con cuánta Energía empezás, cuántos peligros de cada mazo ' +
     'entran en juego, cuántos Campeones enfrentás y qué hacés con el mazo de ' +
-    'Cansancio. Todo lo demás se juega igual en los ocho.'
+    'Cansancio. Todo lo demás se juega igual en los seis.'
   ));
   b.push({ t: 'tabla-dificultades' });
   b.push(ojo(
-    '<b>Guardián</b> es el nivel de referencia: es el juego tal como está balanceado, ' +
-    'y se gana sólo el 14 % de las veces. Si es tu primera partida, empezá por ' +
-    '<b>Aprendiz</b>.'
+    '<b>Guardián</b> es el nivel de referencia: es el juego tal como está balanceado. ' +
+    'Si es tu primera partida, empezá por <b>Aprendiz</b>; si querés la pelea de ' +
+    'verdad, andá a <b>Sombra de Shifu</b>, que es la mesa más dura que se ganó.'
   ));
   b.push(p(
-    'La aplicación juega estos mismos ocho niveles, con los mismos números. Los ' +
-    'cuatro de arriba traen el mazo de Cansancio puesto: ahí no es un modo que se ' +
-    'prende aparte, es parte del nivel.'
+    'La aplicación juega estos mismos seis niveles, con los mismos números. Los dos ' +
+    'de arriba traen el mazo de Cansancio puesto: ahí no es un modo que se prende ' +
+    'aparte, es parte del nivel.'
   ));
 
   b.push(h(2, 'Cómo leer la tabla'));
   b.push(p(
-    'La dificultad sube por cuatro columnas y baja por dos. Las que <b>endurecen</b> ' +
-    'sólo suben: los jefes, el coste de cada carta extra y el Cansancio, que empeora ' +
-    'nivel a nivel. Las que <b>aflojan</b> —la Energía inicial y los peligros por ' +
-    'fase— suben también, y eso es lo que parece un error.'
+    'Los cuatro primeros niveles aprietan de la manera obvia: te sacan Energía y te ' +
+    'ponen Campeones. Los dos últimos hacen lo contrario —te devuelven Energía, y ' +
+    'bastante— y a cambio te meten el mazo de Cansancio adentro del tuyo. Eso es lo ' +
+    'que parece un error en la tabla y no lo es.'
   ));
   b.push(ul([
     '<b>Más peligros por fase es un mazo más fuerte</b>, no más difícil. Cada peligro ' +
-    'que ganás es una técnica que te llevás. Enfrentar los 10 del Alba en vez de 7 ' +
-    'significa llegar al Mediodía con tres cartas buenas más.',
-    '<b>Las fatigas y los jefes de más hay que poder pagarlos.</b> Con cinco jefes y ' +
-    'diez cartas de Cansancio en el mazo, 20 de Energía no alcanza para llegar al ' +
-    'segundo jefe.',
-    'Bajar los seis números a la vez no da un juego difícil: da uno imposible, y ' +
-    'aburrido, porque perdés siempre en el mismo lugar.',
+    'que ganás es una técnica que te llevás, así que enfrentar los diez del Alba te ' +
+    'deja llegar al Mediodía con más cartas buenas. Por eso casi todos los niveles ' +
+    'los enfrentan todos.',
+    '<b>Maestro es el único que te recorta el mazo</b>, y es lo que lo define: dos ' +
+    'peligros menos por fase son seis técnicas menos cuando llegan los Campeones.',
+    '<b>La Energía de más hay que poder gastarla.</b> Los treinta de Sombra de Shifu ' +
+    'no son un regalo: son lo que cuesta llegar al quinto Campeón con el mazo sucio ' +
+    'de fatiga.',
   ]));
   b.push(p(
-    'De <b>Maestro</b> para arriba cambia la <i>forma</i> de la dificultad, no sólo su ' +
-    'cantidad. Hasta ahí el juego aprieta quitándote recursos: menos Energía, menos ' +
-    'peligros, mazo más pobre. De ahí en adelante te da recursos y te pone a pelear ' +
-    'contra el reloj y contra tu propio mazo, que se va ensuciando de Cansancio ' +
-    'mientras jugás. Son dos experiencias distintas, y por eso Maestro es el nivel ' +
-    'más magro de la tabla y no el más difícil.'
+    'De <b>Sombra de Shifu</b> para arriba cambia la <i>forma</i> de la dificultad, no ' +
+    'sólo su cantidad. Hasta ahí el juego aprieta quitándote recursos. De ahí en ' +
+    'adelante te los da y te pone a pelear contra tu propio mazo, que se va ensuciando ' +
+    'mientras jugás. Son dos experiencias distintas.'
   ));
 
   b.push(h(2, 'El Cansancio'));
@@ -324,9 +322,14 @@ function reglamento(d) {
   b.push(ul([
     'Cada <b>jefe</b> de más: sumá 4 de Energía.',
     'Cada <b>peligro por fase</b> de menos: sumá 1 de Energía.',
-    'Prender el <b>Cansancio</b> en «Al caer el sol» o «Al segundo aire»: sumá 2. ' +
-    'En «Sin descanso»: sumá 4. En «Ya venías cansado»: sumá 8.',
-    'Subir el <b>coste de robo extra</b> a 2: sumá 3.',
+    'Prender el <b>Cansancio</b> en «Al caer el sol» o «Al segundo aire»: sumá 6. ' +
+    'Es la perilla que más pesa de todas, mucho más de lo que parece.',
+    '«Sin descanso» y «Ya venías cansado» <b>no son un escalón más</b>: son otro ' +
+    'juego. Simulado, «Sin descanso» es entre diez y veinte veces más duro que ' +
+    'cualquiera de los dos disparos por separado, y por eso ningún nivel de la ' +
+    'tabla los usa. Si los querés, empezá por arriba de todo y con 30 de Energía.',
+    'Subir el <b>coste de robo extra</b> a 2: sumá 3. También cambia cómo se juega, ' +
+    'porque deja de convenir comprar cartas fuera de los Campeones.',
   ]));
   b.push(h(2, 'Un punto de referencia probado'));
   b.push(p(

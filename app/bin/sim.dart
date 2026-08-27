@@ -12,6 +12,10 @@ void main() {
         energiaInicial: e,
         energiaMaxima: e,
         cantidadJefes: jefes,
+        // Clavado a mano, no heredado. El default pasó a 10 con el rebalanceo
+        // de los seis caminos; dejarlo suelto haría que esta tabla midiera
+        // otro juego y que los porcentajes históricos dejaran de comparar.
+        peligrosPorFase: 7,
       );
       final r = simularLote(
         cfg: cfg,

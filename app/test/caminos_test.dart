@@ -1,10 +1,12 @@
-// Los ocho caminos.
+// Los seis caminos.
 //
-// Los cuatro altos no son sólo números más duros: traen el mazo de Cansancio
-// puesto, y eso es lo que los define. Estos tests cuidan las tres cosas que se
-// rompen solas al tocar la tabla: que el preset llegue entero a la partida,
-// que el interruptor no pueda apagar lo que el camino trae, y que el disparo
-// `ambos` dispare de verdad por las dos puertas.
+// Los dos altos no son sólo números más duros: traen el mazo de Cansancio
+// puesto, y eso es lo que los define. Estos tests cuidan lo que se rompe solo
+// al tocar la tabla: que el preset llegue entero a la partida, que el
+// interruptor no pueda apagar lo que el camino trae, que ningún camino pida el
+// disparo doble, y que los dos caminos retirados no aterricen en uno más fácil.
+//
+// Los números de la escalera no se cuidan acá sino en `escalera_test.dart`.
 import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -15,8 +17,8 @@ import 'package:guardian_templo/modos/cansancio.dart';
 import 'package:guardian_templo/modos/dificultad.dart';
 
 void main() {
-  test('los ocho caminos existen y sólo los cuatro altos traen Cansancio', () {
-    expect(Dificultad.values.length, 8);
+  test('los seis caminos existen y sólo los dos altos traen Cansancio', () {
+    expect(Dificultad.values.length, 6);
     for (final d in Dificultad.values) {
       final c = aplicarDificultad(Config(), d);
       expect(
@@ -27,15 +29,57 @@ void main() {
     }
   });
 
-  test('Shifu no baraja las diez de entrada: usa los dos disparos', () {
-    final c = aplicarDificultad(Config(), Dificultad.shifu);
-    expect(c.disparoCansancio, DisparoCansancio.ambos.index);
-    expect(c.cantidadJefes, 5);
-    expect(c.energiaInicial, 30);
-    // Empezar con el mazo limpio es justamente lo que lo diferencia de la
-    // regla de papel que no se pudo implementar.
-    final j = Juego(cfg: c, contenido: contenidoPorDefecto());
+  test('el techo de la escalera es la mesa que se jugó de verdad', () {
+    // Sombra de Shifu es, exactamente, la partida que el autor ganó una vez de
+    // tres. Shifu es esa misma mesa con dos de Energía menos. Si alguien mueve
+    // estos números, mueve una medición hecha jugando y no una estimación.
+    final s = aplicarDificultad(Config(), Dificultad.sombraDeShifu);
+    expect(s.energiaInicial, 30);
+    expect(s.peligrosPorFase, 10);
+    expect(s.cantidadJefes, 5);
+    expect(s.costeRoboExtra, 1);
+    expect(s.disparoCansancio, DisparoCansancio.alRebarajar.index);
+
+    final f = aplicarDificultad(Config(), Dificultad.shifu);
+    expect(f.energiaInicial, 28);
+    expect(f.peligrosPorFase, s.peligrosPorFase);
+    expect(f.cantidadJefes, s.cantidadJefes);
+
+    // Empezar con el mazo limpio es lo que separa esto de la regla de papel
+    // «ya venías cansado», que el motor no implementa.
+    final j = Juego(cfg: f, contenido: contenidoPorDefecto());
     expect(j.mazo.any((x) => x.id.startsWith('cans_')), isFalse);
+  });
+
+  test('ningún camino usa el disparo doble', () {
+    // Medido: meter fatiga al cerrar fase Y al rebarajar es entre 10 y 20
+    // veces más duro que cualquiera de los dos solo. Eso no es un escalón,
+    // es un acantilado, y por eso ningún camino lo pide. El valor del enum
+    // sigue vivo porque el reglamento lo ofrece como variante de mesa.
+    for (final d in Dificultad.values) {
+      expect(
+        aplicarDificultad(Config(), d).disparoCansancio,
+        isNot(DisparoCansancio.ambos.index),
+        reason: d.name,
+      );
+    }
+  });
+
+  test('los caminos retirados no aterrizan en uno más fácil', () {
+    // Al pasar de ocho a seis se fueron Gran Maestro y Anciano del Templo.
+    // Sin el mapa de retirados caerían en el `orElse` y el jugador que había
+    // llegado arriba se despertaría en Guardián y SIN Cansancio: otro juego,
+    // en silencio.
+    for (final viejo in ['granMaestro', 'ancianoDelTemplo']) {
+      final o = OpcionesPartida.fromJson('{"dificultad":"$viejo"}');
+      expect(o.dificultad, Dificultad.sombraDeShifu, reason: viejo);
+      expect(o.dificultad.traeCansancio, isTrue);
+    }
+    // Y la red final sigue existiendo para basura de verdad.
+    expect(
+      OpcionesPartida.fromJson('{"dificultad":"qwerty"}').dificultad,
+      Dificultad.guardian,
+    );
   });
 
   test('el interruptor puede sumar Cansancio pero no sacarlo', () {

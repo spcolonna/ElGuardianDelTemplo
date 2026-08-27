@@ -28,7 +28,7 @@ class AppState extends ChangeNotifier {
   late final Tienda tienda = Tienda(prefs);
   late final Anuncios anuncios = Anuncios(tienda);
 
-  /// El jugador tiene el juego completo: los ocho caminos, el selector
+  /// El jugador tiene el juego completo: los seis caminos, el selector
   /// de jefes, los modos opcionales y ningún anuncio.
   bool get premium => tienda.comprado;
 

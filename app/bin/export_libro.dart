@@ -58,7 +58,7 @@ void main(List<String> args) {
   final contenido = contenidoDe(tema, idioma);
   final base = Config();
 
-  // Los ocho niveles salen del motor, no de una tabla escrita a mano: el
+  // Los seis niveles salen del motor, no de una tabla escrita a mano: el
   // reglamento de papel ya no agrega ninguno por su cuenta, así que la caja y
   // la app no se pueden desincronizar.
   final dificultades = Dificultad.values.map((d) {

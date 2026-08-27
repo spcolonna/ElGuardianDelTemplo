@@ -305,10 +305,10 @@ class Config {
   bool modoEncargos;
 
   Config({
-    this.energiaInicial = 20,
-    this.energiaMaxima = 20,
+    this.energiaInicial = 24,
+    this.energiaMaxima = 24,
     this.cantidadJefes = 2,
-    this.peligrosPorFase = 7,
+    this.peligrosPorFase = 10,
     this.robosGratisIlimitados = false,
     this.costeRoboExtra = 1,
     this.costeMeditar = 1,
@@ -359,10 +359,10 @@ class Config {
   };
 
   factory Config.fromJson(Map<String, dynamic> j) => Config(
-    energiaInicial: j['energiaInicial'] ?? 20,
-    energiaMaxima: j['energiaMaxima'] ?? 20,
+    energiaInicial: j['energiaInicial'] ?? 24,
+    energiaMaxima: j['energiaMaxima'] ?? 24,
     cantidadJefes: j['cantidadJefes'] ?? 2,
-    peligrosPorFase: j['peligrosPorFase'] ?? 7,
+    peligrosPorFase: j['peligrosPorFase'] ?? 10,
     robosGratisIlimitados: j['robosGratisIlimitados'] ?? false,
     costeRoboExtra: j['costeRoboExtra'] ?? 1,
     costeMeditar: j['costeMeditar'] ?? 1,

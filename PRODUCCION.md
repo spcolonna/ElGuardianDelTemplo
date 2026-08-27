@@ -104,7 +104,7 @@ Lo que hay de verdad:
 
 Las dos son **arte generado, no vectores**: `bin/imprimir.py` las normaliza —aplana el alfa de la ficha sobre el crema, la encuadra en un cuadrado para que el corte redondo no le muerda un borde, y le saca al tablero el fondo oscuro del render— y `imprenta/` elige su medida en mm según la hoja.
 
-**Por qué llega a 30 y no a 26.** El motor sólo necesita 26, que es la Energía inicial del preset *Aprendiz*. Los cuatro de más son para el **Modo Libre**: el jugador elige con cuánta Energía arranca, y el tablero tiene que cubrir el rango entero que se puede pedir. Ojo con esto: si alguna vez se sube la Energía máxima por encima de 30, el tablero se queda corto.
+**Por qué llega a 30.** Porque el juego lo usa entero: *Sombra de Shifu* arranca con **30** de Energía, y el Modo Libre deja pedir hasta ahí. Antes el máximo del motor era 26 y los cuatro de arriba eran colchón para el Modo Libre; después del rebalanceo de los seis caminos **no hay colchón, el tablero está exactamente al límite**. Si alguna vez se sube la Energía máxima por encima de 30, hay que rehacer el tablero.
 
 **El tablero de 270 mm no entra en la caja**, que tiene 64 mm de interior. Se guarda aparte. Plegarlo tampoco cierra bien: para meterlo harían falta cinco paneles, y con once columnas de círculos ningún reparto cae limpio entre casillas — cualquier pliegue parte un número al medio. Por eso el plegado es opcional y arranca en «sin plegar».
 

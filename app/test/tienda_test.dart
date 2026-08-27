@@ -23,13 +23,13 @@ Widget _modos(AppState app) => MaterialApp(
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('sin comprar, siete de los ocho caminos están con candado', (
+  testWidgets('sin comprar, cinco de los seis caminos están con candado', (
     tester,
   ) async {
     // Alta a propósito: el ListView es perezoso y con el alto de un teléfono
     // los últimos caminos ni se construyen, así que un `findsNothing` pasaría
     // por la razón equivocada.
-    tester.view.physicalSize = const Size(414, 4000);
+    tester.view.physicalSize = const Size(414, 3200);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
 
@@ -39,12 +39,12 @@ void main() {
     await tester.pumpWidget(_modos(app));
     await tester.pumpAndSettle();
 
-    // Los ocho nombres se ven igual: hay que mostrar lo que se compra.
+    // Los seis nombres se ven igual: hay que mostrar lo que se compra.
     for (final d in Dificultad.values) {
       expect(find.text(t('dif.${d.clave}')), findsOneWidget);
     }
 
-    // Aprendiz explica su dificultad; los otros siete explican el candado.
+    // Aprendiz explica su dificultad; los otros cinco explican el candado.
     expect(find.text(t('dif.aprendizSub')), findsOneWidget);
     expect(find.text(t('dif.maestroSub')), findsNothing);
     expect(
@@ -62,7 +62,7 @@ void main() {
     // Alta a propósito: el ListView es perezoso y con el alto de un teléfono
     // los últimos caminos ni se construyen, así que un `findsNothing` pasaría
     // por la razón equivocada.
-    tester.view.physicalSize = const Size(414, 4000);
+    tester.view.physicalSize = const Size(414, 3200);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
 

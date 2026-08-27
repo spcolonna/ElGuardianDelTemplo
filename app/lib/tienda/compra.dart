@@ -8,7 +8,7 @@ import 'ids.dart';
 
 /// La compra única que abre el juego entero.
 ///
-/// Un solo producto, no consumible: desbloquea los ocho caminos, el
+/// Un solo producto, no consumible: desbloquea los seis caminos, el
 /// selector de jefes, los dos modos opcionales, y saca la publicidad. No hay
 /// monedas, ni suscripción, ni nada que se gaste.
 ///

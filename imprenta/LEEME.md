@@ -213,22 +213,28 @@ además el forro completo de 188 × 232 mm con solapas de 15 mm, los cuatro
 laterales y el fondo (`PRODUCCION.md` §4). Eso es armado de troquel, y el arte
 de los laterales todavía no existe.
 
-Los **ocho niveles ya salen del motor**. Antes los cuatro altos vivían escritos
-a mano en `librillo/contenido_es.js` y podían desalinearse con la app sin que
-ninguna prueba avisara; hoy `bin/export_libro.dart` los exporta —incluida la
-columna de Cansancio— y la tabla impresa se arma con esas filas y nada más. Se
-tocan en `modos/dificultad.dart`, en un solo lugar, y la caja y la app no se
-pueden separar.
+Los **seis niveles salen del motor**. Antes los altos vivían escritos a mano en
+`librillo/contenido_es.js` y podían desalinearse con la app sin que ninguna
+prueba avisara; hoy `bin/export_libro.dart` los exporta —incluida la columna de
+Cansancio— y la tabla impresa se arma con esas filas y nada más. Se tocan en
+`modos/dificultad.dart`, en un solo lugar, y la caja y la app no se pueden
+separar.
 
 Lo único del reglamento que **no existe en el motor** es el modo de Cansancio
 **«Ya venías cansado»** —las diez fatigas barajadas en el mazo inicial—. Con las
 cartas en la mano es trivial; en el motor pedía una preparación de partida
-distinta para un solo caso. Queda como variante de mesa y ningún nivel la pide:
-el camino Shifu usa «Sin descanso», los dos disparos a la vez, que llega a las
-mismas diez cartas repartidas a lo largo del día.
+distinta para un solo caso. Queda como variante de mesa, igual que «Sin
+descanso»: ningún nivel de la tabla los pide.
 
-Los cuatro niveles altos **sí están medidos** (2000 partidas con el bot, por
-camino): 0,1 % · 0,3 % · 0,1 % · 0,1 % de victorias, contra 9,4 % de Guardián.
-Arriba de Maestro los cuatro dan prácticamente lo mismo. Es lo que el reglamento
-promete, pero conviene saberlo antes de tocar un número: no hay progresión real
-ahí arriba, hay cuatro formas distintas de perder.
+**La escalera está medida y es monótona.** `app/bin/sim_dificultad.dart`, 2000
+partidas por camino: 66,7 · 54,0 · 43,7 · 36,1 · 27,1 · 16,0 % de victorias,
+con escalones de 8 a 13 puntos. El orden aguanta también con un bot que medita
+al doble de seguido, así que es del juego y no del simulador. La versión
+anterior de esta tabla tenía cuatro caminos que medían todos 0,1 % —cuatro
+formas de perder, no cuatro escalones— y nadie se había enterado; ahora hay un
+test (`app/test/escalera_test.dart`) que se pone rojo si vuelve a pasar.
+
+Dos advertencias para el que toque un número: **el Cansancio pesa unos 6 puntos
+de Energía**, mucho más de lo que sugiere la tabla de compensación del Modo
+Libre, y **«Sin descanso» no es un escalón sino un acantilado** —entre diez y
+veinte veces más duro que cualquiera de los dos disparos solo—.

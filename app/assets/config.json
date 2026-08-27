@@ -1,6 +1,6 @@
 {
-  "energiaInicial": 20,
-  "energiaMaxima": 20,
+  "energiaInicial": 24,
+  "energiaMaxima": 24,
   "cantidadJefes": 2,
   "robosGratisIlimitados": false,
   "costeRoboExtra": 1,
@@ -13,5 +13,5 @@
   "poderCansancio": 0,
   "disparoCansancio": 0,
   "modoEncargos": false,
-  "peligrosPorFase": 7
+  "peligrosPorFase": 10
 }
