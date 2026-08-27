@@ -1,0 +1,182 @@
+/* Forro completo del libro: contratapa + lomo + tapa en una sola pieza, que
+ * es como lo pide cualquier imprenta y como lo pide Amazon.
+ *
+ * El ancho depende del grosor del lomo y el grosor depende de la cantidad de
+ * páginas, así que la geometría se calcula en tapa.html y entra por variables.
+ */
+
+@font-face { font-family: 'Titulo'; src: url('../../app/fonts/PatrickHandSC-Regular.ttf') format('truetype'); font-display: block; }
+@font-face { font-family: 'Cuerpo'; src: url('../../app/fonts/AtkinsonHyperlegible-Regular.ttf') format('truetype'); font-weight: 400; font-display: block; }
+@font-face { font-family: 'Cuerpo'; src: url('../../app/fonts/AtkinsonHyperlegible-Bold.ttf') format('truetype'); font-weight: 700; font-display: block; }
+
+:root {
+  --papel: #f7f1e1;
+  --tinta: #4a3728;
+  --tinta-suave: #8a7862;
+  --madera-oscura: #8a5f33;
+  --oro-borde: #c99a2e;
+  --rojo: #b2403c;
+
+  --pag-ancho: 139.7mm;
+  --pag-alto: 215.9mm;
+  --sangrado: 3.175mm;
+  --lomo: 5mm;      /* lo pisa tapa.html */
+}
+
+* { box-sizing: border-box; }
+html { background: #6e6257; }
+body { margin: 0; font-family: 'Cuerpo', Georgia, serif; color: var(--tinta); }
+
+@page {
+  size: var(--forro-ancho) var(--forro-alto);
+  margin: 0;
+}
+
+.forro {
+  position: relative;
+  display: flex;
+  width: var(--forro-ancho);
+  height: var(--forro-alto);
+  margin: 0 auto;
+  background: var(--papel);
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------ contratapa */
+
+.contra {
+  position: relative;
+  width: calc(var(--pag-ancho) + var(--sangrado));
+  padding: calc(var(--sangrado) + 16mm) 18mm calc(var(--sangrado) + 14mm) calc(var(--sangrado) + 16mm);
+  background: var(--papel);
+  /* Un borde de tinta suave adentro del corte: le da a la contratapa el aire
+     de página impresa y avisa a ojo si la guillotina se fue de lugar. */
+  box-shadow: inset 0 0 0 .4mm rgba(74, 55, 40, .18);
+  display: flex;
+  flex-direction: column;
+}
+.contra .texto { flex: 1; }
+.contra p {
+  margin: 0 0 4.5mm;
+  font-size: 11pt;
+  line-height: 1.5;
+}
+.contra p.abre {
+  font-family: 'Titulo', cursive;
+  font-size: 15pt;
+  line-height: 1.25;
+  color: var(--madera-oscura);
+}
+.contra p.cierra { color: var(--tinta); font-weight: 700; }
+
+.contra .bicho {
+  position: absolute;
+  right: 15mm;
+  bottom: 48mm;
+  width: 38mm;
+  opacity: .95;
+  transform: rotate(-6deg);
+}
+.contra .bicho img {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* Borde de papel y sombra: sin esto el recorte rectangular de la
+     ilustración se lee como una foto pegada. Con esto se lee como una
+     estampilla, que es lo que queremos que parezca. */
+  border: 1.6mm solid #fdf8ec;
+  box-shadow: 0 .8mm 2.4mm rgba(74, 55, 40, .3);
+}
+
+.contra .pie {
+  font-family: 'Titulo', cursive;
+  font-size: 10pt;
+  color: var(--tinta-suave);
+}
+
+/* El hueco del código de barras: blanco puro, 50,8 x 30,5 mm, a 6,35 mm del
+   borde. Amazon lo imprime encima; si hay dibujo abajo, lo tapa. */
+.barras {
+  position: absolute;
+  right: calc(var(--sangrado) + 12mm);
+  bottom: calc(var(--sangrado) + 12mm);
+  width: 50.8mm;
+  height: 30.5mm;
+  background: #fff;
+}
+
+/* ------------------------------------------------------------------ lomo */
+
+.lomo {
+  position: relative;
+  width: var(--lomo);
+  background: var(--madera-oscura);
+  color: var(--papel);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lomo .titulo {
+  font-family: 'Titulo', cursive;
+  font-size: 12pt;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  letter-spacing: .06em;
+}
+/* Por debajo de 9 mm no entra texto legible: el lomo va liso. */
+.forro.lomo-fino .lomo .titulo { display: none; }
+
+/* ------------------------------------------------------------------ tapa */
+
+.tapa {
+  position: relative;
+  width: calc(var(--pag-ancho) + var(--sangrado));
+  overflow: hidden;
+}
+.tapa img.arte {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+}
+.tapa .faja {
+  position: absolute;
+  left: 0;
+  right: var(--sangrado);
+  bottom: calc(var(--sangrado) + 12mm);
+  padding: 3.5mm 6mm;
+  background: rgba(247, 241, 225, .93);
+  border-top: .5mm solid var(--oro-borde);
+  border-bottom: .5mm solid var(--oro-borde);
+  text-align: center;
+  font-family: 'Titulo', cursive;
+  font-size: 15pt;
+  color: var(--tinta);
+}
+
+/* ------------------------------------------------------------- guías */
+
+.guias { position: absolute; inset: 0; pointer-events: none; }
+.guias div { position: absolute; background: rgba(178, 64, 60, .55); }
+.guias .v { top: 0; bottom: 0; width: .3mm; }
+.guias .h { left: 0; right: 0; height: .3mm; }
+
+@media print { .guias { display: none; } }
+
+/* Vista reducida para revisar el forro entero en pantalla. No se imprime. */
+.reduccion { transform: scale(var(--esc)); transform-origin: top left; }
+.marco-red { overflow: hidden; }
+
+@media screen {
+  body { padding: 10mm; }
+  .forro { box-shadow: 0 3mm 10mm rgba(0, 0, 0, .4); }
+  .barra {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 9;
+    padding: 5px 12px; background: rgba(30, 26, 22, .92); color: #f7f1e1;
+    font: 12px/1.5 ui-monospace, monospace;
+  }
+  .barra a { color: #f2c14e; }
+  body { padding-top: 40px; }
+}

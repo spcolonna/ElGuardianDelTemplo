@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>El Guardián del Templo — libro</title>
+<link rel="stylesheet" href="libro.css">
+</head>
+<body>
+<div class="barra" id="barra">cargando…</div>
+<script src="paginador.js"></script>
+<script src="render.js"></script>
+<script>
+'use strict';
+/* Orquestador: carga el documento, lo prepara, lo pagina y lo dibuja.
+ *
+ *   http://127.0.0.1:8123/cuento/libro/?doc=tomo1&densidad=normal
+ *
+ * doc      tomo1..tomo5 | completo
+ * densidad compacto | normal | aire
+ * prueba   1 → marca en rojo las páginas que desbordan
+ *
+ * Para el PDF: Imprimir → Guardar como PDF, tamaño «5,5 x 8,5 in», márgenes
+ * en Ninguno, gráficos de fondo activados, escala 100 %.
+ */
+
+const params = new URLSearchParams(location.search);
+const DOC = params.get('doc');
+const DENSIDAD = params.get('densidad') || 'normal';
+const PRUEBA = params.get('prueba') === '1';
+// Hoja de contacto: todas las páginas reducidas en una grilla, para revisar
+// el ritmo del libro de un vistazo. `desde` y `cuantas` acotan el tramo.
+const HOJA = parseFloat(params.get('hoja') || '0');
+const DESDE = parseInt(params.get('desde') || '1', 10);
+const CUANTAS = parseInt(params.get('cuantas') || '999', 10);
+
+document.body.dataset.densidad = DENSIDAD;
+
+/* ------------------------------------------------------------- preparado */
+
+/** Mete en el panel de una página `sobre` los párrafos que la acompañan. */
+function agruparSobre(bloques) {
+  const fuera = [];
+  for (let i = 0; i < bloques.length; i++) {
+    const b = bloques[i];
+    if (b.t === 'figura' && b.modo === 'sobre') {
+      const panel = [];
+      let j = i + 1;
+      // Dos párrafos como mucho: el panel tiene que dejar ver el dibujo.
+      while (j < bloques.length && panel.length < 2 && bloques[j].t === 'parrafo') {
+        panel.push(bloques[j]);
+        j++;
+      }
+      fuera.push({ ...b, panel });
+      i = j - 1;
+      continue;
+    }
+    fuera.push(b);
+  }
+  return fuera;
+}
+
+/** Marca capitulares y párrafos sin sangría. */
+function marcarParrafos(bloques) {
+  let abre = false;   // el próximo párrafo abre sección → capitular
+  let corta = false;  // viene después de una imagen o un blanco → sin sangría
+  return bloques.map((b) => {
+    if (b.t === 'titulo' || b.t === 'fase' || b.t === 'dia') { abre = true; return b; }
+    if (b.t === 'figura' || b.t === 'tira' || b.t === 'vineta' || b.t === 'separador' || b.t === 'sello') {
+      corta = true;
+      return b;
+    }
+    if (b.t !== 'parrafo') { corta = false; return b; }
+    const salida = { ...b, capitular: abre, primero: abre || corta };
+    abre = false;
+    corta = false;
+    return salida;
+  });
+}
+
+/* --------------------------------------------------------------- dibujar */
+
+function titulilloDe(estado) {
+  return estado.seccion || estado.dia || '';
+}
+
+function dibujar(paginas, doc) {
+  const partes = [];
+  const estado = { dia: doc.titulo, seccion: '' };
+  let folio = 0;
+
+  paginas.forEach((bloques, i) => {
+    const impar = i % 2 === 0; // la página 1 es derecha
+    folio++;
+
+    const uno = bloques.length === 1 ? bloques[0] : null;
+    const entera = uno && (PAGINADOR.PAGINA_ENTERA.has(uno.t)
+      || (uno.t === 'figura' && (uno.modo === 'sobre' || uno.modo === 'sangre')));
+
+    if (entera) {
+      if (uno.t === 'dia') estado.dia = uno.titulo;
+      if (uno.t === 'fase') estado.seccion = uno.nombre;
+      const p = RENDER.paginaEntera(uno, doc);
+      let cuerpo = p.html;
+      if (p.panel && uno.panel && uno.panel.length) {
+        cuerpo += '<div class="panel">'
+          + uno.panel.map((x) => `<p>${x.texto}</p>`).join('')
+          + '</div>';
+      }
+      partes.push(`<section class="pagina ${impar ? 'impar' : 'par'} muda ${p.clase || ''}">${cuerpo}</section>`);
+      return;
+    }
+
+    for (const b of bloques) if (b.t === 'titulo') estado.seccion = b.texto.replace(/<[^>]+>/g, '');
+
+    const cuerpo = bloques.map((b) => RENDER.html(b)).join('');
+    partes.push(
+      `<section class="pagina ${impar ? 'impar' : 'par'}">`
+      + `<div class="titulillo">${impar ? titulilloDe(estado) : estado.dia}</div>`
+      + `<div class="caja">${cuerpo}</div>`
+      + `<div class="folio">${folio}</div>`
+      + '</section>');
+  });
+
+  if (!HOJA) return partes.join('');
+
+  const tramo = partes.slice(DESDE - 1, DESDE - 1 + CUANTAS);
+  // La primera es impar: se deja una celda vacía para que los pliegos queden
+  // como en el libro, par a la izquierda e impar a la derecha.
+  const hueco = DESDE % 2 === 1 ? '<div class="hueco"></div>' : '';
+  return `<div class="hoja" style="--esc:${HOJA}">` + hueco
+    + tramo.map((p) => `<div class="marco">${p}</div>`).join('') + '</div>';
+}
+
+/* -------------------------------------------------------------- la mesa */
+
+// Entrar sin ?doc= ya no abre el Tomo I de prepo: muestra qué hay para leer.
+const BIBLIOTECA = [
+  {
+    doc: 'tomo1',
+    final: true,
+    titulo: 'Tomo I — El Dragón de Papel',
+    nota: 'Terminado y acomodado a mano. Es la referencia de cómo se maqueta el resto.',
+    estado: 'terminado',
+  },
+  {
+    doc: 'tomo2',
+    titulo: 'Tomo II — El Señor de los Mercenarios',
+    nota: 'Escrito, con el arte puesto. Falta tu revisión editorial.',
+    estado: 'borrador',
+  },
+  {
+    doc: 'completo',
+    titulo: 'El Guardián del Templo · Espíritu de sacrificio',
+    nota: 'El volumen. Por ahora contiene el Tomo I; el II se suma cuando lo apruebes.',
+    estado: 'volumen',
+  },
+];
+
+function mesa() {
+  document.getElementById('barra').remove();
+  const enlaces = (d) => ['compacto', 'normal', 'aire']
+    .map((x) => `<a href="?doc=${d}&densidad=${x}">${x}</a>`).join('');
+
+  document.body.classList.add('mesa');
+  document.body.innerHTML = '<main class="mesa">'
+    + '<h1>El Guardián del Templo</h1>'
+    + '<p class="sub">¿Cuál leemos?</p>'
+    + BIBLIOTECA.map((l) => `<a class="libro ${l.estado}" href="?doc=${l.doc}&densidad=normal">`
+        + `<span class="tit">${l.titulo}</span>`
+        + `<span class="detalle">${l.nota}</span></a>`
+        + `<div class="densidades">${enlaces(l.doc)}</div>`).join('')
+    + '<p class="pie">La tapa se mira aparte: <a href="tapa.html?doc=tomo1&paginas=76">tapa del Tomo I</a> · '
+    + '<a href="tapa.html?doc=completo&paginas=80">tapa del volumen</a></p>'
+    + '</main>';
+}
+
+/* ------------------------------------------------------- precarga y arranque */
+
+function precargar(bloques) {
+  const rutas = new Set();
+  const mirar = (s) => { if (s) rutas.add(RENDER.url(s)); };
+  for (const b of bloques) {
+    mirar(b.src); mirar(b.fondo);
+    for (const it of b.items || []) mirar(it.src);
+  }
+  mirar(RENDER.url ? 'cuento/libro/img/templo_dia.jpeg' : null);
+  return Promise.all([...rutas].map((r) => new Promise((ok) => {
+    const im = new Image();
+    im.onload = im.onerror = () => ok(r);
+    im.src = r;
+  })));
+}
+
+/** `final/` es la autoridad: son los tomos acomodados a mano. `datos/` es el
+ *  borrador que genera el parser. Si el tomo está terminado, gana el de final.
+ *
+ *  Sólo se busca en `final/` cuando la biblioteca dice que ese tomo está
+ *  terminado, o cuando el documento no figura en la lista. Sin eso cada carga
+ *  de un borrador deja un 404 en la consola, y un 404 esperado es la mejor
+ *  manera de que no se vea el 404 que importa. */
+async function cargar(nombre) {
+  const ficha = BIBLIOTECA.find((l) => l.doc === nombre);
+  const donde = !ficha ? ['final', 'datos'] : ficha.final ? ['final'] : ['datos'];
+  for (const carpeta of donde) {
+    const r = await fetch(`${carpeta}/${nombre}.json`);
+    if (r.ok) return r.json();
+  }
+  throw new Error(`No encuentro ${nombre}.json en ${donde.join('/ ni ')}/`);
+}
+
+async function main() {
+  if (!DOC) return mesa();
+
+  const barra = document.getElementById('barra');
+  const doc = await cargar(DOC);
+
+  let bloques = marcarParrafos(agruparSobre(doc.bloques));
+
+  // Sin esto la primera pasada mide con la tipografía de reserva y con las
+  // imágenes en cero, y la paginación sale distinta de la que se imprime.
+  await document.fonts.ready;
+  await precargar(bloques);
+
+  const caja = RENDER.hacerMedidor();
+  const medir = RENDER.hacerMedir(caja);
+  const dividir = RENDER.hacerDividir(caja);
+  const altoUtil = caja.getBoundingClientRect().width // fuerza layout
+    && (215.9 - parseFloat(getComputedStyle(document.body).getPropertyValue('--m-sup'))
+        - parseFloat(getComputedStyle(document.body).getPropertyValue('--m-inf')));
+
+  // Dos pasadas: si la segunda no da lo mismo, algo mide distinto una vez
+  // acomodado y la maqueta no es estable. Vale saberlo antes de imprimir.
+  const a = PAGINADOR.paginar(bloques, { medir, dividir, altoUtil });
+  const b = PAGINADOR.paginar(bloques, { medir, dividir, altoUtil });
+  const estable = a.paginas.length === b.paginas.length;
+
+  caja.parentElement.remove();
+  document.body.insertAdjacentHTML('beforeend', dibujar(b.paginas, doc));
+
+  let desbordes = 0;
+  if (PRUEBA) {
+    for (const pag of document.querySelectorAll('.pagina:not(.muda)')) {
+      const c = pag.querySelector('.caja');
+      if (c && c.scrollHeight > c.clientHeight + 4) { pag.classList.add('desborde'); desbordes++; }
+    }
+  }
+
+  const figuras = bloques.filter((x) => x.t === 'figura' || x.t === 'vineta').length
+    + bloques.filter((x) => x.t === 'tira').reduce((n, x) => n + x.items.length, 0);
+
+  barra.innerHTML = '<a href="./" class="volver">← elegir libro</a> &nbsp; '
+    + `<b>${DOC}</b> · densidad <b>${DENSIDAD}</b> · `
+    + `<b>${b.paginas.length}</b> páginas · ${figuras} ilustraciones · `
+    + (estable ? 'paginación estable' : '<b style="color:#f2c14e">INESTABLE</b>')
+    + (PRUEBA ? ` · ${desbordes} desborde(s)` : '')
+    + ' &nbsp; | &nbsp; '
+    + ['compacto', 'normal', 'aire'].map((d) =>
+        `<a href="?doc=${DOC}&densidad=${d}${PRUEBA ? '&prueba=1' : ''}">${d}</a>`).join(' · ');
+}
+
+main();
+</script>
+</body>
+</html>

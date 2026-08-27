@@ -1,0 +1,14 @@
+# Derivados. Se rehacen con:
+#   python3 cuento/libro/preparar_arte.py
+#   node cuento/libro/parser.mjs
+#
+# Ojo: tiene que ser `img/*` y no `img/`. Con `img/` git no entra en la
+# carpeta y la excepcion de abajo nunca se evalua.
+img/*
+datos/
+
+# El sello del cierre de tomo no es derivado: lo puso Sebastián y va a git.
+!img/fuerza.jpg
+
+# `final/` NO se ignora: son los tomos terminados a mano, y son la autoridad
+# sobre lo que genera el parser.

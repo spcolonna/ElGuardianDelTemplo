@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>El Guardián del Templo — tapa</title>
+<link rel="stylesheet" href="tapa.css">
+</head>
+<body>
+<div class="barra" id="barra"></div>
+<script>
+'use strict';
+/* Forro completo de tapa blanda.
+ *
+ *   http://127.0.0.1:8123/cuento/libro/tapa.html?doc=tomo1&paginas=70
+ *
+ * doc      tomo1..tomo5 | completo   (decide si lleva faja de título)
+ * paginas  las que dijo index.html abajo a la izquierda
+ * papel    amazon (0,0572 mm/pág, papel blanco) | local (0,08 mm/pág, obra 90 g)
+ * guias    1 → marca los dobleces y el corte
+ *
+ * Para el PDF: Imprimir → Guardar como PDF, tamaño de papel personalizado con
+ * las medidas que dice la barra, márgenes en Ninguno, escala 100 %.
+ */
+
+const p = new URLSearchParams(location.search);
+const DOC = p.get('doc') || 'tomo1';
+const PAGINAS = parseInt(p.get('paginas') || '70', 10);
+const PAPEL = p.get('papel') || 'amazon';
+const GUIAS = p.get('guias') === '1';
+const ESC = parseFloat(p.get('esc') || '0');   // 0 = tamaño real
+
+const BAJADAS = {
+  tomo1: 'Libro Uno — El Dragón de Papel',
+  tomo2: 'Libro Dos — El Señor de los Mercenarios',
+  tomo3: 'Libro Tres — El Monje Caído',
+  tomo4: 'Libro Cuatro — Tu Propio Reflejo',
+  tomo5: 'Libro Cinco — El Gran Maestro del Loto Negro',
+  completo: 'Espíritu de sacrificio',
+};
+
+// El volumen no lleva «Libro Uno — …»: lleva una bajada propia, sin numerar.
+const SIN_NUMERO = new Set(['completo']);
+
+// Grosor del papel por hoja impresa. El de Amazon es el que publican para
+// papel blanco; el local es una estimación de obra de 90 g y hay que
+// confirmarla con la imprenta antes de mandar el archivo.
+const GROSOR = { amazon: 0.0572, local: 0.08 };
+
+const lomo = Math.max(3, PAGINAS * (GROSOR[PAPEL] || GROSOR.amazon));
+const anchoPag = 139.7, altoPag = 215.9, sangrado = 3.175;
+const forroAncho = anchoPag * 2 + lomo + sangrado * 2;
+const forroAlto = altoPag + sangrado * 2;
+
+const r = document.documentElement.style;
+r.setProperty('--lomo', `${lomo.toFixed(2)}mm`);
+r.setProperty('--forro-ancho', `${forroAncho.toFixed(2)}mm`);
+r.setProperty('--forro-alto', `${forroAlto.toFixed(2)}mm`);
+
+const bajada = BAJADAS[DOC];
+
+if (ESC) {
+  r.setProperty('--esc', ESC);
+  document.body.insertAdjacentHTML('beforeend',
+    `<div class="marco-red" style="width:${(forroAncho * ESC).toFixed(2)}mm;height:${(forroAlto * ESC).toFixed(2)}mm"></div>`);
+}
+const donde = ESC ? document.querySelector('.marco-red') : document.body;
+
+donde.insertAdjacentHTML('beforeend', `
+<div class="forro${lomo < 9 ? ' lomo-fino' : ''}${ESC ? ' reduccion' : ''}">
+
+  <div class="contra">
+    <div class="texto">
+      <p class="abre">Shifu se fue por cinco días.</p>
+      <p>Le dejó a Guang una nota con tres instrucciones, un templo con el portón torcido,
+         una gata que lo desprecia y ciento ocho escalones que hay que barrer todas las
+         mañanas aunque todas las mañanas se vuelvan a ensuciar.</p>
+      <p>Al pie de la nota había una posdata. Y la posdata decía algo raro.</p>
+      <p>Esa misma tarde empezó a subir gente por la montaña.</p>
+      <p class="cierra">Guang tiene dieciséis años, un puño torpe y la costumbre de quedarse.
+         Va a hacer falta.</p>
+    </div>
+    <div class="bicho"><img src="img/mosquito.jpeg" alt=""></div>
+    <div class="pie">Un cuento en cinco días${bajada && !SIN_NUMERO.has(DOC) ? ' · ' + bajada.split('—')[0].trim() : ''}
+      &nbsp;·&nbsp; a partir de 9 años</div>
+    <div class="barras"></div>
+  </div>
+
+  <div class="lomo"><div class="titulo">El Guardián del Templo</div></div>
+
+  <div class="tapa">
+    <img class="arte" src="img/tapa.jpeg" alt="">
+    ${bajada ? `<div class="faja">${bajada}</div>` : ''}
+  </div>
+
+  ${GUIAS ? `<div class="guias">
+    <div class="v" style="left:${sangrado}mm"></div>
+    <div class="v" style="left:${(sangrado + anchoPag).toFixed(2)}mm"></div>
+    <div class="v" style="left:${(sangrado + anchoPag + lomo).toFixed(2)}mm"></div>
+    <div class="v" style="right:${sangrado}mm"></div>
+    <div class="h" style="top:${sangrado}mm"></div>
+    <div class="h" style="bottom:${sangrado}mm"></div>
+  </div>` : ''}
+</div>`);
+
+document.getElementById('barra').innerHTML =
+  `<b>${DOC}</b> · ${PAGINAS} páginas · papel <b>${PAPEL}</b> · `
+  + `lomo <b>${lomo.toFixed(1)} mm</b> · forro <b>${forroAncho.toFixed(1)} × ${forroAlto.toFixed(1)} mm</b>`
+  + ` &nbsp;|&nbsp; <a href="?doc=${DOC}&paginas=${PAGINAS}&papel=${PAPEL}&guias=${GUIAS ? 0 : 1}">guías</a>`;
+</script>
+</body>
+</html>

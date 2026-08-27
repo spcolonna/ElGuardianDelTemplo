@@ -1,0 +1,592 @@
+/* El Guardián del Templo — hoja de estilo del libro impreso.
+ *
+ * Formato 5,5 x 8,5 pulgadas (139,7 x 215,9 mm), que es donde las
+ * ilustraciones de 1200 px entran a ancho de caja justo a 300 dpi.
+ *
+ * Paleta y tipografías: las oficiales del juego (app/lib/ui_kit.dart,
+ * app/fonts/). No se inventa nada nuevo acá.
+ */
+
+@font-face {
+  font-family: 'Titulo';
+  src: url('../../app/fonts/PatrickHandSC-Regular.ttf') format('truetype');
+  font-display: block;
+}
+@font-face {
+  font-family: 'Cuerpo';
+  src: url('../../app/fonts/AtkinsonHyperlegible-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Cuerpo';
+  src: url('../../app/fonts/AtkinsonHyperlegible-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: block;
+}
+
+:root {
+  --papel: #fdf8ec;
+  --papel-hondo: #f7f1e1;
+  --tinta: #4a3728;
+  --tinta-suave: #8a7862;
+  --madera: #c4915a;
+  --madera-oscura: #8a5f33;
+  --oro: #f2c14e;
+  --oro-borde: #c99a2e;
+  --rojo: #b2403c;
+
+  /* Geometría. El sangrado de 3,175 mm es el que pide Amazon; una imprenta
+     local pide 3 y con 3,175 también le sirve. */
+  --pag-ancho: 139.7mm;
+  --pag-alto: 215.9mm;
+  --sangrado: 3.175mm;
+
+  /* Márgenes. El interior es mayor porque el lomo se come parte del papel:
+     en un libro fresado de 300 páginas, unos 3 mm. */
+  --m-sup: 15mm;
+  --m-inf: 16mm;
+  --m-int: 19mm;
+  --m-ext: 16mm;
+  /* 139,7 - 19 - 16 = 104,7 mm de caja: las ilustraciones de 1200 px entran a
+     ancho completo a 291 dpi. Y el interior de 19 mm cubre el mínimo de
+     encolado hasta 500 páginas, así que el tomo suelto y el volumen completo
+     usan la misma grilla. */
+  --caja-ancho: 104.7mm;
+
+  --cuerpo-pt: 11pt;
+  --interlinea: 1.5;
+}
+
+/* Las tres densidades. Cambian el precio de tapa, así que se miran las tres
+   antes de decidir: cada punto de interlínea son páginas. */
+body[data-densidad='compacto'] { --cuerpo-pt: 10.5pt; --interlinea: 1.38; --m-sup: 13mm; --m-inf: 14mm; }
+body[data-densidad='aire']     { --cuerpo-pt: 11.5pt; --interlinea: 1.62; --m-sup: 18mm; --m-inf: 19mm; }
+
+@page {
+  size: 139.7mm 215.9mm;
+  margin: 0;
+}
+
+* { box-sizing: border-box; }
+
+html { background: #6e6257; }
+
+body {
+  margin: 0;
+  font-family: 'Cuerpo', Georgia, serif;
+  color: var(--tinta);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ------------------------------------------------------------- la página */
+
+.pagina {
+  position: relative;
+  width: var(--pag-ancho);
+  height: var(--pag-alto);
+  background: var(--papel);
+  overflow: hidden;
+  margin: 0 auto 6mm;
+  box-shadow: 0 2mm 6mm rgba(0, 0, 0, .35);
+  page-break-after: always;
+  break-after: page;
+}
+
+.caja {
+  position: absolute;
+  top: var(--m-sup);
+  bottom: var(--m-inf);
+  left: var(--m-ext);
+  right: var(--m-int);
+  overflow: hidden;
+}
+.pagina.impar .caja { left: var(--m-int); right: var(--m-ext); }
+
+/* El medidor: una caja del mismo ancho, fuera de la vista, donde se pregunta
+   cuánto mide cada bloque antes de repartirlo. */
+.medidor {
+  position: absolute;
+  left: -9999mm;
+  top: 0;
+  height: auto;
+  box-shadow: none;
+  margin: 0;
+}
+.medidor .vecino { height: 0; }
+.medidor .caja {
+  position: static;
+  height: auto;
+  /* `hidden` no es cosmético: hace de la caja un contexto de formato nuevo,
+     y así los márgenes de los hijos quedan DENTRO de su alto en vez de
+     escaparse por arriba. Sin esto lo medido es siempre menos que lo que
+     después ocupa, y la última línea de cada página se desborda. */
+  overflow: hidden;
+  /* Sin ancho explícito mediría contra los 139,7 mm de la página entera, y
+     todo saldría más bajo de lo que después ocupa. */
+  width: var(--caja-ancho);
+}
+
+/* --------------------------------------------------------- folio y titulillo */
+
+.folio {
+  position: absolute;
+  bottom: 7.5mm;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Titulo', cursive;
+  font-size: 9.5pt;
+  color: var(--tinta-suave);
+}
+
+.titulillo {
+  position: absolute;
+  top: 7mm;
+  font-size: 7.5pt;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+.pagina.par .titulillo  { left: var(--m-ext); }
+.pagina.impar .titulillo { right: var(--m-ext); }
+
+/* Las páginas que son una imagen no llevan ni folio ni titulillo. */
+.pagina.muda .folio,
+.pagina.muda .titulillo { display: none; }
+
+/* ------------------------------------------------------------------ texto */
+
+p.parrafo {
+  margin: 0;
+  font-size: var(--cuerpo-pt);
+  line-height: var(--interlinea);
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  text-indent: 5mm;
+}
+/* Ni el primer párrafo de una sección ni el que sigue a una imagen llevan
+   sangría: no hay nada arriba de lo que separarse. */
+p.parrafo.primero { text-indent: 0; }
+
+h2.seccion {
+  margin: 9mm 0 3.5mm;
+  font-family: 'Titulo', cursive;
+  font-weight: 400;
+  font-size: 15pt;
+  color: var(--madera-oscura);
+  text-align: center;
+}
+h2.seccion:first-child { margin-top: 0; }
+h2.seccion::after {
+  content: '';
+  display: block;
+  width: 16mm;
+  height: .5mm;
+  margin: 2.5mm auto 0;
+  background: var(--oro-borde);
+}
+
+/* La capitular abre cada sección: tres líneas de alto, en la manuscrita. */
+p.parrafo.capitular::first-letter {
+  font-family: 'Titulo', cursive;
+  font-size: 3.1em;
+  line-height: .86;
+  float: left;
+  padding: .5mm 1.6mm 0 0;
+  color: var(--rojo);
+}
+
+/* ---------------------------------------------------------------- diálogo */
+
+.dialogo {
+  margin: 2.6mm 0 2.6mm 7mm;
+  font-size: var(--cuerpo-pt);
+  line-height: calc(var(--interlinea) - .07);
+  text-indent: -4mm;
+  padding-left: 4mm;
+}
+.dialogo .quien {
+  font-family: 'Titulo', cursive;
+  font-size: .96em;
+  letter-spacing: .04em;
+  color: var(--madera-oscura);
+}
+.dialogo .quien::after { content: ' — '; color: var(--tinta-suave); }
+.dialogo .acot {
+  font-style: italic;
+  font-size: .88em;
+  color: var(--tinta-suave);
+}
+
+/* La nota de Shifu es un objeto dentro del cuento, no una réplica: va como
+   papel pegado sobre la página. */
+.nota {
+  margin: 5mm 4mm;
+  padding: 5mm 6mm;
+  background: var(--papel-hondo);
+  border: .4mm solid var(--oro-borde);
+  box-shadow: 1mm 1mm 0 rgba(74, 55, 40, .12);
+  font-family: 'Titulo', cursive;
+  font-size: 12.5pt;
+  line-height: 1.34;
+  transform: rotate(-.5deg);
+}
+.nota .quien { display: none; }
+
+.aparte {
+  margin: 3mm 6mm;
+  font-size: calc(var(--cuerpo-pt) - .8pt);
+  font-style: italic;
+  color: var(--tinta-suave);
+}
+
+/* -------------------------------------------------------------- separador */
+
+.separador {
+  height: 9mm;
+  margin: 1.5mm 0;
+  background: no-repeat center / auto 6.4mm
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 20'><g fill='none' stroke='%23b2403c' stroke-width='1.7' stroke-linecap='round'><path d='M30 4c4 3 6 6 6 8s-2 4-6 4-6-2-6-4 2-5 6-8z'/><path d='M14 12c4-1 7 0 9 2M46 12c-4-1-7 0-9 2'/></g></svg>");
+}
+
+/* El sello 加油 que cierra cada tomo dentro del volumen unico. Va al pie del
+   ultimo texto, centrado, con aire arriba para que se lea como un final y no
+   como una ilustracion mas. El ancho lo pone el bloque en milimetros. */
+.sello {
+  margin: 10mm auto 4mm;
+  text-align: center;
+}
+.sello img {
+  display: block;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------------------------- figuras */
+
+figure { margin: 0; }
+
+/* Estampa: la ilustración a ancho de caja. El caso normal. */
+.estampa {
+  margin: 5mm 0;
+}
+.estampa img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Viñeta: un dibujo chico entre párrafos, corrido hacia un lado. */
+.vineta {
+  margin: 4.5mm 0;
+  text-align: center;
+}
+.vineta.izq { text-align: left;  padding-left: 4mm; }
+.vineta.der { text-align: right; padding-right: 4mm; }
+.vineta img { display: inline-block; height: auto; }
+
+/* Tira: varias viñetas verticales en fila, con su nombre debajo. */
+.tira {
+  display: flex;
+  gap: 2.2mm;
+  margin: 5mm 0;
+  align-items: flex-end;
+}
+.tira .item { flex: 1; text-align: center; }
+.tira img { display: block; width: 100%; height: auto; }
+.tira .pie {
+  margin-top: 1.4mm;
+  font-family: 'Titulo', cursive;
+  font-size: 7.5pt;
+  color: var(--tinta-suave);
+  line-height: 1.1;
+}
+
+/* Banda a sangre: la imagen cruza de borde a borde y se derrama por arriba,
+ * conservando su proporción.
+ *
+ * NO se recorta a la página entera. El arte es apaisado —1376 x 768— y una
+ * página es vertical: llenarla con `object-fit: cover` obliga a escalar por
+ * el alto, y ahí los 768 px se estiran sobre 222 mm, que son 88 dpi. Se vería
+ * borroso en papel. A ancho completo con el alto libre, la misma imagen da
+ * 239 dpi. La regla es: el arte manda la proporción, no la página. */
+.banda-sangre {
+  position: absolute;
+  top: calc(var(--sangrado) * -1);
+  left: calc(var(--sangrado) * -1);
+  right: calc(var(--sangrado) * -1);
+}
+.banda-sangre img { display: block; width: 100%; height: auto; }
+
+.pagina.sangre { background: var(--papel-hondo); }
+.pagina.sangre .banda-sangre { top: 50%; transform: translateY(-50%); }
+
+/* Texto sobre imagen: la banda ocupa la parte de arriba y el panel de papel
+   se apoya sobre su borde inferior. */
+.panel {
+  position: absolute;
+  left: var(--m-ext);
+  right: var(--m-ext);
+  bottom: var(--m-inf);
+  padding: 6mm 7mm;
+  background: rgba(253, 248, 236, .93);
+  border: .4mm solid var(--oro-borde);
+  box-shadow: 0 1mm 4mm rgba(0, 0, 0, .18);
+}
+.panel p { margin: 0 0 2.5mm; font-size: var(--cuerpo-pt); line-height: var(--interlinea); text-align: justify; }
+.panel p:last-child { margin-bottom: 0; }
+
+/* ------------------------------------------------- aperturas y preliminares */
+
+/* Apertura de día: página derecha, la imagen arriba y el rótulo abajo. */
+.apertura-dia {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--papel-hondo);
+}
+.apertura-dia.sin-imagen .banda { display: none; }
+.apertura-dia .banda {
+  flex: 0 0 auto;
+  margin: calc(var(--sangrado) * -1) calc(var(--sangrado) * -1) 0;
+}
+.apertura-dia .banda img { display: block; width: 100%; height: auto; }
+.apertura-dia .rotulo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 16mm;
+}
+.apertura-dia .dia {
+  font-family: 'Titulo', cursive;
+  font-size: 13pt;
+  letter-spacing: .3em;
+  color: var(--madera-oscura);
+  text-transform: uppercase;
+}
+.apertura-dia .dia::after {
+  content: '';
+  display: block;
+  width: 26mm;
+  height: .6mm;
+  margin: 3mm auto;
+  background: var(--oro-borde);
+}
+.apertura-dia h1 {
+  margin: 0;
+  font-family: 'Titulo', cursive;
+  font-weight: 400;
+  font-size: 27pt;
+  line-height: 1.08;
+  color: var(--tinta);
+}
+.apertura-dia .tema {
+  margin-top: 5mm;
+  font-size: 11pt;
+  font-style: italic;
+  color: var(--tinta-suave);
+}
+
+/* Apertura de fase: la imagen arriba a sangre, el nombre debajo. */
+.apertura-fase { position: absolute; inset: 0; background: var(--papel-hondo); }
+.apertura-fase .banda {
+  position: absolute;
+  top: calc(var(--sangrado) * -1);
+  left: calc(var(--sangrado) * -1);
+  right: calc(var(--sangrado) * -1);
+}
+.apertura-fase .banda img { display: block; width: 100%; height: auto; }
+.apertura-fase .rotulo {
+  position: absolute;
+  top: 52%;
+  left: 12mm;
+  right: 12mm;
+  text-align: center;
+}
+.apertura-fase h2 {
+  margin: 0;
+  font-family: 'Titulo', cursive;
+  font-weight: 400;
+  font-size: 24pt;
+  letter-spacing: .16em;
+  color: var(--madera-oscura);
+}
+.apertura-fase .resto {
+  margin-top: 3mm;
+  font-family: 'Titulo', cursive;
+  font-size: 14pt;
+  color: var(--tinta);
+}
+.apertura-fase h2::after {
+  content: '';
+  display: block;
+  width: 30mm;
+  height: .6mm;
+  margin: 4mm auto 0;
+  background: var(--oro-borde);
+}
+.apertura-fase.menor h2 { font-size: 17pt; letter-spacing: .1em; }
+.apertura-fase.sin-imagen .banda { display: none; }
+.apertura-fase.sin-imagen .rotulo { top: 42%; }
+
+/* Portadilla, créditos, colofón. */
+.preliminar {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 18mm;
+}
+.preliminar .marca {
+  font-family: 'Titulo', cursive;
+  font-size: 30pt;
+  line-height: 1.02;
+  color: var(--tinta);
+}
+.preliminar .bajada {
+  margin-top: 6mm;
+  font-family: 'Titulo', cursive;
+  font-size: 14pt;
+  color: var(--madera-oscura);
+}
+.preliminar .regla {
+  width: 34mm;
+  height: .6mm;
+  margin: 7mm 0;
+  background: var(--oro-borde);
+}
+.creditos {
+  position: absolute;
+  inset: auto 16mm 18mm;
+  font-size: 8.5pt;
+  line-height: 1.55;
+  color: var(--tinta-suave);
+}
+.creditos p { margin: 0 0 2.5mm; }
+.creditos b { color: var(--tinta); }
+
+/* -------------------------------------------------------------- pantalla */
+
+/* Hoja de contacto: sólo para revisar en pantalla, nunca se imprime. */
+.hoja {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  gap: 3px 2px;
+}
+.hoja .marco,
+.hoja .hueco {
+  width: calc(var(--pag-ancho) * var(--esc));
+  height: calc(var(--pag-alto) * var(--esc));
+  overflow: hidden;
+}
+.hoja .marco .pagina {
+  transform: scale(var(--esc));
+  transform-origin: top left;
+  margin: 0;
+  box-shadow: none;
+  outline: 1px solid rgba(0, 0, 0, .25);
+}
+
+@media screen {
+  body { padding: 8mm 0; }
+  .pagina.desborde { outline: 1mm solid #b2403c; }
+  .barra {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 9;
+    padding: 5px 12px;
+    background: rgba(30, 26, 22, .92);
+    color: #f7f1e1;
+    font: 12px/1.5 ui-monospace, monospace;
+  }
+  .barra a { color: var(--oro); }
+  .barra .volver { color: #f7f1e1; opacity: .75; }
+  body { padding-top: 34px; }
+
+  /* La mesa: la pantalla de entrada, cuando no se pidió ningún ?doc=.
+     No es parte del libro impreso, sólo del taller. */
+  body.mesa { padding: 0; background: var(--papel-hondo); }
+  main.mesa {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 12vh 24px 10vh;
+    color: var(--tinta);
+    font-family: 'Cuerpo', Georgia, serif;
+  }
+  main.mesa h1 {
+    font: 400 40px/1.1 'Titulo', 'Patrick Hand SC', cursive;
+    color: var(--madera-oscura);
+    margin: 0;
+  }
+  main.mesa .sub {
+    margin: 2px 0 32px;
+    color: var(--tinta-suave);
+    font-style: italic;
+  }
+  main.mesa .libro {
+    display: block;
+    padding: 16px 18px 14px;
+    margin-top: 18px;
+    background: var(--papel);
+    border: 1px solid rgba(74, 55, 40, .16);
+    border-left: 4px solid var(--madera);
+    border-radius: 3px;
+    text-decoration: none;
+    color: inherit;
+  }
+  main.mesa .libro:hover { border-left-color: var(--rojo); }
+  main.mesa .libro.terminado { border-left-color: var(--oro-borde); }
+  main.mesa .libro.volumen { border-left-color: var(--madera-oscura); }
+  main.mesa .tit {
+    display: block;
+    font: 400 22px/1.3 'Titulo', 'Patrick Hand SC', cursive;
+    color: var(--madera-oscura);
+  }
+  main.mesa .detalle {
+    display: block;
+    margin-top: 4px;
+    font-size: 14px;
+    color: var(--tinta-suave);
+  }
+  main.mesa .densidades {
+    margin: 6px 0 0 22px;
+    font: 12px/1.6 ui-monospace, monospace;
+  }
+  main.mesa .densidades a {
+    color: var(--tinta-suave);
+    margin-right: 14px;
+    text-decoration: none;
+    border-bottom: 1px dotted currentColor;
+  }
+  main.mesa .densidades a:hover { color: var(--rojo); }
+  main.mesa .pie {
+    margin-top: 40px;
+    font-size: 13px;
+    color: var(--tinta-suave);
+  }
+  main.mesa .pie a { color: var(--madera-oscura); }
+}
+
+@media print {
+  html { background: #fff; }
+  body { padding: 0; }
+  .barra { display: none; }
+  .pagina {
+    margin: 0;
+    box-shadow: none;
+    outline: none !important;
+  }
+  /* Sin esto el salto de la última página genera una hoja en blanco de más al
+     final del PDF, y el total deja de ser el que dice la barra. */
+  .pagina:last-child { page-break-after: auto; break-after: auto; }
+}
