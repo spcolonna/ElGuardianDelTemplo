@@ -6,13 +6,13 @@ Todo lo de acá sale de páginas medidas, no estimadas: los números vienen de
 | Documento | compacto | normal | aire |
 |---|---:|---:|---:|
 | **Tomo I** (terminado) | 68 | **72** | 80 |
-| **Tomo II** (sin revisar) | 54 | 58 | **66** |
-| **Volumen** (hoy: sólo el I) | — | **72** | — |
+| **Tomo II** (terminado) | 54 | 58 | **66** |
+| **Volumen** (hoy: I + II) | 118 | **126** | 142 |
 | **Volumen** (los cinco, proyectado) | — | ~350 | — |
 
-> El volumen contiene hoy **sólo el Tomo I**, por decisión: el II entra cuando
-> pase la revisión editorial. Con los cinco terminados va a quedar cerca de 350
-> páginas.
+> El volumen contiene hoy el **Tomo I y el Tomo II**: los dos pasaron la
+> revisión del autor. Los tres que faltan entran igual, uno por uno, a medida
+> que la pasen. Con los cinco terminados va a quedar cerca de 350 páginas.
 
 ---
 
@@ -25,11 +25,15 @@ solo renglón de margen. Si en una corrección se caen dos páginas, el tomo dej
 de poder imprimirse a color. Para venderlo suelto conviene `aire`, que da 80 y
 deja ocho páginas de colchón por veinte centavos de dólar.
 
-El **Tomo II** da 66 en `aire` y **hoy no llega**. Le faltan seis páginas, que
-son unas 900 palabras. La noche del Señor de los Mercenarios sigue siendo la
-mitad de larga que la noche del dragón en el Tomo I, y ahí es donde tiene que
-crecer: es el clímax del día y es donde está la tentación, que es el tema del
-tomo. Eso sale de la revisión editorial, no de apretar la maqueta.
+El **Tomo II** da 66 en `aire` y **suelto sigue sin llegar**. Le faltan seis
+páginas, que son unas 900 palabras. La noche del Señor de los Mercenarios sigue
+siendo la mitad de larga que la noche del dragón en el Tomo I, y ahí es donde
+tiene que crecer: es el clímax del día y es donde está la tentación, que es el
+tema del tomo. Eso sale de escribir, no de apretar la maqueta.
+
+Ese corte **no afecta al volumen**: con los dos tomos adentro da 126 páginas en
+`normal`, muy por encima del piso. O sea que el Tomo II ya se puede imprimir a
+color **dentro del volumen**, aunque todavía no se pueda imprimir solo.
 
 **Los tomos sueltos se maquetan en `aire`. El volumen, en `normal`.**
 
@@ -157,6 +161,7 @@ conviene un canal propio; para Mercado Libre, el libro impreso.
 |---:|---:|---|
 | 80 | 4,6 mm | no — va liso |
 | 72 | 4,1 mm | no — va liso |
+| 126 | 7,2 mm | no — va liso |
 | 350 | 20,0 mm | sí, cómodo |
 
 Por debajo de 9 mm el lomo va sin texto: `tapa.html` lo detecta y lo oculta

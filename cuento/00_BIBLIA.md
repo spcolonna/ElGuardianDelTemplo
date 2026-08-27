@@ -293,6 +293,12 @@ Cada peligro y su técnica son **la misma escena**: lo enfrentás, lo aprendés.
 
 **Fatiga (2):** Hombro Dormido `Assets/Cansancio/4.jpeg` · Nudillo Partido `Assets/Cansancio/6.jpeg`
 
+**Deuda del Tomo II:** Guang cortó el puente, así que los bandidos subieron por
+el barranco —eso el Tomo II ya lo contesta—, **pero nunca preguntó por qué Tao
+subió por ahí ni por qué Tao no le dijo que el puente no estaba**. Queda
+planteado a propósito, con el humo en forma de signo de interrogación, y se
+paga acá. La respuesta tiene que decir algo sobre Tao.
+
 ### Tomo IV — Tu Propio Reflejo
 
 | Fase | # | Peligro | P·D | Técnica | Poder | Efecto |

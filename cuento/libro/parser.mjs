@@ -404,8 +404,8 @@ function armar(tomos, meta, maqueta) {
 
 // Los tomos que ya estan terminados. El volumen se arma con estos y nada mas:
 // meter un tomo sin revisar mentiria sobre el largo del libro y sobre lo que
-// se esta vendiendo. Cuando el II pase la revision, se agrega aca y listo.
-const EN_EL_VOLUMEN = ['tomo1'];
+// se esta vendiendo. El II paso la revision del autor y entro.
+const EN_EL_VOLUMEN = ['tomo1', 'tomo2'];
 
 // El recortado, no el original: `fuerza.jpg` trae su propio papel gris.
 // Lo produce preparar_arte.py::recortar_sello().
