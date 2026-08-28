@@ -65,12 +65,27 @@ Su arco está dibujado en su propia hoja de modelo, en este orden:
 | Tomo | Registro | Qué pasa |
 |---|---|---|
 | II | **Se burla** | Está ahí todo el día haciendo comentarios. Le duele más que los golpes. |
+| — | *(el barranco)* | Sube por el barranco desde que lo echaron, dos años, y nunca lo dijo. Se sabe en el III. |
 | III | **Advierte en serio** | Por una vez baja la caña de azúcar y dice algo verdadero. |
 | IV | **Se vende** | Los mercenarios pagan. Se va. |
 | IV | **Culpable al irse** | No mira atrás, y por eso sabemos que le importa. |
 | V | **Vuelve** | Y Guang lo perdona, que es más difícil que pegarle. |
 
 *Arte:* `Assets/kai.jpeg` (la hoja dice KAI; el personaje se llama Tao)
+
+### Wu, Bo y el tercero
+Los tres bandidos hambrientos del Tomo II, que **se quedaron**. Desde el
+miércoles duermen en el corredor y cocinan mal. Wu es el que habla —el
+«bandido de la izquierda»—, Bo es el que traía el cuchillo, y el tercero es el
+más flaco, el que no peleó.
+
+**El tercero no dice su nombre.** Ni Wu lo sabe, y andan juntos hace once
+meses. Lo dice solo, sin que nadie se lo pregunte, en el Tomo V, con el templo
+ya arreglado. Es el hilo más chico del libro y no hay que gastarlo antes.
+
+Lo que hacen en la trama no es pelear: es **estar adentro**. El Monje Caído los
+ve dormidos en el corredor y eso le hace más daño que cualquier golpe, porque a
+él Shifu nunca lo dejó quedarse.
 
 ### Pinto
 Buhonero. Flaco, sonrisa enorme, el abrigo forrado de espadas de juguete de madera pintadas de
@@ -282,6 +297,18 @@ Cada peligro y su técnica son **la misma escena**: lo enfrentás, lo aprendés.
 
 ### Tomo III — El Monje Caído
 
+**El objeto del tomo son las zapatillas.** Suela de cuerda, lona gastada, el
+talón vencido del lado derecho, con **SHEN** escrito en la lengüeta con letra de
+alguien de diecinueve años. Están en el arcón del salón desde antes de que
+Guang llegara. Se las pone en el Alba por una piedra, Pinto las reconoce al
+mediodía y le dice que se las saque, Guang no se las saca, y de noche son lo
+único que impide que la puerta de la alacena se abra. Es la regla del eco
+aplicada a una cosa y no a una técnica.
+
+**Guang no le gana.** Es la única de las cinco noches en que el Campeón no cae,
+y hay que dejarlo dicho sin adornarlo. Lo que gana es otra cosa: la puerta
+cerrada.
+
 | Fase | # | Peligro | P·D | Técnica | Poder | Efecto |
 |---|--:|---|:--:|---|:--:|---|
 | Alba | 5 | Gato Guardián del Templo | 1·1 | **Rascada Felina** | 2 | — |
@@ -293,11 +320,22 @@ Cada peligro y su técnica son **la misma escena**: lo enfrentás, lo aprendés.
 
 **Fatiga (2):** Hombro Dormido `Assets/Cansancio/4.jpeg` · Nudillo Partido `Assets/Cansancio/6.jpeg`
 
-**Deuda del Tomo II:** Guang cortó el puente, así que los bandidos subieron por
-el barranco —eso el Tomo II ya lo contesta—, **pero nunca preguntó por qué Tao
-subió por ahí ni por qué Tao no le dijo que el puente no estaba**. Queda
-planteado a propósito, con el humo en forma de signo de interrogación, y se
-paga acá. La respuesta tiene que decir algo sobre Tao.
+**Deuda del Tomo II — pagada.** La pregunta era por qué Tao subió por el
+barranco y por qué no le dijo a Guang que el puente no estaba. La respuesta:
+**Tao no se enteró, porque hace dos años que no usa el puente.** Desde que
+Shifu lo echó no puede subir por el camino de adelante —el camino de adelante
+es del que *llega*, y él no llega: vuelve a un lugar del que lo sacaron—, así
+que trepa el barranco cada vez, con niebla abajo, dos veces por semana, para ir
+a sentarse en el escalón cuarenta y dos a decir cosas insoportables. Nunca lo
+dijo. Lo dice el miércoles, sin caña de azúcar, mirando para otro lado.
+
+Es la escena que arma su traición del Tomo IV: si se vende es después de haber
+dicho la única cosa verdadera que dijo en su vida, y por eso duele.
+
+El vehículo es **el humo en forma de signo de interrogación** del Tomo I: se
+plantea en el prólogo del III y se desarma en esa escena. La regla del humo es
+que no contesta la pregunta, la agranda — y acá el chico recibe una respuesta
+más grande que la pregunta que hizo.
 
 ### Tomo IV — Tu Propio Reflejo
 
