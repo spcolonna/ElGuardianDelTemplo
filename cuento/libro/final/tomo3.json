@@ -1,0 +1,2505 @@
+{
+ "titulo": "El Guardián del Templo",
+ "bajada": "Libro Tres — El Monje Caído",
+ "bloques": [
+  {
+   "t": "portadilla",
+   "titulo": "El Guardián del Templo",
+   "bajada": "Libro Tres — El Monje Caído"
+  },
+  {
+   "t": "creditos"
+  },
+  {
+   "t": "dia",
+   "numero": "TRES",
+   "titulo": "El Monje Caído",
+   "tema": "No ser el elegido no es lo mismo que no servir.",
+   "fondo": null
+  },
+  {
+   "t": "separador"
+  },
+  {
+   "t": "fase",
+   "nombre": "PRÓLOGO · LOS QUE SE QUEDARON",
+   "resto": null,
+   "menor": true
+  },
+  {
+   "t": "parrafo",
+   "texto": "La campana no sonó el miércoles tampoco."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang ya no comprobaba nada. Abrió los ojos en la oscuridad, escuchó el silencio de las cuatro y media, que ya se sabía de memoria, y se dio vuelta."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Lo que lo despertó de verdad, un rato después, fue una discusión: tres tipos flacos discutiendo en voz baja en el corredor sobre a quién le tocaba ir a buscar agua. Uno decía que ayer le había tocado a él. Otro decía que ayer había ido acompañado y que acompañado no cuenta. Estaban armando un orden para los días que venían."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang se quedó acostado escuchando, con una sensación rarísima en el pecho que le llevó un momento identificar y que resultó ser ésta: <strong>el templo tenía gente adentro.</strong>"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Después se levantó, puso arroz a hervir para cuatro, y le salió mal."
+  },
+  {
+   "t": "separador"
+  },
+  {
+   "t": "titulo",
+   "texto": "Los nombres"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Eran tres y hacía dos noches que dormían en el corredor."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Habían subido el martes al mediodía a robarle, le habían roto una costilla, habían comido arroz de ayer sentados en fila mirando la montaña, se habían ido, y a la noche habían vuelto con los cuencos en la mano y se habían parado al lado suyo delante de un ejército. Después no se fueron más."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang los llamaba, adentro de la cabeza, el de la izquierda, el del cuchillo y el flaco. No porque fuera práctico. Porque no sabía cómo se llamaban y le daba una vergüenza espantosa preguntar a esta altura."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Esa mañana preguntó igual, porque el flaco estaba usando su cuenco."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "¿Cómo te llamás?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "EL DE LA IZQUIERDA",
+   "acot": "sin levantar la vista",
+   "texto": "Wu."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "¿Y él?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "WU",
+   "acot": null,
+   "texto": "Bo."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "¿Y él?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "WU",
+   "acot": "masticando",
+   "texto": "No sé."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "¿Cómo que no sabés?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "WU",
+   "acot": null,
+   "texto": "Hace once meses que ando con él."
+  },
+  {
+   "t": "parrafo",
+   "texto": "El flaco siguió comiendo y no aportó nada."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang lo dejó estar. Le pareció que había cosas de las que uno no puede ocuparse el miércoles."
+  },
+  {
+   "t": "parrafo",
+   "texto": "<em>(Se lo iba a decir. Se lo dijo el sábado, sin que nadie se lo preguntara, en un templo que para entonces tenía el portón nuevo, y Guang se dio vuelta tan rápido que se le cayó la escoba.)</em>"
+  },
+  {
+   "t": "separador"
+  },
+  {
+   "t": "titulo",
+   "texto": "La mano"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang fue al gancho y estiró la mano derecha, porque es la mano con la que uno agarra las cosas y el cuerpo no revisa el inventario antes de estirarse."
+  },
+  {
+   "t": "parrafo",
+   "texto": "La mano llegó hasta el palo y se detuvo sola."
+  },
+  {
+   "t": "parrafo",
+   "texto": "No dolía. Ése seguía siendo el asunto raro de la ampolla: que no dolía, que simplemente había un lugar hasta el cual los dedos iban y un lugar al que no iban, y la frontera entre los dos la había puesto el cuerpo sin consultarlo y no aceptaba discusión, igual que Mei con el rincón de sol."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Barrió con la izquierda. Le salió horrible. Tardó el doble."
+  },
+  {
+   "t": "parrafo",
+   "texto": "En el escalón cuarenta y dos había bagazo de caña de azúcar, fresco, del que se tira cuando uno está masticando y esperando. No había nadie sentado. Guang lo barrió también, y no se preguntó a qué hora había estado ahí alguien masticando, y se lo iba a preguntar recién a la tarde y por otro motivo."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y a la mitad de los ciento ocho escalones, con el sol saliendo de atrás de la montaña más lejana y toda la escalera poniéndose anaranjada de golpe como se ponía todas las mañanas, Guang tuvo un pensamiento práctico que le arruinó el resto de la semana:"
+  },
+  {
+   "t": "parrafo",
+   "texto": "<em>Si la derecha no cierra, hoy tengo que pegar con la izquierda.</em>"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Nunca en su vida le había pegado a nada con la izquierda. Nueve mil puños contra el poste, todos del mismo lado. Se quedó parado en el escalón cuarenta y dos con la escoba en la mano equivocada, haciendo la cuenta, y la cuenta le dio que llevaba dieciséis años entrenando la mitad de un cuerpo."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Bajó los escalones que faltaban pensando en eso."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Subió pensando en otra cosa, que era peor."
+  },
+  {
+   "t": "separador"
+  },
+  {
+   "t": "titulo",
+   "texto": "El humo"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Le pasaba en cualquier momento y siempre en el peor."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang se sentaba en el salón vacío, con los rollos de caligrafía desparramados y el tigre y el dragón descascarados mirándose en la pared del fondo desde hacía ochenta años, y de golpe se quedaba inmóvil. Le salía algo de la cabeza. Era como el humo del incienso, subiendo despacio, y allá arriba se enroscaba y quedaba flotando en forma de signo de interrogación, y a él lo dejaba ahí, sacado, mirando la pared con la boca entreabierta."
+  },
+  {
+   "t": "vineta",
+   "src": "cuento/libro/img/guang_confundido.jpeg",
+   "ancho": 32,
+   "lado": "izq",
+   "nombre": null
+  },
+  {
+   "t": "parrafo",
+   "texto": "Ningún otro alumno del templo había tenido nunca eso. Guang lo sabía porque lo había preguntado, una vez, con muchas vueltas, y Shifu había levantado las cejas de una manera que él eligió leer como que no."
+  },
+  {
+   "t": "parrafo",
+   "texto": "No servía para nada. Eso era lo peor: no le contestaba la pregunta, se la agrandaba."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Esa mañana la pregunta fue el puente."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang había cortado el puente colgante el lunes a la una de la tarde con un hacha y una idea estratégica, y desde entonces todo el mundo subía por el barranco: los tres bandidos hambrientos, el líder de la capa de piel, los cuarenta hombres de armadura idéntica. Eso ya lo había entendido. Era su culpa y estaba hecho y no había vuelta."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Lo que se le apareció esa mañana, con el humo enroscándose, fue otra cosa."
+  },
+  {
+   "t": "parrafo",
+   "texto": "<strong>Tao.</strong>"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Tao había subido el martes a la mañana y se había sentado en el escalón cuarenta y dos con una caña de azúcar en la boca y una montaña de bagazo alrededor, o sea que llevaba ahí un buen rato, o sea que había subido temprano. Y para subir había cruzado el barranco. Y no había dicho nada."
+  },
+  {
+   "t": "parrafo",
+   "texto": "No había dicho <em>che, cortaste el puente</em>. No había dicho <em>idiota, ahora suben por donde no se ve</em>. No había dicho absolutamente nada del puente en todo el día, ni cuando subieron los tres flacos, ni cuando subió el soldado, ni cuando se abrió el barranco y salieron cuarenta lanzas de la sombra."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Tao, que se había pasado la mañana entera comentando cómo barría, cómo cerraba el puño y cómo respiraba, no había hecho un solo comentario sobre la única cosa verdaderamente estúpida que Guang había hecho en su vida."
+  },
+  {
+   "t": "parrafo",
+   "texto": "El humo se le quedó arriba, flotando, torcido en el gancho de arriba y con el punto abajo."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": "a la pared",
+   "texto": "¿Por qué no me dijiste nada?"
+  },
+  {
+   "t": "parrafo",
+   "texto": "El tigre y el dragón no contestaron. Llevaban ochenta años sin decidirse a nada."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang se levantó, se sacudió el polvo del pantalón corto y salió al patio, porque el patio se barre dos veces por día y ésa era la clase de asunto del que sí se podía ocupar un miércoles."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Faltaban tres días."
+  },
+  {
+   "t": "separador"
+  },
+  {
+   "t": "fase",
+   "nombre": "ALBA",
+   "resto": null
+  },
+  {
+   "t": "titulo",
+   "texto": "La gata"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Mei estaba sentada exactamente en el medio del patio, sobre el único cuadrado de piedra que Guang todavía no había barrido, y no se pensaba mover."
+  },
+  {
+   "src": "Assets/Peligros/5.jpeg",
+   "nombre": null,
+   "t": "figura",
+   "modo": "estampa"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Mei es naranja, grande, atigrada, y tiene un ojo con una cicatriz vieja que nadie le explicó nunca a Guang. Preguntó una vez. Shifu contestó \"ella sabe\", que fue de las respuestas menos útiles de su carrera docente."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Mei."
+  },
+  {
+   "t": "dialogo",
+   "quien": "MEI",
+   "acot": "desprecio total",
+   "texto": ""
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Es un cuadrado. Hay ciento y pico. Elegí otro."
+  },
+  {
+   "t": "dialogo",
+   "quien": "MEI",
+   "acot": "desprecio con el ojo cerrado, que en ella es medio desprecio o el doble, nunca se supo",
+   "texto": ""
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang la levantó."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Fue un error, y fue el error más instructivo de los cinco días."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Lo que le hizo Mei duró un segundo y medio y consistió en tres cosas simultáneas: girar sobre el eje del cuerpo sin usar las patas traseras, sacar la garra delantera en un arco corto que no venía de donde tenía que venir, y estar de nuevo en el piso antes de que Guang terminara de darse cuenta de que ya no la tenía."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Le quedaron tres marcas paralelas en el antebrazo."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Wu, que estaba sentado en el escalón del corredor con un cuenco entre las rodillas, comentó lo único que había para comentar."
+  },
+  {
+   "t": "dialogo",
+   "quien": "WU",
+   "acot": null,
+   "texto": "Te ganó la gata."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": "mirándose el brazo",
+   "texto": "…"
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Hacelo otra vez."
+  },
+  {
+   "t": "dialogo",
+   "quien": "MEI",
+   "acot": "desprecio total",
+   "texto": ""
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "En serio. Hacelo otra vez, despacio."
+  },
+  {
+   "t": "parrafo",
+   "texto": "No lo hizo otra vez. Las gatas no hacen nada otra vez."
+  },
+  {
+   "t": "vineta",
+   "src": "cuento/libro/img/mei_caminando.jpeg",
+   "ancho": 46,
+   "lado": "izq",
+   "nombre": null
+  },
+  {
+   "t": "parrafo",
+   "texto": "Pero Guang se pasó lo que quedaba de la mañana intentando reproducir el arco de esa garra —corto, desde adentro hacia afuera, sin telegrafiar, con la muñeca suelta y los dedos curvados como los había tenido dos días antes delante de un mosquito— y en algún momento algo hizo click."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Le salió con la izquierda."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Ésa es la parte que nadie vio y que a Guang le costó un rato entender: le salió con la izquierda porque la derecha no cerraba, y como el movimiento no es un puño sino un arco con la mano abierta, la ampolla no tenía opinión al respecto. La mano mala no podía agarrar. Podía rasguñar perfectamente."
+  },
+  {
+   "src": "Assets/Skills/5.jpeg",
+   "nombre": null,
+   "t": "figura",
+   "modo": "estampa"
+  },
+  {
+   "t": "parrafo",
+   "texto": "<strong>Rascada Felina.</strong> Aprendiste del mejor luchador del templo."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Es literal. En el Templo del Loto Torcido, en orden de habilidad marcial verificable, el ranking era: Mei, Shifu, Tao, el poste del patio, Guang."
+  },
+  {
+   "t": "parrafo",
+   "texto": "<em>(Para el jueves, Guang iba a estar tercero. Mei nunca bajó del primer puesto.)</em>"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Wu miró el brazo arañado, después a la gata, después el patio a medio barrer, y llegó a una conclusión que a Guang le pareció injusta y que resultó ser correcta."
+  },
+  {
+   "t": "dialogo",
+   "quien": "WU",
+   "acot": null,
+   "texto": "Vos acá no mandás nada."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Mando bastante."
+  },
+  {
+   "t": "dialogo",
+   "quien": "WU",
+   "acot": null,
+   "texto": "Mandás la escoba."
+  },
+  {
+   "t": "separador"
+  },
+  {
+   "t": "titulo",
+   "texto": "La piedra"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang entrenaba descalzo, porque Shifu entrenaba descalzo, porque el maestro de Shifu entrenaba descalzo, y así hacia atrás hasta algún tipo del siglo pasado que probablemente no tenía zapatos."
+  },
+  {
+   "t": "parrafo",
+   "texto": "A las nueve de la mañana pisó una piedra."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Chiquita. Filosa. Justo en la parte blanda de adelante. Guang levantó el pie y se quedó parado en una pata —cosa que ya le salía muy bien— diciendo palabras que no van en un templo."
+  },
+  {
+   "t": "figura",
+   "src": "Assets/Peligros/7.jpeg",
+   "nombre": "Piedra en el Zapato",
+   "modo": "estampa"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Bo, que era el que había tenido el cuchillo el martes y desde entonces no lo había vuelto a sacar, aplaudió despacio tres veces."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang se sentó en el escalón, se sacó la piedrita, la miró un rato, y tuvo un pensamiento que le pareció una traición:"
+  },
+  {
+   "t": "parrafo",
+   "texto": "<em>¿Y si me pongo las zapatillas?</em>"
+  },
+  {
+   "t": "parrafo",
+   "texto": "En el arcón del salón había un par de zapatillas de entrenamiento. Suela de cuerda, lona gastada, el talón vencido hacia adentro del lado derecho, que es como se vence el talón de alguien que gira mucho sobre ese pie. Habían sido de alguien. Nadie las usaba. Estaban en el arcón desde antes de que Guang llegara al templo, y él las había visto quinientas veces del modo en que uno ve las cosas que siempre estuvieron ahí, que es no viéndolas."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Las sacó. Les golpeó la suela contra el escalón para sacarles el polvo de años."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y se quedó un rato largo con las dos zapatillas en la mano, con la solemnidad de un hombre que está por romper una tradición de doscientos años."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Se las puso."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Le quedaban grandes. No mucho: un dedo, lo que le queda grande a un chico de dieciséis un zapato de alguien de diecinueve."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Caminó por el patio. Después pisó la misma piedra a propósito, con fuerza, y salió polvo alrededor de la suela y no pasó absolutamente nada."
+  },
+  {
+   "t": "figura",
+   "src": "Assets/Skills/7.jpeg",
+   "nombre": "Paso Firme",
+   "modo": "estampa"
+  },
+  {
+   "t": "parrafo",
+   "texto": "<strong>Paso Firme.</strong> Por fin usás zapatillas de entrenamiento."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Es la técnica más ridícula que aprendió en toda la semana. También es la que más veces le salvó el día, porque un hombre que no está pensando en sus pies tiene toda la cabeza disponible para otra cosa, y en los tres días que le quedaban Guang iba a necesitar toda la cabeza."
+  },
+  {
+   "t": "parrafo",
+   "texto": "<em>(Adentro de la zapatilla derecha, escrito en la lengüeta con tinta descolorida, había un nombre. Guang no lo leyó esa mañana. Lo leyó de noche, con una farola, y para entonces ya sabía de quién era.)</em>"
+  },
+  {
+   "t": "separador"
+  },
+  {
+   "t": "titulo",
+   "texto": "El poste"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Después de la piedra, Guang hizo lo que hacía cuando no sabía qué hacer, que era pegarle al poste."
+  },
+  {
+   "t": "parrafo",
+   "texto": "El poste de entrenamiento está clavado en el medio del patio y tiene una marca a la altura del pecho que probaba dos cosas: que Guang era constante, y que el poste no había cambiado de opinión al respecto."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Tiró el primer puño con la derecha por costumbre."
+  },
+  {
+   "t": "parrafo",
+   "texto": "La mano llegó hasta ahí y se detuvo sola, con los dedos a medio cerrar, y el brazo siguió viaje con la mano abierta y le pegó al poste de plano, con la palma, con la ampolla justo en el medio, y Guang hizo un ruido que Bo comentó desde el corredor."
+  },
+  {
+   "t": "dialogo",
+   "quien": "BO",
+   "acot": null,
+   "texto": "Eso sonó feo."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": "entre dientes",
+   "texto": "Sí."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Entonces se puso del otro lado y empezó de cero, a los dieciséis años, con la mano que había usado toda la vida para sostener cosas mientras la otra trabajaba."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Salió espantoso. Salió como sale un puño que no tiene nueve mil repeticiones atrás: el codo levantado, el hombro adelantado, el peso mal, todo lo que él había aprendido a ver el día anterior en un charlatán con túnica violeta, sólo que ahora lo estaba haciendo él."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Tiró cincuenta. El poste no cambió de opinión."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y en algún lugar del cincuenta y pico, con el brazo dormido y el sol ya alto, Guang pensó una cosa que no le gustó: que él no era zurdo ni diestro, que era un chico que había repetido una sola cosa muchísimas veces, y que si le sacaban esa cosa quedaba <strong>exactamente igual de vacío</strong> que el mercenario de la espada pintada."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Se quedó con eso puesto un buen rato."
+  },
+  {
+   "t": "parrafo",
+   "texto": "<em>(No lo resolvió ese día. Lo resolvió a los treinta y cuatro años, dando clase, cuando se escuchó decirle a un alumno que el lado bueno no es el que sale bien: es el que uno todavía no arruinó.)</em>"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Wu se acercó al poste, lo miró de arriba abajo, y opinó."
+  },
+  {
+   "t": "dialogo",
+   "quien": "WU",
+   "acot": null,
+   "texto": "¿Por qué le pegás a eso?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Para aprender a pegar."
+  },
+  {
+   "t": "dialogo",
+   "quien": "WU",
+   "acot": null,
+   "texto": "Pero no se defiende."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Ése es el punto."
+  },
+  {
+   "t": "dialogo",
+   "quien": "WU",
+   "acot": null,
+   "texto": "Nosotros nos defendimos y te fue mejor."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang abrió la boca para contestar y no encontró qué, que le pasaba bastante seguido con Wu y que era, técnicamente, la razón por la cual lo dejaba quedarse."
+  },
+  {
+   "t": "separador"
+  },
+  {
+   "t": "fase",
+   "nombre": "MEDIODÍA",
+   "resto": null
+  },
+  {
+   "t": "titulo",
+   "texto": "La alacena"
+  },
+  {
+   "t": "parrafo",
+   "texto": "La alacena de la cocina tiene dos puertas de madera que no cierran del todo y, arriba de todo, donde hay que estirarse, el frasco de las galletas de Shifu: loza azul y blanca, con la tapa de madera y una etiqueta escrita a mano por alguien que no era Shifu."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Las hace él. Nadie sabe con qué, y las dos veces que alguien preguntó la respuesta fue distinta. Son chatas, doradas, con una raya de sésamo arriba, y huelen —cuando se abre el frasco, sólo cuando se abre el frasco— a algo que no huele a nada más en la montaña."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang llevaba tres días comiendo arroz del día anterior. Desde el martes lo compartía con tres tipos que comían como come la gente que aprendió a comer rápido en lugares donde el plato se lo podían sacar, así que el arroz del día anterior ahora era el arroz del día anterior dividido en cuatro."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Abrió la alacena al mediodía del tercer día y la luz de la ventana le dio justo al frasco, del modo en que la luz le da a las cosas en los cuadros de los templos, y Guang Lu se quedó mirándolo con la mano en la puerta."
+  },
+  {
+   "src": "app/assets/comic/06_tentaciones.png",
+   "nombre": null,
+   "t": "figura",
+   "modo": "sobre"
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Una sola."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Una sola no se nota."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Ni las contó."
+  },
+  {
+   "src": "Assets/Peligros/16.jpeg",
+   "nombre": null,
+   "t": "figura",
+   "modo": "estampa"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Shifu las había contado."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang lo sabía. Ése es el punto: <strong>lo sabía</strong>. Shifu contaba las galletas del mismo modo en que miraba el patio recién barrido y encontraba el cuadrado que faltaba. No era desconfianza. Era peor: era atención."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y estaba la otra cosa, que era menos noble y pesaba más. Si sacaba una, iba a tener que sacar cuatro. No se come una galleta delante de tres tipos que están raspando el fondo de un cuenco de arroz de ayer; o se sacan cuatro o se sale de la cocina con las manos vacías, y ésas eran todas las opciones que había."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Se quedó ahí con la mano en la puerta mucho más de lo que hace falta para cerrar una puerta."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y después la cerró, con los ojos apretados, como quien cierra una puerta contra el viento."
+  },
+  {
+   "src": "Assets/Skills/16.jpeg",
+   "nombre": null,
+   "t": "figura",
+   "modo": "estampa"
+  },
+  {
+   "t": "parrafo",
+   "texto": "<strong>Disciplina.</strong> Las galletas de Shifu siguen ahí. Intactas. Sos un héroe."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Se comió el arroz de ayer, de pie, mirando por la ventana."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Cuando Guang cerró esa alacena no sintió orgullo. Sintió <strong>hambre</strong>. La disciplina no es no querer la cosa. La disciplina es querer la cosa exactamente igual que antes y que la puerta se cierre lo mismo."
+  },
+  {
+   "t": "parrafo",
+   "texto": "<em>(Esa misma noche un hombre de cuarenta años iba a subir esos ciento ocho escalones con un solo objetivo, y el objetivo estaba en ese frasco.)</em>"
+  },
+  {
+   "t": "separador"
+  },
+  {
+   "t": "titulo",
+   "texto": "El maestro falso"
+  },
+  {
+   "t": "parrafo",
+   "texto": "A las dos de la tarde subió un tipo con una túnica violeta con bordados dorados y se presentó como el Maestro de las Nueve Escuelas del Trueno Interior."
+  },
+  {
+   "t": "figura",
+   "src": "Assets/Peligros/17.jpeg",
+   "nombre": "Maestro Falso de la Calle",
+   "modo": "estampa"
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "¿Nueve?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "EL MAESTRO FALSO",
+   "acot": null,
+   "texto": "Nueve."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "¿Cuáles?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "EL MAESTRO FALSO",
+   "acot": "sin dudar",
+   "texto": "Las nueve."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Venía a desafiar al Templo del Loto Torcido para elevar su prestigio, cosa que hacía —según explicó sin que nadie se lo preguntara— todos los martes, en un templo distinto, y llevaba una racha de sesenta y dos victorias consecutivas."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Wu, Bo y el flaco se sentaron en el escalón del corredor sin decir una palabra, muy juntos, con esa misma actitud con la que se habían sentado a comer, y Guang entendió que se habían acomodado a mirar."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Después el Maestro de las Nueve Escuelas hizo una postura."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang la miró y sintió algo raro en el estómago, y tardó unos segundos en identificar qué era, porque era la primera vez en su vida que sentía eso: la postura estaba <strong>mal</strong>. El peso en el talón de atrás. El codo levantado. La mano adelantada abierta y floja, ofrecida, prácticamente pidiendo que se la agarraran."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang no sabía casi nada de kung fu. Pero llevaba nueve mil puños contra un poste, y tres días peleando de verdad, y de golpe descubrió que sabía lo suficiente para ver que alguien no sabía."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y no era que la postura fuera rara. Era que la había hecho él, esa misma mañana, tirando cincuenta puños con la izquierda contra un poste que no se defiende."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Tenés el peso atrás."
+  },
+  {
+   "t": "dialogo",
+   "quien": "EL MAESTRO FALSO",
+   "acot": null,
+   "texto": "Es la Postura del Junco."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Si te empujo te caés."
+  },
+  {
+   "t": "dialogo",
+   "quien": "EL MAESTRO FALSO",
+   "acot": null,
+   "texto": "Es <em>deliberado</em>."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Lo empujó. Se cayó."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Fue el combate más corto de los cinco días. Duró un empujón."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Pero la parte que importa vino después, cuando el Maestro de las Nueve Escuelas se estaba sacudiendo el polvo de la túnica violeta con mucha dignidad, y Guang —sin querer, mirándolo— levantó el antebrazo en guardia."
+  },
+  {
+   "t": "parrafo",
+   "texto": "No como se lo habían enseñado. Como habría tenido que estar el brazo del otro: el codo abajo, el antebrazo cerrado, cubriendo. Lo hizo copiando al revés. Lo hizo poniendo bien lo que había visto mal."
+  },
+  {
+   "t": "figura",
+   "src": "Assets/Skills/17.jpeg",
+   "nombre": "Escama de Dragón",
+   "modo": "estampa"
+  },
+  {
+   "t": "parrafo",
+   "texto": "<strong>Escama de Dragón.</strong> Aprendiste lo que NO hay que hacer. Eso cuenta."
+  },
+  {
+   "t": "dialogo",
+   "quien": "EL MAESTRO FALSO",
+   "acot": "bajando",
+   "texto": "¡Sesenta y dos y uno!"
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "¡Sesenta y dos y uno está bien!"
+  },
+  {
+   "t": "dialogo",
+   "quien": "EL MAESTRO FALSO",
+   "acot": null,
+   "texto": "¡Voy a decir que eras tres!"
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "¡Decí que era cinco!"
+  },
+  {
+   "t": "dialogo",
+   "quien": "WU",
+   "acot": "desde el escalón",
+   "texto": "¡Decí que éramos cinco!"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang se quedó de buen humor un rato largo, y fue lo último bueno que le pasó ese día."
+  },
+  {
+   "t": "separador"
+  },
+  {
+   "t": "titulo",
+   "texto": "Pinto"
+  },
+  {
+   "t": "parrafo",
+   "texto": "El buhonero subió media hora después del Maestro de las Nueve Escuelas, que es exactamente la distancia que uno guarda cuando no quiere cruzarse con un cliente."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Pinto es flaquísimo. Tiene una sonrisa que le ocupa más cara de la que le corresponde y un abrigo largo, abierto, con el forro lleno de espadas de madera pintadas de todos los colores, colgadas de tiritas de cuero, que hacen un ruido de campanillas cuando camina."
+  },
+  {
+   "t": "vineta",
+   "src": "cuento/libro/img/pinto_yendose.jpeg",
+   "ancho": 44,
+   "lado": "der",
+   "nombre": null
+  },
+  {
+   "t": "dialogo",
+   "quien": "PINTO",
+   "acot": null,
+   "texto": "¡Guardián!"
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Se la vendiste vos."
+  },
+  {
+   "t": "dialogo",
+   "quien": "PINTO",
+   "acot": null,
+   "texto": "¿Qué cosa?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "La túnica violeta."
+  },
+  {
+   "t": "dialogo",
+   "quien": "PINTO",
+   "acot": "sin perder la sonrisa un solo milímetro",
+   "texto": "La túnica no. El diploma."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang lo dejó sentarse en el escalón de arriba. No lo dejó entrar, porque NO DEJES ENTRAR A EXTRAÑOS estaba subrayado dos veces, y porque a esta altura de la semana la regla se había vuelto menos una orden y más una manera de saber quién era él."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Pinto miró el patio con los ojos de alguien que le pone precio a todo."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Miró la columna del portón partida en diagonal, con la astilla del largo del brazo todavía puesta. Miró las tejas que faltaban. Miró a los tres flacos en el escalón del corredor. Miró, al pasar, las zapatillas."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y ahí se le fue la sonrisa por primera vez en cuatro años."
+  },
+  {
+   "t": "dialogo",
+   "quien": "PINTO",
+   "acot": null,
+   "texto": "¿De dónde sacaste eso."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Del arcón."
+  },
+  {
+   "t": "dialogo",
+   "quien": "PINTO",
+   "acot": null,
+   "texto": "…"
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Estaban en el arcón. Nadie las usa."
+  },
+  {
+   "t": "dialogo",
+   "quien": "PINTO",
+   "acot": "mirando el camino, no a él",
+   "texto": "Sacátelas antes de la noche."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "¿Por qué?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "PINTO",
+   "acot": null,
+   "texto": "Porque hoy va a subir alguien que las conoce."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y entonces Pinto le contó lo que sabía, que era más de lo que sabía Tao y menos de lo que Guang necesitaba, que es la proporción exacta en la que Pinto sabía todas las cosas."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Que hace veinte años hubo un alumno en el Templo del Loto Torcido. Que era el mejor que había pasado nunca por ahí, y que eso no lo decía él sino toda la montaña, y que en la montaña casi nunca se está de acuerdo en nada. Que bajaba al pueblo dos veces al mes a comprar arroz y que la gente dejaba de hacer lo que estaba haciendo para verlo pasar. Que Pinto le había vendido, a los diecisiete, una espada de madera pintada de rojo."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "¿Y se la creyó?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "PINTO",
+   "acot": null,
+   "texto": "No. Me la compró igual."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "¿Para qué?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "PINTO",
+   "acot": "encogiéndose de hombros",
+   "texto": "Dijo que un día iba a tener alumnos y que se la iba a mostrar para explicarles algo."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang se quedó callado."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "¿Y qué pasó?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "PINTO",
+   "acot": null,
+   "texto": "Que no tuvo alumnos."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Pinto se levantó, se sacudió el abrigo —campanillas— y bajó dos escalones antes de darse vuelta, porque Pinto nunca dice la cosa importante de frente."
+  },
+  {
+   "t": "dialogo",
+   "quien": "PINTO",
+   "acot": null,
+   "texto": "Chico. Yo le vendo basura a todo el mundo y todo el mundo me la compra contento."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Me di cuenta."
+  },
+  {
+   "t": "dialogo",
+   "quien": "PINTO",
+   "acot": null,
+   "texto": "Sabés por qué."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Porque sirven para el que las compra."
+  },
+  {
+   "t": "dialogo",
+   "quien": "PINTO",
+   "acot": "señalándolo con el dedo, satisfecho",
+   "texto": "Ahí está."
+  },
+  {
+   "t": "dialogo",
+   "quien": "PINTO",
+   "acot": null,
+   "texto": "Ése no me compró nunca nada más. Ni una. En veinte años."
+  },
+  {
+   "t": "dialogo",
+   "quien": "PINTO",
+   "acot": null,
+   "texto": "Ése es el único de esta montaña al que no le pude vender jamás una cosa que no fuera verdad, y por eso es el único al que le tengo lástima."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y bajó los ciento ocho escalones haciendo ruido de campanillas."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang miró las zapatillas."
+  },
+  {
+   "t": "parrafo",
+   "texto": "No se las sacó."
+  },
+  {
+   "t": "separador"
+  },
+  {
+   "t": "titulo",
+   "texto": "Lo que Shifu le dijo a Tao"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Tao subió con el sol ya cayendo y no traía la caña de azúcar."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Ése fue el primer dato. En dos años Guang no lo había visto sin algo en la boca."
+  },
+  {
+   "t": "vineta",
+   "src": "cuento/libro/img/tao_neutral.jpeg",
+   "ancho": 34,
+   "lado": "der",
+   "nombre": null
+  },
+  {
+   "t": "parrafo",
+   "texto": "Se sentó en el escalón de arriba, apoyó el bastón, y se quedó mirando el barranco un rato largo antes de hablar. Ninguno de los dos mencionó la noche anterior. Ninguno de los dos la mencionó nunca, en realidad."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Pero Guang tenía una pregunta atragantada desde la mañana, con forma de humo, y se la sacó de encima antes de que Tao dijera nada, porque si esperaba se le iba a ir la valentía."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Yo corté el puente."
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": null,
+   "texto": "Ya sé."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "El lunes. Con un hacha. Yo solo."
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": null,
+   "texto": "Guang, ya sé."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "¿Y por qué no me dijiste nada?"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Tao lo miró como se mira a alguien que hizo una pregunta que uno no esperaba, y tardó en contestar lo que se tarda en darse cuenta de que la respuesta es fea."
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": null,
+   "texto": "Porque no me enteré."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Cruzaste el barranco el martes a la mañana."
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": null,
+   "texto": "Sí."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Para cruzar el barranco tenés que ver que no está el puente."
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": "despacio",
+   "texto": "No. Tenés que ver que no está el puente <strong>si ibas a usar el puente</strong>."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang no entendió, y después entendió, y fue peor."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "…¿hace cuánto que no cruzás por el puente?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": "mirando el barranco",
+   "texto": "Dos años."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Tao."
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": null,
+   "texto": "Dos años, Guang. Desde que me fui."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y se lo explicó, sin mirarlo, con el tono con el que se explican las cosas que uno decidió hace mucho y nunca dijo en voz alta."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Que el puente es la entrada. Que el que cruza el puente y sube los ciento ocho escalones es alguien que <strong>viene</strong> al templo. Y que él no podía subir por ahí, no después de lo que Shifu le había dicho, porque el camino de adelante es para el que llega y él no llegaba: él volvía a un lugar del que lo habían sacado, y hay una diferencia, y la diferencia se le hacía insoportable a la altura del escalón veinte."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Así que subía por el barranco. Todas las veces. Durante dos años."
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": null,
+   "texto": "Pensé que vos sabías por dónde subía."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "No."
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": null,
+   "texto": "Pensé que no me preguntabas de puro educado."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Yo pensé que subías por el camino como todo el mundo."
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": "una risa corta, sin nada adentro",
+   "texto": "Nadie sube por el camino como todo el mundo."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang se quedó sentado con eso encima."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Porque la cuenta era simple y él la hizo ahí mismo, en el escalón, y le dio esto: que Tao había trepado veinticinco metros de barranco, con niebla abajo, agarrándose de raíces, una vez y otra y otra, durante dos años, para venir a sentarse en el escalón cuarenta y dos a decirle cosas insoportables."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y que nunca lo había dicho."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y que se lo estaba diciendo ahora, un miércoles, sin caña de azúcar, mirando para otro lado."
+  },
+  {
+   "t": "parrafo",
+   "texto": "<em>(El humo se le desarmó ahí. No se le fue: se le desarmó, que es distinto, y le quedó en la cabeza la sensación de haber recibido una respuesta más grande que la pregunta. Le iba a pasar toda la vida. Nunca le gustó.)</em>"
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Tao."
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": null,
+   "texto": "No."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "No dije nada."
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": null,
+   "texto": "Ibas a decir algo. No lo digas."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y entonces Tao dijo a lo que había subido, y bajó la voz, y por una vez no había ni una gota de burla adentro."
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": null,
+   "texto": "Esta noche sube uno solo."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "¿Uno solo?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": null,
+   "texto": "Uno solo. Y es peor que los cuarenta."
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": null,
+   "texto": "Guang, mirame. Es peor que los cuarenta."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Le contó lo que sabía, que era esto:"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Que hace veinte años el Templo del Loto Torcido tuvo un alumno que era el mejor que había pasado nunca por ahí. Que Shifu lo entrenó doce años. Que todo el mundo en la montaña sabía que ese chico iba a heredar el templo, incluido el chico, sobre todo el chico."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y que cuando llegó el día, Shifu no se lo dio."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "¿Por qué?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": "muy quieto",
+   "texto": "Porque lo quería."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "¿Qué?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": null,
+   "texto": "Porque lo quería, Guang. Porque se pasó doce años queriéndolo."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y ahí Tao dijo la otra cosa, la que no venía a decir, la que se le salió porque había trepado un barranco pensándola:"
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": null,
+   "texto": "A mí me dijo algo parecido."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Vos nunca me contaste por qué te fuiste."
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": null,
+   "texto": "Me dijo: \"Vos no querés el templo. Vos querés ganar.\""
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": null,
+   "texto": "Y yo le dije que era lo mismo."
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": null,
+   "texto": "Y él no me contestó nada, que es como te contesta él."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang no supo qué decir. Estuvo callado tanto tiempo que Tao se rió, sin ganas."
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": null,
+   "texto": "¿Sabés por qué te lo dejó a vos?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Porque era el único que quedaba."
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": "parándose",
+   "texto": "Sí. Exactamente por eso."
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": null,
+   "texto": "Y por eso el que sube esta noche te odia más de lo que odió a nadie."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Bajó los ciento ocho escalones. En el cuarenta y dos se dio vuelta."
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": null,
+   "texto": "Guang."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "¿Qué."
+  },
+  {
+   "t": "dialogo",
+   "quien": "TAO",
+   "acot": null,
+   "texto": "No le des la galleta."
+  },
+  {
+   "t": "parrafo",
+   "texto": "<em>(Guang no entendió esa frase hasta bien entrada la noche. Y para entonces ya la había desobedecido.)</em>"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y después, a la altura del escalón veinte, Tao se salió del camino y se metió por el costado, entre los arbustos, hacia el barranco, como venía haciendo hacía dos años."
+  },
+  {
+   "t": "vineta",
+   "src": "cuento/libro/img/tao_de_espaldas.jpeg",
+   "ancho": 30,
+   "lado": "izq",
+   "nombre": null
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang lo miró irse desde arriba y no dijo nada, porque no se le ocurrió qué, y porque a los dieciséis años uno todavía no sabe que las cosas que a uno se le ocurren tres días después no sirven."
+  },
+  {
+   "t": "separador"
+  },
+  {
+   "t": "fase",
+   "nombre": "OCASO",
+   "resto": null
+  },
+  {
+   "t": "titulo",
+   "texto": "El de la corona de papel"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Con el Ocaso, en el Templo del Loto Torcido, dejan de subir bandidos. Los bandidos también le tienen miedo a la montaña a oscuras."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Sube lo otro."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Wu, Bo y el flaco se metieron en el corredor sin que nadie se los pidiera, apenas la luz se puso naranja, y se quedaron ahí adentro. Guang no les preguntó por qué. Le pareció que la gente que duerme en los caminos tiene información sobre el atardecer que él no tenía."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang estaba barriendo el patio de nuevo —lo barría dos veces por día desde que Shifu se fue, cosa que Shifu nunca le había pedido— cuando las sombras dejaron de coincidir con las cosas que las proyectaban, y una de ellas se separó del pie de la columna y se paró derecha."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Tenía su cara."
+  },
+  {
+   "t": "parrafo",
+   "texto": "No era una copia perfecta: era él pero un poco más. Más ancho de hombros. La barbilla más alta. El pecho inflado y las manos en la cintura, en la postura de alguien que acaba de ganar algo y está esperando que se lo digan. Y en la cabeza, torcida, una corona hecha de papel."
+  },
+  {
+   "t": "figura",
+   "src": "Assets/Peligros/23.jpeg",
+   "nombre": "Demonio del Orgullo",
+   "modo": "estampa"
+  },
+  {
+   "t": "parrafo",
+   "texto": "De papel de arroz rojo, del mismo del dragón, del que Guang había estado juntando del piso con la mano de a pedacitos el martes a la mañana."
+  },
+  {
+   "t": "dialogo",
+   "quien": "EL DEMONIO",
+   "acot": "con su voz",
+   "texto": "Tres días."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "…"
+  },
+  {
+   "t": "dialogo",
+   "quien": "EL DEMONIO",
+   "acot": null,
+   "texto": "Tres días y todavía está en pie. ¿A cuántos maestros conocés que aguantaron tres días?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "A ninguno."
+  },
+  {
+   "t": "dialogo",
+   "quien": "EL DEMONIO",
+   "acot": null,
+   "texto": "<em>A ninguno.</em>"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y Guang, que venía de buen humor porque había tirado al piso a un charlatán de un empujón, se escuchó contestar:"
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Le gané a un ejército."
+  },
+  {
+   "t": "dialogo",
+   "quien": "EL DEMONIO",
+   "acot": "radiante",
+   "texto": "Le ganaste a un ejército."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Y a un dragón."
+  },
+  {
+   "t": "dialogo",
+   "quien": "EL DEMONIO",
+   "acot": null,
+   "texto": "Y a un dragón."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y después dejó de repetirle."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang recién ahí se dio cuenta de cómo estaba parado: el pecho afuera, la barbilla alta, las manos en la cintura. La postura del otro, clavada. Las tres preguntas habían sido para eso."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Apoyó la escoba contra la columna. La apoyó él, despacio, porque no le iba a hacer falta."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Ésa fue la pelea. Todo lo que vino después fue el rato que le llevó enterarse."
+  },
+  {
+   "t": "parrafo",
+   "texto": "La perdió entera, sin discusión."
+  },
+  {
+   "t": "parrafo",
+   "texto": "El demonio del orgullo peleaba exactamente como Guang, con las mismas técnicas de los últimos tres días, sólo que las hacía mejor, y cada vez que le entraba un golpe se lo comentaba. Guang tiró la rascada felina y el demonio la tiró más rápido. Guang tiró el rugido y el demonio rugió más fuerte. Guang tiró la patada del tigre y el demonio la esquivó, y Guang se cayó, porque siempre."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y había una cosa peor, que Guang notó a la tercera vez y que le sacó las ganas de todo: <strong>el demonio las hacía con las dos manos.</strong> La derecha del demonio cerraba perfectamente."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Terminó de rodillas en el medio del patio, con la escoba lejos, escupiendo, sin nada."
+  },
+  {
+   "t": "dialogo",
+   "quien": "EL DEMONIO",
+   "acot": "agachándose a su altura",
+   "texto": "No pasa nada. Sos el mejor guardián que tuvo este templo."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "No."
+  },
+  {
+   "t": "dialogo",
+   "quien": "EL DEMONIO",
+   "acot": null,
+   "texto": "Sí. Objetivamente. Contra los que hubo antes—"
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "No, digo que no. Que no soy nada. Que barro escalones."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y bajó la cabeza. Del todo. Hasta el piso, con la frente en la piedra y las manos abiertas al costado y el polvo del patio en los hombros."
+  },
+  {
+   "t": "parrafo",
+   "texto": "No como una reverencia. Como quien se saca algo de encima."
+  },
+  {
+   "t": "parrafo",
+   "texto": "La corona de papel cayó al piso a un costado, sola, y no había nadie adentro de ella."
+  },
+  {
+   "t": "figura",
+   "src": "Assets/Skills/23.jpeg",
+   "nombre": "Humildad",
+   "modo": "estampa"
+  },
+  {
+   "t": "parrafo",
+   "texto": "<strong>Humildad.</strong> Te bajaste de tu nube. A los golpes."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang se quedó arrodillado un rato, con la cara en el piso, respirando el polvo. Estaba en paz y estaba agotado y las dos cosas eran la misma."
+  },
+  {
+   "t": "parrafo",
+   "texto": "<em>(Veinte años antes, otro chico había peleado con esa misma sombra en ese mismo patio. Le ganó. Ése fue el problema.)</em>"
+  },
+  {
+   "t": "separador"
+  },
+  {
+   "t": "titulo",
+   "texto": "El sueño"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang no llegó a levantarse del patio. Se durmió ahí, de rodillas, con la frente contra la piedra, porque llevaba tres noches durmiendo casi nada y el cuerpo no negocia esas cosas: las informa."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y soñó."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Soñó con niebla, arremolinándose despacio, sin viento, y la niebla era la del barranco: la que existe específicamente para que uno no pueda calcular la altura."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y en la niebla, flotando apenas por encima del piso, había un viejo con los ojos brillando en blanco al que no había visto nunca y reconoció inmediatamente."
+  },
+  {
+   "t": "figura",
+   "src": "Assets/Peligros/30.jpeg",
+   "nombre": "Prueba del Gran Maestro (en sueños)",
+   "modo": "estampa"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Es el Gran Maestro. El maestro de Shifu. Lleva cuarenta años muerto y hay un retrato suyo en el salón al que Guang le limpia el polvo todos los martes."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Este martes no se lo había limpiado. Fue lo primero que pensó, y quiso explicarlo, y no le salió."
+  },
+  {
+   "t": "dialogo",
+   "quien": "EL GRAN MAESTRO",
+   "acot": null,
+   "texto": "¿Quién sos?"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y ahí está la prueba. Ésa es toda la prueba. La hacen una vez y no avisan cuándo."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang abrió la boca para contestar."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Iba a decir \"Guang Lu\", y le pareció poco. Iba a decir \"el guardián del templo\", y se acordó de la corona de papel encima de su propia cara dormida. Iba a decir \"el alumno de Shifu\", y no le salió, porque no estaba seguro de que Shifu usara esa palabra."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Se quedó mudo un rato largo, en la niebla, con el viejo esperando."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y se dio cuenta, ahí parado, de que le habían hecho la única pregunta que él no se había hecho en tres días, y de que había estado demasiado ocupado barriendo como para notar que no se la había hecho."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "No sé."
+  },
+  {
+   "t": "dialogo",
+   "quien": "EL GRAN MAESTRO",
+   "acot": null,
+   "texto": "…"
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Perdón. No sé. Barro los escalones y se ensucian y los vuelvo a barrer."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Eso es lo que tengo."
+  },
+  {
+   "t": "parrafo",
+   "texto": "El Gran Maestro lo miró con los ojos blancos un tiempo imposible de medir."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Después asintió una vez, muy despacio, y la niebla se lo llevó."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang se despertó de golpe con la noche ya cerrada, empapado en sudor, tirado boca abajo en el patio, con el corazón golpeándole en el cuello y una sensación clarísima y completamente inútil de que algo importante acababa de pasar y no iba a poder explicárselo a nadie."
+  },
+  {
+   "t": "figura",
+   "src": "Assets/Skills/30.jpeg",
+   "nombre": "Iluminación",
+   "modo": "estampa"
+  },
+  {
+   "t": "parrafo",
+   "texto": "<strong>Iluminación.</strong> Te despertaste empapado. Pero iluminado."
+  },
+  {
+   "t": "parrafo",
+   "texto": "<em>(Veinte años antes, en ese mismo patio, la niebla le hizo la misma pregunta a un chico de diecinueve años que había entrenado doce años para que se la hicieran.</em>"
+  },
+  {
+   "t": "parrafo",
+   "texto": "<em>Y el chico contestó, con la voz firme y sin dudar un segundo, porque era la verdad:</em>"
+  },
+  {
+   "t": "parrafo",
+   "texto": "<em>\"Soy el mejor alumno que tuvo este templo.\"</em>"
+  },
+  {
+   "t": "parrafo",
+   "texto": "<em>Y tenía razón. Ése fue el problema.)</em>"
+  },
+  {
+   "t": "separador"
+  },
+  {
+   "t": "titulo",
+   "texto": "Lo que empezó a doler"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Al levantarse del patio, Guang descubrió dos cosas nuevas sobre su propio cuerpo."
+  },
+  {
+   "t": "parrafo",
+   "texto": "La primera fue que el hombro izquierdo —el del brazo quemado, el del puño nuevo, el que llevaba todo el día haciendo el trabajo de dos— no contestaba. No le dolía: <strong>no estaba.</strong> Lo movió con la otra mano y volvió a su sitio y siguió sin estar, como un vecino que se mudó sin avisar."
+  },
+  {
+   "t": "vineta",
+   "src": "Assets/Cansancio/4.jpeg",
+   "ancho": 46,
+   "lado": "izq",
+   "nombre": null
+  },
+  {
+   "t": "parrafo",
+   "texto": "La segunda fue el nudillo del medio de la mano derecha, que se había abierto en algún momento entre el poste de la mañana y el demonio de la corona, justo encima de donde había estado la ampolla, y que ahora tenía una costra oscura y fea que se rajaba cada vez que cerraba el puño."
+  },
+  {
+   "t": "vineta",
+   "src": "Assets/Cansancio/6.jpeg",
+   "ancho": 46,
+   "lado": "der",
+   "nombre": null
+  },
+  {
+   "t": "parrafo",
+   "texto": "O sea que ahora la derecha llegaba hasta donde llegaba y ahí se rajaba, y la izquierda no estaba, y Guang Lu tenía dos manos y ninguna."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Se quedó mirándose el nudillo bajo la luz de la farola."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Shifu diría que es carácter. Shifu diría exactamente eso, con las cejas, sin levantar la vista del té."
+  },
+  {
+   "t": "vineta",
+   "src": "cuento/libro/img/shifu_desaprueba.jpeg",
+   "ancho": 36,
+   "lado": "der",
+   "nombre": null
+  },
+  {
+   "t": "parrafo",
+   "texto": "Shifu no está."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y entonces Guang hizo una cosa que no venía haciendo, que fue extrañarlo. No extrañar la ayuda: extrañarlo a él. A las cejas. Al gancho de la escoba y a la opinión firme sobre la gente que apoya las escobas contra la pared. A la manera que tenía de decir las cosas dejando una segunda parte colgando, que uno pasaba dos días buscando y a veces no existía."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Le duró poco."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Porque fue justo ahí, con la farola en una mano y el nudillo en la otra, que se le ocurrió mirarse las zapatillas, y se acordó de que Pinto le había dicho que se las sacara, y se acordó de que había un nombre escrito en la lengüeta."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Se sentó en el escalón de la cocina y se sacó la derecha y la acercó a la luz."
+  },
+  {
+   "t": "parrafo",
+   "texto": "<strong>SHEN.</strong>"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Tinta descolorida, letra de alguien joven, apretada, con el trazo del final subiendo. Escrito adentro, contra el talón, donde no se ve. Alguien había tenido miedo de que se las llevaran."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y en ese momento se oyeron pasos en el escalón cuarenta y dos."
+  },
+  {
+   "t": "separador"
+  },
+  {
+   "t": "fase",
+   "nombre": "NOCHE",
+   "resto": "EL MONJE CAÍDO",
+   "fondo": "Assets/Jefes/jefe1.jpeg"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Subió uno solo, sin apuro, y no golpeó el portón porque conocía el truco de la tranca."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Cuarenta años. La cabeza afeitada y ya con canas en los costados. Una túnica que había sido buena y ya no, y unas manos con los nudillos deformados de la manera particular en que se deforman los nudillos de la gente que le pegó a un poste de madera durante doce años."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Cruzó el patio como quien vuelve a su casa, porque estaba volviendo a su casa. Se agachó al pasar bajo la rama del ciruelo, que está exactamente a la altura a la que hay que agacharse, y esa agachada fue lo que le puso a Guang la piel de gallina: <strong>no la calculó.</strong> El cuerpo se la sabía."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Después esquivó las dos tablas del corredor que crujen sin mirar el piso."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Wu, Bo y el flaco salieron del corredor y se pusieron los tres en fila al lado de Guang, con los palos, como se habían puesto la noche anterior delante de cuarenta lanzas."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y el hombre los miró."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Los miró más tiempo del que hacía falta para contarlos, y algo se le movió en la cara, y no fue miedo. Miró a los tres tipos flacos parados en el patio de ese templo a las once de la noche, y después miró el corredor de donde habían salido, donde se les veían las mantas tiradas contra la pared."
+  },
+  {
+   "t": "dialogo",
+   "quien": "EL MONJE CAÍDO",
+   "acot": null,
+   "texto": "¿Duermen acá?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Sí."
+  },
+  {
+   "t": "dialogo",
+   "quien": "EL MONJE CAÍDO",
+   "acot": "muy despacio",
+   "texto": "Adentro."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "En el corredor."
+  },
+  {
+   "t": "dialogo",
+   "quien": "EL MONJE CAÍDO",
+   "acot": null,
+   "texto": "Adentro."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y después bajó la vista y miró los pies de Guang."
+  },
+  {
+   "t": "dialogo",
+   "quien": "EL MONJE CAÍDO",
+   "acot": null,
+   "texto": "Ésas son mías."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "…"
+  },
+  {
+   "t": "dialogo",
+   "quien": "EL MONJE CAÍDO",
+   "acot": null,
+   "texto": "Las zapatillas. Fijate la lengüeta."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Ya la miré."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Shen levantó la cabeza cuando lo escuchó decir eso, y Guang supo que había dicho lo correcto sin saber por qué, y le llevó como veinte años entenderlo: que lo peor que le podés hacer a alguien que volvió a buscar su nombre es no haberlo leído."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Puedo devolvértelas."
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": null,
+   "texto": "No las quiero."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Están bien todavía—"
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": null,
+   "texto": "<em>No las quiero.</em> Quiero lo otro."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Lo que quería estaba en la alacena."
+  },
+  {
+   "t": "parrafo",
+   "texto": "En la montaña lo contaban como un chiste: que el Monje Caído bajaba por venganza y por galletas. Es gracioso hasta que uno se sienta a pensar por qué, y después no lo es tanto."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Shen entrenó doce años en el Templo del Loto Torcido. Doce. Se levantó a las cuatro y media cuatro mil trescientas ochenta veces. Barrió esos ciento ocho escalones más veces de las que Guang iba a barrerlos en su vida. Y en doce años Shifu nunca —ni una vez, ni en el peor invierno, ni el día que Shen le ganó a los tres campeones del valle— abrió esa alacena para él."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Las galletas eran de Shifu. Ésa era la regla. La regla no tenía excepciones y no las tuvo nunca."
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": null,
+   "texto": "Abrí la alacena."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "No."
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": null,
+   "texto": "Es un frasco de galletas, gurí."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Ya sé."
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": null,
+   "texto": "Vos tampoco comiste."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "No."
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": "y acá se le rompió algo en la voz, un cuarto de tono",
+   "texto": "¿Y entonces qué diferencia hay?"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang no tuvo respuesta y por eso peleó, que es lo que hace uno."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Pelearon largo y <strong>Guang Lu no le ganó al Monje Caído.</strong>"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Hay que decirlo así, sin adornarlo, porque es la primera de las cinco noches en que no gana y conviene que quede claro. Shen era mejor en todo. Le sacaba una vida entera de entrenamiento, medio cuerpo de ventaja y doce años de las mismas seis técnicas hechas doscientas mil veces. Le entró a voluntad. Le abrió el labio. Le volvió a partir la costilla del barranco. En algún momento lo levantó del suelo con una sola mano y a Guang le dio tiempo, colgando, de pensar que el brazo del hombre no temblaba."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Lo único que le funcionó a Guang en toda la noche fue el arco corto de la garra abierta, sin telegrafiar, desde adentro hacia afuera, con la mano que no cierra."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Se lo dejó marcado en el antebrazo. Tres líneas paralelas."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Shen se miró el brazo, y después lo miró a él, y por primera vez en la noche paró."
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": null,
+   "texto": "¿Y eso de dónde lo sacaste?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": "sin aire",
+   "texto": "De la gata."
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": null,
+   "texto": "…"
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": "muy quieto",
+   "texto": "Sí. A mí también."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Mei estaba en el techo de la cocina. Guang no la había visto llegar. Nunca se sabe."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Shen la miró un momento larguísimo, desde abajo, con la boca un poco abierta y sin acordarse de cerrarla, y Mei le devolvió la mirada con el ojo bueno y no hizo absolutamente nada más, porque era exactamente lo que le había hecho durante doce años."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Después Shen volvió al asunto, y el asunto era la cocina."
+  },
+  {
+   "t": "parrafo",
+   "texto": "En el minuto veinte lo tenía a Guang contra la puerta de la cocina, con el antebrazo cruzado en el pecho, y no lo estaba golpeando. Estaba tratando de pasar. Y Guang, con un hombro que no estaba y un nudillo abierto y la vista blanca, había puesto la mano en la puerta de la alacena."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y la estaba <strong>cerrando</strong>."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Los ojos apretados. Los dedos abiertos sobre la madera, porque cerrarlos no podía. Empujando una puerta de alacena contra un hombre de cuarenta años, que es la cosa menos marcial que ocurrió en los cinco días."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y los pies quietos. Eso también hay que decirlo, porque es la única razón por la que la puerta no se abrió: Guang tenía puestas unas zapatillas de suela de cuerda que le quedaban un dedo grandes, y no resbaló."
+  },
+  {
+   "t": "parrafo",
+   "texto": "<strong>Paso Firme.</strong> <strong>Disciplina.</strong> <em>Las galletas de Shifu siguen ahí. Intactas.</em>"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y Shen paró."
+  },
+  {
+   "t": "parrafo",
+   "texto": "No porque no pudiera. Paró porque en algún momento del forcejeo levantó la vista y vio la cara del chico —los ojos apretados, la mandíbula trabada, el esfuerzo absurdo y total de no dejar entrar a nadie a un frasco— y reconoció esa cara."
+  },
+  {
+   "t": "parrafo",
+   "texto": "La había puesto él. Durante doce años. Todas las noches."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Se soltó. Dio dos pasos atrás. Se sentó en el escalón de la cocina con los codos en las rodillas."
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": "al piso",
+   "texto": "Yo tampoco comí nunca."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Ya sé."
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": null,
+   "texto": "Doce años."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Ya sé."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang se quedó apoyado en la alacena, resbalando de a poco hasta quedar sentado también, cerca, los dos mirando el piso de la cocina y respirando como dos calderas viejas."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Wu se asomó a la puerta, evaluó la situación con la velocidad de alguien que evalúa situaciones para vivir, y se fue sin decir nada."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y después Shen preguntó lo que había subido a preguntar, y no era por las galletas."
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": null,
+   "texto": "¿Vos quién sos?"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang tenía la respuesta puesta desde hacía dos horas, porque se la habían preguntado en la niebla y la había buscado ahí adentro y le había costado encontrarla. Así que esta vez no tardó nada, y ése fue el error, y por eso el hombre le iba a decir después lo que le dijo en el portón."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Barro los escalones y se ensucian y los vuelvo a barrer."
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": null,
+   "texto": "…"
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Eso es lo que tengo."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Shen se quedó mirando el piso de la cocina."
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": null,
+   "texto": "Yo también barría."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": "nada",
+   "texto": ""
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": null,
+   "texto": "Yo barría <strong>mejor</strong>."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y lo dijo sin ninguna ironía, con la voz de un hombre de cuarenta años, y ésa fue la parte de la noche que a Guang le dio miedo de verdad, más que el ejército y más que el dragón: que ese hombre tenía razón, y que tener razón no le había servido para nada, y que estaba sentado en el escalón de la cocina de una casa a la que no lo dejaban entrar mientras tres tipos que subieron a robar dormían adentro."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y entonces Guang hizo la cosa que Tao le había dicho, esa misma tarde, que no hiciera."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Se estiró —le costó, el hombro no estaba— abrió la alacena, bajó el frasco, sacó una galleta y se la ofreció."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Shen la miró un rato larguísimo."
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": null,
+   "texto": "Si me la das, no la gané."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Ya sé."
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": null,
+   "texto": "Entonces no sirve."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": "la mano quieta en el aire",
+   "texto": "Ya sé."
+  },
+  {
+   "t": "parrafo",
+   "texto": "No la agarró."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Se levantó, se sacudió la túnica, y cruzó el patio de vuelta agachándose bajo la rama del ciruelo sin calcularla. En el portón se detuvo, con la mano en la hoja que colgaba del perno."
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": null,
+   "texto": "Arreglá esto."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Sí."
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": null,
+   "texto": "Con dos tarugos y una cuña. No con clavos. Los clavos abren la veta."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "…sí."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y después, sin darse vuelta:"
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": null,
+   "texto": "El jueves sube uno que se te va a parecer mucho más que yo."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "¿Otro?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": null,
+   "texto": "Otro. Y ése no viene por las galletas."
+  },
+  {
+   "t": "dialogo",
+   "quien": "SHEN",
+   "acot": null,
+   "texto": "Gurí. Cuando te pregunten quién sos, no contestes rápido."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y bajó los ciento ocho escalones que había barrido cuatro mil trescientas ochenta veces."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Bajó por el camino. No por el barranco."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang lo notó, sin saber que lo estaba notando, y se le quedó adentro sin ninguna utilidad hasta el sábado."
+  },
+  {
+   "t": "separador"
+  },
+  {
+   "t": "fase",
+   "nombre": "FIN DEL DÍA TRES",
+   "resto": null,
+   "menor": true
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang se quedó sentado en el piso de la cocina con una galleta en la mano hasta que se le durmió el brazo bueno también."
+  },
+  {
+   "t": "parrafo",
+   "texto": "No se la comió. La envolvió en un trapo y la guardó en el bolsillo de la túnica, y no supo decir por qué. Le pareció que había quedado abierta, como una frase a la que le falta el final."
+  },
+  {
+   "t": "parrafo",
+   "texto": "El frasco había quedado afuera, sobre la mesada, con la tapa puesta. Guang levantó la cabeza para mirarlo y se fijó en la etiqueta, que llevaba cuatro años viendo sin leerla."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Estaba escrita a mano. Letra apretada, de alguien joven, con el trazo del final subiendo."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang se quedó un rato larguísimo sentado en el piso de esa cocina, mirando una palabra escrita por un chico de diecinueve años que le ponía el nombre a las cosas por si se las llevaban, y no pudo decidir si lo que sentía era pena o era otra cosa que todavía no tenía nombre."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Puso el frasco en su lugar. Arriba de todo, donde hay que estirarse. Le costó."
+  },
+  {
+   "t": "parrafo",
+   "texto": "<em>(Se la iba a comer alguien, cuatro días después, en una cocina apagada.)</em>"
+  },
+  {
+   "t": "parrafo",
+   "texto": "Wu apareció en la puerta con un cuenco."
+  },
+  {
+   "t": "dialogo",
+   "quien": "WU",
+   "acot": null,
+   "texto": "Hicimos arroz."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "¿Ustedes?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "WU",
+   "acot": null,
+   "texto": "Bo. Le sale mal."
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "¿Peor que a mí?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "WU",
+   "acot": "pensándolo con honestidad",
+   "texto": "No."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Comieron los cuatro en el escalón mirando la montaña sin hablar, que ya iba siendo una costumbre de dos días, y a Guang le costó llevarse el cuenco a la boca porque tenía un hombro que no estaba, y Bo se lo sostuvo sin comentarlo y sin mirarlo, y Guang tampoco lo comentó."
+  },
+  {
+   "t": "dialogo",
+   "quien": "MEI",
+   "acot": "en el marco de la puerta, mirándolo con el ojo bueno",
+   "texto": ""
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "¿Vos lo conociste?"
+  },
+  {
+   "t": "dialogo",
+   "quien": "MEI",
+   "acot": "desprecio con el ojo cerrado",
+   "texto": ""
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Sos tan vieja como para haberlo conocido."
+  },
+  {
+   "t": "dialogo",
+   "quien": "MEI",
+   "acot": "desprecio total",
+   "texto": ""
+  },
+  {
+   "t": "dialogo",
+   "quien": "GUANG",
+   "acot": null,
+   "texto": "Perdón."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang se acostó en el corredor, cerca de los tres, porque el salón le quedaba lejos."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Antes de dormirse se sacó las zapatillas y las dejó al lado de la estera, juntas, con las puntas para la misma dirección, del modo en que se dejan las cosas prestadas."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Esa noche durmió de un tirón, más que ninguna otra de la semana, y soñó otra vez con niebla,"
+  },
+  {
+   "t": "parrafo",
+   "texto": "y en el sueño no había nadie,"
+  },
+  {
+   "t": "parrafo",
+   "texto": "y era mucho peor."
+  },
+  {
+   "t": "separador"
+  },
+  {
+   "t": "titulo",
+   "texto": "La mañana del jueves"
+  },
+  {
+   "t": "parrafo",
+   "texto": "La campana no sonó el jueves tampoco, y Guang se dio cuenta de que ya no la esperaba, y le dio tristeza haberse acostumbrado."
+  },
+  {
+   "t": "parrafo",
+   "texto": "El patio estaba entero. Fue lo primero raro: en tres días no se había roto nada nuevo. La columna seguía partida con la astilla puesta y las tejas seguían faltando, pero eso era de antes, y no haber sumado nada era casi como haber arreglado algo."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Fue a la cocina. Bo estaba haciendo arroz y le estaba saliendo mal."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Después fue al gancho y estiró la mano derecha, por costumbre, y la mano se detuvo sola en el mismo lugar de siempre y esta vez a Guang no lo sorprendió, y ésa es la primera señal de que uno se está rompiendo en serio: que deja de ser una novedad."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Agarró la escoba con la izquierda, sin mirar, sin pensarlo, ya sabiendo cómo."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Y al ir a bajar se acordó de una cosa y volvió, y se puso las zapatillas."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Se las ató sentado en el escalón de arriba, con el hombro que no estaba y el nudillo que se rajaba, y le llevó bastante más de lo que le lleva a cualquiera atarse un par de zapatillas."
+  },
+  {
+   "t": "parrafo",
+   "texto": "En el escalón cuarenta y dos no había bagazo de caña de azúcar. No había nada. Estaba limpio del día anterior y no lo había vuelto a ensuciar nadie."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Guang lo barrió igual."
+  },
+  {
+   "t": "parrafo",
+   "texto": "Faltaban dos días para que volviera Shifu, y por primera vez desde el domingo a Guang le pareció que el problema no era aguantar hasta el sábado."
+  },
+  {
+   "t": "parrafo",
+   "texto": "El problema era que el sábado iba a llegar, y él iba a tener que contar todo esto, y no sabía por dónde se empieza."
+  },
+  {
+   "t": "separador"
+  },
+  {
+   "t": "parrafo",
+   "texto": "<strong>Técnicas aprendidas el día tres:</strong> Rascada Felina · Paso Firme · Disciplina · Escama de Dragón · Humildad · Iluminación. <strong>Fatiga acumulada:</strong> tres. La ampolla, el hombro dormido, el nudillo partido. <strong>Veces que quiso irse:</strong> ninguna. Ése fue el problema: estuvo demasiado ocupado para acordarse, y las cosas de las que uno no se acuerda vuelven el jueves."
+  },
+  {
+   "t": "colofon"
+  }
+ ]
+}

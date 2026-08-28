@@ -547,16 +547,6 @@
       }
     ]
   },
-  "La mano": {
-    "vinetas": [
-      {
-        "src": "cuento/libro/img/guang_de_espaldas.jpeg",
-        "tras": "Barrió con la izquierda. Le salió horrible. Tardó el doble",
-        "ancho": 28,
-        "lado": "der"
-      }
-    ]
-  },
   "El humo": {
     "quitar": [
       "Assets/UI/background.jpeg"
