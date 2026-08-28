@@ -304,7 +304,7 @@ Wu se acercó al poste, lo miró de arriba abajo, y opinó.
 > **WU** — ¿Por qué le pegás a eso?
 > **GUANG** — Para aprender a pegar.
 > **WU** — Pero no se defiende.
-> **GUANG** — Ya sé.
+> **GUANG** — Ése es el punto.
 > **WU** — Nosotros nos defendimos y te fue mejor.
 
 Guang abrió la boca para contestar y no encontró qué, que le pasaba bastante seguido con Wu y que
@@ -320,18 +320,19 @@ era, técnicamente, la razón por la cual lo dejaba quedarse.
 **Técnica** `Assets/Skills/16.jpeg` — Disciplina
 
 La alacena de la cocina tiene dos puertas de madera que no cierran del todo y, arriba de todo,
-donde hay que estirarse, la lata de las galletas de Shifu.
+donde hay que estirarse, el frasco de las galletas de Shifu: loza azul y blanca, con la tapa de
+madera y una etiqueta escrita a mano por alguien que no era Shifu.
 
 Las hace él. Nadie sabe con qué, y las dos veces que alguien preguntó la respuesta fue distinta.
-Son chatas, doradas, con una raya de sésamo arriba, y huelen —cuando se abre la lata, sólo cuando se
-abre la lata— a algo que no huele a nada más en la montaña.
+Son chatas, doradas, con una raya de sésamo arriba, y huelen —cuando se abre el frasco, sólo cuando se
+abre el frasco— a algo que no huele a nada más en la montaña.
 
 Guang llevaba tres días comiendo arroz del día anterior. Desde el martes lo compartía con tres tipos
 que comían como come la gente que aprendió a comer rápido en lugares donde el plato se lo podían
 sacar, así que el arroz del día anterior ahora era el arroz del día anterior dividido en cuatro.
 
-Abrió la alacena al mediodía del tercer día y la luz de la ventana le dio justo a la lata, del modo
-en que la luz le da a las cosas en los cuadros de los templos, y Guang Lu se quedó mirándola con la
+Abrió la alacena al mediodía del tercer día y la luz de la ventana le dio justo al frasco, del modo
+en que la luz le da a las cosas en los cuadros de los templos, y Guang Lu se quedó mirándolo con la
 mano en la puerta.
 
 > **GUANG** — Una sola.
@@ -362,7 +363,7 @@ cosa. La disciplina es querer la cosa exactamente igual que antes y que la puert
 mismo.
 
 *(Esa misma noche un hombre de cuarenta años iba a subir esos ciento ocho escalones con un solo
-objetivo, y el objetivo estaba en esa lata.)*
+objetivo, y el objetivo estaba en ese frasco.)*
 
 ---
 
@@ -490,7 +491,7 @@ Pinto se levantó, se sacudió el abrigo —campanillas— y bajó dos escalones
 porque Pinto nunca dice la cosa importante de frente.
 
 > **PINTO** — Chico. Yo le vendo basura a todo el mundo y todo el mundo me la compra contento.
-> **GUANG** — Ya sé.
+> **GUANG** — Me di cuenta.
 > **PINTO** — Sabés por qué.
 > **GUANG** — Porque sirven para el que las compra.
 > **PINTO** — *(señalándolo con el dedo, satisfecho)* Ahí está.
@@ -563,8 +564,8 @@ Así que subía por el barranco. Todas las veces. Durante dos años.
 Guang se quedó sentado con eso encima.
 
 Porque la cuenta era simple y él la hizo ahí mismo, en el escalón, y le dio esto: que Tao había
-trepado veinticinco metros de barranco, con niebla abajo, agarrándose de raíces, dos veces por
-semana, durante dos años, para venir a sentarse en el escalón cuarenta y dos a decirle cosas
+trepado veinticinco metros de barranco, con niebla abajo, agarrándose de raíces, una vez y otra y
+otra, durante dos años, para venir a sentarse en el escalón cuarenta y dos a decirle cosas
 insoportables.
 
 Y que nunca lo había dicho.
@@ -716,7 +717,7 @@ fue el problema.)*
 
 ### El sueño
 
-**Peligro** `Assets/Peligros/30.jpeg` — Prueba del Gran Maestro, en sueños
+**Peligro** `Assets/Peligros/30.jpeg` — Prueba del Gran Maestro (en sueños)
 **Técnica** `Assets/Skills/30.jpeg` — Iluminación
 
 Guang no llegó a levantarse del patio. Se durmió ahí, de rodillas, con la frente contra la piedra,
@@ -887,7 +888,7 @@ Las galletas eran de Shifu. Ésa era la regla. La regla no tenía excepciones y 
 
 > **SHEN** — Abrí la alacena.
 > **GUANG** — No.
-> **SHEN** — Es una lata de galletas, gurí.
+> **SHEN** — Es un frasco de galletas, gurí.
 > **GUANG** — Ya sé.
 > **SHEN** — Vos tampoco comiste.
 > **GUANG** — No.
@@ -945,7 +946,7 @@ Y Shen paró.
 
 No porque no pudiera. Paró porque en algún momento del forcejeo levantó la vista y vio la cara del
 chico —los ojos apretados, la mandíbula trabada, el esfuerzo absurdo y total de no dejar entrar a
-nadie a una lata— y reconoció esa cara.
+nadie a un frasco— y reconoció esa cara.
 
 La había puesto él. Durante doce años. Todas las noches.
 
@@ -977,7 +978,7 @@ fue el error, y por eso el hombre le iba a decir después lo que le dijo en el p
 Shen se quedó mirando el piso de la cocina.
 
 > **SHEN** — Yo también barría.
-> **GUANG** — Ya sé.
+> **GUANG** — *(nada)*
 > **SHEN** — Yo barría **mejor**.
 
 Y lo dijo sin ninguna ironía, con la voz de un hombre de cuarenta años, y ésa fue la parte de la
@@ -988,7 +989,7 @@ adentro.
 
 Y entonces Guang hizo la cosa que Tao le había dicho, esa misma tarde, que no hiciera.
 
-Se estiró —le costó, el hombro no estaba— abrió la alacena, bajó la lata, sacó una galleta y se la
+Se estiró —le costó, el hombro no estaba— abrió la alacena, bajó el frasco, sacó una galleta y se la
 ofreció.
 
 Shen la miró un rato larguísimo.
@@ -1032,6 +1033,17 @@ brazo bueno también.
 No se la comió. La envolvió en un trapo y la guardó en el bolsillo de la túnica, y no supo decir por
 qué. Le pareció que había quedado abierta, como una frase a la que le falta el final.
 
+El frasco había quedado afuera, sobre la mesada, con la tapa puesta. Guang levantó la cabeza para
+mirarlo y se fijó en la etiqueta, que llevaba cuatro años viendo sin leerla.
+
+Estaba escrita a mano. Letra apretada, de alguien joven, con el trazo del final subiendo.
+
+Guang se quedó un rato larguísimo sentado en el piso de esa cocina, mirando una palabra escrita por
+un chico de diecinueve años que le ponía el nombre a las cosas por si se las llevaban, y no pudo
+decidir si lo que sentía era pena o era otra cosa que todavía no tenía nombre.
+
+Puso el frasco en su lugar. Arriba de todo, donde hay que estirarse. Le costó.
+
 *(Se la iba a comer alguien, cuatro días después, en una cocina apagada.)*
 
 Wu apareció en la puerta con un cuenco.
@@ -1071,7 +1083,7 @@ y era mucho peor.
 La campana no sonó el jueves tampoco, y Guang se dio cuenta de que ya no la esperaba, y le dio
 tristeza haberse acostumbrado.
 
-El patio estaba entero. Fue lo primero raro: por primera vez en tres días no había nada nuevo roto.
+El patio estaba entero. Fue lo primero raro: en tres días no se había roto nada nuevo.
 La columna seguía partida con la astilla puesta y las tejas seguían faltando, pero eso era de antes,
 y no haber sumado nada era casi como haber arreglado algo.
 

@@ -325,8 +325,8 @@ barranco y por qué no le dijo a Guang que el puente no estaba. La respuesta:
 **Tao no se enteró, porque hace dos años que no usa el puente.** Desde que
 Shifu lo echó no puede subir por el camino de adelante —el camino de adelante
 es del que *llega*, y él no llega: vuelve a un lugar del que lo sacaron—, así
-que trepa el barranco cada vez, con niebla abajo, dos veces por semana, para ir
-a sentarse en el escalón cuarenta y dos a decir cosas insoportables. Nunca lo
+que trepa el barranco cada vez, con niebla abajo, para ir a sentarse en el
+escalón cuarenta y dos a decir cosas insoportables. Nunca lo
 dijo. Lo dice el miércoles, sin caña de azúcar, mirando para otro lado.
 
 Es la escena que arma su traición del Tomo IV: si se vende es después de haber

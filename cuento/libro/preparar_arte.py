@@ -164,6 +164,20 @@ RECORTES = {
 
     'grom_frente':        ('Assets/Mercenario.jpeg', (0.202, 0.122, 0.352, 0.950), 36),
 
+    # --- Tomo III --------------------------------------------------------
+    # Poses que quedaban libres en las mismas hojas. Hacen falta porque una
+    # ilustracion entra una sola vez en todo el volumen: Pinto de frente y el
+    # Tao serio ya los gasto el Tomo I, y el Tao burlon el Tomo II.
+    'pinto_yendose':      ('Assets/vendedor.jpeg', (0.575, 0.085, 0.835, 0.945), 44),
+
+    # De espaldas, que es como se va: por el costado, hacia el barranco.
+    'tao_de_espaldas':    ('Assets/kai.jpeg',      (0.516, 0.120, 0.672, 0.930), 30),
+    'tao_neutral':        ('Assets/kai.jpeg',      (0.835, 0.548, 0.980, 0.935), 32),
+
+    # La cara del humo con forma de signo de interrogacion.
+    'guang_confundido':   ('Assets/Main.jpeg',     (0.070, 0.650, 0.210, 0.945), 32),
+    'guang_de_espaldas':  ('Assets/Main.jpeg',     (0.762, 0.022, 0.880, 0.632), 28),
+
     # Para la contratapa: el mosquito solo, sin el patio de atras. Es el mejor
     # gancho que tiene el libro y no se entiende hasta que se lo ve.
     'mosquito':           ('Assets/Peligros/1.jpeg', (0.330, 0.125, 0.700, 0.800), 46),

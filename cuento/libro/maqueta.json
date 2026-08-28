@@ -286,10 +286,26 @@
   },
   "La alacena": {
     "figuras": [
-      "app/assets/comic/06_tentaciones.png"
+      "Assets/Peligros/16.jpeg",
+      "app/assets/comic/06_tentaciones.png",
+      "Assets/Skills/16.jpeg"
     ],
-    "posiciones": [
-      0.3
+    "modos": {
+      "app/assets/comic/06_tentaciones.png": "sobre"
+    },
+    "anclas": [
+      {
+        "src": "Assets/Peligros/16.jpeg",
+        "tras": "Ni las contó"
+      },
+      {
+        "src": "app/assets/comic/06_tentaciones.png",
+        "tras": "se quedó mirándolo con la\nmano en la puerta"
+      },
+      {
+        "src": "Assets/Skills/16.jpeg",
+        "tras": "como quien cierra una puerta contra el viento"
+      }
     ]
   },
   "La bolsa de monedas": {
@@ -526,6 +542,160 @@
       {
         "src": "cuento/libro/img/grom_frente.jpeg",
         "tras": "Les pagaron por estar",
+        "ancho": 36,
+        "lado": "der"
+      }
+    ]
+  },
+  "La mano": {
+    "vinetas": [
+      {
+        "src": "cuento/libro/img/guang_de_espaldas.jpeg",
+        "tras": "Barrió con la izquierda. Le salió horrible. Tardó el doble",
+        "ancho": 28,
+        "lado": "der"
+      }
+    ]
+  },
+  "El humo": {
+    "quitar": [
+      "Assets/UI/background.jpeg"
+    ],
+    "vinetas": [
+      {
+        "src": "cuento/libro/img/guang_confundido.jpeg",
+        "tras": "mirando la pared con la boca entreabierta",
+        "ancho": 32,
+        "lado": "izq"
+      }
+    ]
+  },
+  "La gata": {
+    "figuras": [
+      "Assets/Peligros/5.jpeg",
+      "Assets/Skills/5.jpeg"
+    ],
+    "anclas": [
+      {
+        "src": "Assets/Peligros/5.jpeg",
+        "tras": "y no se pensaba mover"
+      },
+      {
+        "src": "Assets/Skills/5.jpeg",
+        "tras": "Podía rasguñar\nperfectamente"
+      }
+    ],
+    "vinetas": [
+      {
+        "src": "cuento/libro/img/mei_caminando.jpeg",
+        "tras": "Las gatas no hacen nada otra vez",
+        "ancho": 46,
+        "lado": "izq"
+      }
+    ]
+  },
+  "La piedra": {
+    "anclas": [
+      {
+        "src": "Assets/Peligros/7.jpeg",
+        "tras": "diciendo palabras que no van en un templo"
+      },
+      {
+        "src": "Assets/Skills/7.jpeg",
+        "tras": "y no pasó absolutamente nada"
+      }
+    ]
+  },
+  "El maestro falso": {
+    "anclas": [
+      {
+        "src": "Assets/Peligros/17.jpeg",
+        "tras": "el Maestro de las Nueve Escuelas del Trueno Interior"
+      },
+      {
+        "src": "Assets/Skills/17.jpeg",
+        "tras": "Lo hizo poniendo bien lo que había visto mal"
+      }
+    ]
+  },
+  "Pinto": {
+    "quitar": [
+      "Assets/vendedor.jpeg"
+    ],
+    "vinetas": [
+      {
+        "src": "cuento/libro/img/pinto_yendose.jpeg",
+        "tras": "hacen un ruido de campanillas cuando camina",
+        "ancho": 44,
+        "lado": "der"
+      }
+    ]
+  },
+  "Lo que Shifu le dijo a Tao": {
+    "quitar": [
+      "Assets/kai.jpeg",
+      "Assets/UI/escalera.jpeg"
+    ],
+    "vinetas": [
+      {
+        "src": "cuento/libro/img/tao_neutral.jpeg",
+        "tras": "En dos años Guang no lo había visto sin algo en la boca",
+        "ancho": 34,
+        "lado": "der"
+      },
+      {
+        "src": "cuento/libro/img/tao_de_espaldas.jpeg",
+        "tras": "hacia el barranco, como venía haciendo hacía dos años",
+        "ancho": 30,
+        "lado": "izq"
+      }
+    ]
+  },
+  "El de la corona de papel": {
+    "anclas": [
+      {
+        "src": "Assets/Peligros/23.jpeg",
+        "tras": "una corona hecha de papel"
+      },
+      {
+        "src": "Assets/Skills/23.jpeg",
+        "tras": "y no había nadie adentro de ella"
+      }
+    ]
+  },
+  "El sueño": {
+    "anclas": [
+      {
+        "src": "Assets/Peligros/30.jpeg",
+        "tras": "al que no había visto nunca y reconoció\ninmediatamente"
+      },
+      {
+        "src": "Assets/Skills/30.jpeg",
+        "tras": "no iba a poder explicárselo a nadie"
+      }
+    ]
+  },
+  "Lo que empezó a doler": {
+    "quitar": [
+      "Assets/Cansancio/4.jpeg",
+      "Assets/Cansancio/6.jpeg"
+    ],
+    "vinetas": [
+      {
+        "src": "Assets/Cansancio/4.jpeg",
+        "tras": "como un vecino que se mudó sin avisar",
+        "ancho": 46,
+        "lado": "izq"
+      },
+      {
+        "src": "Assets/Cansancio/6.jpeg",
+        "tras": "que se rajaba cada vez que cerraba el puño",
+        "ancho": 46,
+        "lado": "der"
+      },
+      {
+        "src": "cuento/libro/img/shifu_desaprueba.jpeg",
+        "tras": "con las cejas, sin levantar la vista del\nté",
         "ancho": 36,
         "lado": "der"
       }
