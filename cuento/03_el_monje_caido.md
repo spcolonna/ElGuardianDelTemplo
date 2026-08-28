@@ -681,7 +681,16 @@ escuchó contestar:
 > **GUANG** — Y a un dragón.
 > **EL DEMONIO** — Y a un dragón.
 
-La pelea la perdió. La perdió entera, sin discusión.
+Y después dejó de repetirle.
+
+Guang recién ahí se dio cuenta de cómo estaba parado: el pecho afuera, la barbilla alta, las manos
+en la cintura. La postura del otro, clavada. Las tres preguntas habían sido para eso.
+
+Apoyó la escoba contra la columna. La apoyó él, despacio, porque no le iba a hacer falta.
+
+Ésa fue la pelea. Todo lo que vino después fue el rato que le llevó enterarse.
+
+La perdió entera, sin discusión.
 
 El demonio del orgullo peleaba exactamente como Guang, con las mismas técnicas de los últimos tres
 días, sólo que las hacía mejor, y cada vez que le entraba un golpe se lo comentaba. Guang tiró la
