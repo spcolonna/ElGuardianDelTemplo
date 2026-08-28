@@ -10,11 +10,12 @@
 La campana no sonó el miércoles tampoco.
 
 Guang ya no comprobaba nada. Abrió los ojos en la oscuridad, escuchó el silencio de las cuatro y
-media como quien escucha una habitación conocida, y se dio vuelta.
+media, que ya se sabía de memoria, y se dio vuelta.
 
 Lo que lo despertó de verdad, un rato después, fue una discusión: tres tipos flacos discutiendo en
-voz baja en el corredor sobre a quién le tocaba ir a buscar agua, con esa clase de discusión que
-sólo tiene la gente que decidió quedarse en algún lado.
+voz baja en el corredor sobre a quién le tocaba ir a buscar agua. Uno decía que ayer le había
+tocado a él. Otro decía que ayer había ido acompañado y que acompañado no cuenta. Estaban armando
+un orden para los días que venían.
 
 Guang se quedó acostado escuchando, con una sensación rarísima en el pecho que le llevó un momento
 identificar y que resultó ser ésta: **el templo tenía gente adentro.**
@@ -818,8 +819,8 @@ Se sentó en el escalón de la cocina y se sacó la derecha y la acercó a la lu
 
 **SHEN.**
 
-Tinta descolorida, letra de alguien joven, apretada, con el trazo del final subiendo, de esos que
-escriben el nombre en las cosas porque tienen miedo de que se las lleven.
+Tinta descolorida, letra de alguien joven, apretada, con el trazo del final subiendo. Escrito
+adentro, contra el talón, donde no se ve. Alguien había tenido miedo de que se las llevaran.
 
 Y en ese momento se oyeron pasos en el escalón cuarenta y dos.
 
@@ -919,9 +920,9 @@ Shen se miró el brazo, y después lo miró a él, y por primera vez en la noche
 
 Mei estaba en el techo de la cocina. Guang no la había visto llegar. Nunca se sabe.
 
-Shen la miró un momento larguísimo, desde abajo, con la cara de alguien que se encuentra en el
-lugar más inesperado con la única cosa que no cambió, y Mei le devolvió la mirada con el ojo bueno y
-no hizo absolutamente nada más, porque era exactamente lo que le había hecho durante doce años.
+Shen la miró un momento larguísimo, desde abajo, con la boca un poco abierta y sin acordarse de
+cerrarla, y Mei le devolvió la mirada con el ojo bueno y no hizo absolutamente nada más, porque era
+exactamente lo que le había hecho durante doce años.
 
 Después Shen volvió al asunto, y el asunto era la cocina.
 
