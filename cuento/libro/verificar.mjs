@@ -16,9 +16,13 @@ const DATOS = path.join(AQUI, 'datos');
 // Geometría de la maqueta, en mm. Tiene que coincidir con libro.css.
 //
 // Las bandas a sangre conservan la proporción del arte —ancho completo, alto
-// libre—, así que el ancho es lo único que decide la resolución. Si alguna vez
-// se vuelve a recortar a página entera con `object-fit: cover`, este número
-// deja de ser el correcto y hay que medir contra el alto.
+// libre—, así que el ancho es lo único que decide la resolución.
+//
+// La tapa es la excepción: va con `object-fit: cover` y sí recorta. Medirla por
+// ancho vale igual porque `preparar_arte.py::ampliar_tapa()` la entrega ya
+// recortada a la proporción exacta del destino, así que el `cover` no descarta
+// nada. Cualquier otra imagen que se coloque con `cover` hay que medirla contra
+// el alto.
 const CAJA_MM = 104.7;
 const SANGRE_MM = 139.7 + 3.175 * 2;
 
@@ -82,7 +86,8 @@ function revisar(nombre) {
   };
 
   for (const b of doc.bloques) {
-    if (b.t === 'fase' || b.t === 'dia') anotar(b.fondo, SANGRE_MM, `apertura ${b.nombre || b.titulo}`);
+    if (b.t === 'tapa') anotar(b.src, SANGRE_MM, 'tapa');
+    else if (b.t === 'fase' || b.t === 'dia') anotar(b.fondo, SANGRE_MM, `apertura ${b.nombre || b.titulo}`);
     else if (b.t === 'figura') {
       anotar(b.src, b.modo === 'estampa' ? CAJA_MM : SANGRE_MM, `figura ${b.modo}`);
     } else if (b.t === 'vineta') anotar(b.src, b.ancho, 'viñeta');

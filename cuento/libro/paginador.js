@@ -20,10 +20,10 @@ const ATOMICOS = new Set(['figura', 'vineta', 'tira', 'sello', 'dialogo', 'nota'
 const CON_EL_SIGUIENTE = new Set(['titulo']);
 
 /** Ocupan la página completa, ellos solos. */
-const PAGINA_ENTERA = new Set(['dia', 'fase', 'portadilla', 'creditos', 'colofon']);
+const PAGINA_ENTERA = new Set(['tapa', 'dia', 'fase', 'portadilla', 'creditos', 'colofon']);
 
 /** Empiezan en página derecha, cueste una blanca. */
-const EN_IMPAR = new Set(['dia', 'portadilla']);
+const EN_IMPAR = new Set(['tapa', 'dia', 'portadilla']);
 
 /** Mínimo de líneas de cada lado de un corte de párrafo. */
 const MINIMO = 2;

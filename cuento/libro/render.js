@@ -100,6 +100,16 @@ function paginaEntera(b, doc) {
           + '</div>',
       };
 
+    // La tapa del volumen, a pagina entera. Se apoya en la banda a sangre pero
+    // cubre la hoja de punta a punta en vez de centrarse: una tapa con papel
+    // arriba y abajo no es una tapa.
+    case 'tapa':
+      return {
+        muda: true,
+        clase: 'sangre tapa-libro',
+        html: `<div class="banda-sangre"><img src="${url(b.src)}" alt=""></div>`,
+      };
+
     case 'dia':
       return {
         muda: true,

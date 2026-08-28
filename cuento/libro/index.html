@@ -92,6 +92,14 @@ function dibujar(paginas, doc) {
     const impar = i % 2 === 0; // la página 1 es derecha
     folio++;
 
+    // Una hoja en blanco no lleva titulillo ni folio: es papel. Las pone el
+    // paginador para que el día empiece en impar y para cerrar el pliego, y
+    // hasta ahora salían rotuladas como si adentro hubiera algo escrito.
+    if (!bloques.length) {
+      partes.push(`<section class="pagina ${impar ? 'impar' : 'par'} muda"></section>`);
+      return;
+    }
+
     const uno = bloques.length === 1 ? bloques[0] : null;
     const entera = uno && (PAGINADOR.PAGINA_ENTERA.has(uno.t)
       || (uno.t === 'figura' && (uno.modo === 'sobre' || uno.modo === 'sangre')));
@@ -157,6 +165,12 @@ const BIBLIOTECA = [
     estado: 'terminado',
   },
   {
+    doc: 'tomo4',
+    titulo: 'Tomo IV — Tu Propio Reflejo',
+    nota: 'Escrito entero y sin congelar. Falta que lo leas: si te gusta, entra al volumen.',
+    estado: 'borrador',
+  },
+  {
     doc: 'completo',
     titulo: 'El Guardián del Templo · Espíritu de sacrificio',
     nota: 'El volumen. Contiene los Tomos I, II y III; el IV y el V se suman cuando los apruebes.',
@@ -177,8 +191,8 @@ function mesa() {
         + `<span class="tit">${l.titulo}</span>`
         + `<span class="detalle">${l.nota}</span></a>`
         + `<div class="densidades">${enlaces(l.doc)}</div>`).join('')
-    + '<p class="pie">La tapa se mira aparte: <a href="tapa.html?doc=tomo1&paginas=76">tapa del Tomo I</a> · '
-    + '<a href="tapa.html?doc=completo&paginas=80">tapa del volumen</a></p>'
+    + '<p class="pie">El forro de imprenta se mira aparte: <a href="tapa.html?doc=tomo1&paginas=78">forro del Tomo I</a> · '
+    + '<a href="tapa.html?doc=completo&paginas=214">forro del volumen</a></p>'
     + '</main>';
 }
 

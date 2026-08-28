@@ -314,6 +314,14 @@
     ],
     "posiciones": [
       0.72
+    ],
+    "vinetas": [
+      {
+        "src": "cuento/libro/img/tao_culpable.jpeg",
+        "tras": "Menos de lo que pensás",
+        "ancho": 30,
+        "lado": "der"
+      }
     ]
   },
   "CUATRO/NOCHE": {
@@ -688,6 +696,16 @@
         "tras": "con las cejas, sin levantar la vista del\nté",
         "ancho": 36,
         "lado": "der"
+      }
+    ]
+  },
+  "La mañana del viernes": {
+    "vinetas": [
+      {
+        "src": "cuento/libro/img/guang_de_espaldas.jpeg",
+        "tras": "Bajó los ciento ocho escalones",
+        "ancho": 28,
+        "lado": "izq"
       }
     ]
   }

@@ -413,6 +413,12 @@ const EN_EL_VOLUMEN = ['tomo1', 'tomo2', 'tomo3'];
 // Lo produce preparar_arte.py::recortar_sello().
 const SELLO = 'cuento/libro/img/sello_fuerza.png';
 
+// La misma tapa que arma el forro de imprenta en tapa.html. Va sola adentro del
+// volumen: los tomos sueltos se venden con su forro y no la llevan en el cuerpo.
+// La produce preparar_arte.py::ampliar_tapa(), ya recortada a la proporcion del
+// destino, asi que entra a pagina entera sin deformarse.
+const TAPA = 'cuento/libro/img/tapa.jpeg';
+
 /**
  * El volumen unico: los tomos terminados, uno atras del otro, cada uno cerrado
  * con el sello 加油.
@@ -441,6 +447,7 @@ function volumen(docs) {
     titulo: 'El Guardián del Templo',
     bajada: 'Espíritu de sacrificio',
     bloques: [
+      { t: 'tapa', src: TAPA },
       { t: 'portadilla', titulo: 'El Guardián del Templo', bajada: 'Espíritu de sacrificio' },
       { t: 'creditos' },
       ...bloques,

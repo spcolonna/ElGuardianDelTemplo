@@ -322,6 +322,13 @@ figure { margin: 0; }
 .pagina.sangre { background: var(--papel-hondo); }
 .pagina.sangre .banda-sangre { top: 50%; transform: translateY(-50%); }
 
+/* La tapa del volumen: la única imagen que cubre la hoja entera. La banda a
+   sangre se centra conservando proporción y deja papel arriba y abajo; una
+   tapa con papel a la vista no es una tapa. El arte ya viene recortado a esta
+   proporción, así que el `cover` no le saca nada. */
+.pagina.tapa-libro .banda-sangre { top: 0; bottom: 0; transform: none; }
+.pagina.tapa-libro .banda-sangre img { height: 100%; object-fit: cover; }
+
 /* Texto sobre imagen: la banda ocupa la parte de arriba y el panel de papel
    se apoya sobre su borde inferior. */
 .panel {
@@ -547,6 +554,8 @@ figure { margin: 0; }
   main.mesa .libro:hover { border-left-color: var(--rojo); }
   main.mesa .libro.terminado { border-left-color: var(--oro-borde); }
   main.mesa .libro.volumen { border-left-color: var(--madera-oscura); }
+  /* Sin congelar: se lee de datos/ y una corrida del parser lo puede mover. */
+  main.mesa .libro.borrador { border-left-color: var(--papel-hondo); }
   main.mesa .tit {
     display: block;
     font: 400 22px/1.3 'Titulo', 'Patrick Hand SC', cursive;
