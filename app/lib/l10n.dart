@@ -93,7 +93,7 @@ class TextosUi {
     'dif.guardian': 'Guardián',
     'dif.guardianSub': 'El juego como fue balanceado.',
     'dif.maestro': 'Maestro',
-    'dif.maestroSub': 'Shifu se va a enterar igual.',
+    'dif.maestroSub': 'Acá empieza a pesarte el cuerpo.',
     'dif.sombraDeShifu': 'Sombra de Shifu',
     'dif.sombraDeShifuSub': 'Casi él. Casi.',
     'dif.shifu': 'Shifu',
@@ -173,6 +173,11 @@ class TextosUi {
     'juego.robarPago': 'Robar (−{n})',
     'juego.resolverGanas': 'Resolver',
     'juego.rendirse': 'Rendirse',
+    'juego.rendirseConfirmar': '¿Te rendís?',
+    'juego.rendirseConfirmarSub':
+        'Perdés {n} de Energía y el peligro se queda con su técnica. '
+        'No hay vuelta atrás.',
+    'juego.rendirseSeguir': 'Seguir peleando',
     'juego.continuarPeligro': 'Continuar',
     'juego.diario': 'Diario del Novato',
     'juego.peligrosRestantes': 'Peligros restantes {n}',
@@ -316,7 +321,7 @@ class TextosUi {
     'dif.guardian': 'Guardian',
     'dif.guardianSub': 'The game as it was balanced.',
     'dif.maestro': 'Master',
-    'dif.maestroSub': 'Shifu will find out anyway.',
+    'dif.maestroSub': 'This is where the body starts to weigh.',
     'dif.sombraDeShifu': "Shifu's Shadow",
     'dif.sombraDeShifuSub': 'Almost him. Almost.',
     'dif.shifu': 'Shifu',
@@ -394,6 +399,11 @@ class TextosUi {
     'juego.robarPago': 'Draw (−{n})',
     'juego.resolverGanas': 'Resolve',
     'juego.rendirse': 'Give up',
+    'juego.rendirseConfirmar': 'Give up?',
+    'juego.rendirseConfirmarSub':
+        'You lose {n} Energy and the danger keeps its technique. '
+        'There is no going back.',
+    'juego.rendirseSeguir': 'Keep fighting',
     'juego.continuarPeligro': 'Continue',
     'juego.diario': "Rookie's Diary",
     'juego.peligrosRestantes': 'Dangers left {n}',

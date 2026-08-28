@@ -227,9 +227,16 @@ distinta para un solo caso. Queda como variante de mesa, igual que «Sin
 descanso»: ningún nivel de la tabla los pide.
 
 **La escalera está medida y es monótona.** `app/bin/sim_dificultad.dart`, 2000
-partidas por camino: 66,7 · 54,0 · 43,7 · 36,1 · 27,1 · 16,0 % de victorias,
-con escalones de 8 a 13 puntos. El orden aguanta también con un bot que medita
-al doble de seguido, así que es del juego y no del simulador. La versión
+partidas por camino: 56,8 · 43,7 · 36,4 · 29,8 · 27,1 · 16,0 % de victorias,
+con escalones de 3 a 13 puntos. El orden aguanta también con un bot que medita
+al doble de seguido, así que es del juego y no del simulador. Los dos escalones
+finos —Guardián/Maestro y Maestro/Sombra— quedan por debajo de tres puntos, así
+que el test los mide con 2000 partidas y no con 400: con menos, el ruido los da
+vuelta.
+
+**El Cansancio empieza en Maestro**, con el disparo suave (una fatiga al cerrar
+cada fase). Los dos caminos de arriba usan el disparo por rebarajada. El quiebre
+está en el medio de la tabla y no arriba de todo a propósito. La versión
 anterior de esta tabla tenía cuatro caminos que medían todos 0,1 % —cuatro
 formas de perder, no cuatro escalones— y nadie se había enterado; ahora hay un
 test (`app/test/escalera_test.dart`) que se pone rojo si vuelve a pasar.

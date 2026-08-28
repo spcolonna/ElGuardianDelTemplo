@@ -1,15 +1,15 @@
 {
   "tema": "templo",
   "idioma": "es",
-  "generado": "2026-08-27T17:37:43.834110",
+  "generado": "2026-08-27T18:18:06.355384",
   "juego": {
     "nombre": "El Guardián del Templo",
     "bajada": "Shifu se fue siete días. No quemés el templo.",
     "recurso": "Energía"
   },
   "config": {
-    "energiaInicial": 24,
-    "energiaMaxima": 24,
+    "energiaInicial": 23,
+    "energiaMaxima": 23,
     "cantidadJefes": 2,
     "peligrosPorFase": 10,
     "robosGratisIlimitados": false,
@@ -38,7 +38,7 @@
       "lineas": [
         "Barajá el mazo inicial de combate (20 cartas).",
         "Separá los tres mazos de peligro y elegí al azar los jefes que pida tu nivel: 2 en esta configuración.",
-        "Empezás con 24 de Energía en esta configuración (tope al curarte: 24)."
+        "Empezás con 23 de Energía en esta configuración (tope al curarte: 23)."
       ]
     },
     {
@@ -68,7 +68,7 @@
         "La Energía sube SÓLO por efectos de cartas de combate, y esos efectos se disparan automáticamente cuando la carta sale durante un combate. No elegís cuándo usarlas.",
         "Efecto \"+X Energía\": se aplica en el momento en que robás la carta, ganes o pierdas después. Ej.: Reflejo +1, Disciplina +2, Escama de Dragón +1, Puño del Dragón +2, Serenidad +3, Agua Sagrada +2, Iluminación +1.",
         "Efecto \"+X Energía si ganás\": se aplica recién al resolver, y sólo si ganaste ese combate. Ej.: Puño del Bambú +1, Ala de Grulla +1, Vuelo de Grulla +2.",
-        "Nunca superás el tope de 24 de Energía: lo que sobra se pierde.",
+        "Nunca superás el tope de 23 de Energía: lo que sobra se pierde.",
         "Consecuencia de diseño: curarte depende de haber metido cartas de curación en tu mazo y de que salgan. Por eso conviene meditar para eliminar cartas malas: un mazo más chico hace que las buenas aparezcan más seguido."
       ]
     },
@@ -98,8 +98,8 @@
       "clave": "aprendiz",
       "nombre": "Aprendiz",
       "bajada": "Para aprender el juego sin sufrir.",
-      "energiaInicial": 26,
-      "energiaMaxima": 26,
+      "energiaInicial": 25,
+      "energiaMaxima": 25,
       "peligrosPorFase": 10,
       "cantidadJefes": 1,
       "costeRoboExtra": 1,
@@ -114,8 +114,8 @@
       "clave": "novato",
       "nombre": "Novato",
       "bajada": "Ya sabés qué hacer. Igual duele.",
-      "energiaInicial": 25,
-      "energiaMaxima": 25,
+      "energiaInicial": 24,
+      "energiaMaxima": 24,
       "peligrosPorFase": 10,
       "cantidadJefes": 2,
       "costeRoboExtra": 1,
@@ -130,8 +130,8 @@
       "clave": "guardian",
       "nombre": "Guardián",
       "bajada": "El juego como fue balanceado.",
-      "energiaInicial": 24,
-      "energiaMaxima": 24,
+      "energiaInicial": 23,
+      "energiaMaxima": 23,
       "peligrosPorFase": 10,
       "cantidadJefes": 2,
       "costeRoboExtra": 1,
@@ -145,17 +145,17 @@
     {
       "clave": "maestro",
       "nombre": "Maestro",
-      "bajada": "Shifu se va a enterar igual.",
-      "energiaInicial": 24,
-      "energiaMaxima": 24,
-      "peligrosPorFase": 8,
+      "bajada": "Acá empieza a pesarte el cuerpo.",
+      "energiaInicial": 29,
+      "energiaMaxima": 29,
+      "peligrosPorFase": 10,
       "cantidadJefes": 3,
       "costeRoboExtra": 1,
       "costeMeditar": 1,
       "cartasPorMeditacion": 1,
       "meditarSoloAlPerder": true,
       "cartasGratisExtra": 0,
-      "modoCansancio": false,
+      "modoCansancio": true,
       "disparoCansancio": "finDeFase"
     },
     {

@@ -1,6 +1,6 @@
 {
-  "energiaInicial": 24,
-  "energiaMaxima": 24,
+  "energiaInicial": 23,
+  "energiaMaxima": 23,
   "cantidadJefes": 2,
   "robosGratisIlimitados": false,
   "costeRoboExtra": 1,

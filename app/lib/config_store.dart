@@ -20,11 +20,12 @@ import 'models.dart';
 /// El puente entre 2 y 1 es el botón de exportar del admin: copiás el JSON y
 /// lo pegás en `assets/config.json`.
 class ConfigStore {
-  // v3: el rebalanceo de los seis caminos movió el juego base. Un override
-  // guardado desde /admin con los números viejos se prefiere al asset
-  // (`cargar()` más abajo), así que una máquina de desarrollo se habría
-  // quedado midiendo el juego anterior sin que nada avisara.
-  static const _clave = 'guardian_config_override_v3';
+  // La versión sube cada vez que se mueve `Config()`. v3 fue el paso a seis
+  // caminos; v4 bajó el juego base a 23 de Energía. Un override guardado desde
+  // /admin con los números viejos se prefiere al asset (`cargar()` más abajo),
+  // así que sin subir la clave una máquina de desarrollo se habría quedado
+  // midiendo el juego anterior sin que nada avisara.
+  static const _clave = 'guardian_config_override_v4';
   static const rutaAsset = 'assets/config.json';
 
   /// Carga la configuración efectiva. Se llama una vez, antes de jugar.

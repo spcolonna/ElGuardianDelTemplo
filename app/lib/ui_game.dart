@@ -1308,7 +1308,18 @@ class _Mesa extends StatelessWidget {
             boton(
               gana ? t('juego.resolverGanas') : t('juego.rendirse'),
               gana ? Icons.emoji_events : Icons.flag,
-              () {
+              () async {
+                // Rendirse cuesta Energía y no tiene vuelta atrás, y el botón
+                // vive donde el pulgar ya estaba apretando «Robar»: un toque
+                // de más y perdías el combate sin haberlo decidido. Se
+                // confirma. Resolver ganando no pregunta nada: es la jugada
+                // que el jugador vino a hacer y no hay nada que lamentar.
+                if (!gana) {
+                  final ok = await _confirmarRendirse(context, j);
+                  if (!ok) return;
+                  // El diálogo pudo haber sobrevivido a la partida.
+                  if (!context.mounted) return;
+                }
                 // El sonido se elige antes de resolver: después el peligro ya
                 // no está.
                 app.audio.sonar(gana ? Sfx.ganar : Sfx.perder);
@@ -1384,6 +1395,21 @@ class _Mesa extends StatelessWidget {
       detalle: t('medita.confirmarSub'),
       textoNo: t('ajustes.cancelar'),
       textoSi: t('medita.eliminar'),
+    );
+  }
+
+  /// Rendirse es la única jugada del combate que resta Energía sin devolver
+  /// nada, y el botón comparte fila con el de robar. Se confirma diciendo el
+  /// número exacto que se va a perder, que es el dato que hace dudar.
+  Future<bool> _confirmarRendirse(BuildContext context, Juego j) async {
+    final t = TextosUi.de(app.idioma);
+    final dano = j.peligro?.dano ?? 0;
+    return confirmar(
+      context,
+      titulo: t('juego.rendirseConfirmar'),
+      detalle: fmt(t('juego.rendirseConfirmarSub'), {'n': dano}),
+      textoNo: t('juego.rendirseSeguir'),
+      textoSi: t('juego.rendirse'),
     );
   }
 

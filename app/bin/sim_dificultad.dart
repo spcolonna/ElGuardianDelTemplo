@@ -105,7 +105,7 @@ void main(List<String> args) {
       // esto es una escalera o dos mesetas con un precipicio en el medio.
       final salto = anterior == null
           ? '   —'
-          : (win - anterior!).toStringAsFixed(1).padLeft(6);
+          : (win - anterior).toStringAsFixed(1).padLeft(6);
       anterior = win;
       stdout.writeln(
         '${d.name.padRight(17)} '
@@ -121,29 +121,6 @@ void main(List<String> args) {
 
 /// Las configuraciones sueltas que hay que tener medidas mientras se calibra.
 void _sueltas(Contenido con) {
-  Config base({
-    required int e,
-    required int peligros,
-    required int jefes,
-    int robo = 1,
-    int? disparo,
-  }) {
-    final c = Config(
-      energiaInicial: e,
-      energiaMaxima: e,
-      cantidadJefes: jefes,
-      peligrosPorFase: peligros,
-      costeRoboExtra: robo,
-    );
-    if (disparo != null) {
-      c
-        ..modoCansancio = true
-        ..poderCansancio = -1
-        ..disparoCansancio = disparo;
-    }
-    return c;
-  }
-
   Config base({
     required int e,
     required int peligros,

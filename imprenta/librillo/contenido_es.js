@@ -247,34 +247,38 @@ function reglamento(d) {
     'verdad, andá a <b>Sombra de Shifu</b>, que es la mesa más dura que se ganó.'
   ));
   b.push(p(
-    'La aplicación juega estos mismos seis niveles, con los mismos números. Los dos ' +
+    'La aplicación juega estos mismos seis niveles, con los mismos números. Los tres ' +
     'de arriba traen el mazo de Cansancio puesto: ahí no es un modo que se prende ' +
     'aparte, es parte del nivel.'
   ));
 
   b.push(h(2, 'Cómo leer la tabla'));
   b.push(p(
-    'Los cuatro primeros niveles aprietan de la manera obvia: te sacan Energía y te ' +
-    'ponen Campeones. Los dos últimos hacen lo contrario —te devuelven Energía, y ' +
+    'Los tres primeros niveles aprietan de la manera obvia: te sacan Energía y te ' +
+    'ponen Campeones. Los tres últimos hacen lo contrario —te devuelven Energía, y ' +
     'bastante— y a cambio te meten el mazo de Cansancio adentro del tuyo. Eso es lo ' +
-    'que parece un error en la tabla y no lo es.'
+    'que parece un error en la tabla y no lo es: <b>Maestro</b> arranca con seis de ' +
+    'Energía más que <b>Guardián</b> y aun así se gana menos seguido.'
   ));
   b.push(ul([
     '<b>Más peligros por fase es un mazo más fuerte</b>, no más difícil. Cada peligro ' +
     'que ganás es una técnica que te llevás, así que enfrentar los diez del Alba te ' +
     'deja llegar al Mediodía con más cartas buenas. Por eso casi todos los niveles ' +
     'los enfrentan todos.',
-    '<b>Maestro es el único que te recorta el mazo</b>, y es lo que lo define: dos ' +
-    'peligros menos por fase son seis técnicas menos cuando llegan los Campeones.',
+    '<b>Maestro es la bisagra.</b> Es el primer nivel con Cansancio, y usa el disparo ' +
+    'suave: una fatiga al cerrar cada fase, tres en toda la partida. Los dos de ' +
+    'arriba la meten en cada rebarajada, que es bastante más seguido.',
     '<b>La Energía de más hay que poder gastarla.</b> Los treinta de Sombra de Shifu ' +
     'no son un regalo: son lo que cuesta llegar al quinto Campeón con el mazo sucio ' +
     'de fatiga.',
   ]));
   b.push(p(
-    'De <b>Sombra de Shifu</b> para arriba cambia la <i>forma</i> de la dificultad, no ' +
-    'sólo su cantidad. Hasta ahí el juego aprieta quitándote recursos. De ahí en ' +
-    'adelante te los da y te pone a pelear contra tu propio mazo, que se va ensuciando ' +
-    'mientras jugás. Son dos experiencias distintas.'
+    'De <b>Maestro</b> para arriba cambia la <i>forma</i> de la dificultad, no sólo su ' +
+    'cantidad. Hasta ahí el juego aprieta quitándote recursos. De ahí en adelante te ' +
+    'los da y te pone a pelear contra tu propio mazo, que se va ensuciando mientras ' +
+    'jugás. Son dos experiencias distintas, y el salto está puesto a propósito en el ' +
+    'medio de la escalera y no arriba del todo: llegar a Sombra de Shifu sin haber ' +
+    'jugado nunca con el mazo sucio es llegar sin haber aprendido lo que importa.'
   ));
 
   b.push(h(2, 'El Cansancio'));

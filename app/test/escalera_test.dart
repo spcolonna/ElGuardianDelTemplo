@@ -5,8 +5,12 @@
 // distintas de perder, no cuatro escalones— y no había nada que avisara. Se
 // descubrió midiendo a mano, meses después.
 //
-// Corre pocas partidas a propósito: no busca el número exacto, que para eso
-// está `bin/sim_dificultad.dart`, sino que el ORDEN no se dé vuelta.
+// Corre las mismas 2000 partidas con la misma semilla que
+// `bin/sim_dificultad.dart`, y no menos, aunque tarde: la escalera tiene dos
+// escalones de menos de tres puntos —Guardián/Maestro contra el bot meditador
+// y Maestro/Sombra contra el codicioso— y con 400 partidas el ruido los da
+// vuelta. Un test que mide más grueso que la diferencia que defiende no
+// defiende nada.
 import 'package:flutter_test/flutter_test.dart';
 import 'package:guardian_templo/bot.dart';
 import 'package:guardian_templo/data.dart';
@@ -27,7 +31,7 @@ void main() {
   double ganar(Dificultad d, Politica pol) => simularLote(
     cfg: OpcionesPartida(dificultad: d).aplicar(Config()),
     contenido: contenido,
-    partidas: 400,
+    partidas: 2000,
     semilla: 42,
     politica: pol,
   ).winRate;

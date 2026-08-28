@@ -114,7 +114,8 @@ Los dos están **apagados por defecto** y no tocan el juego base.
   **Es la perilla que más pesa de todas.** Medido con `bin/sim_cansancio.dart`
   (7 peligros, 2 jefes): con Energía 20 baja las victorias de 9,4 % a 0,5 %, y
   con Energía 25 de 42,8 % a 6,5 %. Cuesta unos **6 puntos de Energía**, no 2 —
-  por eso los dos caminos que lo traen puesto arrancan con 28 y 30.
+  por eso los tres caminos que lo traen puesto arrancan con 29, 30 y 28 cuando
+  el juego base arranca con 23.
 
 ## Los seis caminos
 
@@ -126,26 +127,37 @@ abajo es la salida de `bin/sim_dificultad.dart`, que se regenera con un
 comando.
 
 ```
-camino             win%   salto   turnos  elim  jefes
-aprendiz           66,7     —      29,4    8,0   0,7
-novato             54,0   -12,7    29,3    7,9   1,1
-guardian           43,7   -10,3    28,3    7,6   0,9
-maestro            36,1    -7,6    23,3    7,9   1,2
-sombraDeShifu      27,1    -9,0    29,1   10,3   1,6
+camino             win%   salto   turnos  elim  jefes      (bot codicioso)
+aprendiz           56,8     —      28,7    7,8   0,6
+novato             43,7   -13,0    28,3    7,6   0,9
+guardian           36,4    -7,3    27,2    7,6   0,8
+maestro            29,8    -6,6    28,1    9,9   1,0
+sombraDeShifu      27,1    -2,7    29,1   10,3   1,6
 shifu              16,0   -11,1    27,3    9,6   1,0
+
+                                                          (bot meditador)
+aprendiz           52,5 · novato 41,8 · guardian 33,7
+maestro            30,9 · sombraDeShifu 23,9 · shifu 15,3
 ```
 
 | Camino | Energía | Peligros/fase | Jefes | Cansancio |
 |---|--:|--:|--:|---|
-| Aprendiz | 26 | 10 | 1 | — |
-| Novato | 25 | 10 | 2 | — |
-| Guardián | 24 | 10 | 2 | — |
-| Maestro | 24 | 8 | 3 | — |
+| Aprendiz | 25 | 10 | 1 | — |
+| Novato | 24 | 10 | 2 | — |
+| Guardián | 23 | 10 | 2 | — |
+| Maestro | 29 | 10 | 3 | al cerrar fase |
 | Sombra de Shifu | 30 | 10 | 5 | al rebarajar |
 | Shifu | 28 | 10 | 5 | al rebarajar |
 
-**La escalera es el invariante, no los números.** Cada camino gana unos diez
-puntos menos que el anterior, y el orden se mantiene también con un bot que
+**Los dos escalones finos.** Guardián/Maestro miden 2,8 puntos con el bot
+meditador y Maestro/Sombra miden 2,7 con el codicioso. Siguen siendo escalones
+—el orden aguanta con las dos políticas— pero son los más angostos de la tabla:
+si se toca cualquiera de esos tres presets hay que remedir, y por eso
+`test/escalera_test.dart` corre 2000 partidas y no 400. Con 400 el ruido da
+vuelta el orden.
+
+**La escalera es el invariante, no los números.** Cada camino gana entre tres y
+trece puntos menos que el anterior, y el orden se mantiene también con un bot que
 medita al doble de seguido (`--politicas` del simulador). `test/escalera_test.dart`
 lo defiende: si alguien mueve un preset y aplana un escalón, el test se pone
 rojo. Antes no existía esa red, y por eso la tabla llegó a tener cuatro caminos
@@ -154,20 +166,42 @@ que medían todos 0,1 % sin que nadie se enterara.
 Tres cosas que no se leen solas en esa tabla:
 
 **Más peligros por fase es un mazo más fuerte, no un juego más difícil.** Cada
-peligro ganado es una técnica que te llevás. Por eso cinco de los seis caminos
-enfrentan el mazo entero, y **Maestro es el único que lo recorta**: eso es lo
-que lo define.
+peligro ganado es una técnica que te llevás, así que recortarlos empobrece el
+mazo que llega a los Campeones. Los seis caminos enfrentan el mazo entero:
+`peligrosPorFase` dejó de usarse como escalón porque, medido, mueve menos que
+un solo punto de Energía y a cambio acorta la partida.
 
-**De Sombra de Shifu para arriba la dificultad cambia de forma.** Hasta ahí el
-juego aprieta sacándote Energía y poniéndote Campeones; de ahí en adelante te
-devuelve Energía —30 y 28, contra los 24 de Guardián— y te pone a pelear contra
-tu propio mazo, que se ensucia de Cansancio mientras jugás.
+**De Maestro para arriba la dificultad cambia de forma.** Hasta ahí el juego
+aprieta sacándote Energía y poniéndote Campeones; de ahí en adelante te
+devuelve Energía —29, 30 y 28, contra los 23 de Guardián— y te pone a pelear
+contra tu propio mazo, que se ensucia de Cansancio mientras jugás. El quiebre
+está en el medio de la escalera y no arriba del todo a pedido del dueño del
+juego, que reportó que hasta Sombra de Shifu «fue todo muy fácil»: llegar al
+techo sin haber jugado nunca con el mazo sucio es llegar sin haber aprendido lo
+que importa. Maestro usa el disparo suave (`finDeFase`, tres fatigas en toda la
+partida); los dos de arriba usan `alRebarajar`, que dispara bastante más
+seguido.
+
+**La Energía es, de lejos, la palanca más brusca que queda.** Un punto vale
+entre siete y diez puntos de victoria; un jefe de más o de menos vale unos dos,
+y un peligro por fase, menos todavía. No es una preferencia de diseño: es que
+`peligrosPorFase` y `cantidadJefes` ya están casi en su techo (10 y 5) y no
+queda recorrido. Cualquier escalón nuevo va a salir de la Energía o del
+Cansancio.
 
 **Sombra de Shifu es una mesa que se jugó de verdad**, no una estimación: el
 autor la ganó una vez de tres, y el bot la mide en 27,1 %. Shifu es esa misma
 mesa con dos de Energía menos. Arriba de ahí no queda nada: 10 peligros son
 todas las cartas de la fase, 5 son todos los jefes y 30 es el borde del tablero
 impreso.
+
+**Guardián se mueve moviendo el juego base.** El chequeo 13 de `bin/check.dart`
+exige que el preset Guardián sea la identidad sobre `Config()`, así que bajarlo
+a 23 de Energía obligó a tocar en el mismo commit los valores por defecto del
+constructor, **`Config.fromJson`, que tiene su propia copia de los defaults**,
+`assets/config.json` (chequeo 12) y la clave del override de `/admin`, que pasó
+a `v4`. Sin lo último, una máquina que hubiera exportado config alguna vez se
+queda midiendo el juego anterior sin que nada avise.
 
 ### Palancas que miden bien y palancas que mienten
 

@@ -331,7 +331,10 @@ void main() {
       '    ${d.name.padRight(17)} energía ${c.energiaInicial}, '
       'peligros ${c.peligrosPorFase}, jefes ${c.cantidadJefes}, '
       'robo ${c.costeRoboExtra}'
-      '${c.modoCansancio ? ', cansancio ${c.disparoCansancio}' : ''}',
+      // El disparo por nombre y no por índice: «cansancio 0» se leía como
+      // apagado cuando en realidad es `finDeFase`.
+      '${c.modoCansancio ? ', cansancio '
+                '${DisparoCansancio.values[c.disparoCansancio].name}' : ''}',
     );
   }
 

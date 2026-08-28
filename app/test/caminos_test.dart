@@ -109,7 +109,12 @@ void main() {
   test('`ambos` mete fatiga al cerrar fase Y al rebarajar', () {
     // Sin barajar el mazo es determinístico, así que las cuentas cierran.
     int fatigasEn(int disparo) {
-      final cfg = Config()
+      // La Energía de Sombra de Shifu y no la del juego base: con 23 el bot
+      // guionado muere antes de la tercera rebarajada y los tres disparos
+      // empatan en tres fatigas, que es un empate por muerte temprana y no
+      // por la regla. Con 30 la partida dura lo suficiente para que la
+      // diferencia entre los disparos se pueda ver.
+      final cfg = Config(energiaInicial: 30, energiaMaxima: 30)
         ..modoCansancio = true
         ..poderCansancio = -1
         ..disparoCansancio = disparo;
