@@ -524,6 +524,47 @@ void main() {
     '18) Viñetas del cómic: ${vinetas - vinetasMal} de $vinetas '
     'presentes y legibles  (esperado 0 errores)',
   );
+
+  // 19) La copia liviana está al día.
+  //
+  // Lo que se empaqueta no es el arte de `assets/{comic,cartas,ui}` sino la
+  // conversión a WebP que escribe `bin/aligerar.py` en `assets/movil/`. El
+  // riesgo es silencioso en las dos direcciones: agregar una carta y olvidarse
+  // de correr el script deja una carta sin imagen en el teléfono aunque el
+  // archivo esté en el repositorio, y retocar un original sin reconvertir deja
+  // la versión vieja viajando en el binario. Ninguna de las dos rompe nada
+  // — la app dibuja el respaldo o la imagen anterior— así que puede pasar
+  // meses sin que nadie lo note, igual que pasó con las viñetas del 18.
+  var sinCopia = 0, vencidas = 0, copias = 0;
+  for (final familia in ['comic', 'cartas', 'ui']) {
+    final dir = Directory('assets/$familia');
+    if (!dir.existsSync()) continue;
+    for (final f in dir.listSync().whereType<File>()) {
+      final nombre = f.uri.pathSegments.last;
+      final ext = nombre.contains('.')
+          ? nombre.substring(nombre.lastIndexOf('.')).toLowerCase()
+          : '';
+      if (!['.png', '.jpg', '.jpeg'].contains(ext)) continue;
+      copias++;
+      final base = nombre.substring(0, nombre.lastIndexOf('.'));
+      final webp = File('assets/movil/$familia/$base.webp');
+      if (!webp.existsSync()) {
+        print('    FALTA assets/movil/$familia/$base.webp');
+        sinCopia++;
+      } else if (webp.statSync().modified.isBefore(f.statSync().modified)) {
+        print('    VIEJA assets/movil/$familia/$base.webp '
+            '(el original es más nuevo)');
+        vencidas++;
+      }
+    }
+  }
+  print(
+    '19) Copia para el teléfono: $copias originales · sin convertir: '
+    '$sinCopia · desactualizadas: $vencidas  (esperado 0 y 0)',
+  );
+  if (sinCopia > 0 || vencidas > 0) {
+    print('    Se arregla con: python3 bin/aligerar.py');
+  }
 }
 
 /// Lee ancho y alto del encabezado, sin decodificar la imagen entera.

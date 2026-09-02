@@ -229,25 +229,34 @@ class Semaforo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        for (var i = 0; i < Progreso.diasParaLogro; i++)
-          Container(
-            width: tamano,
-            height: tamano,
-            margin: EdgeInsets.symmetric(horizontal: tamano * .18),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: i < racha
-                  ? kNaranja
-                  : (i == racha && !hoyHecho
-                        ? kOro.withValues(alpha: .55)
-                        : kMadera.withValues(alpha: .30)),
-              border: Border.all(color: kMaderaOscura, width: 1),
+    // El `FittedBox` no es decoración: siete círculos de 9 pt con su margen
+    // miden 86 pt fijos, y en una ventana de iPad en Slide Over —320 pt de
+    // ancho— la columna que los contiene se queda sin esos 86 y la fila se
+    // desborda 6 px. Achicarse es la respuesta correcta: la semana se sigue
+    // leyendo igual un poco más chica, y un desborde en iPad es un rechazo de
+    // review. `scaleDown` no agranda nada, así que en teléfono no cambia.
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          for (var i = 0; i < Progreso.diasParaLogro; i++)
+            Container(
+              width: tamano,
+              height: tamano,
+              margin: EdgeInsets.symmetric(horizontal: tamano * .18),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: i < racha
+                    ? kNaranja
+                    : (i == racha && !hoyHecho
+                          ? kOro.withValues(alpha: .55)
+                          : kMadera.withValues(alpha: .30)),
+                border: Border.all(color: kMaderaOscura, width: 1),
+              ),
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }

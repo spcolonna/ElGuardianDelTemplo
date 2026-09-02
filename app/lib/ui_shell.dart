@@ -654,10 +654,33 @@ class BarraMadera extends StatelessWidget {
             border: Border(top: BorderSide(color: kMaderaOscura, width: 2.5)),
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [for (final a in accesos) _Acceso(acceso: a)],
+        // Repartida cuando entra, deslizable cuando no.
+        //
+        // En un teléfono los accesos entran siempre y esto se comporta igual
+        // que antes: `spaceEvenly` los reparte a lo ancho. Pero en un iPad en
+        // Slide Over la ventana mide 320 pt y la barra se desbordaba 129 px,
+        // que en review es un rechazo. La salida NO es achicar los accesos:
+        // cada uno tiene 44 pt de área táctil y bajar de ahí rompe la
+        // accesibilidad. Se deslizan, que es lo que hace cualquier barra de
+        // pestañas cuando le falta lugar.
+        child: LayoutBuilder(
+          builder: (context, cs) {
+            // 68 = los 56 pt de ancho mínimo del acceso más sus 12 de padding.
+            final entran = accesos.length * 68 <= cs.maxWidth;
+            final fila = Row(
+              mainAxisAlignment: entran
+                  ? MainAxisAlignment.spaceEvenly
+                  : MainAxisAlignment.start,
+              mainAxisSize: entran ? MainAxisSize.max : MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [for (final a in accesos) _Acceso(acceso: a)],
+            );
+            if (entran) return fila;
+            return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: fila,
+            );
+          },
         ),
       ),
     );

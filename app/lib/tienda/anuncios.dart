@@ -5,6 +5,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../models.dart';
 import 'compra.dart';
+import 'consentimiento.dart';
 import 'ids.dart';
 
 /// La publicidad de pantalla completa entre fases del día.
@@ -21,6 +22,11 @@ import 'ids.dart';
 /// jugador perdido.
 class Anuncios {
   final Tienda tienda;
+
+  /// El permiso para mostrar avisos. Vive acá y no adentro porque Ajustes lo
+  /// necesita para dibujar el botón de opciones de privacidad.
+  final consentimiento = Consentimiento();
+
   Anuncios(this.tienda);
 
   /// Cuánto se espera a que un anuncio pedido termine de bajar antes de seguir
@@ -40,6 +46,29 @@ class Anuncios {
     if (_apagado || _iniciado) return;
     _iniciado = true;
     try {
+      // Primero el permiso, después el SDK, y recién después el primer
+      // anuncio. En este orden y no en otro: pedir un anuncio antes de saber
+      // si se puede es exactamente lo que castiga la política de AdMob en
+      // Europa. Si el jugador dice que no, `canRequestAds` da false y este
+      // método se va sin cargar nada.
+      final permitido = await consentimiento.resolver();
+      if (!permitido) {
+        _iniciado = false;
+        return;
+      }
+
+      // El juego no está dirigido a menores —eso está decidido y explicado en
+      // el README— pero sí lo puede jugar alguien de nueve años, así que los
+      // avisos se limitan a contenido apto. Cuesta cero y saca de encima el
+      // riesgo de que a un chico le aparezca un aviso de casino.
+      await MobileAds.instance.updateRequestConfiguration(
+        RequestConfiguration(
+          maxAdContentRating: MaxAdContentRating.pg,
+          tagForChildDirectedTreatment: TagForChildDirectedTreatment.no,
+          tagForUnderAgeOfConsent: TagForUnderAgeOfConsent.no,
+        ),
+      );
+
       await MobileAds.instance.initialize();
       precargar();
     } catch (_) {

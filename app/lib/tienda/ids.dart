@@ -64,3 +64,16 @@ const String idProductoCompleto = 'guardian_templo_completo';
 /// Lo que se muestra mientras la tienda no diga el precio de verdad. En
 /// producción el precio real y su moneda los devuelve la tienda del jugador.
 const String precioDeMuestra = '—';
+
+/// La política de privacidad publicada.
+///
+/// Apple la pide en la ficha de la App Store, Google la pide en Play Console, y
+/// AdMob la exige por política para cualquier app que muestre avisos. Además se
+/// enlaza desde Ajustes, que es donde la va a buscar quien quiera leerla.
+///
+/// El texto vive en `docs/privacidad.html`, versionado en este mismo
+/// repositorio. Para que esta URL responda hay que **encender GitHub Pages**
+/// en Settings → Pages, sirviendo la rama `main` desde la carpeta `/docs`.
+/// Mientras eso no esté hecho, el botón de Ajustes abre un 404.
+const String urlPoliticaDePrivacidad =
+    'https://spcolonna.github.io/ElGuardianDelTemplo/privacidad.html';

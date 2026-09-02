@@ -193,12 +193,21 @@ class Etiqueta extends StatelessWidget {
             Icon(icono, size: 15, color: c),
             const SizedBox(width: 6),
           ],
-          Text(
-            texto,
-            style: TextStyle(
-              color: c,
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
+          // `Flexible` y no a secas: la píldora se usa con textos traducibles
+          // y dentro de filas que en una ventana angosta de iPad no le dan
+          // los 13 pt por letra que pide. Sin esto se desbordaba hasta 115 px.
+          // Con `mainAxisSize.min` la píldora sigue midiendo lo justo cuando
+          // hay lugar, así que en teléfono no cambia nada.
+          Flexible(
+            child: Text(
+              texto,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: c,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ],

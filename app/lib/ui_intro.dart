@@ -599,7 +599,7 @@ class _MarcoVineta extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ruta = 'assets/comic/${panel.archivo}';
+    final ruta = panel.assetMovil;
 
     return LayoutBuilder(
       builder: (context, cs) {

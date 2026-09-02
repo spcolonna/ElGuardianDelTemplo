@@ -286,11 +286,19 @@ archivos nativos y no leen Dart: el App ID va **repetido** en
 coincide con el de `ids.dart`, el SDK tira una excepción y la app se cae al
 arrancar.
 
-**Antes de publicar** faltan, y son tuyos: el keystore de release (hoy
-`android/app/build.gradle.kts` firma con las debug keys y tiene el TODO puesto),
-el formulario de consentimiento UMP para Europa, y decidir si la app se declara
-dirigida a menores —el juego apunta al mismo público que el libro, «a partir de
-9 años», y eso cambia qué avisos se pueden servir.
+**Antes de publicar** falta, y es tuyo: el keystore de release. Hoy
+`android/app/build.gradle.kts` firma con las debug keys y tiene el TODO puesto.
+Lo demás del camino a las tiendas está en [PUBLICAR.md](../PUBLICAR.md).
+
+**La edad ya está decidida y son dos declaraciones distintas**, que se confunden
+seguido. La *clasificación* de la tienda sale de un cuestionario de contenido:
+demonios, mercenarios y peleas dibujadas sin sangre es violencia fantástica leve,
+y eso da **9+**. El *público objetivo* es otra cosa, y va en **13+**, o sea que la
+app **no** se declara dirigida a menores: así no entra en COPPA ni en la política
+de Familias, y los avisos se sirven normales con `maxAdContentRating` en `PG`.
+Un 9+ de contenido no obliga a nada de eso. El 14+ impreso en la contratapa de la
+caja (`PRODUCCION.md` §4) es la dificultad del juego de mesa, no una clasificación
+de contenido, y no tiene por qué coincidir.
 
 `google_mobile_ads` está **clavado en 8.0.0**. La 9.1.0 no compila en iOS: pide
 un header privado que el SDK 13.7 no expone. Está explicado en `pubspec.yaml`.

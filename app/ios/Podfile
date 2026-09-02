@@ -1,5 +1,7 @@
-# Uncomment this line to define a global platform for your project
-# platform :ios, '13.0'
+# El minimo real de la app. Estaba comentado y funcionaba de casualidad, por
+# el IPHONEOS_DEPLOYMENT_TARGET del proyecto; declarado aca, CocoaPods avisa
+# si algun pod pide mas y no lo descubrimos en medio de un release.
+platform :ios, '13.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'

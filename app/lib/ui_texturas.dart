@@ -21,6 +21,13 @@ import 'package:flutter/services.dart' show AssetManifest, rootBundle;
 /// que estos assets NO pueden tener variantes `2.0x/3.0x` — si el engine
 /// eligiera la de 3x, el rectángulo quedaría corrido por un factor de 3 en
 /// silencio. Un archivo por pieza, dimensionado generoso, y `FilterQuality`.
+///
+/// Las rutas apuntan a `assets/movil/ui/*.webp`, que es lo único que se
+/// empaqueta. Los originales siguen en `assets/ui/` —ahí los valida el
+/// chequeo 14 de `bin/check.dart`— y de ahí los saca `bin/aligerar.py`. La
+/// conversión NO redimensiona, justamente para que estos cortes en píxeles
+/// sigan valiendo: si algún día alguien la hace redimensionar, todos los
+/// `centro` de este archivo quedan corridos en silencio.
 
 /// Descriptor de una pieza: qué asset, de qué tamaño, y dónde están los cortes.
 class NueveCortes {
@@ -68,14 +75,14 @@ class NueveCortes {
 // el chequeo 14 de bin/check.dart lo detecta antes de que se vea raro.
 
 const marcoPantalla = NueveCortes(
-  asset: 'assets/ui/marco_pantalla.png',
+  asset: 'assets/movil/ui/marco_pantalla.webp',
   fuente: Size(1200, 1800),
   centro: Rect.fromLTRB(300, 300, 900, 1500),
   contenido: EdgeInsets.all(38),
 );
 
 const cartelColgante = NueveCortes(
-  asset: 'assets/ui/cartel_colgante.png',
+  asset: 'assets/movil/ui/cartel_colgante.webp',
   fuente: Size(1024, 384),
   centro: Rect.fromLTRB(300, 150, 724, 250),
   contenido: EdgeInsets.fromLTRB(28, 20, 28, 16),
@@ -83,7 +90,7 @@ const cartelColgante = NueveCortes(
 );
 
 const panelPapelTex = NueveCortes(
-  asset: 'assets/ui/panel_papel.png',
+  asset: 'assets/movil/ui/panel_papel.webp',
   fuente: Size(600, 600),
   centro: Rect.fromLTRB(120, 120, 480, 480),
   contenido: EdgeInsets.all(14),
@@ -93,7 +100,7 @@ const panelPapelTex = NueveCortes(
 // Los cortes salieron de decodificar el PNG y buscar dónde el borde superior
 // se vuelve recto: ahí termina el remate tallado y empieza la tabla lisa.
 const botonMaderaTex = NueveCortes(
-  asset: 'assets/ui/boton_madera.png',
+  asset: 'assets/movil/ui/boton_madera.webp',
   fuente: Size(600, 240),
   centro: Rect.fromLTRB(84, 76, 516, 164),
   // Panel liso medido en el PNG: x 79..507, y 43..173 de 600x240.
@@ -102,7 +109,7 @@ const botonMaderaTex = NueveCortes(
 );
 
 const botonDoradoTex = NueveCortes(
-  asset: 'assets/ui/boton_dorado.png',
+  asset: 'assets/movil/ui/boton_dorado.webp',
   fuente: Size(600, 234),
   centro: Rect.fromLTRB(84, 74, 516, 160),
   // Panel liso medido en el PNG: x 127..516, y 42..172 de 600x234.
@@ -111,7 +118,7 @@ const botonDoradoTex = NueveCortes(
 );
 
 const placaNombreTex = NueveCortes(
-  asset: 'assets/ui/placa_nombre.png',
+  asset: 'assets/movil/ui/placa_nombre.webp',
   fuente: Size(512, 160),
   centro: Rect.fromLTRB(110, 60, 402, 100),
   contenido: EdgeInsets.symmetric(horizontal: 18, vertical: 6),
@@ -119,57 +126,57 @@ const placaNombreTex = NueveCortes(
 );
 
 const marcoRetratoTex = NueveCortes(
-  asset: 'assets/ui/marco_retrato.png',
+  asset: 'assets/movil/ui/marco_retrato.webp',
   fuente: Size(768, 900),
   centro: Rect.fromLTRB(150, 150, 618, 750),
   contenido: EdgeInsets.all(16),
 );
 
 const barraInferiorTex = NueveCortes(
-  asset: 'assets/ui/barra_inferior.png',
+  asset: 'assets/movil/ui/barra_inferior.webp',
   fuente: Size(1200, 300),
   centro: Rect.fromLTRB(300, 120, 900, 200),
   contenido: EdgeInsets.fromLTRB(10, 8, 10, 6),
   escala: 4.5,
 );
 
-/// Piezas sueltas (sin cortes) que también viven en `assets/ui/`.
+/// Piezas sueltas (sin cortes) que también viven en `assets/movil/ui/`.
 /// El marco ilustrado del patio, con sus adornos horneados. No es 9-slice:
 /// lo dibuja `ui_marco.dart` en tres bandas.
-const marcoPatio = 'assets/ui/marco.png';
+const marcoPatio = 'assets/movil/ui/marco.webp';
 
 /// El fondo cambia con la fase: el mismo templo al amanecer, a pleno día y al
 /// atardecer. Es lo que hace que avanzar de fase se sienta, sin un cartel que
 /// lo anuncie.
-const fondoAlba = 'assets/ui/fondo_alba.jpg';
-const fondoMediodia = 'assets/ui/fondo_mediodia.jpg';
-const fondoOcaso = 'assets/ui/fondo_ocaso.jpg';
+const fondoAlba = 'assets/movil/ui/fondo_alba.webp';
+const fondoMediodia = 'assets/movil/ui/fondo_mediodia.webp';
+const fondoOcaso = 'assets/movil/ui/fondo_ocaso.webp';
 
 /// El patio tiene su propio paisaje, más ancho: el mismo asset se reusa en
 /// tablet, así que no se recorta.
-const fondoPatio = 'assets/ui/background_home.jpg';
+const fondoPatio = 'assets/movil/ui/background_home.webp';
 
 /// El marco vertical con papel donde va el personaje.
-const marcoPersonaje = 'assets/ui/home.png';
+const marcoPersonaje = 'assets/movil/ui/home.webp';
 
 /// El Novato de cuerpo entero, con fondo transparente.
-const personaje = 'assets/ui/character.png';
+const personaje = 'assets/movil/ui/character.webp';
 
 /// El pergamino horizontal donde entran racha y logros.
-const pergamino = 'assets/ui/paper.png';
+const pergamino = 'assets/movil/ui/paper.webp';
 
 /// El logo del juego: el poste de entrenamiento con el cinturón atado.
-const logo = 'assets/ui/logo.jpeg';
+const logo = 'assets/movil/ui/logo.webp';
 
 /// Iconografía propia, en la estética del juego. Mientras no existan, la
 /// interfaz cae en íconos de Material.
-const iconoVictoria = 'assets/ui/victoria.png';
-const iconoDerrota = 'assets/ui/derrota.png';
-const fondoPapelTextura = 'assets/ui/fondo_papel.jpg';
-const retratoNovato = 'assets/ui/retrato_novato.png';
-const iconoVolver = 'assets/ui/boton_volver.png';
-const insigniaLogro = 'assets/ui/insignia_logro.png';
-const insigniaBloqueada = 'assets/ui/insignia_bloqueada.png';
+const iconoVictoria = 'assets/movil/ui/victoria.webp';
+const iconoDerrota = 'assets/movil/ui/derrota.webp';
+const fondoPapelTextura = 'assets/movil/ui/fondo_papel.webp';
+const retratoNovato = 'assets/movil/ui/retrato_novato.webp';
+const iconoVolver = 'assets/movil/ui/boton_volver.webp';
+const insigniaLogro = 'assets/movil/ui/insignia_logro.webp';
+const insigniaBloqueada = 'assets/movil/ui/insignia_bloqueada.webp';
 
 /// Todas las texturas 9-slice, para precargar y para validar en check.dart.
 const todasLasPiezas = <NueveCortes>[

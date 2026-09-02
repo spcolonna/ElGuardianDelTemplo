@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'app_state.dart';
 import 'audio.dart';
@@ -6,6 +7,7 @@ import 'l10n.dart';
 import 'rutas.dart';
 import 'ui_kit.dart';
 import 'ui_shell.dart';
+import 'tienda/ids.dart';
 import 'ui_tienda.dart';
 
 /// Ajustes: audio, idioma y el acceso al tutorial.
@@ -161,6 +163,46 @@ class _AjustesScreenState extends State<AjustesScreen> {
             ),
           ),
 
+          const SizedBox(height: 20),
+          PlacaTitulo(t('privacidad.titulo'), icono: Icons.shield_outlined),
+          const SizedBox(height: 8),
+          // El botón para volver a abrir el formulario de consentimiento.
+          //
+          // No es un extra: AdMob exige que quien pudo aceptar pueda cambiar
+          // de opinión. Aparece sólo donde el formulario existe —Europa, el
+          // Reino Unido, Suiza—, porque fuera de ahí abriría una pantalla
+          // vacía, que es peor que no tener el botón.
+          if (app.anuncios.consentimiento.hayOpciones) ...[
+            PanelPapel(
+              onTap: () async {
+                tocarUi(context);
+                await app.anuncios.consentimiento.abrirOpciones();
+              },
+              child: _FilaLegal(
+                icono: Icons.tune,
+                titulo: t('privacidad.opciones'),
+                bajada: t('privacidad.opcionesSub'),
+              ),
+            ),
+            const SizedBox(height: 8),
+          ],
+          PanelPapel(
+            onTap: () async {
+              tocarUi(context);
+              // Si no hay navegador —o si el enlace todavía no está
+              // publicado— no pasa nada y el botón no explota.
+              await launchUrl(
+                Uri.parse(urlPoliticaDePrivacidad),
+                mode: LaunchMode.externalApplication,
+              ).catchError((_) => false);
+            },
+            child: _FilaLegal(
+              icono: Icons.description_outlined,
+              titulo: t('privacidad.politica'),
+              bajada: t('privacidad.politicaSub'),
+            ),
+          ),
+
           const SizedBox(height: 28),
           Text(
             t('ajustes.sobre'),
@@ -257,6 +299,58 @@ class _Idiomas extends StatelessWidget {
         opcion(null, t('ajustes.idiomaSistema')),
         opcion('es', 'Español'),
         opcion('en', 'English'),
+      ],
+    );
+  }
+}
+
+/// Una fila de la sección de privacidad: ícono, título y bajada.
+///
+/// Es la misma forma que usa la fila de «restaurar compras» de más arriba;
+/// existe como widget aparte porque acá se repite dos veces y copiarla una
+/// tercera era garantizar que se despeguen.
+class _FilaLegal extends StatelessWidget {
+  final IconData icono;
+  final String titulo;
+  final String bajada;
+
+  const _FilaLegal({
+    required this.icono,
+    required this.titulo,
+    required this.bajada,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(icono, color: kTinta, size: 24),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                titulo,
+                style: const TextStyle(
+                  fontSize: 14.5,
+                  fontWeight: FontWeight.w600,
+                  color: kTinta,
+                ),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                bajada,
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: kTintaSuave,
+                  height: 1.25,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const Icon(Icons.chevron_right, color: kTintaSuave),
       ],
     );
   }

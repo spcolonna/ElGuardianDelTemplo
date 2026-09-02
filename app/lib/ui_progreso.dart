@@ -107,7 +107,13 @@ class _Timeline extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, cs) {
-        final ancho = ((cs.maxWidth - 6 * 6) / 7).clamp(26.0, 72.0);
+        // Siete casilleros y seis uniones de 6 pt: el ancho que entra justo
+        // es (disponible - 36) / 7. El piso era 26, y ese piso es lo que
+        // desbordaba en una ventana de iPad angosta —abajo de 218 pt de
+        // disponible, siete casilleros de 26 ya no entran—. Ahora el piso
+        // sólo protege de un ancho absurdo; el contenido de cada casillero se
+        // achica solo, así que un casillero chico se sigue leyendo.
+        final ancho = ((cs.maxWidth - 6 * 6) / 7).clamp(12.0, 72.0);
         return Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -170,22 +176,33 @@ class _Casillero extends StatelessWidget {
         ),
         boxShadow: sombraPapel(),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icono, color: color, size: ancho < 40 ? 15 : 20),
-          const SizedBox(height: 3),
-          Text(
-            ancho < 52 ? '$numero' : 'Día $numero',
-            maxLines: 1,
-            overflow: TextOverflow.clip,
-            style: TextStyle(
-              fontSize: ancho < 40 ? 9.5 : 11,
-              color: color,
-              fontWeight: FontWeight.w600,
+      // La caja mide `ancho * 1.15` de alto y adentro van un ícono, un espacio
+      // y un renglón. Los dos saltos de tamaño —a 40 y a 52 pt— cubren los
+      // anchos de teléfono, pero en una ventana de iPad en Slide Over las
+      // treinta cajas se reparten 320 pt y quedan tan chicas que el contenido
+      // no entra ni en su versión mínima: se desbordaba 8 px por abajo. El
+      // `FittedBox` lo resuelve de una vez y para cualquier ancho futuro, sin
+      // agregar un tercer umbral que mañana también se quede corto.
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icono, color: color, size: ancho < 40 ? 15 : 20),
+            const SizedBox(height: 3),
+            Text(
+              ancho < 52 ? '$numero' : 'Día $numero',
+              maxLines: 1,
+              overflow: TextOverflow.clip,
+              style: TextStyle(
+                fontSize: ancho < 40 ? 9.5 : 11,
+                color: color,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

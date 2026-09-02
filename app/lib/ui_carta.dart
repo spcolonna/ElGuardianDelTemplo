@@ -45,16 +45,16 @@ class CartaView extends StatelessWidget {
     // La rotación la decide la carta, no quien la dibuja.
     final rotada = cartaRotada(id);
 
+    // El original vive en `assets/cartas/$base.jpg` y NO se empaqueta: es el
+    // que lee `bin/imprimir.py` para armar el print & play a 300 dpi. Lo que
+    // viaja en el binario es la copia WebP de `bin/aligerar.py`.
     Widget imagen = Image.asset(
-      'assets/cartas/$base.jpg',
+      'assets/movil/cartas/$base.webp',
       fit: BoxFit.contain,
-      // Se prueba .jpg y después .png para poder mezclar formatos sin
-      // renombrar nada; si tampoco está, se dibuja la carta provisoria.
-      errorBuilder: (_, e, s) => Image.asset(
-        'assets/cartas/$base.png',
-        fit: BoxFit.contain,
-        errorBuilder: (_, e, s) => _respaldo(),
-      ),
+      // Si la carta todavía no tiene arte —o si alguien se olvidó de correr
+      // aligerar.py después de agregarla— se dibuja la carta provisoria y la
+      // partida sigue.
+      errorBuilder: (_, e, s) => _respaldo(),
     );
 
     if (rotada) {

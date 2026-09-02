@@ -148,6 +148,19 @@ class PanelArte {
   });
 
   bool get tieneAncla => anclaX != null && anclaY != null;
+
+  /// La ruta del asset que viaja adentro del binario.
+  ///
+  /// [archivo] es el nombre del ORIGINAL (`01_templo_amanecer.png`) y además
+  /// la clave con la que [TextosTema.paneles] busca el diálogo, así que no se
+  /// puede tocar. Pero el original no se empaqueta: pesa entre 2 y 3 MB y son
+  /// veintitrés. Lo que viaja es la copia WebP que escribe `bin/aligerar.py`
+  /// en `assets/movil/comic/`, que pesa una décima parte.
+  String get assetMovil {
+    final punto = archivo.lastIndexOf('.');
+    final base = punto == -1 ? archivo : archivo.substring(0, punto);
+    return 'assets/movil/comic/$base.webp';
+  }
 }
 
 /// Una línea suelta de la conversación de una viñeta.
