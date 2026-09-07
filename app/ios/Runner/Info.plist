@@ -5,9 +5,9 @@
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<!-- AdMob: el MISMO App ID que lib/tienda/ids.dart, o el SDK no arranca.
-	     Hoy es el de prueba publico de Google. -->
+	     Es el de la cuenta de AdMob del juego. -->
 	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-3940256099942544~1458002511</string>
+	<string>ca-app-pub-9552343552775183~4410534166</string>
 	<!-- Las redes con las que AdMob puede mediar. Sin esta lista, una
 	     instalacion que venga de un aviso servido por una de ellas no se
 	     atribuye, y sin atribucion baja el relleno y baja lo que se paga.

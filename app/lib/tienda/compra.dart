@@ -48,7 +48,7 @@ class Tienda extends ChangeNotifier {
 
     if (kIsWeb) return;
 
-    if (kIdsDePrueba) {
+    if (kComprasDePrueba) {
       // Sin cuentas de tienda todavía: se simula un producto para poder
       // recorrer el flujo entero de punta a punta.
       disponible = true;
@@ -95,7 +95,7 @@ class Tienda extends ChangeNotifier {
     error = null;
     notifyListeners();
 
-    if (kIdsDePrueba || kIsWeb) {
+    if (kComprasDePrueba || kIsWeb) {
       await _conceder();
       ocupado = false;
       notifyListeners();
@@ -123,7 +123,7 @@ class Tienda extends ChangeNotifier {
   /// Recupera la compra de quien reinstaló la app o cambió de teléfono.
   Future<void> restaurar() async {
     if (kIsWeb) return;
-    if (kIdsDePrueba) {
+    if (kComprasDePrueba) {
       // En modo prueba no hay nada que recuperar, pero el botón tiene que
       // existir igual para poder probar la pantalla.
       ocupado = false;
