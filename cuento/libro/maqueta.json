@@ -344,6 +344,15 @@
    0.0
   ]
  },
+ "CINCO/ALBA": {
+  "fondo": "app/assets/comic/07_entrenamiento.png"
+ },
+ "CINCO/MEDIODÍA": {
+  "fondo": "app/assets/comic/50_derrota_patio.png"
+ },
+ "CINCO/OCASO": {
+  "fondo": "cuento/libro/img/templo_ocaso.jpeg"
+ },
  "CINCO/NOCHE": {
   "fondo": "app/assets/comic/31_golpean_el_porton.png",
   "figuras": [
