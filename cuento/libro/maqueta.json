@@ -1,712 +1,765 @@
 {
-  "_": "Direccion de arte de la maqueta. Las claves son titulos de seccion; «UNO/ALBA» pisa a «ALBA». En el markdown solo vive la prosa: aca vive donde va cada imagen y de que tamano. Campos: fondo (imagen de apertura de fase) · figuras (reemplaza lo que declaro el markdown) · quitar · modo y modos (estampa | sangre | sobre) · posiciones (0 = pegada al titulo, 1 = al final) · tira + posTira · vinetas [{src, pos, ancho en mm, lado}]. Las paginas del comic viven en app/assets/comic/ y se leen sin tocarlas.",
-  "UNO/@dia": {
-    "fondo": "Assets/UI/patio.jpeg"
+ "_": "Direccion de arte de la maqueta. Las claves son titulos de seccion; «UNO/ALBA» pisa a «ALBA». En el markdown solo vive la prosa: aca vive donde va cada imagen y de que tamano. Campos: fondo (imagen de apertura de fase) · figuras (reemplaza lo que declaro el markdown) · quitar · modo y modos (estampa | sangre | sobre) · posiciones (0 = pegada al titulo, 1 = al final) · tira + posTira · vinetas [{src, pos, ancho en mm, lado}]. Las paginas del comic viven en app/assets/comic/ y se leen sin tocarlas.",
+ "UNO/@dia": {
+  "fondo": "Assets/UI/patio.jpeg"
+ },
+ "UNO/PRÓLOGO · CIENTO OCHO ESCALONES": {
+  "fondo": "Assets/UI/escalera.jpeg",
+  "figuras": [
+   "app/assets/comic/01_templo_amanecer.png",
+   "app/assets/comic/02_shifu_se_va.png"
+  ],
+  "modos": {
+   "app/assets/comic/01_templo_amanecer.png": "sangre",
+   "app/assets/comic/02_shifu_se_va.png": "estampa"
   },
-  "UNO/PRÓLOGO · CIENTO OCHO ESCALONES": {
-    "fondo": "Assets/UI/escalera.jpeg",
-    "figuras": [
-      "app/assets/comic/01_templo_amanecer.png",
-      "app/assets/comic/02_shifu_se_va.png"
-    ],
-    "modos": {
-      "app/assets/comic/01_templo_amanecer.png": "sangre",
-      "app/assets/comic/02_shifu_se_va.png": "estampa"
-    },
-    "posiciones": [
-      0.14,
-      0.62
-    ]
+  "posiciones": [
+   0.14,
+   0.62
+  ]
+ },
+ "La nota": {
+  "figuras": [
+   "app/assets/comic/03_la_nota.png",
+   "app/assets/comic/04_posdata.png"
+  ],
+  "posiciones": [
+   0.18,
+   0.78
+  ]
+ },
+ "Lo único que sabía hacer": {
+  "figuras": [],
+  "tira": [
+   {
+    "src": "Assets/MazoInicial/1.jpeg",
+    "nombre": "El puño"
+   },
+   {
+    "src": "Assets/MazoInicial/2.jpeg",
+    "nombre": "La pata"
+   },
+   {
+    "src": "Assets/MazoInicial/3.jpeg",
+    "nombre": "La patada"
+   },
+   {
+    "src": "Assets/MazoInicial/4.jpeg",
+    "nombre": "El aire"
+   },
+   {
+    "src": "Assets/MazoInicial/5.jpeg",
+    "nombre": "La pregunta"
+   }
+  ],
+  "posTira": 0.1,
+  "vinetas": [
+   {
+    "src": "cuento/libro/img/guang_entero.jpeg",
+    "pos": 0.55,
+    "ancho": 26,
+    "lado": "izq"
+   }
+  ]
+ },
+ "El templo, cuando no hay nadie adentro": {
+  "figuras": [
+   "cuento/libro/img/templo_dia.jpeg"
+  ],
+  "modos": {
+   "cuento/libro/img/templo_dia.jpeg": "sangre"
   },
-  "La nota": {
-    "figuras": [
-      "app/assets/comic/03_la_nota.png",
-      "app/assets/comic/04_posdata.png"
-    ],
-    "posiciones": [
-      0.18,
-      0.78
-    ]
-  },
-  "Lo único que sabía hacer": {
-    "figuras": [],
-    "tira": [
-      {
-        "src": "Assets/MazoInicial/1.jpeg",
-        "nombre": "El puño"
-      },
-      {
-        "src": "Assets/MazoInicial/2.jpeg",
-        "nombre": "La pata"
-      },
-      {
-        "src": "Assets/MazoInicial/3.jpeg",
-        "nombre": "La patada"
-      },
-      {
-        "src": "Assets/MazoInicial/4.jpeg",
-        "nombre": "El aire"
-      },
-      {
-        "src": "Assets/MazoInicial/5.jpeg",
-        "nombre": "La pregunta"
-      }
-    ],
-    "posTira": 0.1,
-    "vinetas": [
-      {
-        "src": "cuento/libro/img/guang_entero.jpeg",
-        "pos": 0.55,
-        "ancho": 26,
-        "lado": "izq"
-      }
-    ]
-  },
-  "El templo, cuando no hay nadie adentro": {
-    "figuras": [
-      "cuento/libro/img/templo_dia.jpeg"
-    ],
-    "modos": {
-      "cuento/libro/img/templo_dia.jpeg": "sangre"
-    },
-    "posiciones": [
-      0.0
-    ]
-  },
-  "UNO/ALBA": {
-    "fondo": "cuento/libro/img/templo_alba.jpeg"
-  },
-  "UNO/MEDIODÍA": {
-    "fondo": "app/assets/comic/05_llegan_los_problemas.png"
-  },
-  "UNO/OCASO": {
-    "fondo": "app/assets/comic/22_cae_la_noche.png"
-  },
-  "Mei": {
-    "vinetas": [
-      {
-        "src": "cuento/libro/img/mei_desprecio.jpeg",
-        "pos": 0.08,
-        "ancho": 42,
-        "lado": "der"
-      },
-      {
-        "src": "cuento/libro/img/mei_petulante.jpeg",
-        "pos": 0.95,
-        "ancho": 38,
-        "lado": "der"
-      }
-    ],
-    "figuras": [
-      "app/assets/comic/11_mei_juzga.png"
-    ],
-    "posiciones": [
-      0.34
-    ]
-  },
-  "Tao sube con noticias": {
-    "vinetas": [
-      {
-        "src": "cuento/libro/img/tao_entero.jpeg",
-        "pos": 0.05,
-        "ancho": 28,
-        "lado": "der"
-      },
-      {
-        "src": "cuento/libro/img/tao_serio.jpeg",
-        "pos": 0.85,
-        "ancho": 34,
-        "lado": "der"
-      }
-    ],
-    "figuras": [
-      "app/assets/comic/12_llega_tao.png"
-    ],
-    "posiciones": [
-      0.28
-    ]
-  },
-  "Después vino el mosquito": {
-    "posiciones": [
-      0.1,
-      0.78
-    ]
-  },
-  "El té": {
-    "posiciones": [
-      0.12,
-      0.8
-    ]
-  },
-  "El primero que subió": {
-    "figuras": [
-      "Assets/Skills/12.jpeg"
-    ],
-    "posiciones": [
-      0.82
-    ],
-    "vinetas": [
-      {
-        "src": "cuento/libro/img/pinto.jpeg",
-        "pos": 0.4,
-        "ancho": 44,
-        "lado": "izq"
-      }
-    ]
-  },
-  "La idea del puente": {
-    "posiciones": [
-      0.14,
-      0.82
-    ]
-  },
-  "El que no se veía": {
-    "posiciones": [
-      0.12,
-      0.8
-    ],
-    "vinetas": [
-      {
-        "src": "cuento/libro/img/mei_terror.jpeg",
-        "pos": 0.55,
-        "ancho": 44,
-        "lado": "der"
-      }
-    ]
-  },
-  "La cocina": {
-    "posiciones": [
-      0.1,
-      0.78
-    ],
-    "modos": {
-      "Assets/Peligros/28.jpeg": "sangre"
-    }
-  },
-  "Entre el humo y los tambores": {
-    "vinetas": [
-      {
-        "src": "cuento/libro/img/guang_panico.jpeg",
-        "pos": 0.3,
-        "ancho": 34,
-        "lado": "der"
-      },
-      {
-        "src": "Assets/Cansancio/4.jpeg",
-        "pos": 0.92,
-        "ancho": 46,
-        "lado": "izq"
-      }
-    ]
-  },
-  "UNO/NOCHE": {
-    "fondo": null,
-    "figuras": [
-      "Assets/Jefes/jefe5.jpeg"
-    ],
-    "modos": {
-      "Assets/Jefes/jefe5.jpeg": "sobre"
-    },
-    "posiciones": [
-      0.0
-    ],
-    "vinetas": [
-      {
-        "src": "Assets/Cansancio/1.jpeg",
-        "pos": 0.3,
-        "ancho": 48,
-        "lado": "der"
-      },
-      {
-        "src": "cuento/libro/img/guang_cansado.jpeg",
-        "pos": 0.52,
-        "ancho": 34,
-        "lado": "izq"
-      },
-      {
-        "src": "Assets/Cansancio/6.jpeg",
-        "pos": 0.74,
-        "ancho": 46,
-        "lado": "der"
-      },
-      {
-        "src": "cuento/libro/img/guang_culpable.jpeg",
-        "pos": 0.92,
-        "ancho": 32,
-        "lado": "izq"
-      }
-    ]
-  },
-  "UNO/FIN DEL DÍA UNO": {
-    "vinetas": [
-      {
-        "src": "Assets/Cansancio/9.jpeg",
-        "pos": 0.2,
-        "ancho": 44,
-        "lado": "izq"
-      },
-      {
-        "src": "cuento/libro/img/shifu_entero.jpeg",
-        "pos": 0.82,
-        "ancho": 36,
-        "lado": "der"
-      }
-    ]
-  },
-  "La mañana del martes": {
-    "vinetas": [
-      {
-        "src": "Assets/Cansancio/5.jpeg",
-        "pos": 0.5,
-        "ancho": 44,
-        "lado": "der"
-      }
-    ],
-    "figuras": [
-      "app/assets/comic/10_fin_alba.png"
-    ],
-    "modos": {
-      "app/assets/comic/10_fin_alba.png": "sangre"
-    },
-    "posiciones": [
-      0.2
-    ]
-  },
-  "DOS/NOCHE": {
-    "fondo": "app/assets/comic/08_campeones.png",
-    "figuras": [
-      "Assets/Jefes/jefe3.jpeg"
-    ],
-    "anclas": [
-      {
-        "src": "Assets/Jefes/jefe3.jpeg",
-        "tras": "sonó como suena la plata"
-      }
-    ]
-  },
-  "La alacena": {
-    "figuras": [
-      "Assets/Peligros/16.jpeg",
-      "app/assets/comic/06_tentaciones.png",
-      "Assets/Skills/16.jpeg"
-    ],
-    "modos": {
-      "app/assets/comic/06_tentaciones.png": "sobre"
-    },
-    "anclas": [
-      {
-        "src": "Assets/Peligros/16.jpeg",
-        "tras": "Ni las contó"
-      },
-      {
-        "src": "app/assets/comic/06_tentaciones.png",
-        "tras": "se quedó mirándolo con la\nmano en la puerta"
-      },
-      {
-        "src": "Assets/Skills/16.jpeg",
-        "tras": "como quien cierra una puerta contra el viento"
-      }
-    ]
-  },
-  "La bolsa de monedas": {
-    "figuras": [
-      "app/assets/comic/21_traicion_tao.png"
-    ],
-    "posiciones": [
-      0.72
-    ],
-    "vinetas": [
-      {
-        "src": "cuento/libro/img/tao_culpable.jpeg",
-        "tras": "Menos de lo que pensás",
-        "ancho": 30,
-        "lado": "der"
-      }
-    ]
-  },
-  "CUATRO/NOCHE": {
-    "figuras": [
-      "app/assets/comic/30_fin_ocaso.png"
-    ],
-    "modos": {
-      "app/assets/comic/30_fin_ocaso.png": "sobre"
-    },
-    "posiciones": [
-      0.0
-    ]
-  },
-  "CINCO/NOCHE": {
-    "fondo": "app/assets/comic/32_los_campeones.png"
-  },
-  "Lo que quedaba del cuerpo": {
-    "figuras": [
-      "app/assets/comic/40_victoria_campeones.png"
-    ],
-    "posiciones": [
-      0.25
-    ]
-  },
-  "CINCO/SÁBADO": {
-    "figuras": [
-      "app/assets/comic/41_vuelve_shifu.png",
-      "app/assets/comic/42_las_galletas.png"
-    ],
-    "modos": {
-      "app/assets/comic/41_vuelve_shifu.png": "sangre"
-    },
-    "posiciones": [
-      0.08,
-      0.58
-    ]
-  },
-  "DOS/PRÓLOGO · LO QUE CUESTA UN TEMPLO": {
-    "fondo": "Assets/UI/background.jpeg"
-  },
-  "El inventario": {},
-  "Mei tiene una opinión": {
-    "figuras": [
-      "app/assets/comic/11_mei_juzga.png"
-    ],
-    "anclas": [
-      {
-        "src": "app/assets/comic/11_mei_juzga.png",
-        "tras": "sobre el que no aceptaba discusión"
-      }
-    ]
-  },
-  "DOS/ALBA": {
-    "fondo": "app/assets/comic/12_llega_tao.png"
-  },
-  "El del escalón cuarenta y dos": {
-    "figuras": [
-      "Assets/Peligros/6.jpeg",
-      "Assets/Skills/6.jpeg"
-    ],
-    "anclas": [
-      {
-        "src": "Assets/Peligros/6.jpeg",
-        "tras": "haciendo comentarios"
-      },
-      {
-        "src": "Assets/Skills/6.jpeg",
-        "tras": "se fue a mirar el barranco con mucho interés"
-      }
-    ],
-    "vinetas": [
-      {
-        "src": "cuento/libro/img/tao_burlon.jpeg",
-        "tras": "sin preguntárselo",
-        "ancho": 34,
-        "lado": "der"
-      }
-    ]
-  },
-  "El palo podrido": {
-    "figuras": [
-      "Assets/Peligros/2.jpeg",
-      "Assets/Skills/2.jpeg"
-    ],
-    "anclas": [
-      {
-        "src": "Assets/Peligros/2.jpeg",
-        "tras": "en la mano mientras lo agitaba"
-      },
-      {
-        "src": "Assets/Skills/2.jpeg",
-        "tras": "La trece, no"
-      }
-    ]
-  },
-  "El que no se fue": {
-    "vinetas": [
-      {
-        "src": "cuento/libro/img/bandido_palo.jpeg",
-        "tras": "como si el asunto tuviera arreglo",
-        "ancho": 36,
-        "lado": "izq"
-      }
-    ]
-  },
-  "DOS/MEDIODÍA": {
-    "fondo": null
-  },
-  "Los tres que tenían hambre": {
-    "figuras": [
-      "Assets/Peligros/11.jpeg",
-      "Assets/Skills/11.jpeg"
-    ],
-    "anclas": [
-      {
-        "src": "Assets/Peligros/11.jpeg",
-        "tras": "Se oían las tripas de uno desde el portón"
-      },
-      {
-        "src": "Assets/Skills/11.jpeg",
-        "tras": "Los otros dos se quedaron quietos"
-      }
-    ],
-    "vinetas": [
-      {
-        "src": "cuento/libro/img/bandidos_tres.jpeg",
-        "tras": "y también comió",
-        "ancho": 52,
-        "lado": "izq"
-      }
-    ]
-  },
-  "El soldado": {
-    "figuras": [
-      "Assets/Peligros/15.jpeg",
-      "Assets/Skills/15.jpeg"
-    ],
-    "anclas": [
-      {
-        "src": "Assets/Peligros/15.jpeg",
-        "tras": "No venía a robar el templo. Venía a informar"
-      },
-      {
-        "src": "Assets/Skills/15.jpeg",
-        "tras": "la puerta estaba trabada"
-      }
-    ],
-    "vinetas": [
-      {
-        "src": "cuento/libro/img/soldado_frente.jpeg",
-        "tras": "los que le cobran a los que ya pagaron",
-        "ancho": 38,
-        "lado": "der"
-      }
-    ]
-  },
-  "La cuenta de las cuatro de la tarde": {
-    "figuras": [
-      "app/assets/comic/20_fin_mediodia.png"
-    ],
-    "anclas": [
-      {
-        "src": "app/assets/comic/20_fin_mediodia.png",
-        "tras": "ordenar el día era algo que se podía hacer sentado"
-      }
-    ]
-  },
-  "DOS/OCASO": {
-    "fondo": "cuento/libro/img/templo_ocaso.jpeg"
-  },
-  "El que sí tenía una espada": {
-    "figuras": [
-      "Assets/Peligros/21.jpeg",
-      "Assets/Skills/21.jpeg"
-    ],
-    "anclas": [
-      {
-        "src": "Assets/Peligros/21.jpeg",
-        "tras": "Y venía sonriendo, que era lo peor"
-      },
-      {
-        "src": "Assets/Skills/21.jpeg",
-        "tras": "se dobló en dos"
-      }
-    ]
-  },
-  "La pared": {
-    "figuras": [
-      "Assets/Peligros/26.jpeg",
-      "Assets/Skills/26.jpeg"
-    ],
-    "anclas": [
-      {
-        "src": "Assets/Peligros/26.jpeg",
-        "tras": "Guang contó hasta cuarenta y dejó de contar"
-      },
-      {
-        "src": "Assets/Skills/26.jpeg",
-        "tras": "se abrió un hueco en la pared"
-      }
-    ],
-    "vinetas": [
-      {
-        "src": "cuento/libro/img/soldados_fila.jpeg",
-        "tras": "cuando se le paga a mucha gente para que se vista igual",
-        "ancho": 52,
-        "lado": "izq"
-      }
-    ]
-  },
-  "La ampolla": {
-    "vinetas": [
-      {
-        "src": "Assets/Cansancio/5.jpeg",
-        "tras": "del tamaño de una lenteja, y era blanca",
-        "ancho": 58,
-        "lado": "izq"
-      }
-    ],
-    "quitar": [
-      "Assets/Cansancio/5.jpeg"
-    ]
-  },
-  "La espera": {
-    "vinetas": [
-      {
-        "src": "cuento/libro/img/grom_frente.jpeg",
-        "tras": "Les pagaron por estar",
-        "ancho": 36,
-        "lado": "der"
-      }
-    ]
-  },
-  "El humo": {
-    "quitar": [
-      "Assets/UI/background.jpeg"
-    ],
-    "vinetas": [
-      {
-        "src": "cuento/libro/img/guang_confundido.jpeg",
-        "tras": "mirando la pared con la boca entreabierta",
-        "ancho": 32,
-        "lado": "izq"
-      }
-    ]
-  },
-  "La gata": {
-    "figuras": [
-      "Assets/Peligros/5.jpeg",
-      "Assets/Skills/5.jpeg"
-    ],
-    "anclas": [
-      {
-        "src": "Assets/Peligros/5.jpeg",
-        "tras": "y no se pensaba mover"
-      },
-      {
-        "src": "Assets/Skills/5.jpeg",
-        "tras": "Podía rasguñar\nperfectamente"
-      }
-    ],
-    "vinetas": [
-      {
-        "src": "cuento/libro/img/mei_caminando.jpeg",
-        "tras": "Las gatas no hacen nada otra vez",
-        "ancho": 46,
-        "lado": "izq"
-      }
-    ]
-  },
-  "La piedra": {
-    "anclas": [
-      {
-        "src": "Assets/Peligros/7.jpeg",
-        "tras": "diciendo palabras que no van en un templo"
-      },
-      {
-        "src": "Assets/Skills/7.jpeg",
-        "tras": "y no pasó absolutamente nada"
-      }
-    ]
-  },
-  "El maestro falso": {
-    "anclas": [
-      {
-        "src": "Assets/Peligros/17.jpeg",
-        "tras": "el Maestro de las Nueve Escuelas del Trueno Interior"
-      },
-      {
-        "src": "Assets/Skills/17.jpeg",
-        "tras": "Lo hizo poniendo bien lo que había visto mal"
-      }
-    ]
-  },
-  "Pinto": {
-    "quitar": [
-      "Assets/vendedor.jpeg"
-    ],
-    "vinetas": [
-      {
-        "src": "cuento/libro/img/pinto_yendose.jpeg",
-        "tras": "hacen un ruido de campanillas cuando camina",
-        "ancho": 44,
-        "lado": "der"
-      }
-    ]
-  },
-  "Lo que Shifu le dijo a Tao": {
-    "quitar": [
-      "Assets/kai.jpeg",
-      "Assets/UI/escalera.jpeg"
-    ],
-    "vinetas": [
-      {
-        "src": "cuento/libro/img/tao_neutral.jpeg",
-        "tras": "En dos años Guang no lo había visto sin algo en la boca",
-        "ancho": 34,
-        "lado": "der"
-      },
-      {
-        "src": "cuento/libro/img/tao_de_espaldas.jpeg",
-        "tras": "hacia el barranco, como venía haciendo hacía dos años",
-        "ancho": 30,
-        "lado": "izq"
-      }
-    ]
-  },
-  "El de la corona de papel": {
-    "anclas": [
-      {
-        "src": "Assets/Peligros/23.jpeg",
-        "tras": "una corona hecha de papel"
-      },
-      {
-        "src": "Assets/Skills/23.jpeg",
-        "tras": "y no había nadie adentro de ella"
-      }
-    ]
-  },
-  "El sueño": {
-    "anclas": [
-      {
-        "src": "Assets/Peligros/30.jpeg",
-        "tras": "al que no había visto nunca y reconoció\ninmediatamente"
-      },
-      {
-        "src": "Assets/Skills/30.jpeg",
-        "tras": "no iba a poder explicárselo a nadie"
-      }
-    ]
-  },
-  "Lo que empezó a doler": {
-    "quitar": [
-      "Assets/Cansancio/4.jpeg",
-      "Assets/Cansancio/6.jpeg"
-    ],
-    "vinetas": [
-      {
-        "src": "Assets/Cansancio/4.jpeg",
-        "tras": "como un vecino que se mudó sin avisar",
-        "ancho": 46,
-        "lado": "izq"
-      },
-      {
-        "src": "Assets/Cansancio/6.jpeg",
-        "tras": "que se rajaba cada vez que cerraba el puño",
-        "ancho": 46,
-        "lado": "der"
-      },
-      {
-        "src": "cuento/libro/img/shifu_desaprueba.jpeg",
-        "tras": "con las cejas, sin levantar la vista del\nté",
-        "ancho": 36,
-        "lado": "der"
-      }
-    ]
-  },
-  "La mañana del viernes": {
-    "vinetas": [
-      {
-        "src": "cuento/libro/img/guang_de_espaldas.jpeg",
-        "tras": "Bajó los ciento ocho escalones",
-        "ancho": 28,
-        "lado": "izq"
-      }
-    ]
+  "posiciones": [
+   0.0
+  ]
+ },
+ "UNO/ALBA": {
+  "fondo": "cuento/libro/img/templo_alba.jpeg"
+ },
+ "UNO/MEDIODÍA": {
+  "fondo": "app/assets/comic/05_llegan_los_problemas.png"
+ },
+ "UNO/OCASO": {
+  "fondo": "app/assets/comic/22_cae_la_noche.png"
+ },
+ "Mei": {
+  "vinetas": [
+   {
+    "src": "cuento/libro/img/mei_desprecio.jpeg",
+    "pos": 0.08,
+    "ancho": 42,
+    "lado": "der"
+   },
+   {
+    "src": "cuento/libro/img/mei_petulante.jpeg",
+    "pos": 0.95,
+    "ancho": 38,
+    "lado": "der"
+   }
+  ],
+  "figuras": [
+   "app/assets/comic/11_mei_juzga.png"
+  ],
+  "posiciones": [
+   0.34
+  ]
+ },
+ "Tao sube con noticias": {
+  "vinetas": [
+   {
+    "src": "cuento/libro/img/tao_entero.jpeg",
+    "pos": 0.05,
+    "ancho": 28,
+    "lado": "der"
+   },
+   {
+    "src": "cuento/libro/img/tao_serio.jpeg",
+    "pos": 0.85,
+    "ancho": 34,
+    "lado": "der"
+   }
+  ],
+  "figuras": [
+   "app/assets/comic/12_llega_tao.png"
+  ],
+  "posiciones": [
+   0.28
+  ]
+ },
+ "Después vino el mosquito": {
+  "posiciones": [
+   0.1,
+   0.78
+  ]
+ },
+ "El té": {
+  "posiciones": [
+   0.12,
+   0.8
+  ]
+ },
+ "El primero que subió": {
+  "figuras": [
+   "Assets/Skills/12.jpeg"
+  ],
+  "posiciones": [
+   0.82
+  ],
+  "vinetas": [
+   {
+    "src": "cuento/libro/img/pinto.jpeg",
+    "pos": 0.4,
+    "ancho": 44,
+    "lado": "izq"
+   }
+  ]
+ },
+ "La idea del puente": {
+  "posiciones": [
+   0.14,
+   0.82
+  ]
+ },
+ "El que no se veía": {
+  "posiciones": [
+   0.12,
+   0.8
+  ],
+  "vinetas": [
+   {
+    "src": "cuento/libro/img/mei_terror.jpeg",
+    "pos": 0.55,
+    "ancho": 44,
+    "lado": "der"
+   }
+  ]
+ },
+ "La cocina": {
+  "posiciones": [
+   0.1,
+   0.78
+  ],
+  "modos": {
+   "Assets/Peligros/28.jpeg": "sangre"
   }
+ },
+ "Entre el humo y los tambores": {
+  "vinetas": [
+   {
+    "src": "cuento/libro/img/guang_panico.jpeg",
+    "pos": 0.3,
+    "ancho": 34,
+    "lado": "der"
+   },
+   {
+    "src": "Assets/Cansancio/4.jpeg",
+    "pos": 0.92,
+    "ancho": 46,
+    "lado": "izq"
+   }
+  ]
+ },
+ "UNO/NOCHE": {
+  "fondo": null,
+  "figuras": [
+   "Assets/Jefes/jefe5.jpeg"
+  ],
+  "modos": {
+   "Assets/Jefes/jefe5.jpeg": "sobre"
+  },
+  "posiciones": [
+   0.0
+  ],
+  "vinetas": [
+   {
+    "src": "Assets/Cansancio/1.jpeg",
+    "pos": 0.3,
+    "ancho": 48,
+    "lado": "der"
+   },
+   {
+    "src": "cuento/libro/img/guang_cansado.jpeg",
+    "pos": 0.52,
+    "ancho": 34,
+    "lado": "izq"
+   },
+   {
+    "src": "Assets/Cansancio/6.jpeg",
+    "pos": 0.74,
+    "ancho": 46,
+    "lado": "der"
+   },
+   {
+    "src": "cuento/libro/img/guang_culpable.jpeg",
+    "pos": 0.92,
+    "ancho": 32,
+    "lado": "izq"
+   }
+  ]
+ },
+ "UNO/FIN DEL DÍA UNO": {
+  "vinetas": [
+   {
+    "src": "Assets/Cansancio/9.jpeg",
+    "pos": 0.2,
+    "ancho": 44,
+    "lado": "izq"
+   },
+   {
+    "src": "cuento/libro/img/shifu_entero.jpeg",
+    "pos": 0.82,
+    "ancho": 36,
+    "lado": "der"
+   }
+  ]
+ },
+ "La mañana del martes": {
+  "vinetas": [
+   {
+    "src": "Assets/Cansancio/5.jpeg",
+    "pos": 0.5,
+    "ancho": 44,
+    "lado": "der"
+   }
+  ],
+  "figuras": [
+   "app/assets/comic/10_fin_alba.png"
+  ],
+  "modos": {
+   "app/assets/comic/10_fin_alba.png": "sangre"
+  },
+  "posiciones": [
+   0.2
+  ]
+ },
+ "DOS/NOCHE": {
+  "fondo": "app/assets/comic/08_campeones.png",
+  "figuras": [
+   "Assets/Jefes/jefe3.jpeg"
+  ],
+  "anclas": [
+   {
+    "src": "Assets/Jefes/jefe3.jpeg",
+    "tras": "sonó como suena la plata"
+   }
+  ]
+ },
+ "La alacena": {
+  "figuras": [
+   "Assets/Peligros/16.jpeg",
+   "app/assets/comic/06_tentaciones.png",
+   "Assets/Skills/16.jpeg"
+  ],
+  "modos": {
+   "app/assets/comic/06_tentaciones.png": "sobre"
+  },
+  "anclas": [
+   {
+    "src": "Assets/Peligros/16.jpeg",
+    "tras": "Ni las contó"
+   },
+   {
+    "src": "app/assets/comic/06_tentaciones.png",
+    "tras": "se quedó mirándolo con la\nmano en la puerta"
+   },
+   {
+    "src": "Assets/Skills/16.jpeg",
+    "tras": "como quien cierra una puerta contra el viento"
+   }
+  ]
+ },
+ "La bolsa de monedas": {
+  "figuras": [
+   "app/assets/comic/21_traicion_tao.png"
+  ],
+  "posiciones": [
+   0.72
+  ],
+  "vinetas": [
+   {
+    "src": "cuento/libro/img/tao_culpable.jpeg",
+    "tras": "Menos de lo que pensás",
+    "ancho": 30,
+    "lado": "der"
+   }
+  ]
+ },
+ "CUATRO/ALBA": {
+  "fondo": "cuento/libro/img/templo_alba.jpeg"
+ },
+ "CUATRO/MEDIODÍA": {
+  "fondo": "cuento/libro/img/templo_dia.jpeg"
+ },
+ "CUATRO/OCASO": {
+  "fondo": "cuento/libro/img/templo_ocaso.jpeg"
+ },
+ "CUATRO/NOCHE": {
+  "figuras": [
+   "app/assets/comic/30_fin_ocaso.png"
+  ],
+  "modos": {
+   "app/assets/comic/30_fin_ocaso.png": "sobre"
+  },
+  "posiciones": [
+   0.0
+  ]
+ },
+ "CINCO/NOCHE": {
+  "fondo": "app/assets/comic/31_golpean_el_porton.png",
+  "figuras": [
+   "app/assets/comic/32_los_campeones.png"
+  ],
+  "modos": {
+   "app/assets/comic/32_los_campeones.png": "sangre"
+  },
+  "anclas": [
+   {
+    "src": "app/assets/comic/32_los_campeones.png",
+    "tras": "y no hizo ningún ruido al subir"
+   }
+  ]
+ },
+ "DOS/PRÓLOGO · LO QUE CUESTA UN TEMPLO": {
+  "fondo": "Assets/UI/background.jpeg"
+ },
+ "El inventario": {},
+ "Mei tiene una opinión": {
+  "figuras": [
+   "app/assets/comic/11_mei_juzga.png"
+  ],
+  "anclas": [
+   {
+    "src": "app/assets/comic/11_mei_juzga.png",
+    "tras": "sobre el que no aceptaba discusión"
+   }
+  ]
+ },
+ "DOS/ALBA": {
+  "fondo": "app/assets/comic/12_llega_tao.png"
+ },
+ "El del escalón cuarenta y dos": {
+  "figuras": [
+   "Assets/Peligros/6.jpeg",
+   "Assets/Skills/6.jpeg"
+  ],
+  "anclas": [
+   {
+    "src": "Assets/Peligros/6.jpeg",
+    "tras": "haciendo comentarios"
+   },
+   {
+    "src": "Assets/Skills/6.jpeg",
+    "tras": "se fue a mirar el barranco con mucho interés"
+   }
+  ],
+  "vinetas": [
+   {
+    "src": "cuento/libro/img/tao_burlon.jpeg",
+    "tras": "sin preguntárselo",
+    "ancho": 34,
+    "lado": "der"
+   }
+  ]
+ },
+ "El palo podrido": {
+  "figuras": [
+   "Assets/Peligros/2.jpeg",
+   "Assets/Skills/2.jpeg"
+  ],
+  "anclas": [
+   {
+    "src": "Assets/Peligros/2.jpeg",
+    "tras": "en la mano mientras lo agitaba"
+   },
+   {
+    "src": "Assets/Skills/2.jpeg",
+    "tras": "La trece, no"
+   }
+  ]
+ },
+ "El que no se fue": {
+  "vinetas": [
+   {
+    "src": "cuento/libro/img/bandido_palo.jpeg",
+    "tras": "como si el asunto tuviera arreglo",
+    "ancho": 36,
+    "lado": "izq"
+   }
+  ]
+ },
+ "DOS/MEDIODÍA": {
+  "fondo": null
+ },
+ "Los tres que tenían hambre": {
+  "figuras": [
+   "Assets/Peligros/11.jpeg",
+   "Assets/Skills/11.jpeg"
+  ],
+  "anclas": [
+   {
+    "src": "Assets/Peligros/11.jpeg",
+    "tras": "Se oían las tripas de uno desde el portón"
+   },
+   {
+    "src": "Assets/Skills/11.jpeg",
+    "tras": "Los otros dos se quedaron quietos"
+   }
+  ],
+  "vinetas": [
+   {
+    "src": "cuento/libro/img/bandidos_tres.jpeg",
+    "tras": "y también comió",
+    "ancho": 52,
+    "lado": "izq"
+   }
+  ]
+ },
+ "El soldado": {
+  "figuras": [
+   "Assets/Peligros/15.jpeg",
+   "Assets/Skills/15.jpeg"
+  ],
+  "anclas": [
+   {
+    "src": "Assets/Peligros/15.jpeg",
+    "tras": "No venía a robar el templo. Venía a informar"
+   },
+   {
+    "src": "Assets/Skills/15.jpeg",
+    "tras": "la puerta estaba trabada"
+   }
+  ],
+  "vinetas": [
+   {
+    "src": "cuento/libro/img/soldado_frente.jpeg",
+    "tras": "los que le cobran a los que ya pagaron",
+    "ancho": 38,
+    "lado": "der"
+   }
+  ]
+ },
+ "La cuenta de las cuatro de la tarde": {
+  "figuras": [
+   "app/assets/comic/20_fin_mediodia.png"
+  ],
+  "anclas": [
+   {
+    "src": "app/assets/comic/20_fin_mediodia.png",
+    "tras": "ordenar el día era algo que se podía hacer sentado"
+   }
+  ]
+ },
+ "DOS/OCASO": {
+  "fondo": "cuento/libro/img/templo_ocaso.jpeg"
+ },
+ "El que sí tenía una espada": {
+  "figuras": [
+   "Assets/Peligros/21.jpeg",
+   "Assets/Skills/21.jpeg"
+  ],
+  "anclas": [
+   {
+    "src": "Assets/Peligros/21.jpeg",
+    "tras": "Y venía sonriendo, que era lo peor"
+   },
+   {
+    "src": "Assets/Skills/21.jpeg",
+    "tras": "se dobló en dos"
+   }
+  ]
+ },
+ "La pared": {
+  "figuras": [
+   "Assets/Peligros/26.jpeg",
+   "Assets/Skills/26.jpeg"
+  ],
+  "anclas": [
+   {
+    "src": "Assets/Peligros/26.jpeg",
+    "tras": "Guang contó hasta cuarenta y dejó de contar"
+   },
+   {
+    "src": "Assets/Skills/26.jpeg",
+    "tras": "se abrió un hueco en la pared"
+   }
+  ],
+  "vinetas": [
+   {
+    "src": "cuento/libro/img/soldados_fila.jpeg",
+    "tras": "cuando se le paga a mucha gente para que se vista igual",
+    "ancho": 52,
+    "lado": "izq"
+   }
+  ]
+ },
+ "La ampolla": {
+  "vinetas": [
+   {
+    "src": "Assets/Cansancio/5.jpeg",
+    "tras": "del tamaño de una lenteja, y era blanca",
+    "ancho": 58,
+    "lado": "izq"
+   }
+  ],
+  "quitar": [
+   "Assets/Cansancio/5.jpeg"
+  ]
+ },
+ "La espera": {
+  "vinetas": [
+   {
+    "src": "cuento/libro/img/grom_frente.jpeg",
+    "tras": "Les pagaron por estar",
+    "ancho": 36,
+    "lado": "der"
+   }
+  ]
+ },
+ "El humo": {
+  "quitar": [
+   "Assets/UI/background.jpeg"
+  ],
+  "vinetas": [
+   {
+    "src": "cuento/libro/img/guang_confundido.jpeg",
+    "tras": "mirando la pared con la boca entreabierta",
+    "ancho": 32,
+    "lado": "izq"
+   }
+  ]
+ },
+ "La gata": {
+  "figuras": [
+   "Assets/Peligros/5.jpeg",
+   "Assets/Skills/5.jpeg"
+  ],
+  "anclas": [
+   {
+    "src": "Assets/Peligros/5.jpeg",
+    "tras": "y no se pensaba mover"
+   },
+   {
+    "src": "Assets/Skills/5.jpeg",
+    "tras": "Podía rasguñar\nperfectamente"
+   }
+  ],
+  "vinetas": [
+   {
+    "src": "cuento/libro/img/mei_caminando.jpeg",
+    "tras": "Las gatas no hacen nada otra vez",
+    "ancho": 46,
+    "lado": "izq"
+   }
+  ]
+ },
+ "La piedra": {
+  "anclas": [
+   {
+    "src": "Assets/Peligros/7.jpeg",
+    "tras": "diciendo palabras que no van en un templo"
+   },
+   {
+    "src": "Assets/Skills/7.jpeg",
+    "tras": "y no pasó absolutamente nada"
+   }
+  ]
+ },
+ "El maestro falso": {
+  "anclas": [
+   {
+    "src": "Assets/Peligros/17.jpeg",
+    "tras": "el Maestro de las Nueve Escuelas del Trueno Interior"
+   },
+   {
+    "src": "Assets/Skills/17.jpeg",
+    "tras": "Lo hizo poniendo bien lo que había visto mal"
+   }
+  ]
+ },
+ "Pinto": {
+  "quitar": [
+   "Assets/vendedor.jpeg"
+  ],
+  "vinetas": [
+   {
+    "src": "cuento/libro/img/pinto_yendose.jpeg",
+    "tras": "hacen un ruido de campanillas cuando camina",
+    "ancho": 44,
+    "lado": "der"
+   }
+  ]
+ },
+ "Lo que Shifu le dijo a Tao": {
+  "quitar": [
+   "Assets/kai.jpeg",
+   "Assets/UI/escalera.jpeg"
+  ],
+  "vinetas": [
+   {
+    "src": "cuento/libro/img/tao_neutral.jpeg",
+    "tras": "En dos años Guang no lo había visto sin algo en la boca",
+    "ancho": 34,
+    "lado": "der"
+   },
+   {
+    "src": "cuento/libro/img/tao_de_espaldas.jpeg",
+    "tras": "hacia el barranco, como venía haciendo hacía dos años",
+    "ancho": 30,
+    "lado": "izq"
+   }
+  ]
+ },
+ "El de la corona de papel": {
+  "anclas": [
+   {
+    "src": "Assets/Peligros/23.jpeg",
+    "tras": "una corona hecha de papel"
+   },
+   {
+    "src": "Assets/Skills/23.jpeg",
+    "tras": "y no había nadie adentro de ella"
+   }
+  ]
+ },
+ "El sueño": {
+  "anclas": [
+   {
+    "src": "Assets/Peligros/30.jpeg",
+    "tras": "al que no había visto nunca y reconoció\ninmediatamente"
+   },
+   {
+    "src": "Assets/Skills/30.jpeg",
+    "tras": "no iba a poder explicárselo a nadie"
+   }
+  ]
+ },
+ "Lo que empezó a doler": {
+  "quitar": [
+   "Assets/Cansancio/4.jpeg",
+   "Assets/Cansancio/6.jpeg"
+  ],
+  "vinetas": [
+   {
+    "src": "Assets/Cansancio/4.jpeg",
+    "tras": "como un vecino que se mudó sin avisar",
+    "ancho": 46,
+    "lado": "izq"
+   },
+   {
+    "src": "Assets/Cansancio/6.jpeg",
+    "tras": "que se rajaba cada vez que cerraba el puño",
+    "ancho": 46,
+    "lado": "der"
+   },
+   {
+    "src": "cuento/libro/img/shifu_desaprueba.jpeg",
+    "tras": "con las cejas, sin levantar la vista del\nté",
+    "ancho": 36,
+    "lado": "der"
+   }
+  ]
+ },
+ "La mañana del viernes": {
+  "vinetas": [
+   {
+    "src": "cuento/libro/img/guang_de_espaldas.jpeg",
+    "tras": "Bajó los ciento ocho escalones",
+    "ancho": 28,
+    "lado": "izq"
+   }
+  ]
+ },
+ "El zumbido": {
+  "vinetas": [
+   {
+    "src": "cuento/libro/img/mosquito.jpeg",
+    "tras": "Se le paró al lado de la oreja izquierda y zumbó",
+    "ancho": 26,
+    "lado": "der"
+   }
+  ]
+ },
+ "CINCO/FIN DEL DÍA CINCO": {
+  "figuras": [
+   "app/assets/comic/40_victoria_campeones.png"
+  ],
+  "anclas": [
+   {
+    "src": "app/assets/comic/40_victoria_campeones.png",
+    "tras": "sin que le doliera nada de lo que le dolía"
+   }
+  ]
+ },
+ "El sábado": {
+  "figuras": [
+   "app/assets/comic/51_shifu_ve_el_desastre.png",
+   "app/assets/comic/52_la_pregunta.png"
+  ],
+  "modos": {
+   "app/assets/comic/51_shifu_ve_el_desastre.png": "sangre"
+  },
+  "anclas": [
+   {
+    "src": "app/assets/comic/51_shifu_ve_el_desastre.png",
+    "tras": "Shifu llegó arriba y se paró en el hueco del portón"
+   },
+   {
+    "src": "app/assets/comic/52_la_pregunta.png",
+    "tras": "Después Shifu entró a la cocina y abrió la alacena"
+   }
+  ],
+  "vinetas": [
+   {
+    "src": "cuento/libro/img/shifu_bajando.jpeg",
+    "tras": "Subió los ciento ocho escalones a paso normal",
+    "ancho": 30,
+    "lado": "izq"
+   }
+  ]
+ },
+ "El que bajó la hoja": {
+  "quitar": [
+   "Assets/kai.jpeg"
+  ]
+ }
 }
