@@ -1,0 +1,30 @@
+{
+  "identifier": "8ADCD384-4CDB-4650-B97D-6CA57ACCAE7B",
+  "nonRenewingSubscriptions": [],
+  "products": [
+    {
+      "displayPrice": "4.99",
+      "familyShareable": false,
+      "internalID": "5D9335A9-E0ED-461F-B4E8-DB0E9CA33191",
+      "localizations": [
+        {
+          "description": "Abre los seis caminos, el selector de jefes y los dos modos opcionales, y saca la publicidad. Se paga una sola vez.",
+          "displayName": "El Guardián del Templo — juego completo",
+          "locale": "es_ES"
+        }
+      ],
+      "productID": "guardian_templo_completo",
+      "referenceName": "Juego completo",
+      "type": "NonConsumable"
+    }
+  ],
+  "settings": {
+    "_askToBuyEnabled": false,
+    "_storeKitErrors": []
+  },
+  "subscriptionGroups": [],
+  "version": {
+    "major": 3,
+    "minor": 0
+  }
+}

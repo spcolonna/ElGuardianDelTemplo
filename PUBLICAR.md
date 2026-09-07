@@ -330,3 +330,43 @@ En simulador, iPhone **y iPad**:
 - Con la compra hecha: los seis caminos abiertos y **cero avisos**.
 - Que todas las imágenes se vean. Las rutas se arman por interpolación, así que
   una mal escrita no la agarra el compilador: se ve como una carta en blanco.
+
+## 7. Probar la compra sin tienda ni banco
+
+Apple tiene un entorno para esto que no pasa por App Store Connect ni por la
+cuenta bancaria: **StoreKit local**. El SDK es el de verdad, la hoja de pago es
+la de verdad, el recibo es de verdad; lo único falso es el catálogo, que sale de
+un archivo del repositorio.
+
+El archivo es `app/ios/Guardian.storekit` y ya está elegido en el esquema
+`Runner`. Declara un solo producto, `guardian_templo_completo`, no consumible,
+a 4,99 — el precio de acá no significa nada, el de verdad lo pone la tienda.
+
+Para probar:
+
+1. `open app/ios/Runner.xcworkspace`
+2. Elegir el iPhone y darle a ▶. (Tiene que ser desde Xcode: `flutter run` no
+   levanta el esquema, así que no aplica esta configuración.)
+3. En Ajustes de la app, el botón de compra tiene que decir **US$ 4,99** en vez
+   de `—`. Si dice `—`, la configuración no se cargó.
+4. Comprar. Aparece la hoja de Apple, arriba dice **Environment: Xcode**. Se
+   confirma con Face ID igual que una compra real.
+5. Verificar que se abren los seis caminos, el selector de jefes y los dos modos
+   opcionales, y que no vuelve a aparecer un aviso en los cambios de fase.
+
+Para volver a probar, en Xcode: **Debug → StoreKit → Manage Transactions**,
+borrar la transacción y matar la app. Ojo que la app guarda la compra en
+`shared_preferences` (`guardian_comprado_v1`), así que además hay que
+desinstalarla del teléfono, o la preferencia la sigue dando por comprada.
+
+Ahí mismo se prueba **Restaurar**: con la transacción borrada y la app
+reinstalada, el botón tiene que devolver el juego sin cobrar de nuevo. Google y
+Apple exigen que ese botón funcione, y es lo primero que revisan.
+
+En el archivo `.storekit` también se pueden forzar errores (**Editor → Enable
+Failure**) para ver qué muestra la app cuando la tienda dice que no.
+
+Android es distinto: no hay equivalente local. Hay que subir un AAB a la pista
+de **prueba interna**, dar de alta el producto, y agregarse como *license
+tester* en Play Console → Configuración → Prueba de licencias. Ahí la compra es
+real en el flujo y no cobra.
