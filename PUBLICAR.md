@@ -220,12 +220,15 @@ trabajo que se tira cuando lleguen las definitivas.
 | Binario `Runner` (incluye el SDK de AdMob, que va estático) | 4,0 MB |
 | Los demás plugins | ~3 MB |
 
-**Quedan 7,4 MB sobre la mesa y son tuyos de decidir.** El
-`libswift_Concurrency.dylib` es una biblioteca de compatibilidad que iOS trae de
-fábrica desde la versión 15: se empaqueta **solo** porque el objetivo mínimo está
-en **iOS 13**. Subirlo a 15 la saca entera del binario. El precio es dejar afuera
-a iPhone 6s, 7 y SE de primera generación, que son los que se quedaron en 15. No
-lo cambié porque es una decisión de producto, no de código: decime y lo subo.
+**Esos 7,4 MB ya no están — [hecho].** El `libswift_Concurrency.dylib`
+es una biblioteca de compatibilidad que iOS trae de fábrica desde la versión 15:
+se empaquetaba **solo** porque el objetivo mínimo estaba en **iOS 13**. El
+objetivo pasó a **iOS 15** y la biblioteca salió entera del paquete.
+
+Lo decidió Apple por nosotros: al subir el build avisó con el warning **90068**
+—«MinimumOSVersion too low»— y desde la primavera de 2027 no acepta nada por
+debajo de 15. El precio es dejar afuera al iPhone 6s, al 7 y al SE de primera
+generación, que se quedaron en iOS 15. Son teléfonos de 2015-2016.
 
 Y una aclaración para cuando lo veas en App Store Connect: **lo que descarga el
 jugador es bastante menos que estos 51 MB.** Apple comprime y hace *app
@@ -245,8 +248,8 @@ que se puede medir desde acá.
 - **`CFBundleDevelopmentRegion = es`** y `CFBundleLocalizations = [es, en]`. Sin
   eso, una app escrita en español se lista como inglesa.
 - **`description`** de `pubspec.yaml` ya no dice «A new Flutter project.».
-- **`platform :ios, '13.0'`** destapado en el Podfile. Andaba de casualidad, por
-  el `IPHONEOS_DEPLOYMENT_TARGET` del proyecto.
+- **`platform :ios, '15.0'`** destapado en el Podfile. Andaba de casualidad, por
+  el `IPHONEOS_DEPLOYMENT_TARGET` del proyecto, y hoy los dos dicen 15.
 
 Lo que ya estaba bien y no se tocó: bundle ID propio
 `com.sebastianperez.guardianTemplo`, `DEVELOPMENT_TEAM` en las tres
