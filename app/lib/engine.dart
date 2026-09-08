@@ -161,6 +161,12 @@ class Juego {
       hayCartasParaRobar &&
       (puedeRobarGratis || energia >= cfg.costeRoboExtra);
 
+  /// Contra un jefe no se pacta: mientras te quede una carta para robar, la
+  /// peleás. El combate sólo se cierra perdido cuando ya no podés robar, y eso
+  /// no es rendirse — es que no te dio.
+  bool get puedeRendirse =>
+      estado == EstadoJuego.enCombate && (fase != Fase.jefes || !puedeRobar);
+
   bool get puedeMeditar =>
       estado == EstadoJuego.postCombate &&
       descarte.isNotEmpty &&
@@ -287,6 +293,9 @@ class Juego {
     if (estado != EstadoJuego.enCombate || peligro == null) return;
     final p = peligro!;
     final gano = sumaMesa >= poderPeligroEfectivo;
+    // Plantarse por debajo es rendirse, y contra el jefe eso no existe: la
+    // regla vive acá y no en el botón, para que ninguna pantalla la saltee.
+    if (!gano && !puedeRendirse) return;
     ultimoCombateGanado = gano;
 
     if (gano) {

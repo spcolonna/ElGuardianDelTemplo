@@ -178,6 +178,8 @@ class TextosUi {
     'juego.robarPago': 'Robar (−{n})',
     'juego.resolverGanas': 'Resolver',
     'juego.rendirse': 'Rendirse',
+    'juego.jefeNoSeRinde': 'No se le huye',
+    'juego.jefeTeVence': 'Te vence',
     'juego.rendirseConfirmar': '¿Te rendís?',
     'juego.rendirseConfirmarSub':
         'Perdés {n} de Energía y el peligro se queda con su técnica. '
@@ -409,6 +411,8 @@ class TextosUi {
     'juego.robarPago': 'Draw (−{n})',
     'juego.resolverGanas': 'Resolve',
     'juego.rendirse': 'Give up',
+    'juego.jefeNoSeRinde': 'No running',
+    'juego.jefeTeVence': 'It beats you',
     'juego.rendirseConfirmar': 'Give up?',
     'juego.rendirseConfirmarSub':
         'You lose {n} Energy and the danger keeps its technique. '

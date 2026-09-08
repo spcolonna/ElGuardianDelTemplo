@@ -41,6 +41,24 @@ void main() {
     fail('no se llegó a un combate que se esté perdiendo');
   }
 
+  /// Deja la partida en combate contra el primer jefe, sin cartas en la mesa
+  /// —o sea, perdiendo—.
+  ///
+  /// Se saltea el camino a mano: lo que se prueba es el enfrentamiento final, y
+  /// jugar los veinte peligros para llegar sólo agrega maneras de que el test
+  /// falle por otra cosa.
+  Juego enCombateContraJefe() {
+    final j = Juego(
+      cfg: Config(energiaInicial: 200, energiaMaxima: 200),
+      contenido: contenidoPorDefecto(),
+    );
+    j.fase = Fase.jefes;
+    j.estado = EstadoJuego.esperandoPeligro;
+    j.revelarPeligro();
+    expect(j.sumaMesa, lessThan(j.poderPeligroEfectivo));
+    return j;
+  }
+
   Future<void> aLaMesa(WidgetTester tester, AppState app) async {
     await tester.pumpWidget(
       MaterialApp(
@@ -51,7 +69,12 @@ void main() {
       ),
     );
     await tester.pump();
-    await tester.tap(find.text(ui('comic.saltar')));
+    // El cómic no siempre está: depende de la fase en la que arranque la
+    // partida del test. Lo que importa es llegar a la mesa, no cómo.
+    final saltar = find.text(ui('comic.saltar'));
+    if (saltar.evaluate().isNotEmpty) {
+      await tester.tap(saltar);
+    }
     await tester.pumpAndSettle();
     expect(find.byType(ComicView), findsNothing);
   }
@@ -125,5 +148,79 @@ void main() {
     // significaría nada.
     expect(j.combatesPerdidos, perdidosAntes + 1);
     expect(j.energia, energiaAntes - dano);
+  });
+
+  // Contra el jefe no se puede rendir. Reportado jugando en el celular: «pongo
+  // rendirme y me saca las vidas y no me la da como ganada». No era un bug del
+  // resultado —perder contra un jefe siempre te devolvió al mismo jefe— sino
+  // que la pantalla ofrecía, con el mismo botón grande de siempre, la única
+  // jugada del juego que no tiene ninguna ventaja.
+
+  test('el motor no deja rendirse contra el jefe', () {
+    final j = enCombateContraJefe();
+    final energia = j.energia;
+    final jefe = j.jefeActual;
+    final perdidos = j.combatesPerdidos;
+
+    expect(j.puedeRobar, isTrue);
+    expect(j.puedeRendirse, isFalse);
+
+    j.resolver();
+
+    // Nada se movió: ni la Energía, ni el jefe, ni el combate.
+    expect(j.estado, EstadoJuego.enCombate);
+    expect(j.energia, energia);
+    expect(j.jefeActual, jefe);
+    expect(j.combatesPerdidos, perdidos);
+  });
+
+  testWidgets('contra el jefe el botón no ofrece rendirse', (tester) async {
+    tester.view.physicalSize = const Size(414, 1200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+
+    final app = conJuego(enCombateContraJefe());
+    final j = app.juego!;
+    final energiaAntes = j.energia;
+
+    await aLaMesa(tester, app);
+
+    expect(find.text(ui('juego.rendirse')), findsNothing);
+    expect(find.text(ui('juego.jefeNoSeRinde')), findsOneWidget);
+
+    // Y está apagado: tocarlo no cuesta Energía ni cierra el combate.
+    await tester.tap(find.text(ui('juego.jefeNoSeRinde')));
+    await tester.pumpAndSettle();
+    expect(j.estado, EstadoJuego.enCombate);
+    expect(j.energia, energiaAntes);
+  });
+
+  testWidgets('sin con qué robar, el jefe te vence y el combate cierra', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(414, 1200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+
+    final app = conJuego(enCombateContraJefe());
+    final j = app.juego!;
+    // Sin robos gratis y sin Energía para pagar uno: no queda ninguna jugada.
+    j.gratisRestantes = 0;
+    j.energia = 0;
+    expect(j.puedeRobar, isFalse);
+    expect(j.puedeRendirse, isTrue);
+
+    await aLaMesa(tester, app);
+
+    // El botón existe, está encendido, y no dice «Rendirse»: no te rendiste.
+    expect(find.text(ui('juego.rendirse')), findsNothing);
+    expect(find.text(ui('juego.jefeTeVence')), findsOneWidget);
+
+    await tester.tap(find.text(ui('juego.jefeTeVence')));
+    await tester.pumpAndSettle();
+
+    // Y no pregunta nada: no hay decisión que confirmar.
+    expect(j.combatesPerdidos, 1);
+    expect(j.estado, EstadoJuego.derrota);
   });
 }

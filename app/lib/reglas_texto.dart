@@ -102,7 +102,8 @@ List<BloqueReglas> reglasDe(Config c, Contenido contenido) {
     ]),
     BloqueReglas('Enfrentamiento final', [
       'Revelá los jefes y enfrentalos en orden, igual que un peligro normal.',
-      'Si perdés contra un jefe, restás su Daño y volvés a enfrentarlo.',
+      'Contra un jefe no podés rendirte: mientras te quede una carta para robar, '
+          'la peleás. Si perdés, restás su Daño y volvés a enfrentarlo.',
       'Ganás la partida cuando derrotás al último.',
     ]),
   ];

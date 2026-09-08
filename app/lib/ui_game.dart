@@ -1286,6 +1286,13 @@ class _Mesa extends StatelessWidget {
 
       case EstadoJuego.enCombate:
         final gana = j.sumaMesa >= j.poderPeligroEfectivo;
+        // Contra el jefe no se puede rendir. Mientras quede con qué robar el
+        // botón está apagado; cuando ya no queda nada, el combate se cierra
+        // perdido y el botón lo dice con todas las letras: no te rendiste, te
+        // venció.
+        final esJefe = j.fase == Fase.jefes;
+        final sinSalida = esJefe && !j.puedeRobar;
+        final trabado = esJefe && !gana && !sinSalida;
         return Row(
           children: [
             boton(
@@ -1306,26 +1313,41 @@ class _Mesa extends StatelessWidget {
             ),
             const SizedBox(width: 10),
             boton(
-              gana ? t('juego.resolverGanas') : t('juego.rendirse'),
-              gana ? Icons.emoji_events : Icons.flag,
-              () async {
-                // Rendirse cuesta Energía y no tiene vuelta atrás, y el botón
-                // vive donde el pulgar ya estaba apretando «Robar»: un toque
-                // de más y perdías el combate sin haberlo decidido. Se
-                // confirma. Resolver ganando no pregunta nada: es la jugada
-                // que el jugador vino a hacer y no hay nada que lamentar.
-                if (!gana) {
-                  final ok = await _confirmarRendirse(context, j);
-                  if (!ok) return;
-                  // El diálogo pudo haber sobrevivido a la partida.
-                  if (!context.mounted) return;
-                }
-                // El sonido se elige antes de resolver: después el peligro ya
-                // no está.
-                app.audio.sonar(gana ? Sfx.ganar : Sfx.perder);
-                j.resolver();
-                onCambio();
-              },
+              gana
+                  ? t('juego.resolverGanas')
+                  : esJefe
+                  ? (sinSalida
+                        ? t('juego.jefeTeVence')
+                        : t('juego.jefeNoSeRinde'))
+                  : t('juego.rendirse'),
+              gana
+                  ? Icons.emoji_events
+                  : esJefe
+                  ? (sinSalida ? Icons.heart_broken : Icons.block)
+                  : Icons.flag,
+              trabado
+                  ? null
+                  : () async {
+                      // Rendirse cuesta Energía y no tiene vuelta atrás, y el
+                      // botón vive donde el pulgar ya estaba apretando
+                      // «Robar»: un toque de más y perdías el combate sin
+                      // haberlo decidido. Se confirma. Resolver ganando no
+                      // pregunta nada: es la jugada que el jugador vino a
+                      // hacer y no hay nada que lamentar. Caer ante el jefe
+                      // tampoco pregunta: no hay otra cosa que se pueda
+                      // hacer, preguntar sería fingir una decisión.
+                      if (!gana && !esJefe) {
+                        final ok = await _confirmarRendirse(context, j);
+                        if (!ok) return;
+                        // El diálogo pudo haber sobrevivido a la partida.
+                        if (!context.mounted) return;
+                      }
+                      // El sonido se elige antes de resolver: después el
+                      // peligro ya no está.
+                      app.audio.sonar(gana ? Sfx.ganar : Sfx.perder);
+                      j.resolver();
+                      onCambio();
+                    },
               principal: gana,
             ),
           ],
