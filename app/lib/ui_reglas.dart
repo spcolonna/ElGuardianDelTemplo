@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'ui_kit.dart';
 
 import 'app_state.dart';
+import 'l10n.dart';
 import 'models.dart';
 import 'reglas_texto.dart';
 import 'ui_common.dart';
@@ -14,21 +15,23 @@ class ReglasScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final app = AppScope.of(context);
     final c = app.cfg;
+    final t = TextosUi.de(app.idioma);
 
     return ListView(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 16),
       children: [
-        const Text(
-          'Refleja los valores que tengas en Balance.',
-          style: TextStyle(color: kTinta, fontSize: 13),
+        Text(
+          t('reglas.ui.bajada'),
+          style: const TextStyle(color: kTinta, fontSize: 13),
         ),
         const SizedBox(height: 20),
         // La prosa la genera `reglas_texto.dart`, que es Dart puro y también
         // alimenta el reglamento impreso. Duplicarla acá sería garantizar que
         // la app y el papel digan cosas distintas al primer rebalanceo.
-        for (final b in reglasDe(c, app.contenido)) _bloque(b.titulo, b.lineas),
+        for (final b in reglasDe(c, app.contenido, t))
+          _bloque(b.titulo, b.lineas),
         const SizedBox(height: 12),
-        _tabla(context, app),
+        _tabla(context, app, t),
         const SizedBox(height: 40),
       ],
     );
@@ -65,7 +68,7 @@ class ReglasScreen extends StatelessWidget {
     );
   }
 
-  Widget _tabla(BuildContext context, AppState app) {
+  Widget _tabla(BuildContext context, AppState app, TextosUi t) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -76,7 +79,7 @@ class ReglasScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Mazo del ${fase.nombre}',
+                  t.con('reglas.ui.mazoDe', {'fase': app.textos.fase(fase)}),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: colorTexto(colorFase(fase)),
@@ -85,16 +88,25 @@ class ReglasScreen extends StatelessWidget {
                 const SizedBox(height: 6),
                 for (final p in app.contenido.peligrosDe(fase))
                   Text(
-                    '${p.nombre} — Poder ${p.poder}, Daño ${p.dano}, '
-                    'gratis ${p.cartasGratis} → ${p.recompensa.nombre} (${p.recompensa.poder})'
-                    '${p.recompensa.efecto.vacio ? '' : ', ${p.recompensa.efecto.texto}'}',
+                    t.con('reglas.ui.peligro', {
+                          'nombre': p.nombre,
+                          'poder': p.poder,
+                          'dano': p.dano,
+                          'gratis': p.cartasGratis,
+                          'tecnica': p.recompensa.nombre,
+                          'tecnicaPoder': p.recompensa.poder,
+                        }) +
+                        (p.recompensa.efecto.vacio
+                            ? ''
+                            : ', '
+                                  '${p.recompensa.efecto.textoCon(t, app.textos.recurso)}'),
                     style: const TextStyle(fontSize: 12.5, height: 1.5),
                   ),
               ],
             ),
           ),
         Text(
-          'Jefes',
+          t('reglas.ui.jefes'),
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: colorTexto(kJefe),
@@ -103,7 +115,12 @@ class ReglasScreen extends StatelessWidget {
         const SizedBox(height: 6),
         for (final j in app.contenido.jefes)
           Text(
-            '${j.nombre} — Poder ${j.poder}, Daño ${j.dano}, gratis ${j.cartasGratis}',
+            t.con('reglas.ui.jefe', {
+              'nombre': j.nombre,
+              'poder': j.poder,
+              'dano': j.dano,
+              'gratis': j.cartasGratis,
+            }),
             style: const TextStyle(fontSize: 12.5, height: 1.5),
           ),
       ],

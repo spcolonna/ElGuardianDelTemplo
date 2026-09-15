@@ -793,7 +793,7 @@ class _BarraState extends State<_Barra> {
             // pastilla de al lado también se ensancha, y la barra desbordaba.
             Flexible(
               child: Pastilla(
-                widget.textos.nombreFase[j.fase] ?? j.fase.nombre,
+                widget.textos.fase(j.fase),
                 icono: Icons.wb_twilight,
                 color: colorFaseDe(widget.tema, j.fase),
                 compacta: true,
@@ -973,7 +973,7 @@ class _Mesa extends StatelessWidget {
                 gano
                     ? t('juego.finGano')
                     : fmt(t('juego.finPerdio'), {
-                        'fase': j.fase.nombre,
+                        'fase': app.textos.fase(j.fase),
                         'n': j.energia,
                       }),
                 style: const TextStyle(color: kTintaSuave),
@@ -1071,7 +1071,9 @@ class _Mesa extends StatelessWidget {
                     ? fmt(t('juego.teEspera'), {
                         'n': j.jefeEnCurso?.nombre ?? '—',
                       })
-                    : fmt(t('juego.sinPeligro'), {'fase': j.fase.nombre}),
+                    : fmt(t('juego.sinPeligro'), {
+                        'fase': app.textos.fase(j.fase),
+                      }),
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 15, height: 1.4),
               ),

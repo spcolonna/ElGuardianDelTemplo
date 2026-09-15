@@ -204,6 +204,40 @@ const textosTemploEn = TextosTema(
       'The Paper Dragon',
       'Imposing, breathes fire. But if it rains, it turns to mush.',
     ),
+
+    // Las diez del mazo de Cansancio. Los NÚMEROS siguen en
+    // `lib/modos/cansancio.dart`: acá va sólo lo que se traduce.
+    'cans_bostezo': TextoCarta('Yawn', 'It spreads. Even the bandit yawned.'),
+    'cans_vista': TextoCarta(
+      'Blurred Sight',
+      'That is two bandits. Or one. Hard to say.',
+    ),
+    'cans_piernas': TextoCarta(
+      'Rag Legs',
+      'They are down there, but they are not answering.',
+    ),
+    'cans_hombro': TextoCarta(
+      'Numb Shoulder',
+      'It woke up before you did and went back to sleep.',
+    ),
+    'cans_ampolla': TextoCarta('Blister', 'Tiny. Unbearable.'),
+    'cans_nudillo': TextoCarta(
+      'Split Knuckle',
+      'Shifu would call it character. Shifu is not here.',
+    ),
+    'cans_calambre': TextoCarta('Cramp', 'Right now. Right there.'),
+    'cans_zumbido': TextoCarta(
+      'Ringing Ear',
+      'The Dawn mosquito got the last word.',
+    ),
+    'cans_espalda': TextoCarta(
+      'Old Back',
+      'You are sixteen and you have Shifu’s back.',
+    ),
+    'cans_renunciar': TextoCarta(
+      'Urge to Quit',
+      'The noodle stall in the village is hiring too.',
+    ),
   },
   paneles: {
     // ------------------------------------------------------------------ intro
@@ -402,8 +436,7 @@ const textosTemploEn = TextosTema(
 
     // --------------------------------------------------------------- victory
     '40_victoria_campeones.png': TextoPanel(
-      narracion:
-          'Both Champions left the way they came. One of them limping.',
+      narracion: 'Both Champions left the way they came. One of them limping.',
       conversacion: [
         Dicho('Rookie', 'The temple is not for sale.'),
         Dicho('', '(Mei came down from the roof for the first time all day.)'),
@@ -430,11 +463,8 @@ const textosTemploEn = TextosTema(
 
     // ---------------------------------------------------------------- defeat
     '50_derrota_patio.png': TextoPanel(
-      narracion:
-          'You have nothing left. No Energy, no techniques, no excuses.',
-      conversacion: [
-        Dicho('', '(The gate stayed open. Nobody closed it.)'),
-      ],
+      narracion: 'You have nothing left. No Energy, no techniques, no excuses.',
+      conversacion: [Dicho('', '(The gate stayed open. Nobody closed it.)')],
     ),
     '51_shifu_ve_el_desastre.png': TextoPanel(
       narracion: 'Shifu came back on time, as always.',

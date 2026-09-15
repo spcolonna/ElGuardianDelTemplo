@@ -1,3 +1,4 @@
+import 'l10n.dart';
 import 'models.dart';
 
 /// Las reglas del juego en prosa, generadas desde el `Config` vivo.
@@ -10,6 +11,13 @@ import 'models.dart';
 /// juego en el primer rebalanceo, y encima nadie se entera hasta que alguien
 /// juega mal una partida entera. Con un solo generador, la app y el papel no
 /// pueden divergir: si el motor cambia, cambian los dos.
+///
+/// La prosa vive en `TextosUi` bajo `reglas.*` y los NÚMEROS los sigue poniendo
+/// el `Config` vivo, que es lo que hace que esto funcione. Cuando una regla
+/// tiene dos formas según la configuración —robos ilimitados o no, el peligro
+/// perdido sale del juego o vuelve al mazo— son dos claves enteras y no un
+/// fragmento interpolado: una frase partida al medio no se puede traducir a un
+/// idioma que ordene distinto.
 class BloqueReglas {
   final String titulo;
   final List<String> lineas;
@@ -18,7 +26,7 @@ class BloqueReglas {
   Map<String, dynamic> toJson() => {'titulo': titulo, 'lineas': lineas};
 }
 
-List<BloqueReglas> reglasDe(Config c, Contenido contenido) {
+List<BloqueReglas> reglasDe(Config c, Contenido contenido, TextosUi t) {
   final cartasIniciales = contenido.mazoInicial.fold<int>(
     0,
     (a, e) => a + e.$2,
@@ -30,81 +38,66 @@ List<BloqueReglas> reglasDe(Config c, Contenido contenido) {
     // ley, y en el reglamento impreso —donde no hay un nivel seleccionado—
     // sería directamente falso. El número va en Preparación, donde corresponde
     // a la partida que estás por armar.
-    BloqueReglas('Objetivo', [
-      'Sobrevivís tres fases de peligro (Alba, Mediodía, Ocaso) mejorando tu '
-          'mazo de técnicas, y después enfrentás a los Campeones del Torneo.',
-      'Cuántos Campeones enfrentás lo decide el nivel de dificultad que elijas.',
-      'Perdés si tu Energía llega a 0 o menos.',
+    BloqueReglas(t('reglas.objetivo.titulo'), [
+      t('reglas.objetivo.l1'),
+      t('reglas.objetivo.l2'),
+      t('reglas.objetivo.l3'),
     ]),
-    BloqueReglas('Preparación', [
-      'Barajá el mazo inicial de combate ($cartasIniciales cartas).',
-      'Separá los tres mazos de peligro y elegí al azar los jefes que pida tu nivel: '
-          '${c.cantidadJefes} en esta configuración.',
-      'Empezás con ${c.energiaInicial} de Energía en esta configuración '
-          '(tope al curarte: ${c.energiaMaxima}).',
+    BloqueReglas(t('reglas.preparacion.titulo'), [
+      t.con('reglas.preparacion.l1', {'cartas': cartasIniciales}),
+      t.con('reglas.preparacion.l2', {'jefes': c.cantidadJefes}),
+      t.con('reglas.preparacion.l3', {
+        'inicial': c.energiaInicial,
+        'maxima': c.energiaMaxima,
+      }),
     ]),
-    BloqueReglas('Turno', [
-      '1. Revelá el peligro superior del mazo de la fase actual.',
+    BloqueReglas(t('reglas.turno.titulo'), [
+      t('reglas.turno.l1'),
       if (c.robosGratisIlimitados)
-        '2. Robá cartas de combate una a una, sin coste, hasta que quieras parar.'
+        t('reglas.turno.l2Ilimitado')
       else
-        '2. Robá gratis hasta el número de "cartas gratis" del peligro. '
-            'Cada carta adicional cuesta ${c.costeRoboExtra} de Energía.',
-      '3. Sumá el Poder de las cartas jugadas y comparalo con el Poder del peligro.',
-      '4. Si tu suma ≥ el peligro, ganás: la carta de peligro entra a tu descarte '
-          'como la técnica de recompensa.',
-      '5. Si perdés, restás el Daño del peligro a tu Energía y '
-          '${c.peligroPerdidoSaleDelJuego ? 'la carta de peligro sale del juego' : 'la carta vuelve al fondo del mazo'}.',
-      '6. Todas las cartas jugadas van al descarte. Cuando el mazo se acaba, barajá el descarte.',
+        t.con('reglas.turno.l2Limitado', {'coste': c.costeRoboExtra}),
+      t('reglas.turno.l3'),
+      t('reglas.turno.l4'),
+      if (c.peligroPerdidoSaleDelJuego)
+        t('reglas.turno.l5Sale')
+      else
+        t('reglas.turno.l5Vuelve'),
+      t('reglas.turno.l6'),
     ]),
-    BloqueReglas('Ganar o perder un combate (importante)', [
-      'GANÁS si la suma de tus cartas ≥ el Poder del peligro. La carta de peligro '
-          'se da vuelta y entra a tu pila de descarte convertida en la técnica de recompensa: '
-          'a partir de ahí es una carta más de tu mazo.',
-      'PERDÉS si te plantás por debajo del Poder. Restás el Daño del peligro a tu Energía '
-          'y la carta de peligro se descarta del juego: NO te la llevás. '
-          'Nunca ganás una carta perdiendo un combate.',
-      'Plantarse por debajo no es un "precio" que pagás para quedarte la carta: es rendirte. '
-          'A veces conviene igual, cuando pagar más robos costaría más Energía que el propio Daño.',
-      'Ganes o pierdas, todas las cartas que jugaste van a tu descarte.',
+    BloqueReglas(t('reglas.combate.titulo'), [
+      t('reglas.combate.l1'),
+      t('reglas.combate.l2'),
+      t('reglas.combate.l3'),
+      t('reglas.combate.l4'),
     ]),
-    BloqueReglas('Cómo se recupera Energía', [
-      'No existe ninguna acción para curarte: no podés "descansar" ni gastar un turno en recuperarte.',
-      'La Energía sube SÓLO por efectos de cartas de combate, y esos efectos se disparan '
-          'automáticamente cuando la carta sale durante un combate. No elegís cuándo usarlas.',
-      'Efecto "+X Energía": se aplica en el momento en que robás la carta, ganes o pierdas después. '
-          'Ej.: Reflejo +1, Disciplina +2, Escama de Dragón +1, Puño del Dragón +2, '
-          'Serenidad +3, Agua Sagrada +2, Iluminación +1.',
-      'Efecto "+X Energía si ganás": se aplica recién al resolver, y sólo si ganaste ese combate. '
-          'Ej.: Puño del Bambú +1, Ala de Grulla +1, Vuelo de Grulla +2.',
-      'Nunca superás el tope de ${c.energiaMaxima} de Energía: lo que sobra se pierde.',
-      'Consecuencia de diseño: curarte depende de haber metido cartas de curación en tu mazo '
-          'y de que salgan. Por eso conviene meditar para eliminar cartas malas: un mazo más chico '
-          'hace que las buenas aparezcan más seguido.',
+    BloqueReglas(t('reglas.energia.titulo'), [
+      t('reglas.energia.l1'),
+      t('reglas.energia.l2'),
+      t('reglas.energia.l3'),
+      t('reglas.energia.l4'),
+      t.con('reglas.energia.l5', {'maxima': c.energiaMaxima}),
+      t('reglas.energia.l6'),
     ]),
-    BloqueReglas('Meditar: sacar cartas malas de tu mazo', [
-      'Meditar es la ÚNICA forma de sacar cartas de tu mazo. No hay otra.',
+    BloqueReglas(t('reglas.meditar.titulo'), [
+      t('reglas.meditar.l1'),
       if (c.meditarSoloAlPerder)
-        'Cuándo: sólo en el paso posterior a un combate que PERDISTE.'
+        t('reglas.meditar.cuandoSoloAlPerder')
       else
-        'Cuándo: en el paso posterior a cualquier combate, lo hayas ganado o perdido.',
-      'Cómo: pagá ${c.costeMeditar} de Energía y eliminá ${c.cartasPorMeditacion} carta(s) '
-          'de tu pila de descarte. Salen del juego para siempre: no vuelven al mazo.',
-      'Podés repetirlo varias veces seguidas, pagando cada vez, mientras te quede Energía.',
-      'LIMITACIÓN CLAVE: sólo podés eliminar cartas que estén en el DESCARTE. '
-          'Una Duda Existencial que sigue enterrada en el mazo es intocable: primero tiene que salir '
-          'en algún combate. Por eso el mejor momento para meditar es justo después de un combate '
-          'donde salieron tus peores cartas: todas las que acabás de jugar están en el descarte.',
-      'Cuando el mazo se agota, el descarte se baraja y vuelve a ser mazo: ahí perdés la oportunidad '
-          'de purgar esas cartas hasta que vuelvan a salir.',
-      'Por qué conviene: quitar una Duda Existencial (-1) o una Respiración Agitada (0) no sube tu poder '
-          'total, pero achica el mazo y hace que las cartas buenas (y las que curan Energía) salgan más seguido.',
+        t('reglas.meditar.cuandoSiempre'),
+      t.con('reglas.meditar.l3', {
+        'coste': c.costeMeditar,
+        'cartas': c.cartasPorMeditacion,
+      }),
+      t('reglas.meditar.l4'),
+      t('reglas.meditar.l5'),
+      t('reglas.meditar.l6'),
+      t('reglas.meditar.l7'),
     ]),
-    BloqueReglas('Enfrentamiento final', [
-      'Revelá los jefes y enfrentalos en orden, igual que un peligro normal.',
-      'Contra un jefe no podés rendirte: mientras te quede una carta para robar, '
-          'la peleás. Si perdés, restás su Daño y volvés a enfrentarlo.',
-      'Ganás la partida cuando derrotás al último.',
+    BloqueReglas(t('reglas.final.titulo'), [
+      t('reglas.final.l1'),
+      t('reglas.final.l2'),
+      t('reglas.final.l3'),
     ]),
   ];
 }

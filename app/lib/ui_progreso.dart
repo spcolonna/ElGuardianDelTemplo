@@ -3,6 +3,7 @@ import 'ui_kit.dart';
 import 'ui_texturas.dart';
 
 import 'app_state.dart';
+import 'l10n.dart';
 import 'modos/encargos.dart';
 import 'progreso.dart';
 import 'temas/temas.dart';
@@ -19,15 +20,14 @@ class ProgresoScreen extends StatelessWidget {
     final hoy = DateTime.now();
     p.revisarCadena(hoy);
     final hecho = p.hoyCompletado(hoy);
+    final t = TextosUi.de(app.idioma);
 
     return ListView(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 16),
       children: [
-        const Text(
-          'Ganá una partida por día. El día siguiente no se habilita hasta que '
-          'cambie la fecha. Si pasa un día entero sin ganar, la cadena se corta '
-          'y hay que rehacer los siete.',
-          style: TextStyle(color: kTintaSuave, fontSize: 13),
+        Text(
+          t('progreso.explicacion'),
+          style: const TextStyle(color: kTintaSuave, fontSize: 13),
         ),
         const SizedBox(height: 24),
 
@@ -45,13 +45,19 @@ class ProgresoScreen extends StatelessWidget {
           runSpacing: 8,
           children: [
             Etiqueta(
-              'Racha actual ${p.racha}/${Progreso.diasParaLogro}',
+              t.con('progreso.rachaActual', {
+                'a': p.racha,
+                'b': Progreso.diasParaLogro,
+              }),
               icono: Icons.local_fire_department,
               color: p.racha > 0 ? kMediodia : null,
             ),
-            Etiqueta('Mejor racha ${p.mejorRacha}', icono: Icons.trending_up),
             Etiqueta(
-              'Semanas completadas ${p.semanasCompletadas}',
+              t.con('progreso.mejorRacha', {'n': p.mejorRacha}),
+              icono: Icons.trending_up,
+            ),
+            Etiqueta(
+              t.con('progreso.semanas', {'n': p.semanasCompletadas}),
               icono: Icons.emoji_events,
               color: kJefe,
             ),
@@ -70,11 +76,10 @@ class ProgresoScreen extends StatelessWidget {
             app.guardar();
             app.tocar();
           },
-          title: const Text('Perder una partida también corta la racha'),
-          subtitle: const Text(
-            'Apagado: podés reintentar todas las veces que quieras dentro '
-            'del día. Prendido: una derrota te vuelve a cero.',
-            style: TextStyle(fontSize: 12),
+          title: Text(t('progreso.perderCorta')),
+          subtitle: Text(
+            t('progreso.perderCortaSub'),
+            style: const TextStyle(fontSize: 12),
           ),
         ),
         TextButton.icon(
@@ -84,14 +89,12 @@ class ProgresoScreen extends StatelessWidget {
             app.tocar();
           },
           icon: const Icon(Icons.restart_alt, size: 18),
-          label: const Text('Reiniciar la racha'),
+          label: Text(t('progreso.reiniciar')),
         ),
         const SizedBox(height: 12),
-        const Text(
-          'El progreso se guarda en este navegador y usa su reloj: cambiando '
-          'la fecha del sistema se saltea la espera. Para una herramienta de '
-          'playtesting alcanza; si algún día se publica, esto necesita servidor.',
-          style: TextStyle(color: kTintaSuave, fontSize: 11.5),
+        Text(
+          t('progreso.aviso'),
+          style: const TextStyle(color: kTintaSuave, fontSize: 11.5),
         ),
       ],
     );
@@ -192,7 +195,11 @@ class _Casillero extends StatelessWidget {
             Icon(icono, color: color, size: ancho < 40 ? 15 : 20),
             const SizedBox(height: 3),
             Text(
-              ancho < 52 ? '$numero' : 'Día $numero',
+              ancho < 52
+                  ? '$numero'
+                  : TextosUi.de(
+                      AppScope.of(context).idioma,
+                    ).con('progreso.dia', {'n': numero}),
               maxLines: 1,
               overflow: TextOverflow.clip,
               style: TextStyle(
@@ -215,6 +222,7 @@ class _EstadoDeHoy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = TextosUi.de(AppScope.of(context).idioma);
     final color = hecho ? kAlba : kMediodia;
     return Container(
       padding: const EdgeInsets.all(16),
@@ -237,9 +245,7 @@ class _EstadoDeHoy extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  hecho
-                      ? 'El templo aguantó hoy.'
-                      : 'El templo todavía no está defendido hoy.',
+                  t(hecho ? 'progreso.hecho' : 'progreso.pendiente'),
                   style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
@@ -247,9 +253,9 @@ class _EstadoDeHoy extends StatelessWidget {
                 ),
                 const SizedBox(height: 3),
                 Text(
-                  hecho
-                      ? 'Volvé mañana para el día ${racha + 1}.'
-                      : 'Ganá una partida para marcar el día ${racha + 1}.',
+                  t.con(hecho ? 'progreso.volveManana' : 'progreso.ganaHoy', {
+                    'n': racha + 1,
+                  }),
                   style: const TextStyle(color: kTintaSuave, fontSize: 13),
                 ),
               ],
@@ -266,6 +272,7 @@ class _Insignia extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = TextosUi.de(AppScope.of(context).idioma);
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
@@ -285,18 +292,21 @@ class _Insignia extends StatelessWidget {
             colorRespaldo: kOroBorde,
           ),
           const SizedBox(width: 14),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Guardián del Templo',
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                  t('progreso.logro'),
+                  style: const TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                SizedBox(height: 3),
+                const SizedBox(height: 3),
                 Text(
-                  'Siete días seguidos. Shifu no se va a enterar, pero vos sí.',
-                  style: TextStyle(color: kTintaSuave, fontSize: 13),
+                  t('progreso.logroSub'),
+                  style: const TextStyle(color: kTintaSuave, fontSize: 13),
                 ),
               ],
             ),
@@ -314,6 +324,7 @@ class _EncargoDeHoy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = TextosUi.de(AppScope.of(context).idioma);
     final e = textos.encargos[encargoDelDia(hoy).id]!;
     return Container(
       padding: const EdgeInsets.all(16),
@@ -335,7 +346,7 @@ class _EncargoDeHoy extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                'Encargo de hoy: ${e.titulo}',
+                t.con('progreso.encargoHoy', {'t': e.titulo}),
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ],
@@ -351,7 +362,7 @@ class _EncargoDeHoy extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Recompensa: ${e.recompensa}',
+            t.con('progreso.recompensa', {'r': e.recompensa}),
             style: const TextStyle(fontSize: 12.5, color: kAlba),
           ),
         ],

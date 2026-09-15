@@ -35,6 +35,11 @@ class TextosUi {
 
   static Iterable<String> get idiomas => _mapas.keys;
 
+  /// El español, para los pocos lugares que necesitan un mapa en tiempo de
+  /// compilación: el respaldo del motor y las herramientas de línea de
+  /// comandos. La app siempre pasa el idioma que se está jugando.
+  static const es = TextosUi(uiEs);
+
   static TextosUi de(String idioma) => TextosUi(mapaDe(idioma));
 
   /// Las claves que tiene que definir todo idioma.

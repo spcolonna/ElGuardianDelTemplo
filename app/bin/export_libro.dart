@@ -39,12 +39,12 @@ const secuencias = <(String, String)>[
   ('derrota', 'Cuando tu Energía baja de 0, en CUALQUIER fase.'),
 ];
 
-Map<String, dynamic> efectoJson(Efecto e) => {
+Map<String, dynamic> efectoJson(Efecto e, TextosUi ui, String recurso) => {
   'roba': e.roba,
   'energiaAlJugar': e.energiaAlJugar,
   'energiaSiGanas': e.energiaSiGanas,
   'reducePeligro': e.reducePeligro,
-  'texto': e.texto,
+  'texto': e.textoCon(ui, recurso),
 };
 
 void main(List<String> args) {
@@ -93,7 +93,7 @@ void main(List<String> args) {
     'recompensa': {
       'nombre': p.recompensa.nombre,
       'poder': p.recompensa.poder,
-      'efecto': efectoJson(p.recompensa.efecto),
+      'efecto': efectoJson(p.recompensa.efecto, ui, t.recurso),
       'sabor': p.recompensa.sabor,
     },
   };
@@ -136,7 +136,7 @@ void main(List<String> args) {
     'generado': DateTime.now().toIso8601String(),
     'juego': {'nombre': t.nombre, 'bajada': t.bajada, 'recurso': t.recurso},
     'config': base.toJson(),
-    'reglas': reglasDe(base, contenido).map((b) => b.toJson()).toList(),
+    'reglas': reglasDe(base, contenido, ui).map((b) => b.toJson()).toList(),
     'dificultades': dificultades,
     'cansancio': {
       // Lo que el motor sabe hacer hoy. Los modos 4 y 5 del reglamento no
@@ -169,7 +169,7 @@ void main(List<String> args) {
             'archivo': 'inicial_${e.$1.id}.jpg',
             'nombre': e.$1.nombre,
             'poder': e.$1.poder,
-            'efecto': efectoJson(e.$1.efecto),
+            'efecto': efectoJson(e.$1.efecto, ui, t.recurso),
             'sabor': e.$1.sabor,
             'copias': e.$2,
           },

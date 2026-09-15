@@ -1,9 +1,16 @@
 // Modelos de datos de "El Guardián del Templo".
 // Todo es mutable/copiable para poder ajustar valores desde la pantalla de balance.
 
+import 'l10n.dart';
+
 enum Fase { alba, mediodia, ocaso, jefes }
 
 extension FaseX on Fase {
+  /// El nombre INTERNO de la fase: logs, balance, `bin/check.dart`.
+  ///
+  /// Lo que ve el jugador sale de `TextosTema.nombreFase`, que además es lo
+  /// que le permite a otro tema llamarle distinto. Esto es el respaldo y la
+  /// etiqueta de las herramientas, y por eso se queda en español.
   String get nombre => switch (this) {
     Fase.alba => 'Alba',
     Fase.mediodia => 'Mediodía',
@@ -51,16 +58,34 @@ class Efecto {
     reducePeligro: reducePeligro ?? this.reducePeligro,
   );
 
-  String get texto {
+  /// Cómo se lee el efecto en la carta.
+  ///
+  /// El nombre del recurso viene aparte y no de `TextosUi` porque no es una
+  /// palabra de interfaz: es del tema. En el Templo es «Energía», y otro tema
+  /// puede llamarle otra cosa sin tocar ninguna traducción.
+  String textoCon(TextosUi t, String recurso) {
+    String signo(int n) => n > 0 ? '+$n' : '$n';
     final p = <String>[];
-    if (roba > 0) p.add('Roba $roba');
+    if (roba > 0) p.add(t.con('efecto.roba', {'n': roba}));
     if (energiaAlJugar != 0) {
-      p.add('${energiaAlJugar > 0 ? '+' : ''}$energiaAlJugar Energía');
+      p.add(
+        t.con('efecto.energia', {
+          'n': signo(energiaAlJugar),
+          'recurso': recurso,
+        }),
+      );
     }
     if (energiaSiGanas != 0) {
-      p.add('${energiaSiGanas > 0 ? '+' : ''}$energiaSiGanas Energía si ganás');
+      p.add(
+        t.con('efecto.energiaSiGanas', {
+          'n': signo(energiaSiGanas),
+          'recurso': recurso,
+        }),
+      );
     }
-    if (reducePeligro > 0) p.add('-$reducePeligro al peligro');
+    if (reducePeligro > 0) {
+      p.add(t.con('efecto.reducePeligro', {'n': reducePeligro}));
+    }
     return p.join(' · ');
   }
 
@@ -386,12 +411,20 @@ class Contenido {
   List<CartaPeligro> ocaso;
   List<CartaJefe> jefes;
 
+  /// Nombre y sabor de las cartas de Cansancio, por id.
+  ///
+  /// Viaja acá y no en `mazoCansancio` por lo mismo que el resto del
+  /// contenido: los números son del motor y el texto es del tema y del
+  /// idioma. El motor no conoce ni uno ni otro, recibe esto ya armado.
+  Map<String, (String nombre, String sabor)> cansancio;
+
   Contenido({
     required this.mazoInicial,
     required this.alba,
     required this.mediodia,
     required this.ocaso,
     required this.jefes,
+    this.cansancio = const {},
   });
 
   List<CartaPeligro> peligrosDe(Fase f) => switch (f) {

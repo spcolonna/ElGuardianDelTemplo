@@ -9,6 +9,7 @@ import 'config_store.dart';
 import 'data.dart';
 import 'engine.dart';
 import 'idiomas.dart';
+import 'l10n.dart';
 import 'modos/encargos.dart';
 import 'logros.dart';
 import 'models.dart';
@@ -213,7 +214,12 @@ class AppState extends ChangeNotifier {
       encargoActivo = encargoDelDia(hoy);
     }
 
-    juego = Juego(cfg: c, contenido: contenido);
+    juego = Juego(
+      cfg: c,
+      contenido: contenido,
+      textos: TextosUi.de(idioma),
+      recurso: textos.recurso,
+    );
     faseEscenica = Fase.alba;
     notifyListeners();
   }

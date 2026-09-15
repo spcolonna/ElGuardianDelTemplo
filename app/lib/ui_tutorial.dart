@@ -50,6 +50,8 @@ class _TutorialScreenState extends State<TutorialScreen> {
       contenido: contenidoTutorial(app.tema, app.idioma),
       rng: Random(1),
       barajar: false,
+      textos: TextosUi.de(app.idioma),
+      recurso: app.textos.recurso,
     );
   }
 

@@ -280,4 +280,160 @@ const uiEn = <String, String>{
       'for good. A smaller deck means the good cards come up more often.\n\nA'
       'real game has three phases — Dawn, Noon and Dusk — and two Champions'
       'at the end. Good luck.',
+
+  // --------------------------------------------------------- reglas
+  'reglas.objetivo.titulo': 'Goal',
+  'reglas.objetivo.l1':
+      'You survive three phases of danger (Dawn, Noon, Dusk) improving your '
+      'deck of techniques, and then you face the Champions of the Tournament.',
+  'reglas.objetivo.l2':
+      'How many Champions you face is decided by the difficulty you pick.',
+  'reglas.objetivo.l3': 'You lose if your Energy reaches 0 or less.',
+  'reglas.preparacion.titulo': 'Setup',
+  'reglas.preparacion.l1': 'Shuffle the starting combat deck ({cartas} cards).',
+  'reglas.preparacion.l2':
+      'Separate the three danger decks and pick at random the bosses your '
+      'level calls for: {jefes} in this configuration.',
+  'reglas.preparacion.l3':
+      'You start with {inicial} Energy in this configuration (healing cap: '
+      '{maxima}).',
+  'reglas.turno.titulo': 'Turn',
+  'reglas.turno.l1': '1. Reveal the top danger of the current phase deck.',
+  'reglas.turno.l2Ilimitado':
+      '2. Draw combat cards one by one, at no cost, until you decide to stop.',
+  'reglas.turno.l2Limitado':
+      '2. Draw for free up to the danger\u2019s "free cards" number. Every '
+      'extra card costs {coste} Energy.',
+  'reglas.turno.l3':
+      '3. Add up the Power of the cards you played and compare it with the '
+      'danger\u2019s Power.',
+  'reglas.turno.l4':
+      '4. If your total ≥ the danger, you win: the danger card goes to your '
+      'discard pile as the reward technique.',
+  'reglas.turno.l5Sale':
+      '5. If you lose, subtract the danger\u2019s Damage from your Energy and '
+      'the danger card leaves the game.',
+  'reglas.turno.l5Vuelve':
+      '5. If you lose, subtract the danger\u2019s Damage from your Energy and '
+      'the card goes back to the bottom of the deck.',
+  'reglas.turno.l6':
+      '6. Every card you played goes to the discard pile. When the deck runs '
+      'out, shuffle the discard pile.',
+  'reglas.combate.titulo': 'Winning or losing a fight (important)',
+  'reglas.combate.l1':
+      'YOU WIN if the sum of your cards ≥ the danger\u2019s Power. The danger '
+      'card flips over and joins your discard pile as the reward technique: '
+      'from then on it is one more card in your deck.',
+  'reglas.combate.l2':
+      'YOU LOSE if you stop below the Power. You subtract the danger\u2019s '
+      'Damage from your Energy and the danger card is discarded out of the '
+      'game: you do NOT keep it. You never win a card by losing a fight.',
+  'reglas.combate.l3':
+      'Stopping below is not a "price" you pay to keep the card: it is giving '
+      'up. Sometimes it is still worth it, when paying for more draws would '
+      'cost more Energy than the Damage itself.',
+  'reglas.combate.l4':
+      'Win or lose, every card you played goes to your discard pile.',
+  'reglas.energia.titulo': 'How Energy comes back',
+  'reglas.energia.l1':
+      'There is no action to heal: you cannot "rest" or spend a turn '
+      'recovering.',
+  'reglas.energia.l2':
+      'Energy only goes up through combat card effects, and those effects '
+      'fire automatically when the card comes out during a fight. You do not '
+      'choose when to use them.',
+  'reglas.energia.l3':
+      'Effect "+X Energy": applies the moment you draw the card, whether you '
+      'win or lose afterwards. E.g.: Reflex +1, Discipline +2, Dragon Scale '
+      '+1, Dragon Fist +2, Serenity +3, Sacred Water +2, Enlightenment +1.',
+  'reglas.energia.l4':
+      'Effect "+X Energy if you win": applies only when the fight resolves, '
+      'and only if you won it. E.g.: Bamboo Fist +1, Crane Wing +1, Crane '
+      'Flight +2.',
+  'reglas.energia.l5':
+      'You never go over the cap of {maxima} Energy: the rest is lost.',
+  'reglas.energia.l6':
+      'A design consequence: healing depends on having put healing cards in '
+      'your deck and on them showing up. That is why it pays to meditate and '
+      'remove bad cards: a smaller deck makes the good ones come up more '
+      'often.',
+  'reglas.meditar.titulo': 'Meditating: taking bad cards out of your deck',
+  'reglas.meditar.l1':
+      'Meditating is the ONLY way to take cards out of your deck. There is no '
+      'other.',
+  'reglas.meditar.cuandoSoloAlPerder':
+      'When: only in the step right after a fight you LOST.',
+  'reglas.meditar.cuandoSiempre':
+      'When: in the step right after any fight, won or lost.',
+  'reglas.meditar.l3':
+      'How: pay {coste} Energy and remove {cartas} card(s) from your discard '
+      'pile. They leave the game for good: they do not come back to the deck.',
+  'reglas.meditar.l4':
+      'You can do it several times in a row, paying each time, as long as you '
+      'have Energy left.',
+  'reglas.meditar.l5':
+      'KEY LIMITATION: you can only remove cards that are in the DISCARD '
+      'PILE. An Existential Doubt still buried in the deck is untouchable: it '
+      'has to come out in a fight first. That is why the best moment to '
+      'meditate is right after a fight where your worst cards came out: '
+      'everything you just played is in the discard pile.',
+  'reglas.meditar.l6':
+      'When the deck runs out, the discard pile is shuffled and becomes the '
+      'deck again: that is when you lose the chance to purge those cards '
+      'until they come out again.',
+  'reglas.meditar.l7':
+      'Why it pays: removing an Existential Doubt (-1) or a Ragged Breath (0) '
+      'does not raise your total power, but it shrinks the deck and makes the '
+      'good cards (and the ones that heal Energy) come up more often.',
+  'reglas.final.titulo': 'Final showdown',
+  'reglas.final.l1':
+      'Reveal the bosses and face them in order, just like a normal danger.',
+  'reglas.final.l2':
+      'You cannot give up against a boss: as long as you have a card left to '
+      'draw, you fight it. If you lose, you subtract its Damage and face it '
+      'again.',
+  'reglas.final.l3': 'You win the run when you beat the last one.',
+
+  // ------------------------------------------ efectos y hoja de reglas
+  'efecto.roba': 'Draw {n}',
+  'efecto.energia': '{n} {recurso}',
+  'efecto.energiaSiGanas': '{n} {recurso} if you win',
+  'efecto.reducePeligro': '-{n} to the danger',
+  'reglas.ui.bajada': 'Mirrors whatever values you have in Balance.',
+  'reglas.ui.mazoDe': '{fase} deck',
+  'reglas.ui.peligro':
+      '{nombre} — Power {poder}, Damage {dano}, free {gratis} → {tecnica} '
+      '({tecnicaPoder})',
+  'reglas.ui.jefes': 'Bosses',
+  'reglas.ui.jefe': '{nombre} — Power {poder}, Damage {dano}, free {gratis}',
+
+  // ------------------------------------------------ bitácora del motor
+  'juego.recurso': 'Energy',
+  'log.arranca': 'Master Shifu is gone. Dawn begins.',
+  'log.jefeFinal': 'FINAL BOSS: {nombre} (Power {poder}, Damage {dano})',
+  'log.peligro': 'Danger: {nombre} (Power {poder}, Damage {dano})',
+  'log.pagasRobo': 'You pay {n} {recurso} for an extra card.',
+  'log.barajas': 'You shuffle the discard pile to rebuild the deck.',
+  'log.energia': '{carta}: {n} {recurso}.',
+  'log.topado': '(capped at {max})',
+  'log.bajaPeligro': '{carta}: the danger loses {n} Power.',
+  'log.siGanas': '{carta}: if you win this fight, {n} {recurso}.',
+  'log.sinEnergia': 'You ran out of {recurso}. The temple falls.',
+  'log.efectosVictoria': 'Victory effects: {n} {recurso} ({detalle}).',
+  'log.derrotasteJefe': 'You beat {nombre}! ({suma} vs {poder})',
+  'log.ganaste':
+      'You win! ({suma} vs {poder}) You gain {tecnica} ({tecnicaPoder}).',
+  'log.perdiste': 'You lost ({suma} vs {poder}). -{dano} {recurso}.',
+  'log.enCero':
+      'You are at 0 {recurso}: still standing, but the next cost knocks you '
+      'down.',
+  'log.cansancio': 'Weariness piles up: {carta} ({poder}) goes into your deck.',
+  'log.meditas': 'You meditate: {carta} leaves the game.',
+  'log.victoria':
+      'You kept the temple safe! Shifu will never find out about the cookies.',
+  'log.mediodia': 'Noon falls. Things get serious.',
+  'log.ocaso': 'Dusk falls. The real danger arrives.',
+  'log.campeones':
+      'The Champions of the Tournament reach the temple: {nombres}.',
+  'log.y': 'and',
 };

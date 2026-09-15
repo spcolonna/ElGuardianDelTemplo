@@ -1,4 +1,5 @@
 import 'mecanica.dart';
+import 'modos/cansancio.dart';
 import 'models.dart';
 import 'temas/temas.dart';
 
@@ -39,6 +40,10 @@ Contenido contenidoDe(Tema tema, [String idioma = Tema.idiomaPorDefecto]) {
     alba: peligrosDe(Fase.alba),
     mediodia: peligrosDe(Fase.mediodia),
     ocaso: peligrosDe(Fase.ocaso),
+    cansancio: {
+      for (final c in mazoCansancio)
+        c.id: (tema.nombreDe(c.id, idioma), tema.saborDe(c.id, idioma)),
+    },
     jefes: [
       for (final j in mecJefes)
         CartaJefe(

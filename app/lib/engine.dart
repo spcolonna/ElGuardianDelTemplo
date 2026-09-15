@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'modos/cansancio.dart';
+import 'l10n.dart';
 import 'models.dart';
 
 enum EstadoJuego {
@@ -21,6 +22,19 @@ class Juego {
   final Config cfg;
   final Contenido contenido;
   final Random rng;
+
+  /// Los textos de la bitácora.
+  ///
+  /// El motor escribe prosa —es lo que se lee en la bitácora de la partida— y
+  /// esa prosa estaba en español dentro del motor, así que un jugador inglés
+  /// jugaba en inglés y leía la bitácora en castellano. El default existe para
+  /// los tests y las herramientas; la app siempre pasa el idioma que se juega.
+  final TextosUi textos;
+
+  final String? _recurso;
+
+  /// Cómo se llama la Energía en este tema y en este idioma.
+  String get recurso => _recurso ?? textos('juego.recurso');
 
   late int energia;
   late List<CartaCombate> mazo;
@@ -96,7 +110,10 @@ class Juego {
     required this.contenido,
     Random? rng,
     this.barajar = true,
-  }) : rng = rng ?? Random() {
+    this.textos = TextosUi.es,
+    String? recurso,
+  }) : _recurso = recurso,
+       rng = rng ?? Random() {
     _iniciar();
   }
 
@@ -137,7 +154,7 @@ class Juego {
         ? []
         : pool.take(cfg.cantidadJefes.clamp(1, pool.length)).toList();
 
-    _log('El Maestro Shifu se fue. Empieza el Alba.', 'fase');
+    _log(textos('log.arranca'), 'fase');
     revelarPeligro();
   }
 
@@ -194,15 +211,22 @@ class Juego {
       final j = jefes[jefeActual];
       peligro = j.comoPeligro();
       _log(
-        'JEFE FINAL: ${j.nombre} (Poder ${j.poder}, Daño ${j.dano})',
+        textos.con('log.jefeFinal', {
+          'nombre': j.nombre,
+          'poder': j.poder,
+          'dano': j.dano,
+        }),
         'fase',
       );
     } else {
       final m = mazosPeligro[fase]!;
       peligro = m.removeAt(0);
       _log(
-        'Peligro: ${peligro!.nombre} (Poder ${peligro!.poder}, '
-        'Daño ${peligro!.dano})',
+        textos.con('log.peligro', {
+          'nombre': peligro!.nombre,
+          'poder': peligro!.poder,
+          'dano': peligro!.dano,
+        }),
       );
     }
     gratisRestantes = peligro!.cartasGratis + cfg.cartasGratisExtra;
@@ -221,7 +245,12 @@ class Juego {
         if (energia < cfg.costeRoboExtra) return null;
         energia -= cfg.costeRoboExtra;
         energiaGastadaEnRobos += cfg.costeRoboExtra;
-        _log('Pagás ${cfg.costeRoboExtra} de Energía por una carta extra.');
+        _log(
+          textos.con('log.pagasRobo', {
+            'n': cfg.costeRoboExtra,
+            'recurso': recurso,
+          }),
+        );
       }
     }
 
@@ -238,7 +267,7 @@ class Juego {
       mazo = barajar ? ([...descarte]..shuffle(rng)) : [...descarte];
       descarte = [];
       vecesBarajado++;
-      _log('Barajás el descarte para rehacer el mazo.');
+      _log(textos('log.barajas'));
       if (_cansancioAlBarajar) _agregarCansancio();
     }
     return mazo.removeAt(0);
@@ -253,21 +282,37 @@ class Juego {
       ultimoDeltaEnergia = real;
       if (real > 0) energiaGanadaPorCartas += real;
       _log(
-        '${c.nombre}: ${real > 0 ? '+' : ''}$real Energía'
-        '${real != e.energiaAlJugar ? ' (topado en ${cfg.energiaMaxima})' : ''}.',
+        textos.con('log.energia', {
+              'carta': c.nombre,
+              'n': real > 0 ? '+$real' : '$real',
+              'recurso': recurso,
+            }) +
+            (real != e.energiaAlJugar
+                ? ' ${textos.con('log.topado', {'max': cfg.energiaMaxima})}'
+                : ''),
         e.energiaAlJugar > 0 ? 'bien' : 'mal',
       );
     }
     if (e.reducePeligro > 0) {
       reduccionAcumulada += e.reducePeligro;
-      _log('${c.nombre}: el peligro baja ${e.reducePeligro} de Poder.');
+      _log(
+        textos.con('log.bajaPeligro', {
+          'carta': c.nombre,
+          'n': e.reducePeligro,
+        }),
+      );
     }
     if (e.energiaSiGanas != 0) {
       energiaSiGanaAcumulada += e.energiaSiGanas;
       causasSiGana.add((c.nombre, e.energiaSiGanas));
       _log(
-        '${c.nombre}: si ganás este combate, '
-        '${e.energiaSiGanas > 0 ? '+' : ''}${e.energiaSiGanas} Energía.',
+        textos.con('log.siGanas', {
+          'carta': c.nombre,
+          'n': e.energiaSiGanas > 0
+              ? '+${e.energiaSiGanas}'
+              : '${e.energiaSiGanas}',
+          'recurso': recurso,
+        }),
         e.energiaSiGanas > 0 ? 'bien' : 'mal',
       );
     }
@@ -284,7 +329,7 @@ class Juego {
     if (energia < 0) {
       energia = 0;
       estado = EstadoJuego.derrota;
-      _log('Te quedaste sin Energía. El templo cae.', 'mal');
+      _log(textos.con('log.sinEnergia', {'recurso': recurso}), 'mal');
     }
   }
 
@@ -311,21 +356,34 @@ class Juego {
             .map((c) => '${c.$1} ${c.$2 > 0 ? '+' : ''}${c.$2}')
             .join(', ');
         _log(
-          'Efectos de victoria: ${energiaSiGanaAcumulada > 0 ? '+' : ''}'
-          '$energiaSiGanaAcumulada Energía ($detalle).',
+          textos.con('log.efectosVictoria', {
+            'n': energiaSiGanaAcumulada > 0
+                ? '+$energiaSiGanaAcumulada'
+                : '$energiaSiGanaAcumulada',
+            'recurso': recurso,
+            'detalle': detalle,
+          }),
         );
       }
       if (fase == Fase.jefes) {
         _log(
-          '¡Derrotaste a ${p.nombre}! ($sumaMesa vs $poderPeligroEfectivo)',
+          textos.con('log.derrotasteJefe', {
+            'nombre': p.nombre,
+            'suma': sumaMesa,
+            'poder': poderPeligroEfectivo,
+          }),
           'bien',
         );
         jefeActual++;
       } else {
         descarte.add(p.recompensa.copyWith(instancia: _nuevaInstancia()));
         _log(
-          '¡Ganaste! ($sumaMesa vs $poderPeligroEfectivo) '
-              'Ganás ${p.recompensa.nombre} (${p.recompensa.poder}).',
+          textos.con('log.ganaste', {
+            'suma': sumaMesa,
+            'poder': poderPeligroEfectivo,
+            'tecnica': p.recompensa.nombre,
+            'tecnicaPoder': p.recompensa.poder,
+          }),
           'bien',
         );
       }
@@ -334,8 +392,12 @@ class Juego {
       perdidosPorFase[fase] = (perdidosPorFase[fase] ?? 0) + 1;
       _cambiarEnergia(-p.dano);
       _log(
-        'Perdiste ($sumaMesa vs $poderPeligroEfectivo). '
-            '-${p.dano} de Energía.',
+        textos.con('log.perdiste', {
+          'suma': sumaMesa,
+          'poder': poderPeligroEfectivo,
+          'dano': p.dano,
+          'recurso': recurso,
+        }),
         'mal',
       );
       if (fase != Fase.jefes && !cfg.peligroPerdidoSaleDelJuego) {
@@ -349,11 +411,7 @@ class Juego {
     if (!terminado) estado = EstadoJuego.postCombate;
 
     if (energia == 0 && !terminado) {
-      _log(
-        'Quedaste en 0 de Energía: seguís en pie, pero el próximo gasto '
-            'te tumba.',
-        'mal',
-      );
+      _log(textos.con('log.enCero', {'recurso': recurso}), 'mal');
     }
   }
 
@@ -397,14 +455,23 @@ class Juego {
     // distintos. Agotadas las diez, el Cansancio deja de sumar.
     if (_pilaCansancio.isEmpty) return;
     final c = _pilaCansancio.removeLast();
-    final carta = cartaDeCansancio(c, cfg.poderCansancio, _nuevaInstancia());
+    final texto = contenido.cansancio[c.id] ?? (c.id, '');
+    final carta = cartaDeCansancio(
+      c,
+      cfg.poderCansancio,
+      _nuevaInstancia(),
+      texto.$1,
+      texto.$2,
+    );
     // Sin barajado el mazo es determinístico y tiene que seguir siéndolo.
     mazo.insert(barajar ? rng.nextInt(mazo.length + 1) : mazo.length, carta);
     cansancioAgregado++;
     ultimoCansancio = carta;
     _log(
-      'El cansancio se acumula: ${carta.nombre} (${carta.poder}) '
-          'entra a tu mazo.',
+      textos.con('log.cansancio', {
+        'carta': carta.nombre,
+        'poder': carta.poder,
+      }),
       'mal',
     );
   }
@@ -422,7 +489,7 @@ class Juego {
       final quitada = descarte.removeAt(idx);
       eliminadas.add(quitada);
       cartasEliminadas++;
-      _log('Meditás: eliminás ${quitada.nombre} del juego.');
+      _log(textos.con('log.meditas', {'carta': quitada.nombre}));
     }
   }
 
@@ -455,10 +522,7 @@ class Juego {
     if (fase == Fase.jefes) {
       if (jefeActual >= jefes.length) {
         estado = EstadoJuego.victoria;
-        _log(
-          '¡Protegiste el templo! Shifu nunca se va a enterar de lo de las galletas.',
-          'bien',
-        );
+        _log(textos('log.victoria'), 'bien');
         return;
       }
       estado = EstadoJuego.esperandoPeligro;
@@ -470,15 +534,18 @@ class Juego {
       switch (fase) {
         case Fase.alba:
           fase = Fase.mediodia;
-          _log('Cae el Mediodía. Las cosas se ponen serias.', 'fase');
+          _log(textos('log.mediodia'), 'fase');
         case Fase.mediodia:
           fase = Fase.ocaso;
-          _log('Cae el Ocaso. El verdadero peligro llega.', 'fase');
+          _log(textos('log.ocaso'), 'fase');
         case Fase.ocaso:
           fase = Fase.jefes;
           _log(
-            'Los Campeones del Torneo llegan al templo: '
-                '${jefes.map((j) => j.nombre).join(' y ')}.',
+            textos.con('log.campeones', {
+              'nombres': jefes
+                  .map((j) => j.nombre)
+                  .join(' ${textos('log.y')} '),
+            }),
             'fase',
           );
         case Fase.jefes:

@@ -1,7 +1,7 @@
 {
   "tema": "templo",
   "idioma": "es",
-  "generado": "2026-08-27T18:18:06.355384",
+  "generado": "2026-09-15T14:27:14.188821",
   "juego": {
     "nombre": "El Guardián del Templo",
     "bajada": "Shifu se fue siete días. No quemés el templo.",
@@ -88,7 +88,7 @@
       "titulo": "Enfrentamiento final",
       "lineas": [
         "Revelá los jefes y enfrentalos en orden, igual que un peligro normal.",
-        "Si perdés contra un jefe, restás su Daño y volvés a enfrentarlo.",
+        "Contra un jefe no podés rendirte: mientras te quede una carta para robar, la peleás. Si perdés, restás su Daño y volvés a enfrentarlo.",
         "Ganás la partida cuando derrotás al último."
       ]
     }
@@ -205,52 +205,52 @@
     "cartas": [
       {
         "id": "cans_bostezo",
-        "nombre": "cans_bostezo",
+        "nombre": "Bostezo",
         "ajustePoder": 0
       },
       {
         "id": "cans_vista",
-        "nombre": "cans_vista",
+        "nombre": "Vista Nublada",
         "ajustePoder": 0
       },
       {
         "id": "cans_piernas",
-        "nombre": "cans_piernas",
+        "nombre": "Piernas de Trapo",
         "ajustePoder": -1
       },
       {
         "id": "cans_hombro",
-        "nombre": "cans_hombro",
+        "nombre": "Hombro Dormido",
         "ajustePoder": 0
       },
       {
         "id": "cans_ampolla",
-        "nombre": "cans_ampolla",
+        "nombre": "Ampolla",
         "ajustePoder": 0
       },
       {
         "id": "cans_nudillo",
-        "nombre": "cans_nudillo",
+        "nombre": "Nudillo Partido",
         "ajustePoder": -1
       },
       {
         "id": "cans_calambre",
-        "nombre": "cans_calambre",
+        "nombre": "Calambre",
         "ajustePoder": 0
       },
       {
         "id": "cans_zumbido",
-        "nombre": "cans_zumbido",
+        "nombre": "Zumbido en el Oído",
         "ajustePoder": 0
       },
       {
         "id": "cans_espalda",
-        "nombre": "cans_espalda",
+        "nombre": "Espalda Vieja",
         "ajustePoder": -1
       },
       {
         "id": "cans_renunciar",
-        "nombre": "cans_renunciar",
+        "nombre": "Ganas de Renunciar",
         "ajustePoder": -1
       }
     ]

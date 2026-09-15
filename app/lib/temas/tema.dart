@@ -89,6 +89,9 @@ class TextosTema {
 
   final Map<Fase, String> nombreFase;
 
+  /// El nombre de la fase que ve el jugador, con el interno de respaldo.
+  String fase(Fase f) => nombreFase[f] ?? f.nombre;
+
   /// Nombre y sabor de las 70 cartas, por id.
   final Map<String, TextoCarta> cartas;
 

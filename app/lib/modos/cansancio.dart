@@ -10,19 +10,12 @@ import '../models.dart';
 /// Está apagado por defecto: es un modo aparte, no toca el juego base.
 class CartaCansancio {
   final String id;
-  final String nombre;
-  final String sabor;
 
   /// Cuánto le resta al poder base del modo. 0 = usa el poder base tal cual,
   /// -1 = una peor que el resto. Permite que el mazo no sea uniforme.
   final int ajustePoder;
 
-  const CartaCansancio(
-    this.id,
-    this.nombre,
-    this.sabor, [
-    this.ajustePoder = 0,
-  ]);
+  const CartaCansancio(this.id, [this.ajustePoder = 0]);
 }
 
 /// Cuándo entra una carta de Cansancio.
@@ -44,6 +37,8 @@ enum DisparoCansancio {
 }
 
 extension DisparoCansancioX on DisparoCansancio {
+  /// Etiqueta INTERNA, para Balance y los simuladores. Lo que ve el jugador
+  /// son las claves `modos.cans*` que usa `ui_modos.dart`.
   String get nombre => switch (this) {
     DisparoCansancio.finDeFase => 'Al terminar cada fase',
     DisparoCansancio.alRebarajar => 'Cada vez que barajás el descarte',
@@ -51,63 +46,37 @@ extension DisparoCansancioX on DisparoCansancio {
   };
 }
 
-/// Las 10 cartas del mazo de Cansancio.
+/// Las 10 cartas del mazo de Cansancio: el id y cuánto le restan.
+///
+/// El nombre y el sabor viven en `TextosTema.cartas`, con estos mismos ids,
+/// porque son texto y se traducen. Estaban acá y eran las únicas cartas del
+/// juego que un jugador inglés veía en castellano.
 const mazoCansancio = <CartaCansancio>[
-  CartaCansancio(
-    'cans_bostezo',
-    'Bostezo',
-    'Se contagia. Hasta el bandido bostezó.',
-  ),
-  CartaCansancio(
-    'cans_vista',
-    'Vista Nublada',
-    'Son dos bandidos. O uno. Difícil.',
-  ),
-  CartaCansancio(
-    'cans_piernas',
-    'Piernas de Trapo',
-    'Están ahí abajo, pero no contestan.',
-    -1,
-  ),
-  CartaCansancio(
-    'cans_hombro',
-    'Hombro Dormido',
-    'Se despertó antes que vos y volvió a dormirse.',
-  ),
-  CartaCansancio('cans_ampolla', 'Ampolla', 'Chiquita. Insoportable.'),
-  CartaCansancio(
-    'cans_nudillo',
-    'Nudillo Partido',
-    'Shifu diría que es carácter. Shifu no está.',
-    -1,
-  ),
-  CartaCansancio('cans_calambre', 'Calambre', 'Justo ahora. Justo ahí.'),
-  CartaCansancio(
-    'cans_zumbido',
-    'Zumbido en el Oído',
-    'El mosquito del Alba tuvo la última palabra.',
-  ),
-  CartaCansancio(
-    'cans_espalda',
-    'Espalda Vieja',
-    'Tenés dieciséis años y la espalda de Shifu.',
-    -1,
-  ),
-  CartaCansancio(
-    'cans_renunciar',
-    'Ganas de Renunciar',
-    'El puesto de fideos del pueblo también necesita gente.',
-    -1,
-  ),
+  CartaCansancio('cans_bostezo'),
+  CartaCansancio('cans_vista'),
+  CartaCansancio('cans_piernas', -1),
+  CartaCansancio('cans_hombro'),
+  CartaCansancio('cans_ampolla'),
+  CartaCansancio('cans_nudillo', -1),
+  CartaCansancio('cans_calambre'),
+  CartaCansancio('cans_zumbido'),
+  CartaCansancio('cans_espalda', -1),
+  CartaCansancio('cans_renunciar', -1),
 ];
 
 /// Convierte una carta de Cansancio en una carta de combate jugable.
-/// [poderBase] es el valor configurable en Balance (0, -1 o -2).
-CartaCombate cartaDeCansancio(CartaCansancio c, int poderBase, int instancia) =>
-    CartaCombate(
-      id: c.id,
-      nombre: c.nombre,
-      poder: poderBase + c.ajustePoder,
-      sabor: c.sabor,
-      instancia: instancia,
-    );
+/// [poderBase] es el valor configurable en Balance (0, -1 o -2), y [nombre] y
+/// [sabor] salen del tema en el idioma que se esté jugando.
+CartaCombate cartaDeCansancio(
+  CartaCansancio c,
+  int poderBase,
+  int instancia,
+  String nombre,
+  String sabor,
+) => CartaCombate(
+  id: c.id,
+  nombre: nombre,
+  poder: poderBase + c.ajustePoder,
+  sabor: sabor,
+  instancia: instancia,
+);

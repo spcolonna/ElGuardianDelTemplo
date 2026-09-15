@@ -288,4 +288,165 @@ const uiEs = <String, String>{
       'siempre. Un mazo más chico hace que las buenas salgan más seguido.\n\n'
       'Una partida real son tres fases —Alba, Mediodía y Ocaso— y al final'
       'llegan dos Campeones. Suerte.',
+
+  // --------------------------------------------------------- reglas
+  'reglas.objetivo.titulo': 'Objetivo',
+  'reglas.objetivo.l1':
+      'Sobrevivís tres fases de peligro (Alba, Mediodía, Ocaso) mejorando tu '
+      'mazo de técnicas, y después enfrentás a los Campeones del Torneo.',
+  'reglas.objetivo.l2':
+      'Cuántos Campeones enfrentás lo decide el nivel de dificultad que '
+      'elijas.',
+  'reglas.objetivo.l3': 'Perdés si tu Energía llega a 0 o menos.',
+  'reglas.preparacion.titulo': 'Preparación',
+  'reglas.preparacion.l1':
+      'Barajá el mazo inicial de combate ({cartas} cartas).',
+  'reglas.preparacion.l2':
+      'Separá los tres mazos de peligro y elegí al azar los jefes que pida tu '
+      'nivel: {jefes} en esta configuración.',
+  'reglas.preparacion.l3':
+      'Empezás con {inicial} de Energía en esta configuración (tope al '
+      'curarte: {maxima}).',
+  'reglas.turno.titulo': 'Turno',
+  'reglas.turno.l1':
+      '1. Revelá el peligro superior del mazo de la fase actual.',
+  'reglas.turno.l2Ilimitado':
+      '2. Robá cartas de combate una a una, sin coste, hasta que quieras '
+      'parar.',
+  'reglas.turno.l2Limitado':
+      '2. Robá gratis hasta el número de "cartas gratis" del peligro. Cada '
+      'carta adicional cuesta {coste} de Energía.',
+  'reglas.turno.l3':
+      '3. Sumá el Poder de las cartas jugadas y comparalo con el Poder del '
+      'peligro.',
+  'reglas.turno.l4':
+      '4. Si tu suma ≥ el peligro, ganás: la carta de peligro entra a tu '
+      'descarte como la técnica de recompensa.',
+  'reglas.turno.l5Sale':
+      '5. Si perdés, restás el Daño del peligro a tu Energía y la carta de '
+      'peligro sale del juego.',
+  'reglas.turno.l5Vuelve':
+      '5. Si perdés, restás el Daño del peligro a tu Energía y la carta '
+      'vuelve al fondo del mazo.',
+  'reglas.turno.l6':
+      '6. Todas las cartas jugadas van al descarte. Cuando el mazo se acaba, '
+      'barajá el descarte.',
+  'reglas.combate.titulo': 'Ganar o perder un combate (importante)',
+  'reglas.combate.l1':
+      'GANÁS si la suma de tus cartas ≥ el Poder del peligro. La carta de '
+      'peligro se da vuelta y entra a tu pila de descarte convertida en la '
+      'técnica de recompensa: a partir de ahí es una carta más de tu mazo.',
+  'reglas.combate.l2':
+      'PERDÉS si te plantás por debajo del Poder. Restás el Daño del peligro '
+      'a tu Energía y la carta de peligro se descarta del juego: NO te la '
+      'llevás. Nunca ganás una carta perdiendo un combate.',
+  'reglas.combate.l3':
+      'Plantarse por debajo no es un "precio" que pagás para quedarte la '
+      'carta: es rendirte. A veces conviene igual, cuando pagar más robos '
+      'costaría más Energía que el propio Daño.',
+  'reglas.combate.l4':
+      'Ganes o pierdas, todas las cartas que jugaste van a tu descarte.',
+  'reglas.energia.titulo': 'Cómo se recupera Energía',
+  'reglas.energia.l1':
+      'No existe ninguna acción para curarte: no podés "descansar" ni gastar '
+      'un turno en recuperarte.',
+  'reglas.energia.l2':
+      'La Energía sube SÓLO por efectos de cartas de combate, y esos efectos '
+      'se disparan automáticamente cuando la carta sale durante un combate. '
+      'No elegís cuándo usarlas.',
+  'reglas.energia.l3':
+      'Efecto "+X Energía": se aplica en el momento en que robás la carta, '
+      'ganes o pierdas después. Ej.: Reflejo +1, Disciplina +2, Escama de '
+      'Dragón +1, Puño del Dragón +2, Serenidad +3, Agua Sagrada +2, '
+      'Iluminación +1.',
+  'reglas.energia.l4':
+      'Efecto "+X Energía si ganás": se aplica recién al resolver, y sólo si '
+      'ganaste ese combate. Ej.: Puño del Bambú +1, Ala de Grulla +1, Vuelo '
+      'de Grulla +2.',
+  'reglas.energia.l5':
+      'Nunca superás el tope de {maxima} de Energía: lo que sobra se pierde.',
+  'reglas.energia.l6':
+      'Consecuencia de diseño: curarte depende de haber metido cartas de '
+      'curación en tu mazo y de que salgan. Por eso conviene meditar para '
+      'eliminar cartas malas: un mazo más chico hace que las buenas aparezcan '
+      'más seguido.',
+  'reglas.meditar.titulo': 'Meditar: sacar cartas malas de tu mazo',
+  'reglas.meditar.l1':
+      'Meditar es la ÚNICA forma de sacar cartas de tu mazo. No hay otra.',
+  'reglas.meditar.cuandoSoloAlPerder':
+      'Cuándo: sólo en el paso posterior a un combate que PERDISTE.',
+  'reglas.meditar.cuandoSiempre':
+      'Cuándo: en el paso posterior a cualquier combate, lo hayas ganado o '
+      'perdido.',
+  'reglas.meditar.l3':
+      'Cómo: pagá {coste} de Energía y eliminá {cartas} carta(s) de tu pila '
+      'de descarte. Salen del juego para siempre: no vuelven al mazo.',
+  'reglas.meditar.l4':
+      'Podés repetirlo varias veces seguidas, pagando cada vez, mientras te '
+      'quede Energía.',
+  'reglas.meditar.l5':
+      'LIMITACIÓN CLAVE: sólo podés eliminar cartas que estén en el DESCARTE. '
+      'Una Duda Existencial que sigue enterrada en el mazo es intocable: '
+      'primero tiene que salir en algún combate. Por eso el mejor momento '
+      'para meditar es justo después de un combate donde salieron tus peores '
+      'cartas: todas las que acabás de jugar están en el descarte.',
+  'reglas.meditar.l6':
+      'Cuando el mazo se agota, el descarte se baraja y vuelve a ser mazo: '
+      'ahí perdés la oportunidad de purgar esas cartas hasta que vuelvan a '
+      'salir.',
+  'reglas.meditar.l7':
+      'Por qué conviene: quitar una Duda Existencial (-1) o una Respiración '
+      'Agitada (0) no sube tu poder total, pero achica el mazo y hace que las '
+      'cartas buenas (y las que curan Energía) salgan más seguido.',
+  'reglas.final.titulo': 'Enfrentamiento final',
+  'reglas.final.l1':
+      'Revelá los jefes y enfrentalos en orden, igual que un peligro normal.',
+  'reglas.final.l2':
+      'Contra un jefe no podés rendirte: mientras te quede una carta para '
+      'robar, la peleás. Si perdés, restás su Daño y volvés a enfrentarlo.',
+  'reglas.final.l3': 'Ganás la partida cuando derrotás al último.',
+
+  // ------------------------------------------ efectos y hoja de reglas
+  'efecto.roba': 'Roba {n}',
+  'efecto.energia': '{n} {recurso}',
+  'efecto.energiaSiGanas': '{n} {recurso} si ganás',
+  'efecto.reducePeligro': '-{n} al peligro',
+  'reglas.ui.bajada': 'Refleja los valores que tengas en Balance.',
+  'reglas.ui.mazoDe': 'Mazo del {fase}',
+  'reglas.ui.peligro':
+      '{nombre} — Poder {poder}, Daño {dano}, gratis {gratis} → {tecnica} '
+      '({tecnicaPoder})',
+  'reglas.ui.jefes': 'Jefes',
+  'reglas.ui.jefe': '{nombre} — Poder {poder}, Daño {dano}, gratis {gratis}',
+
+  // ------------------------------------------------ bitácora del motor
+  'juego.recurso': 'Energía',
+  'log.arranca': 'El Maestro Shifu se fue. Empieza el Alba.',
+  'log.jefeFinal': 'JEFE FINAL: {nombre} (Poder {poder}, Daño {dano})',
+  'log.peligro': 'Peligro: {nombre} (Poder {poder}, Daño {dano})',
+  'log.pagasRobo': 'Pagás {n} de {recurso} por una carta extra.',
+  'log.barajas': 'Barajás el descarte para rehacer el mazo.',
+  'log.energia': '{carta}: {n} {recurso}.',
+  'log.topado': '(topado en {max})',
+  'log.bajaPeligro': '{carta}: el peligro baja {n} de Poder.',
+  'log.siGanas': '{carta}: si ganás este combate, {n} {recurso}.',
+  'log.sinEnergia': 'Te quedaste sin {recurso}. El templo cae.',
+  'log.efectosVictoria': 'Efectos de victoria: {n} {recurso} ({detalle}).',
+  'log.derrotasteJefe': '¡Derrotaste a {nombre}! ({suma} vs {poder})',
+  'log.ganaste':
+      '¡Ganaste! ({suma} vs {poder}) Ganás {tecnica} ({tecnicaPoder}).',
+  'log.perdiste': 'Perdiste ({suma} vs {poder}). -{dano} de {recurso}.',
+  'log.enCero':
+      'Quedaste en 0 de {recurso}: seguís en pie, pero el próximo gasto te '
+      'tumba.',
+  'log.cansancio':
+      'El cansancio se acumula: {carta} ({poder}) entra a tu mazo.',
+  'log.meditas': 'Meditás: eliminás {carta} del juego.',
+  'log.victoria':
+      '¡Protegiste el templo! Shifu nunca se va a enterar de lo de las '
+      'galletas.',
+  'log.mediodia': 'Cae el Mediodía. Las cosas se ponen serias.',
+  'log.ocaso': 'Cae el Ocaso. El verdadero peligro llega.',
+  'log.campeones': 'Los Campeones del Torneo llegan al templo: {nombres}.',
+  'log.y': 'y',
 };

@@ -25,6 +25,7 @@ void main() {
           tema: temaTemplo,
           textos: temaTemplo.textosDe('es'),
           ui: TextosUi.de('es'),
+          textoFinal: TextosUi.de('es')('comic.seguir'),
           secuencia: s,
           onTerminar: () {},
         ),

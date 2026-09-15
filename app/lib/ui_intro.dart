@@ -25,7 +25,7 @@ class ComicView extends StatefulWidget {
     required this.ui,
     required this.secuencia,
     required this.onTerminar,
-    this.textoFinal = 'Continuar',
+    required this.textoFinal,
   });
 
   @override
@@ -117,7 +117,7 @@ class _ComicViewState extends State<ComicView> {
                   // Los puntos son tantos como viñetas: ocho en la intro. Van
                   // en el hueco que sobra y se achican si no entran, en vez de
                   // empujar al botón de Siguiente fuera de la pantalla.
-                  Expanded(
+                  Flexible(
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       alignment: Alignment.centerLeft,
@@ -144,13 +144,29 @@ class _ComicViewState extends State<ComicView> {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  FilledButton.icon(
-                    onPressed: ultimo
-                        ? widget.onTerminar
-                        : () => _ir(actual + 1),
-                    icon: Icon(ultimo ? Icons.play_arrow : Icons.arrow_forward),
-                    label: Text(
-                      ultimo ? widget.textoFinal : widget.ui('comic.siguiente'),
+                  // El botón también se achica antes que desbordar, y se lleva
+                  // dos tercios del hueco porque es lo que hay que poder leer.
+                  // A 320 px —Slide Over— «Seguir jugando» no entraba y se
+                  // pasaba 22 px por la derecha. No se veía porque el test
+                  // probaba con un texto que la app no usa en ningún lado.
+                  Flexible(
+                    flex: 2,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerRight,
+                      child: FilledButton.icon(
+                        onPressed: ultimo
+                            ? widget.onTerminar
+                            : () => _ir(actual + 1),
+                        icon: Icon(
+                          ultimo ? Icons.play_arrow : Icons.arrow_forward,
+                        ),
+                        label: Text(
+                          ultimo
+                              ? widget.textoFinal
+                              : widget.ui('comic.siguiente'),
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -258,7 +274,9 @@ class _VistaPanelState extends State<_VistaPanel>
         // que aparezcan todas juntas no se lee como una conversación, se lee
         // como un bloque de texto.
         double turno(int i) {
-          if (charla.length == 1) return Curves.easeOut.transform(_tramo(.42, .85));
+          if (charla.length == 1) {
+            return Curves.easeOut.transform(_tramo(.42, .85));
+          }
           final paso = .43 / charla.length;
           final desde = .42 + paso * i;
           return Curves.easeOut.transform(_tramo(desde, desde + paso * 1.4));

@@ -1,7 +1,7 @@
 {
   "tema": "templo",
   "idioma": "en",
-  "generado": "2026-08-27T18:18:06.932897",
+  "generado": "2026-09-15T14:27:13.612750",
   "juego": {
     "nombre": "Guardian of the Temple",
     "bajada": "Shifu is gone for seven days. Don't burn the temple down.",
@@ -26,70 +26,70 @@
   },
   "reglas": [
     {
-      "titulo": "Objetivo",
+      "titulo": "Goal",
       "lineas": [
-        "Sobrevivís tres fases de peligro (Alba, Mediodía, Ocaso) mejorando tu mazo de técnicas, y después enfrentás a los Campeones del Torneo.",
-        "Cuántos Campeones enfrentás lo decide el nivel de dificultad que elijas.",
-        "Perdés si tu Energía llega a 0 o menos."
+        "You survive three phases of danger (Dawn, Noon, Dusk) improving your deck of techniques, and then you face the Champions of the Tournament.",
+        "How many Champions you face is decided by the difficulty you pick.",
+        "You lose if your Energy reaches 0 or less."
       ]
     },
     {
-      "titulo": "Preparación",
+      "titulo": "Setup",
       "lineas": [
-        "Barajá el mazo inicial de combate (20 cartas).",
-        "Separá los tres mazos de peligro y elegí al azar los jefes que pida tu nivel: 2 en esta configuración.",
-        "Empezás con 23 de Energía en esta configuración (tope al curarte: 23)."
+        "Shuffle the starting combat deck (20 cards).",
+        "Separate the three danger decks and pick at random the bosses your level calls for: 2 in this configuration.",
+        "You start with 23 Energy in this configuration (healing cap: 23)."
       ]
     },
     {
-      "titulo": "Turno",
+      "titulo": "Turn",
       "lineas": [
-        "1. Revelá el peligro superior del mazo de la fase actual.",
-        "2. Robá gratis hasta el número de \"cartas gratis\" del peligro. Cada carta adicional cuesta 1 de Energía.",
-        "3. Sumá el Poder de las cartas jugadas y comparalo con el Poder del peligro.",
-        "4. Si tu suma ≥ el peligro, ganás: la carta de peligro entra a tu descarte como la técnica de recompensa.",
-        "5. Si perdés, restás el Daño del peligro a tu Energía y la carta de peligro sale del juego.",
-        "6. Todas las cartas jugadas van al descarte. Cuando el mazo se acaba, barajá el descarte."
+        "1. Reveal the top danger of the current phase deck.",
+        "2. Draw for free up to the danger’s \"free cards\" number. Every extra card costs 1 Energy.",
+        "3. Add up the Power of the cards you played and compare it with the danger’s Power.",
+        "4. If your total ≥ the danger, you win: the danger card goes to your discard pile as the reward technique.",
+        "5. If you lose, subtract the danger’s Damage from your Energy and the danger card leaves the game.",
+        "6. Every card you played goes to the discard pile. When the deck runs out, shuffle the discard pile."
       ]
     },
     {
-      "titulo": "Ganar o perder un combate (importante)",
+      "titulo": "Winning or losing a fight (important)",
       "lineas": [
-        "GANÁS si la suma de tus cartas ≥ el Poder del peligro. La carta de peligro se da vuelta y entra a tu pila de descarte convertida en la técnica de recompensa: a partir de ahí es una carta más de tu mazo.",
-        "PERDÉS si te plantás por debajo del Poder. Restás el Daño del peligro a tu Energía y la carta de peligro se descarta del juego: NO te la llevás. Nunca ganás una carta perdiendo un combate.",
-        "Plantarse por debajo no es un \"precio\" que pagás para quedarte la carta: es rendirte. A veces conviene igual, cuando pagar más robos costaría más Energía que el propio Daño.",
-        "Ganes o pierdas, todas las cartas que jugaste van a tu descarte."
+        "YOU WIN if the sum of your cards ≥ the danger’s Power. The danger card flips over and joins your discard pile as the reward technique: from then on it is one more card in your deck.",
+        "YOU LOSE if you stop below the Power. You subtract the danger’s Damage from your Energy and the danger card is discarded out of the game: you do NOT keep it. You never win a card by losing a fight.",
+        "Stopping below is not a \"price\" you pay to keep the card: it is giving up. Sometimes it is still worth it, when paying for more draws would cost more Energy than the Damage itself.",
+        "Win or lose, every card you played goes to your discard pile."
       ]
     },
     {
-      "titulo": "Cómo se recupera Energía",
+      "titulo": "How Energy comes back",
       "lineas": [
-        "No existe ninguna acción para curarte: no podés \"descansar\" ni gastar un turno en recuperarte.",
-        "La Energía sube SÓLO por efectos de cartas de combate, y esos efectos se disparan automáticamente cuando la carta sale durante un combate. No elegís cuándo usarlas.",
-        "Efecto \"+X Energía\": se aplica en el momento en que robás la carta, ganes o pierdas después. Ej.: Reflejo +1, Disciplina +2, Escama de Dragón +1, Puño del Dragón +2, Serenidad +3, Agua Sagrada +2, Iluminación +1.",
-        "Efecto \"+X Energía si ganás\": se aplica recién al resolver, y sólo si ganaste ese combate. Ej.: Puño del Bambú +1, Ala de Grulla +1, Vuelo de Grulla +2.",
-        "Nunca superás el tope de 23 de Energía: lo que sobra se pierde.",
-        "Consecuencia de diseño: curarte depende de haber metido cartas de curación en tu mazo y de que salgan. Por eso conviene meditar para eliminar cartas malas: un mazo más chico hace que las buenas aparezcan más seguido."
+        "There is no action to heal: you cannot \"rest\" or spend a turn recovering.",
+        "Energy only goes up through combat card effects, and those effects fire automatically when the card comes out during a fight. You do not choose when to use them.",
+        "Effect \"+X Energy\": applies the moment you draw the card, whether you win or lose afterwards. E.g.: Reflex +1, Discipline +2, Dragon Scale +1, Dragon Fist +2, Serenity +3, Sacred Water +2, Enlightenment +1.",
+        "Effect \"+X Energy if you win\": applies only when the fight resolves, and only if you won it. E.g.: Bamboo Fist +1, Crane Wing +1, Crane Flight +2.",
+        "You never go over the cap of 23 Energy: the rest is lost.",
+        "A design consequence: healing depends on having put healing cards in your deck and on them showing up. That is why it pays to meditate and remove bad cards: a smaller deck makes the good ones come up more often."
       ]
     },
     {
-      "titulo": "Meditar: sacar cartas malas de tu mazo",
+      "titulo": "Meditating: taking bad cards out of your deck",
       "lineas": [
-        "Meditar es la ÚNICA forma de sacar cartas de tu mazo. No hay otra.",
-        "Cuándo: sólo en el paso posterior a un combate que PERDISTE.",
-        "Cómo: pagá 1 de Energía y eliminá 1 carta(s) de tu pila de descarte. Salen del juego para siempre: no vuelven al mazo.",
-        "Podés repetirlo varias veces seguidas, pagando cada vez, mientras te quede Energía.",
-        "LIMITACIÓN CLAVE: sólo podés eliminar cartas que estén en el DESCARTE. Una Duda Existencial que sigue enterrada en el mazo es intocable: primero tiene que salir en algún combate. Por eso el mejor momento para meditar es justo después de un combate donde salieron tus peores cartas: todas las que acabás de jugar están en el descarte.",
-        "Cuando el mazo se agota, el descarte se baraja y vuelve a ser mazo: ahí perdés la oportunidad de purgar esas cartas hasta que vuelvan a salir.",
-        "Por qué conviene: quitar una Duda Existencial (-1) o una Respiración Agitada (0) no sube tu poder total, pero achica el mazo y hace que las cartas buenas (y las que curan Energía) salgan más seguido."
+        "Meditating is the ONLY way to take cards out of your deck. There is no other.",
+        "When: only in the step right after a fight you LOST.",
+        "How: pay 1 Energy and remove 1 card(s) from your discard pile. They leave the game for good: they do not come back to the deck.",
+        "You can do it several times in a row, paying each time, as long as you have Energy left.",
+        "KEY LIMITATION: you can only remove cards that are in the DISCARD PILE. An Existential Doubt still buried in the deck is untouchable: it has to come out in a fight first. That is why the best moment to meditate is right after a fight where your worst cards came out: everything you just played is in the discard pile.",
+        "When the deck runs out, the discard pile is shuffled and becomes the deck again: that is when you lose the chance to purge those cards until they come out again.",
+        "Why it pays: removing an Existential Doubt (-1) or a Ragged Breath (0) does not raise your total power, but it shrinks the deck and makes the good cards (and the ones that heal Energy) come up more often."
       ]
     },
     {
-      "titulo": "Enfrentamiento final",
+      "titulo": "Final showdown",
       "lineas": [
-        "Revelá los jefes y enfrentalos en orden, igual que un peligro normal.",
-        "Si perdés contra un jefe, restás su Daño y volvés a enfrentarlo.",
-        "Ganás la partida cuando derrotás al último."
+        "Reveal the bosses and face them in order, just like a normal danger.",
+        "You cannot give up against a boss: as long as you have a card left to draw, you fight it. If you lose, you subtract its Damage and face it again.",
+        "You win the run when you beat the last one."
       ]
     }
   ],
@@ -205,52 +205,52 @@
     "cartas": [
       {
         "id": "cans_bostezo",
-        "nombre": "cans_bostezo",
+        "nombre": "Yawn",
         "ajustePoder": 0
       },
       {
         "id": "cans_vista",
-        "nombre": "cans_vista",
+        "nombre": "Blurred Sight",
         "ajustePoder": 0
       },
       {
         "id": "cans_piernas",
-        "nombre": "cans_piernas",
+        "nombre": "Rag Legs",
         "ajustePoder": -1
       },
       {
         "id": "cans_hombro",
-        "nombre": "cans_hombro",
+        "nombre": "Numb Shoulder",
         "ajustePoder": 0
       },
       {
         "id": "cans_ampolla",
-        "nombre": "cans_ampolla",
+        "nombre": "Blister",
         "ajustePoder": 0
       },
       {
         "id": "cans_nudillo",
-        "nombre": "cans_nudillo",
+        "nombre": "Split Knuckle",
         "ajustePoder": -1
       },
       {
         "id": "cans_calambre",
-        "nombre": "cans_calambre",
+        "nombre": "Cramp",
         "ajustePoder": 0
       },
       {
         "id": "cans_zumbido",
-        "nombre": "cans_zumbido",
+        "nombre": "Ringing Ear",
         "ajustePoder": 0
       },
       {
         "id": "cans_espalda",
-        "nombre": "cans_espalda",
+        "nombre": "Old Back",
         "ajustePoder": -1
       },
       {
         "id": "cans_renunciar",
-        "nombre": "cans_renunciar",
+        "nombre": "Urge to Quit",
         "ajustePoder": -1
       }
     ]
@@ -299,7 +299,7 @@
         "energiaAlJugar": 0,
         "energiaSiGanas": 0,
         "reducePeligro": 0,
-        "texto": "Roba 1"
+        "texto": "Draw 1"
       },
       "sabor": "Not a Shaolin stance, but it does the job.",
       "copias": 4
@@ -314,7 +314,7 @@
         "energiaAlJugar": 0,
         "energiaSiGanas": -1,
         "reducePeligro": 0,
-        "texto": "-1 Energía si ganás"
+        "texto": "-1 Energy if you win"
       },
       "sabor": "You almost fell over backwards.",
       "copias": 3
@@ -387,7 +387,7 @@
             "energiaAlJugar": 0,
             "energiaSiGanas": 1,
             "reducePeligro": 0,
-            "texto": "+1 Energía si ganás"
+            "texto": "+1 Energy if you win"
           },
           "sabor": ""
         }
@@ -407,7 +407,7 @@
             "energiaAlJugar": 0,
             "energiaSiGanas": 0,
             "reducePeligro": 0,
-            "texto": "Roba 1"
+            "texto": "Draw 1"
           },
           "sabor": "You learned not to trip over your own foot."
         }
@@ -427,7 +427,7 @@
             "energiaAlJugar": -1,
             "energiaSiGanas": 0,
             "reducePeligro": 0,
-            "texto": "-1 Energía"
+            "texto": "-1 Energy"
           },
           "sabor": "The Master threw a bucket of cold water at you."
         }
@@ -467,7 +467,7 @@
             "energiaAlJugar": 0,
             "energiaSiGanas": 0,
             "reducePeligro": 0,
-            "texto": "Roba 2"
+            "texto": "Draw 2"
           },
           "sabor": "You scared him off with your hungry rookie eyes."
         }
@@ -527,7 +527,7 @@
             "energiaAlJugar": 1,
             "energiaSiGanas": 0,
             "reducePeligro": 0,
-            "texto": "+1 Energía"
+            "texto": "+1 Energy"
           },
           "sabor": "The spider made it. So did you."
         }
@@ -569,7 +569,7 @@
             "energiaAlJugar": -1,
             "energiaSiGanas": 0,
             "reducePeligro": 0,
-            "texto": "-1 Energía"
+            "texto": "-1 Energy"
           },
           "sabor": "Roars like a kitten. Hits like a tiger."
         }
@@ -589,7 +589,7 @@
             "energiaAlJugar": 0,
             "energiaSiGanas": 1,
             "reducePeligro": 0,
-            "texto": "+1 Energía si ganás"
+            "texto": "+1 Energy if you win"
           },
           "sabor": "Grace over force."
         }
@@ -629,7 +629,7 @@
             "energiaAlJugar": 0,
             "energiaSiGanas": 0,
             "reducePeligro": 1,
-            "texto": "-1 al peligro"
+            "texto": "-1 to the danger"
           },
           "sabor": ""
         }
@@ -649,7 +649,7 @@
             "energiaAlJugar": 0,
             "energiaSiGanas": 0,
             "reducePeligro": 0,
-            "texto": "Roba 1"
+            "texto": "Draw 1"
           },
           "sabor": "Fast. Elegant. Confusing for the enemy."
         }
@@ -669,7 +669,7 @@
             "energiaAlJugar": 2,
             "energiaSiGanas": 0,
             "reducePeligro": 0,
-            "texto": "+2 Energía"
+            "texto": "+2 Energy"
           },
           "sabor": "Shifu's cookies are still there. Untouched. You are a hero."
         }
@@ -689,7 +689,7 @@
             "energiaAlJugar": 1,
             "energiaSiGanas": 0,
             "reducePeligro": 0,
-            "texto": "Roba 1 · +1 Energía"
+            "texto": "Draw 1 · +1 Energy"
           },
           "sabor": "You learned what NOT to do. That counts."
         }
@@ -709,7 +709,7 @@
             "energiaAlJugar": -1,
             "energiaSiGanas": 0,
             "reducePeligro": 0,
-            "texto": "-1 Energía"
+            "texto": "-1 Energy"
           },
           "sabor": "You crossed the gorge. With style."
         }
@@ -771,7 +771,7 @@
             "energiaAlJugar": -2,
             "energiaSiGanas": 0,
             "reducePeligro": 0,
-            "texto": "-2 Energía"
+            "texto": "-2 Energy"
           },
           "sabor": "Now it really does roar like a tiger."
         }
@@ -791,7 +791,7 @@
             "energiaAlJugar": 0,
             "energiaSiGanas": 2,
             "reducePeligro": 0,
-            "texto": "+2 Energía si ganás"
+            "texto": "+2 Energy if you win"
           },
           "sabor": "You never saw him coming. He never saw you either."
         }
@@ -831,7 +831,7 @@
             "energiaAlJugar": -1,
             "energiaSiGanas": 0,
             "reducePeligro": 0,
-            "texto": "-1 Energía"
+            "texto": "-1 Energy"
           },
           "sabor": "You got up at 4 AM. Once. But it counts."
         }
@@ -851,7 +851,7 @@
             "energiaAlJugar": 2,
             "energiaSiGanas": 0,
             "reducePeligro": 0,
-            "texto": "Roba 1 · +2 Energía"
+            "texto": "Draw 1 · +2 Energy"
           },
           "sabor": "His temple has a bigger budget. You have heart."
         }
@@ -871,7 +871,7 @@
             "energiaAlJugar": -2,
             "energiaSiGanas": 0,
             "reducePeligro": 0,
-            "texto": "-2 Energía"
+            "texto": "-2 Energy"
           },
           "sabor": "One kick. Many mercenaries. Simple math."
         }
@@ -891,7 +891,7 @@
             "energiaAlJugar": 3,
             "energiaSiGanas": 0,
             "reducePeligro": 0,
-            "texto": "+3 Energía"
+            "texto": "+3 Energy"
           },
           "sabor": "You took a deep breath. The demon didn't."
         }
@@ -911,7 +911,7 @@
             "energiaAlJugar": 2,
             "energiaSiGanas": 0,
             "reducePeligro": 0,
-            "texto": "+2 Energía"
+            "texto": "+2 Energy"
           },
           "sabor": "You put it out. Nobody knows how it started. It was Shifu, right?"
         }
@@ -951,7 +951,7 @@
             "energiaAlJugar": 1,
             "energiaSiGanas": 0,
             "reducePeligro": 0,
-            "texto": "Roba 2 · +1 Energía"
+            "texto": "Draw 2 · +1 Energy"
           },
           "sabor": "You woke up soaked. But enlightened."
         }

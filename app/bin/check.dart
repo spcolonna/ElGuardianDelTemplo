@@ -573,6 +573,53 @@ void main() {
     'presentes y legibles  (esperado 0 errores)',
   );
 
+  // 20) Nada de español fuera de la capa de textos.
+  //
+  // Este es el chequeo que hace que agregar un idioma sea agregar un idioma y
+  // no descubrir, tres pantallas adentro, que las reglas o la bitácora siguen
+  // en castellano. Pasó: `reglas_texto.dart` tenía 724 palabras de prosa y un
+  // jugador inglés las leía en español desde que existe el inglés.
+  //
+  // Mira SÓLO literales de string, no comentarios: los comentarios de este
+  // repositorio están en español a propósito y así se quedan.
+  //
+  // Y es un detector parcial, hay que decirlo: encuentra el español acentuado
+  // y se le escapa «Peligro», «Tienda» o «Combate». Sirve igual porque la
+  // prosa larga casi siempre lleva una tilde; lo que de verdad cierra el
+  // agujero es traducir a un quinto idioma y jugar.
+  final permitidos = <String, String>{
+    'lib/l10n/': 'es la capa de textos',
+    'lib/temas/': 'son los textos del tema',
+    'lib/ui_balance.dart': 'herramienta interna de playtesting',
+    'lib/ui_sim.dart': 'herramienta interna de playtesting',
+    'lib/ui_admin.dart': 'herramienta interna de playtesting',
+    'lib/models.dart': 'los nombres INTERNOS de fase, para logs y Balance',
+    'lib/modos/cansancio.dart': 'las etiquetas internas del disparo',
+    'lib/idiomas.dart': 'los nombres de los idiomas van en su propio idioma',
+  };
+  final acentos = RegExp('[áéíóúÁÉÍÓÚñÑ¿¡üÜ]');
+  var castellano = 0;
+  for (final f in Directory(
+    'lib',
+  ).listSync(recursive: true).whereType<File>()) {
+    final ruta = f.path;
+    if (!ruta.endsWith('.dart')) continue;
+    if (permitidos.keys.any(ruta.contains)) continue;
+    var n = 0;
+    for (final linea in f.readAsLinesSync()) {
+      n++;
+      final limpia = linea.trimLeft();
+      if (limpia.startsWith('//')) continue;
+      for (final m in RegExp(r"'((?:[^'\\\n]|\\.)*)'").allMatches(linea)) {
+        final s = m[1]!;
+        if (!acentos.hasMatch(s)) continue;
+        print('   $ruta:$n español suelto: "$s"');
+        castellano++;
+      }
+    }
+  }
+  print('20) Español fuera de la capa de textos: $castellano  (esperado 0)');
+
   // 19) La copia liviana está al día.
   //
   // Lo que se empaqueta no es el arte de `assets/{comic,cartas,ui}` sino la

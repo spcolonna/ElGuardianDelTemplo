@@ -183,6 +183,43 @@ const textosTemploEs = TextosTema(
       'El Dragón de Papel',
       'Imponente, escupe fuego. Pero si llueve, se hace papilla.',
     ),
+
+    // Las diez del mazo de Cansancio. Los NÚMEROS siguen en
+    // `lib/modos/cansancio.dart`: acá va sólo lo que se traduce.
+    'cans_bostezo': TextoCarta(
+      'Bostezo',
+      'Se contagia. Hasta el bandido bostezó.',
+    ),
+    'cans_vista': TextoCarta(
+      'Vista Nublada',
+      'Son dos bandidos. O uno. Difícil.',
+    ),
+    'cans_piernas': TextoCarta(
+      'Piernas de Trapo',
+      'Están ahí abajo, pero no contestan.',
+    ),
+    'cans_hombro': TextoCarta(
+      'Hombro Dormido',
+      'Se despertó antes que vos y volvió a dormirse.',
+    ),
+    'cans_ampolla': TextoCarta('Ampolla', 'Chiquita. Insoportable.'),
+    'cans_nudillo': TextoCarta(
+      'Nudillo Partido',
+      'Shifu diría que es carácter. Shifu no está.',
+    ),
+    'cans_calambre': TextoCarta('Calambre', 'Justo ahora. Justo ahí.'),
+    'cans_zumbido': TextoCarta(
+      'Zumbido en el Oído',
+      'El mosquito del Alba tuvo la última palabra.',
+    ),
+    'cans_espalda': TextoCarta(
+      'Espalda Vieja',
+      'Tenés dieciséis años y la espalda de Shifu.',
+    ),
+    'cans_renunciar': TextoCarta(
+      'Ganas de Renunciar',
+      'El puesto de fideos del pueblo también necesita gente.',
+    ),
   },
   paneles: {
     // ------------------------------------------------------------------ intro
@@ -196,7 +233,10 @@ const textosTemploEs = TextosTema(
           'En lo alto de la montaña, donde el viento se queja y el té nunca está lo bastante caliente, está el Templo del Loto Torcido.',
       conversacion: [
         Dicho('', '(Ciento ocho escalones hasta el portón.)'),
-        Dicho('', '(El Novato los barre todas las mañanas. Todas las mañanas se vuelven a ensuciar.)'),
+        Dicho(
+          '',
+          '(El Novato los barre todas las mañanas. Todas las mañanas se vuelven a ensuciar.)',
+        ),
       ],
     ),
     '02_shifu_se_va.png': TextoPanel(

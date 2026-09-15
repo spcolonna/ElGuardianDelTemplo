@@ -42,7 +42,9 @@ class _GuardianAppState extends State<GuardianApp> {
     return AppScope(
       state: estado,
       child: MaterialApp(
-        title: 'El Guardián del Templo',
+        // El nombre del juego lo pone el tema, que ya lo tiene traducido.
+        // Es lo que ve el sistema operativo en el conmutador de tareas.
+        title: estado.textos.nombre,
         debugShowCheckedModeBanner: false,
         theme: _temaClaro(),
         initialRoute: R.raiz,

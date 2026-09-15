@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import 'app_state.dart';
 import 'audio.dart';
+import 'l10n.dart';
 import 'ui_kit.dart';
 import 'ui_texturas.dart';
 
@@ -45,7 +47,12 @@ Color colorTexto(Color c, {Color sobre = kPapel}) {
   // Doce pasos del 8% alcanzan para llevar cualquier color de la paleta al
   // umbral; el tope está para no colgarse con un fondo oscuro imposible.
   for (var i = 0; i < 12 && contraste(v, sobre) < 4.5; i++) {
-    v = Color.from(alpha: v.a, red: v.r * .92, green: v.g * .92, blue: v.b * .92);
+    v = Color.from(
+      alpha: v.a,
+      red: v.r * .92,
+      green: v.g * .92,
+      blue: v.b * .92,
+    );
   }
   return v;
 }
@@ -90,6 +97,8 @@ class CartaCombateView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final app = AppScope.of(context);
+    final t = TextosUi.de(app.idioma);
     final malo = carta.poder < 1 && carta.efecto.vacio;
     final borde = seleccionada
         ? const Color(0xFFC99A2E)
@@ -153,7 +162,7 @@ class CartaCombateView extends StatelessWidget {
             const Spacer(),
             if (!carta.efecto.vacio)
               Text(
-                carta.efecto.texto,
+                carta.efecto.textoCon(t, app.textos.recurso),
                 style: TextStyle(
                   fontSize: 9.5,
                   height: 1.15,
