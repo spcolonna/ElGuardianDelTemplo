@@ -10,10 +10,12 @@
 // Los anchos no son inventados: 320 es Slide Over, 507 es un tercio de un iPad
 // de 11", 639 la mitad, 834 el vertical entero, y 1366 el apaisado del de 12,9".
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:guardian_templo/app_state.dart';
 import 'package:guardian_templo/data.dart';
 import 'package:guardian_templo/engine.dart';
+import 'package:guardian_templo/idiomas.dart';
 import 'package:guardian_templo/l10n.dart';
 import 'package:guardian_templo/models.dart';
 import 'package:guardian_templo/ui_game.dart';
@@ -25,6 +27,47 @@ import 'package:guardian_templo/ui_shell.dart';
 
 const _anchos = <double>[320, 507, 639, 834, 1024, 1366];
 
+/// Cuántos textos recorta cada pantalla EN ESPAÑOL, que es la vara.
+///
+/// Se llena en la primera vuelta del bucle porque `codigosIdioma` arranca en
+/// español; si algún día deja de arrancar ahí, este test empieza a comparar
+/// contra cero y se va a quejar enseguida, que es lo que uno quiere.
+final _enEspanol = <String, int>{};
+
+/// Si ese párrafo, al ancho que le tocó, no entra en las líneas que tiene.
+///
+/// Se mide de nuevo con un painter propio en vez de leerle
+/// `didExceedMaxLines` al render: ese flag lo pisan los pases de medición
+/// intrínseca —`Wrap` e `IntrinsicWidth` relayoutean el texto a ancho cero— y
+/// queda en true para cosas que en pantalla entran de sobra, como la palabra
+/// «Ajustes». Falsos positivos en un test de desborde son peores que no
+/// tenerlo: se aprende a ignorarlo.
+bool _seComeTexto(RenderParagraph r) {
+  if (!r.hasSize || r.size.width <= 0) return false;
+  // El ancho es el que le DIERON, no el que terminó midiendo. Cuando el texto
+  // entra, el render encoge la caja hasta la línea, y volver a medir a ese
+  // ancho exacto empuja la última palabra al renglón siguiente por medio
+  // píxel: todo texto que entra justo se reportaría como recortado.
+  final c = r.constraints;
+  final ancho = c.maxWidth.isFinite && c.maxWidth > 0
+      ? c.maxWidth
+      : r.size.width;
+  final painter = TextPainter(
+    text: r.text,
+    textDirection: r.textDirection,
+    textAlign: r.textAlign,
+    maxLines: r.maxLines,
+    textScaler: r.textScaler,
+    locale: r.locale,
+    strutStyle: r.strutStyle,
+    textWidthBasis: r.textWidthBasis,
+    ellipsis: r.overflow == TextOverflow.ellipsis ? '\u2026' : null,
+  )..layout(maxWidth: ancho);
+  final cortado = painter.didExceedMaxLines;
+  painter.dispose();
+  return cortado;
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -33,7 +76,7 @@ void main() {
     String nombre,
     Widget Function() construir,
   ) async {
-    for (final idioma in ['es', 'en']) {
+    for (final idioma in codigosIdioma) {
       for (final ancho in _anchos) {
         // El alto se cruza a propósito: en Slide Over la ventana es angosta y
         // alta, y en apaisado es ancha y baja. Probar sólo el caso cómodo
@@ -45,7 +88,9 @@ void main() {
 
         final app = AppState()..idiomaElegido = idioma;
         await tester.pumpWidget(
-          MaterialApp(home: AppScope(state: app, child: construir())),
+          MaterialApp(
+            home: AppScope(state: app, child: construir()),
+          ),
         );
         await tester.pump();
 
@@ -54,6 +99,37 @@ void main() {
           isNull,
           reason: '$nombre · $idioma · ${ancho.toInt()}x${alto.toInt()}',
         );
+
+        // Y además: que la traducción no recorte MÁS que el original.
+        //
+        // `takeException` agarra los desbordes de CAJA — el RenderFlex que se
+        // pasa— pero un `Text` con `maxLines` y `ellipsis` no tira nada: se
+        // come la palabra y sigue de largo. Ese es exactamente el modo de
+        // falla de una traducción más larga que el original, y el que importa
+        // cuando el juego habla siete idiomas.
+        //
+        // La cuenta se compara contra el español y no contra cero porque hoy
+        // ya hay títulos que elipsan a 320 px, que es Slide Over y es angosto
+        // de verdad. Cero sería el listón correcto y es otra tarea; lo que
+        // este test tiene que impedir es que el alemán, que es un 30% más
+        // largo, empeore una pantalla que en español entraba.
+        final recortados = tester.allRenderObjects
+            .whereType<RenderParagraph>()
+            .where(_seComeTexto)
+            .map((r) => r.text.toPlainText())
+            .toSet();
+        final caso = '$nombre · ${ancho.toInt()}';
+        if (idioma == 'es') {
+          _enEspanol[caso] = recortados.length;
+        } else {
+          expect(
+            recortados.length,
+            lessThanOrEqualTo(_enEspanol[caso] ?? 0),
+            reason:
+                '$nombre · $idioma · ${ancho.toInt()}x${alto.toInt()}: '
+                'recorta más que el español. Recortado: $recortados',
+          );
+        }
       }
     }
   }
@@ -62,7 +138,9 @@ void main() {
     await probar(tester, 'patio', () => const PatioScreen());
   });
 
-  testWidgets('el selector de modos entra en cualquier ventana', (tester) async {
+  testWidgets('el selector de modos entra en cualquier ventana', (
+    tester,
+  ) async {
     await probar(tester, 'modos', () => const ModosScreen());
   });
 

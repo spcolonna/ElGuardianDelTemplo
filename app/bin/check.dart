@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:guardian_templo/data.dart';
 import 'package:guardian_templo/mecanica.dart';
 import 'package:guardian_templo/engine.dart';
+import 'package:guardian_templo/idiomas.dart';
 import 'package:guardian_templo/modos/cansancio.dart';
 import 'package:guardian_templo/modos/encargos.dart';
 import 'package:guardian_templo/models.dart';
@@ -176,7 +177,54 @@ void main() {
   );
 
   // 9) Cobertura de traducción: ningún idioma puede tener huecos.
+  //
+  // Esto es lo que impide que agregar un idioma sea agregarlo a medias. El
+  // `??` de `textosDe()` y el de `TextosUi.call()` son buenos fallbacks en
+  // runtime y pésimos avisos: tapan la falta con español y con la clave
+  // pelada, así que un idioma incompleto se ve como un idioma terminado.
   var huecos = 0;
+
+  // 9a) Una sola lista de idiomas. `lib/idiomas.dart` es la fuente de verdad;
+  //     si alguien agrega uno ahí y se olvida de `templo.dart` o de los mapas
+  //     de UI, el juego arranca igual y muestra español.
+  final esperados = codigosIdioma.toSet();
+  final enUi = TextosUi.idiomas.toSet();
+  if (!_mismos(enUi, esperados)) {
+    print('   TextosUi habla $enUi y la lista dice $esperados');
+    huecos++;
+  }
+  for (final tema in temasDisponibles) {
+    final suyos = tema.idiomas.toSet();
+    if (!_mismos(suyos, esperados)) {
+      print('   El tema "${tema.id}" habla $suyos y la lista dice $esperados');
+      huecos++;
+    }
+  }
+
+  // 9b) Claves huérfanas: una que existe en otro idioma y no en español es la
+  //     traducción de algo que se borró, y se arrastra para siempre.
+  for (final idioma in TextosUi.idiomas) {
+    for (final k in TextosUi.mapaDe(idioma).keys) {
+      if (!TextosUi.mapaDe('es').containsKey(k)) {
+        print('   SOBRA texto de UI "$k" en $idioma (no está en es)');
+        huecos++;
+      }
+    }
+  }
+
+  // 9c) Los `{placeholders}` tienen que ser los mismos en todos los idiomas.
+  //     Una traducción que se come un `{carta}` no rompe nada: escribe la
+  //     llave cruda en pantalla y nadie la ve hasta que la ve un jugador.
+  for (final idioma in TextosUi.idiomas) {
+    for (final k in TextosUi.claves) {
+      final base = _huecosDe(TextosUi.mapaDe('es')[k]!);
+      final otro = _huecosDe(TextosUi.mapaDe(idioma)[k] ?? '');
+      if (!_mismos(base, otro)) {
+        print('   "$k" en $idioma usa $otro y el original $base');
+        huecos++;
+      }
+    }
+  }
   for (final tema in temasDisponibles) {
     final base = tema.textosDe('es');
     for (final idioma in tema.idiomas) {
@@ -552,8 +600,10 @@ void main() {
         print('    FALTA assets/movil/$familia/$base.webp');
         sinCopia++;
       } else if (webp.statSync().modified.isBefore(f.statSync().modified)) {
-        print('    VIEJA assets/movil/$familia/$base.webp '
-            '(el original es más nuevo)');
+        print(
+          '    VIEJA assets/movil/$familia/$base.webp '
+          '(el original es más nuevo)',
+        );
         vencidas++;
       }
     }
@@ -611,3 +661,11 @@ const piezasEsperadas = <String, (int, int)>{
   'insignia_logro.png': (512, 512),
   'insignia_bloqueada.png': (512, 512),
 };
+
+/// Dos conjuntos con exactamente lo mismo adentro.
+bool _mismos(Set<String> a, Set<String> b) =>
+    a.length == b.length && a.containsAll(b);
+
+/// Los `{placeholders}` que usa un texto.
+Set<String> _huecosDe(String texto) =>
+    RegExp(r'\{(\w+)\}').allMatches(texto).map((m) => m[1]!).toSet();

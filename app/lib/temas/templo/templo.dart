@@ -17,5 +17,8 @@ const temaTemplo = Tema(
   sufijoReverso: sufijoReversoTemplo,
   paneles: panelesTemplo,
   reversos: reversosTemplo,
+  // Un mapa por idioma de `lib/idiomas.dart`. Si acá falta uno que la
+  // lista declara, `textosDe()` lo tapa con español y el juego arranca
+  // como si estuviera traducido: por eso lo chequea `bin/check.dart`.
   textos: {'es': textosTemploEs, 'en': textosTemploEn},
 );

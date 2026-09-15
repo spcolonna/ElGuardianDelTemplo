@@ -1,3 +1,4 @@
+import 'l10n.dart';
 import 'mecanica.dart';
 import 'models.dart';
 import 'temas/temas.dart';
@@ -34,8 +35,15 @@ enum AccionTutorial {
 enum FocoTutorial { nada, energia, mesa, botones, descarte, carta }
 
 class PasoTutorial {
-  final String textoEs;
-  final String textoEn;
+  /// La clave del texto en `TextosUi`: `tutorial.p01`, `tutorial.p02`…
+  ///
+  /// El guion no vive acá. Antes eran dos campos, `textoEs` y `textoEn`, y un
+  /// `idioma == 'en' ? ... : ...`: con siete idiomas eso son siete párrafos por
+  /// paso y un chequeo propio para validarlos. Con la clave, el paso queda de
+  /// puro mecanismo y el chequeo de claves de UI que ya existe cubre el guion
+  /// gratis. Arriba de cada paso hay un comentario con su primera línea para
+  /// que leer este archivo siga contando la historia.
+  final String clave;
   final AccionTutorial accion;
   final FocoTutorial foco;
 
@@ -47,15 +55,14 @@ class PasoTutorial {
   final bool robarTodas;
 
   const PasoTutorial({
-    required this.textoEs,
-    required this.textoEn,
+    required this.clave,
     this.accion = AccionTutorial.leer,
     this.foco = FocoTutorial.nada,
     this.zona,
     this.robarTodas = false,
   });
 
-  String texto(String idioma) => idioma == 'en' ? textoEn : textoEs;
+  String texto(TextosUi t) => t(clave);
 }
 
 /// Ids de las cartas del mazo trucado, en el orden exacto en que se roban.
@@ -117,149 +124,83 @@ Contenido contenidoTutorial(Tema tema, String idioma) {
 Config configTutorial() => Config(energiaInicial: 12, energiaMaxima: 12);
 
 const guionTutorial = <PasoTutorial>[
+  // Esto es tu Energía. Es lo único que te mantiene en el juego: si...
+  PasoTutorial(clave: 'tutorial.p01', foco: FocoTutorial.energia),
+  // Este es el peligro que te toca. El número grande es su Poder:...
   PasoTutorial(
-    textoEs:
-        'Esto es tu Energía. Es lo único que te mantiene en el juego: si '
-        'baja de cero, se terminó. Quedarte en cero no te elimina, pero el '
-        'próximo golpe sí.',
-    textoEn:
-        'This is your Energy. It is the only thing keeping you in the '
-        'game: if it drops below zero, you are done. Hitting zero does not '
-        'kill you, but the next hit will.',
-    foco: FocoTutorial.energia,
-  ),
-  PasoTutorial(
-    textoEs:
-        'Este es el peligro que te toca. El número grande es su Poder: '
-        'es lo que tenés que igualar o superar sumando cartas.',
-    textoEn:
-        'This is the danger you are facing. The big number is its Power: '
-        'that is what you have to match or beat by adding up cards.',
+    clave: 'tutorial.p02',
     foco: FocoTutorial.carta,
     zona: ZonaCarta.poderPeligro,
   ),
+  // El corazón roto es lo que perdés de Energía si no llegás a ese...
   PasoTutorial(
-    textoEs:
-        'El corazón roto es lo que perdés de Energía si no llegás a ese '
-        'número. En este caso, dos.',
-    textoEn:
-        'The broken heart is the Energy you lose if you fall short of that '
-        'number. Two, in this case.',
+    clave: 'tutorial.p03',
     foco: FocoTutorial.carta,
     zona: ZonaCarta.dano,
   ),
+  // Y este es el número que más vas a mirar: cuántas cartas podés...
   PasoTutorial(
-    textoEs:
-        'Y este es el número que más vas a mirar: cuántas cartas podés robar '
-        'GRATIS. Cuando se te acaban, cada carta extra cuesta Energía.',
-    textoEn:
-        'And this is the number you will stare at the most: how many cards you '
-        'can draw for FREE. Once they run out, every extra card costs Energy.',
+    clave: 'tutorial.p04',
     foco: FocoTutorial.carta,
     zona: ZonaCarta.cartasGratis,
   ),
+  // Fijate en esta línea: parte la carta al medio. Arriba está el...
   PasoTutorial(
-    textoEs:
-        'Fijate en esta línea: parte la carta al medio. Arriba está el peligro '
-        'que enfrentás. Abajo, la técnica que ganás si lo vencés.',
-    textoEn:
-        'Look at this line: it splits the card in half. The danger you are '
-        'facing is on top. The technique you win is at the bottom.',
+    clave: 'tutorial.p05',
     foco: FocoTutorial.carta,
     zona: ZonaCarta.divisor,
   ),
+  // Y sí, la mitad de abajo está impresa al revés. Es a propósito:...
   PasoTutorial(
-    textoEs:
-        'Y sí, la mitad de abajo está impresa al revés. Es a propósito: cuando '
-        'ganes, girás la carta media vuelta y esa mitad queda derecha. Eso es '
-        'todo lo que significa "ganar una carta".',
-    textoEn:
-        'And yes, the bottom half is printed upside down. That is on purpose: '
-        'when you win, you turn the card around and that half reads right. '
-        'That is all "winning a card" means.',
+    clave: 'tutorial.p06',
     foco: FocoTutorial.carta,
     zona: ZonaCarta.mitadTecnica,
   ),
+  // Probemos. Robá tu primera carta.
   PasoTutorial(
-    textoEs: 'Probemos. Robá tu primera carta.',
-    textoEn: 'Let us try. Draw your first card.',
+    clave: 'tutorial.p07',
     accion: AccionTutorial.robar,
     foco: FocoTutorial.botones,
   ),
+  // Ahí está: su Poder se sumó a tu total. Mirá la barra, te dice...
+  PasoTutorial(clave: 'tutorial.p08', foco: FocoTutorial.mesa),
+  // Todavía no alcanza. Robá otra.
   PasoTutorial(
-    textoEs:
-        'Ahí está: su Poder se sumó a tu total. Mirá la barra, te dice '
-        'cuánto te falta.',
-    textoEn:
-        'There it is: its Power was added to your total. The bar tells '
-        'you how much you still need.',
-    foco: FocoTutorial.mesa,
-  ),
-  PasoTutorial(
-    textoEs: 'Todavía no alcanza. Robá otra.',
-    textoEn: 'Not enough yet. Draw another one.',
+    clave: 'tutorial.p09',
     accion: AccionTutorial.robar,
     foco: FocoTutorial.botones,
   ),
+  // Llegaste. Resolvé el combate.
   PasoTutorial(
-    textoEs: 'Llegaste. Resolvé el combate.',
-    textoEn: 'You made it. Resolve the fight.',
+    clave: 'tutorial.p10',
     accion: AccionTutorial.resolver,
     foco: FocoTutorial.botones,
   ),
+  // Ganaste, y esto es lo importante: la carta de peligro se da...
   PasoTutorial(
-    textoEs:
-        'Ganaste, y esto es lo importante: la carta de peligro se da '
-        'vuelta y la técnica del otro lado pasa a ser tuya. Así se construye '
-        'el mazo. Seguí.',
-    textoEn:
-        'You won, and here is the key part: the danger card flips over '
-        'and the technique on its other side becomes yours. That is how you '
-        'build your deck. Carry on.',
+    clave: 'tutorial.p11',
     accion: AccionTutorial.continuar,
     foco: FocoTutorial.botones,
   ),
+  // Peligro nuevo, más duro. Robá tus cartas gratis.
   PasoTutorial(
-    textoEs: 'Peligro nuevo, más duro. Robá tus cartas gratis.',
-    textoEn: 'A new, tougher danger. Draw your free cards.',
+    clave: 'tutorial.p12',
     accion: AccionTutorial.robar,
     foco: FocoTutorial.botones,
     robarTodas: true,
   ),
+  // Salió basura. Acá se decide el juego: seguir robando cuesta 1...
   PasoTutorial(
-    textoEs:
-        'Salió basura. Acá se decide el juego: seguir robando cuesta 1 de '
-        'Energía por carta, y no sabés qué va a salir. Esta vez rendite.',
-    textoEn:
-        'You drew junk. This is where the game is decided: drawing more '
-        'costs 1 Energy per card, and you do not know what is coming. This '
-        'time, give up.',
+    clave: 'tutorial.p13',
     accion: AccionTutorial.resolver,
     foco: FocoTutorial.botones,
   ),
+  // Perdiste Energía y NO te llevaste la carta: rendirse nunca te...
   PasoTutorial(
-    textoEs:
-        'Perdiste Energía y NO te llevaste la carta: rendirse nunca te da '
-        'la recompensa. Pero perder abre la única puerta para limpiar el mazo. '
-        'Eliminá la Duda Existencial.',
-    textoEn:
-        'You lost Energy and did NOT get the card: giving up never earns '
-        'you the reward. But losing opens the only door to clean your deck. '
-        'Remove the Existential Doubt.',
+    clave: 'tutorial.p14',
     accion: AccionTutorial.meditar,
     foco: FocoTutorial.descarte,
   ),
-  PasoTutorial(
-    textoEs:
-        'Eso es meditar: pagás Energía y sacás una carta mala del juego '
-        'para siempre. Un mazo más chico hace que las buenas salgan más '
-        'seguido.\n\nUna partida real son tres fases —Alba, Mediodía y Ocaso— '
-        'y al final llegan dos Campeones. Suerte.',
-    textoEn:
-        'That is meditating: you pay Energy and remove a bad card from '
-        'the game for good. A smaller deck means the good cards come up more '
-        'often.\n\nA real game has three phases — Dawn, Noon and Dusk — and '
-        'two Champions at the end. Good luck.',
-    foco: FocoTutorial.nada,
-  ),
+  // Eso es meditar: pagás Energía y sacás una carta mala del juego...
+  PasoTutorial(clave: 'tutorial.p15', foco: FocoTutorial.nada),
 ];

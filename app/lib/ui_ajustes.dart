@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'app_state.dart';
+import 'idiomas.dart';
 import 'audio.dart';
 import 'l10n.dart';
 import 'rutas.dart';
@@ -266,40 +267,52 @@ class _Idiomas extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget opcion(String? id, String texto) {
       final elegido = app.idiomaElegido == id;
-      return Expanded(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 3),
-          child: PanelPapel(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 6),
-            color: elegido ? kOro.withValues(alpha: .30) : kPapelClaro,
-            borde: elegido ? kOroBorde : kMaderaOscura,
-            onTap: () {
-              tocarUi(context);
-              app.cambiarIdioma(id);
-              onCambio();
-            },
-            child: Text(
-              texto,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
-                color: elegido ? kMaderaOscura : kTintaSuave,
-              ),
-            ),
+      return PanelPapel(
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 6),
+        color: elegido ? kOro.withValues(alpha: .30) : kPapelClaro,
+        borde: elegido ? kOroBorde : kMaderaOscura,
+        onTap: () {
+          tocarUi(context);
+          app.cambiarIdioma(id);
+          onCambio();
+        },
+        child: Text(
+          texto,
+          textAlign: TextAlign.center,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.bold,
+            color: elegido ? kMaderaOscura : kTintaSuave,
           ),
         ),
       );
     }
 
-    return Row(
-      children: [
-        opcion(null, t('ajustes.idiomaSistema')),
-        opcion('es', 'Español'),
-        opcion('en', 'English'),
-      ],
+    // Dos columnas, no una fila: con siete idiomas más «el del sistema», una
+    // fila de `Expanded` le daría 36 px a cada botón en un iPad en Slide Over,
+    // que es un ancho que `test/ipad_test.dart` ya ejerce.
+    return LayoutBuilder(
+      builder: (context, caja) {
+        final ancho = (caja.maxWidth - 6) / 2;
+        return Wrap(
+          spacing: 6,
+          runSpacing: 6,
+          children: [
+            // El del sistema va solo y ocupa el ancho entero: es el default y
+            // no es un idioma más de la lista.
+            SizedBox(
+              width: caja.maxWidth,
+              child: opcion(null, t('ajustes.idiomaSistema')),
+            ),
+            // Cada idioma se nombra en su propio idioma: un japonés busca
+            // 日本語 en la lista, no «Japonés».
+            for (final i in idiomasSoportados)
+              SizedBox(width: ancho, child: opcion(i.codigo, i.nombreNativo)),
+          ],
+        );
+      },
     );
   }
 }

@@ -251,7 +251,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      actual.texto(app.idioma),
+                      actual.texto(t),
                       style: const TextStyle(fontSize: 14.5, height: 1.45),
                     ),
                   ),

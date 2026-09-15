@@ -8,6 +8,7 @@ import 'audio.dart';
 import 'config_store.dart';
 import 'data.dart';
 import 'engine.dart';
+import 'idiomas.dart';
 import 'modos/encargos.dart';
 import 'logros.dart';
 import 'models.dart';
@@ -76,11 +77,25 @@ class AppState extends ChangeNotifier {
 
   // ---------------------------------------------------------------- idioma
 
-  /// Idioma efectivo: el elegido, o el del sistema si hay textos para él.
+  /// Idioma efectivo: el que eligió el jugador, o el que sepamos leerle al
+  /// teléfono.
+  ///
+  /// Mira `locales` y no `locale`: los dos sistemas exponen la lista ordenada
+  /// de preferencias del usuario, y alguien con el teléfono en [turco,
+  /// italiano, inglés] tiene que recibir italiano. Desarmar el locale en
+  /// lengua, escritura y región tampoco es cosmética: con `languageCode`
+  /// pelado, `zh-Hant-TW` y `pt-PT` no matchean ningún código nuestro y el
+  /// jugador terminaba en español.
   String get idioma {
     if (idiomaElegido != null) return idiomaElegido!;
-    final sistema = PlatformDispatcher.instance.locale.languageCode;
-    return tema.idiomas.contains(sistema) ? sistema : Tema.idiomaPorDefecto;
+    return resolverIdioma([
+      for (final l in PlatformDispatcher.instance.locales)
+        (
+          lengua: l.languageCode,
+          escritura: l.scriptCode,
+          region: l.countryCode,
+        ),
+    ]);
   }
 
   TextosTema get textos => tema.textosDe(idioma);

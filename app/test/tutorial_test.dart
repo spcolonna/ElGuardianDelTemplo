@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:guardian_templo/app_state.dart';
+import 'package:guardian_templo/idiomas.dart';
 import 'package:guardian_templo/l10n.dart';
 import 'package:guardian_templo/ui_tutorial.dart';
 
@@ -12,7 +13,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets('el tutorial se arma sin desbordes', (tester) async {
-    for (final idioma in ['es', 'en']) {
+    for (final idioma in codigosIdioma) {
       for (final ancho in [320.0, 360.0, 414.0]) {
         tester.view.physicalSize = Size(ancho, 780);
         tester.view.devicePixelRatio = 1.0;
