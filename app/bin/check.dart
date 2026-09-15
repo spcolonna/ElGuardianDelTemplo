@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'package:guardian_templo/cartas_rotulo.dart';
 import 'package:guardian_templo/data.dart';
 import 'package:guardian_templo/mecanica.dart';
 import 'package:guardian_templo/engine.dart';
@@ -676,6 +677,39 @@ void main() {
   print(
     '21) Literales partidos que se pegan sin espacio: $pegados  (esperado 0)',
   );
+
+  // 22) Ninguna carta se queda sin rótulo.
+  //
+  // El texto de las cartas ya no viaja en el JPG: se dibuja encima, en el
+  // idioma del jugador (ver `lib/cartas_rotulo.dart`). El modo de falla es
+  // mudo —la carta se ve perfecta, con el nombre viejo horneado en español—
+  // así que no hay manera de notarlo salvo mirando las cincuenta, en los siete
+  // idiomas, una por una. Esto lo hace en un milisegundo.
+  //
+  // Se recorren los IDS DE JUEGO y no los archivos porque son más: las 30
+  // técnicas de recompensa comparten carta con su peligro, y si alguna dejara
+  // de encontrar su placa se vería como un peligro sin nombre.
+  var sinRotulo = 0;
+  final idsDeCarta = <String>{
+    for (final p in mecPeligros) ...[p.id, p.recompensa],
+    for (final j in mecJefes) j.id,
+    for (final c in mazoCansancio) c.id,
+    for (final (id, _) in mecMazoInicial) id,
+  };
+  for (final idioma in codigosIdioma) {
+    final textos = temaTemplo.textosDe(idioma);
+    for (final id in idsDeCarta) {
+      final placas = rotuloDe(archivoCarta(id), textos);
+      final vacia =
+          placas.isEmpty ||
+          placas.any((p) => p.lineas.any((l) => l.texto.trim().isEmpty));
+      if (vacia) {
+        print('   $idioma/$id: ${archivoCarta(id)} sin rótulo');
+        sinRotulo++;
+      }
+    }
+  }
+  print('22) Cartas sin rótulo en algún idioma: $sinRotulo  (esperado 0)');
 
   // 19) La copia liviana está al día.
   //

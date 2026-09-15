@@ -1,5 +1,9 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
+import 'app_state.dart';
+import 'cartas_rotulo.dart';
 import 'mecanica.dart';
 import 'models.dart';
 import 'tutorial_zonas.dart';
@@ -57,8 +61,29 @@ class CartaView extends StatelessWidget {
       errorBuilder: (_, e, s) => _respaldo(),
     );
 
+    // El texto de la carta NO viene en la imagen: se escribe encima, en el
+    // idioma que el jugador esté leyendo. Ver `cartas_rotulo.dart`.
+    //
+    // El `AspectRatio` no es decorativo: si el padre da restricciones ajustadas
+    // de otra proporción, la imagen queda centrada con franjas por el
+    // `BoxFit.contain` y el texto, que se ubica sobre la caja entera, se
+    // despega de la ilustración. Atando las dos cosas al mismo rectángulo eso
+    // no puede pasar, venga el tamaño de donde venga.
+    // `foto` aparte y no `imagen` de nuevo: el closure captura la VARIABLE, y
+    // reasignarla haría que el rotulado se dibuje a sí mismo para siempre.
+    final foto = imagen;
+    imagen = Center(
+      child: AspectRatio(
+        aspectRatio: ratioCarta(id),
+        child: LayoutBuilder(
+          builder: (context, cons) =>
+              _rotulada(context, foto, cons.maxWidth, cons.maxHeight),
+        ),
+      ),
+    );
+
     if (rotada) {
-      imagen = Transform.rotate(angle: 3.14159265, child: imagen);
+      imagen = Transform.rotate(angle: math.pi, child: imagen);
     }
 
     return BotonPulsable(
@@ -82,6 +107,117 @@ class CartaView extends StatelessWidget {
         ),
         clipBehavior: Clip.antiAlias,
         child: imagen,
+      ),
+    );
+  }
+
+  /// La carta con su texto escrito encima, en el idioma activo.
+  ///
+  /// El orden importa: primero la imagen, después las placas que tapan el
+  /// texto horneado, y ÚLTIMO el medallón del divisor recortado de la propia
+  /// imagen. El medallón se monta sobre la banda del medio y si no se lo
+  /// devuelve queda un semicírculo comido, que es justo lo primero que mira
+  /// el ojo porque está en el centro exacto de la carta.
+  Widget _rotulada(
+    BuildContext context,
+    Widget imagen,
+    double ancho,
+    double alto,
+  ) {
+    final placas = rotuloDe(archivoCarta(id), AppScope.of(context).textos);
+    if (placas.isEmpty) return imagen;
+    final divisor = mecPeligros.any((p) => p.id == archivoCarta(id));
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        imagen,
+        for (final p in placas) _placa(p, ancho, alto),
+        if (divisor)
+          Positioned.fill(
+            child: ClipPath(clipper: const _Medallon(), child: imagen),
+          ),
+      ],
+    );
+  }
+
+  Widget _placa(PlacaRotulo p, double ancho, double alto) {
+    // Girada, la placa de abajo ocupa el rectángulo espejado. El margen es el
+    // mismo de los dos lados, así que en horizontal no hay nada que espejar.
+    final arriba = p.rotada ? 1 - p.abajo : p.arriba;
+    final ancePlaca = (p.der - p.izq) * ancho;
+    final altoPlaca = (p.abajo - p.arriba) * alto;
+
+    Widget cuerpo = Stack(
+      children: [
+        Positioned.fill(
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              // La del jefe va OPACA. Con un 4% de transparencia todavía se
+              // leía el texto viejo por debajo del nuevo: la letra horneada es
+              // blanco puro sobre fondo de noche, así que el poco que pasa
+              // igual contrasta. Un parche translúcido no tapa nada.
+              color: p.oscura
+                  ? const Color(0xFF2E2E34)
+                  : const Color(0xFFF9F5EB),
+              borderRadius: BorderRadius.circular(ancho * .012),
+            ),
+          ),
+        ),
+        for (var i = 0; i < p.lineas.length; i++)
+          _linea(p, p.lineas[i], i, ancho, alto),
+      ],
+    );
+    if (p.rotada) cuerpo = Transform.rotate(angle: math.pi, child: cuerpo);
+
+    return Positioned(
+      left: p.izq * ancho,
+      top: arriba * alto,
+      width: ancePlaca,
+      height: altoPlaca,
+      child: cuerpo,
+    );
+  }
+
+  Widget _linea(
+    PlacaRotulo p,
+    LineaRotulo l,
+    int indice,
+    double ancho,
+    double alto,
+  ) {
+    final destacada = indice == 0;
+    final color = p.oscura
+        ? (destacada ? const Color(0xFFF4EFE5) : const Color(0xFFD8CFBE))
+        : (destacada ? const Color(0xFF1A1816) : const Color(0xFF785834));
+    final cuerpo = l.cuerpo * alto;
+    // Caja generosa alrededor del centro: la que manda es la línea de base
+    // que midió el arte, no el alto de la caja.
+    final caja = cuerpo * (l.maxLineas + 1.4);
+    final pad = ancho * .018;
+
+    return Positioned(
+      left: pad,
+      right: pad,
+      top: (l.y - p.arriba) * alto - caja / 2,
+      height: caja,
+      child: Align(
+        alignment: Alignment(l.alineacion.toDouble(), 0),
+        child: _TextoAjustado(
+          texto: l.mayusculas ? l.texto.toUpperCase() : l.texto,
+          cuerpo: cuerpo,
+          maxLineas: l.maxLineas,
+          alineacion: l.alineacion < 0
+              ? TextAlign.left
+              : l.alineacion > 0
+              ? TextAlign.right
+              : TextAlign.center,
+          estilo: TextStyle(
+            fontFamily: fuenteCuerpo,
+            fontWeight: l.negrita ? FontWeight.bold : FontWeight.normal,
+            color: color,
+            height: 1.15,
+          ),
+        ),
       ),
     );
   }
@@ -157,4 +293,86 @@ Future<void> mostrarCarta(
       );
     },
   );
+}
+
+/// Recorta el medallón redondo del divisor, para volver a ponerlo sobre la
+/// placa que le pasó por encima.
+///
+/// Es el mismo círculo que recorta `bin/rotular.py` para el print & play: si
+/// algún día se mueve, se mueve en los dos lados o las cartas impresas y las
+/// de pantalla dejan de ser la misma carta.
+class _Medallon extends CustomClipper<Path> {
+  const _Medallon();
+
+  static const _cx = 0.501;
+  static const _cy = 0.498;
+
+  /// El radio es fracción del ANCHO en los dos ejes: el círculo es redondo en
+  /// píxeles de la imagen, no en fracciones de una carta que no es cuadrada.
+  static const _r = 0.030;
+
+  @override
+  Path getClip(Size s) => Path()
+    ..addOval(
+      Rect.fromCircle(
+        center: Offset(_cx * s.width, _cy * s.height),
+        radius: _r * s.width,
+      ),
+    );
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
+}
+
+/// Texto que baja el cuerpo hasta entrar en la caja, en vez de cortarse.
+///
+/// Hace falta porque el mismo nombre mide distinto en cada idioma: «Fe
+/// Renovada» son once caracteres y «Erneuerter Glaube» diecisiete, en la misma
+/// banda impresa que no se puede agrandar. Bajar dos puntos de cuerpo se lee;
+/// tres puntos suspensivos en el nombre de la carta, no.
+///
+/// Lo hace un `FittedBox` y no una cuenta propia. Hubo una: medía con
+/// `TextPainter`, y para el jefe del Loto Negro —el único nombre que de verdad
+/// no entra— daba que entraba, así que no achicaba nada y el nombre salía
+/// cortado igual. `BoxFit.scaleDown` mide el texto suelto y lo encoge contra
+/// la caja de verdad, que es exactamente el problema.
+class _TextoAjustado extends StatelessWidget {
+  final String texto;
+  final double cuerpo;
+  final int maxLineas;
+  final TextAlign alineacion;
+  final TextStyle estilo;
+
+  const _TextoAjustado({
+    required this.texto,
+    required this.cuerpo,
+    required this.maxLineas,
+    required this.alineacion,
+    required this.estilo,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, cons) {
+        Widget hijo = Text(
+          texto,
+          textAlign: alineacion,
+          maxLines: maxLineas,
+          softWrap: maxLineas > 1,
+          style: estilo.copyWith(fontSize: cuerpo),
+        );
+        // Con más de una línea hay que decirle dónde cortar ANTES de encoger,
+        // o mide todo en una sola línea larguísima y lo achica a la nada.
+        if (maxLineas > 1) {
+          hijo = SizedBox(width: cons.maxWidth, child: hijo);
+        }
+        return FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.center,
+          child: hijo,
+        );
+      },
+    );
+  }
 }
