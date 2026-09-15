@@ -45,6 +45,9 @@ class Idioma {
 const idiomasSoportados = <Idioma>[
   Idioma('es', 'Español', 'es'),
   Idioma('en', 'English', 'en'),
+  Idioma('pt-BR', 'Português (BR)', 'pt'),
+  Idioma('it', 'Italiano', 'it'),
+  Idioma('de', 'Deutsch', 'de'),
 ];
 
 /// Los códigos, en el mismo orden.

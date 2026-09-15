@@ -1,7 +1,10 @@
 import '../tema.dart';
 import 'arte.dart';
 import 'textos_en.dart';
+import 'textos_de.dart';
 import 'textos_es.dart';
+import 'textos_it.dart';
+import 'textos_pt_br.dart';
 
 /// Tema original: templo shaolin.
 ///
@@ -20,5 +23,11 @@ const temaTemplo = Tema(
   // Un mapa por idioma de `lib/idiomas.dart`. Si acá falta uno que la
   // lista declara, `textosDe()` lo tapa con español y el juego arranca
   // como si estuviera traducido: por eso lo chequea `bin/check.dart`.
-  textos: {'es': textosTemploEs, 'en': textosTemploEn},
+  textos: {
+    'es': textosTemploEs,
+    'en': textosTemploEn,
+    'pt-BR': textosTemploPtBr,
+    'it': textosTemploIt,
+    'de': textosTemploDe,
+  },
 );

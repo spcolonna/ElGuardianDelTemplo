@@ -398,19 +398,26 @@ class Pastilla extends StatelessWidget {
             Icon(icono, size: compacta ? 14 : 16, color: color),
             const SizedBox(width: 5),
           ],
-          // Flexible + ellipsis porque la pastilla vive en filas sin espacio
-          // de sobra: la de la fase crece con el texto ('Enfrentamiento
-          // Final') y sin acotarla desbordaba la barra de la mesa. Con
-          // mainAxisSize.min el Flexible no estira nada, sólo pone el techo.
+          // Flexible porque la pastilla vive en filas sin espacio de sobra: la
+          // de la fase crece con el texto ('Enfrentamiento Final') y sin
+          // acotarla desbordaba la barra de la mesa. Con mainAxisSize.min el
+          // Flexible no estira nada, sólo pone el techo.
+          //
+          // Y adentro del techo se achica, no se corta. Una pastilla dice un
+          // dato —«10 peligros por fase»— y cortada a «10 Gefahren pro Ph…»
+          // no dice ninguno: el número que importa queda afuera. Leerlo un
+          // punto más chico sigue siendo leerlo.
           Flexible(
-            child: Text(
-              texto,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: kTinta,
-                fontSize: compacta ? 12 : 13.5,
-                fontWeight: FontWeight.w700,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                texto,
+                maxLines: 1,
+                style: TextStyle(
+                  color: kTinta,
+                  fontSize: compacta ? 12 : 13.5,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
           ),
@@ -579,17 +586,25 @@ class PlacaTitulo extends StatelessWidget {
             Icon(icono, size: 18, color: kMaderaOscura),
             const SizedBox(width: 8),
           ],
+          // Y dentro del tope, se achica antes que cortarse. Un título de
+          // sección es la etiqueta de lo que viene abajo: «Einstellun…» no
+          // etiqueta nada. El alemán arma palabras más largas que el español
+          // y eso no es un defecto del alemán; el defecto sería una caja que
+          // sólo aguanta el largo del original.
           ConstrainedBox(
             constraints: BoxConstraints(maxWidth: cons.maxWidth * .75),
-            child: Text(
-              texto,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                fontFamily: fuenteTitulo,
-                fontSize: 19,
-                fontWeight: FontWeight.bold,
-                color: kMaderaOscura,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerLeft,
+              child: Text(
+                texto,
+                maxLines: 1,
+                style: const TextStyle(
+                  fontFamily: fuenteTitulo,
+                  fontSize: 19,
+                  fontWeight: FontWeight.bold,
+                  color: kMaderaOscura,
+                ),
               ),
             ),
           ),

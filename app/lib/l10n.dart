@@ -15,8 +15,11 @@
 library;
 
 import 'idiomas.dart';
+import 'l10n/ui_de.dart';
 import 'l10n/ui_en.dart';
 import 'l10n/ui_es.dart';
+import 'l10n/ui_it.dart';
+import 'l10n/ui_pt_br.dart';
 
 class TextosUi {
   final Map<String, String> _m;
@@ -31,7 +34,13 @@ class TextosUi {
 
   /// Cada idioma soportado con su mapa. Es la lista de [idiomasSoportados];
   /// si alguien agrega uno allá y se olvida acá, `bin/check.dart` lo canta.
-  static const _mapas = <String, Map<String, String>>{'es': uiEs, 'en': uiEn};
+  static const _mapas = <String, Map<String, String>>{
+    'es': uiEs,
+    'en': uiEn,
+    'pt-BR': uiPtBr,
+    'it': uiIt,
+    'de': uiDe,
+  };
 
   static Iterable<String> get idiomas => _mapas.keys;
 

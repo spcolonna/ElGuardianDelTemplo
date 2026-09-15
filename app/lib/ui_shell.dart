@@ -292,7 +292,8 @@ class _Paisaje extends StatefulWidget {
   State<_Paisaje> createState() => _PaisajeState();
 }
 
-class _PaisajeState extends State<_Paisaje> with SingleTickerProviderStateMixin {
+class _PaisajeState extends State<_Paisaje>
+    with SingleTickerProviderStateMixin {
   /// Se crea en `initState` y no como `late final`.
   ///
   /// Diferido, el controller no existía hasta la primera transición, y en una
@@ -564,18 +565,24 @@ class CartelColgante extends StatelessWidget {
           boxShadow: sombraPapel(y: 3),
         ),
       ),
-      child: Text(
-        texto,
-        textAlign: TextAlign.center,
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
-        style: const TextStyle(
-          fontFamily: fuenteTitulo,
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
-          color: kPapelClaro,
-          letterSpacing: 1,
-          shadows: [Shadow(color: kMaderaOscura, offset: Offset(0, 1.5))],
+      // El nombre de la pantalla se achica antes que cortarse: es lo primero
+      // que se lee y lo único que dice dónde estás. En alemán «Einstellungen»
+      // y «Bevor es losgeht» son más largos que «Ajustes» y «Antes de
+      // empezar», y ninguno de los dos se puede abreviar sin quedar raro.
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Text(
+          texto,
+          textAlign: TextAlign.center,
+          maxLines: 2,
+          style: const TextStyle(
+            fontFamily: fuenteTitulo,
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            color: kPapelClaro,
+            letterSpacing: 1,
+            shadows: [Shadow(color: kMaderaOscura, offset: Offset(0, 1.5))],
+          ),
         ),
       ),
     );
@@ -667,13 +674,33 @@ class BarraMadera extends StatelessWidget {
           builder: (context, cs) {
             // 68 = los 56 pt de ancho mínimo del acceso más sus 12 de padding.
             final entran = accesos.length * 68 <= cs.maxWidth;
+            // Cuando entran, cada uno se queda con su parte EXACTA y ni un
+            // píxel más.
+            //
+            // Ese 68 de arriba es el ancho MÍNIMO del acceso, no el que
+            // termina midiendo: la etiqueta no tenía techo, así que un idioma
+            // de palabras largas la hacía crecer y la fila se pasaba aunque
+            // la cuenta dijera que entraba. En italiano —MISSIONI, PROGRESSI,
+            // REGOLE, IMPOSTAZIONI— se desbordaba por cuatro píxeles y medio.
+            // Con el techo puesto, el `FittedBox` de la etiqueta hace lo que
+            // ya sabe hacer y la baja de cuerpo.
+            final reparto = cs.maxWidth / accesos.length;
             final fila = Row(
               mainAxisAlignment: entran
                   ? MainAxisAlignment.spaceEvenly
                   : MainAxisAlignment.start,
               mainAxisSize: entran ? MainAxisSize.max : MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [for (final a in accesos) _Acceso(acceso: a)],
+              children: [
+                for (final a in accesos)
+                  if (entran)
+                    ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: reparto),
+                      child: _Acceso(acceso: a),
+                    )
+                  else
+                    _Acceso(acceso: a),
+              ],
             );
             if (entran) return fila;
             return SingleChildScrollView(

@@ -276,15 +276,21 @@ class _Idiomas extends StatelessWidget {
           app.cambiarIdioma(id);
           onCambio();
         },
-        child: Text(
-          texto,
-          textAlign: TextAlign.center,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.bold,
-            color: elegido ? kMaderaOscura : kTintaSuave,
+        // El nombre del idioma se achica antes que cortarse. «Portugu…» no
+        // es el nombre de ningún idioma, y quien busca su lengua en una lista
+        // la busca entera: es la única palabra de la pantalla que el jugador
+        // todavía no sabe leer en el idioma que está viendo.
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            texto,
+            textAlign: TextAlign.center,
+            maxLines: 1,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+              color: elegido ? kMaderaOscura : kTintaSuave,
+            ),
           ),
         ),
       );
