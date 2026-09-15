@@ -59,6 +59,7 @@ const uiEn = <String, String>{
   'modos.empezar': 'Start',
   'modos.jefesAuto': 'Auto',
   'modos.energia': '{n} Energy',
+  'modos.jefes1': 'One final boss',
   'modos.jefesN': '{n} bosses',
   'modos.peligros': '{n} dangers per phase',
   'modos.roboExtra': 'Extra card: {n}',
@@ -237,20 +238,20 @@ const uiEn = <String, String>{
 
   // ----------------------------------------------- guion del tutorial
   'tutorial.p01':
-      'This is your Energy. It is the only thing keeping you in the game: if'
-      'it drops below zero, you are done. Hitting zero does not kill you, but'
+      'This is your Energy. It is the only thing keeping you in the game: if '
+      'it drops below zero, you are done. Hitting zero does not kill you, but '
       'the next hit will.',
   'tutorial.p02':
-      'This is the danger you are facing. The big number is its Power: that'
+      'This is the danger you are facing. The big number is its Power: that '
       'is what you have to match or beat by adding up cards.',
   'tutorial.p03':
-      'The broken heart is the Energy you lose if you fall short of that'
+      'The broken heart is the Energy you lose if you fall short of that '
       'number. Two, in this case.',
   'tutorial.p04':
-      'And this is the number you will stare at the most: how many cards you'
+      'And this is the number you will stare at the most: how many cards you '
       'can draw for FREE. Once they run out, every extra card costs Energy.',
   'tutorial.p05':
-      'Look at this line: it splits the card in half. The danger you are'
+      'Look at this line: it splits the card in half. The danger you are '
       'facing is on top. The technique you win is at the bottom.',
   'tutorial.p06':
       'And yes, the bottom half is printed upside down. That is on purpose:'
@@ -258,27 +259,27 @@ const uiEn = <String, String>{
       'is all "winning a card" means.',
   'tutorial.p07': 'Let us try. Draw your first card.',
   'tutorial.p08':
-      'There it is: its Power was added to your total. The bar tells you how'
+      'There it is: its Power was added to your total. The bar tells you how '
       'much you still need.',
   'tutorial.p09': 'Not enough yet. Draw another one.',
   'tutorial.p10': 'You made it. Resolve the fight.',
   'tutorial.p11':
-      'You won, and here is the key part: the danger card flips over and the'
-      'technique on its other side becomes yours. That is how you build your'
+      'You won, and here is the key part: the danger card flips over and the '
+      'technique on its other side becomes yours. That is how you build your '
       'deck. Carry on.',
   'tutorial.p12': 'A new, tougher danger. Draw your free cards.',
   'tutorial.p13':
-      'You drew junk. This is where the game is decided: drawing more costs 1'
-      'Energy per card, and you do not know what is coming. This time, give'
+      'You drew junk. This is where the game is decided: drawing more costs 1 '
+      'Energy per card, and you do not know what is coming. This time, give '
       'up.',
   'tutorial.p14':
-      'You lost Energy and did NOT get the card: giving up never earns you'
-      'the reward. But losing opens the only door to clean your deck. Remove'
+      'You lost Energy and did NOT get the card: giving up never earns you '
+      'the reward. But losing opens the only door to clean your deck. Remove '
       'the Existential Doubt.',
   'tutorial.p15':
-      'That is meditating: you pay Energy and remove a bad card from the game'
-      'for good. A smaller deck means the good cards come up more often.\n\nA'
-      'real game has three phases — Dawn, Noon and Dusk — and two Champions'
+      'That is meditating: you pay Energy and remove a bad card from the game '
+      'for good. A smaller deck means the good cards come up more often.\n\nA '
+      'real game has three phases — Dawn, Noon and Dusk — and two Champions '
       'at the end. Good luck.',
 
   // --------------------------------------------------------- reglas
@@ -365,6 +366,9 @@ const uiEn = <String, String>{
       'When: only in the step right after a fight you LOST.',
   'reglas.meditar.cuandoSiempre':
       'When: in the step right after any fight, won or lost.',
+  'reglas.meditar.l3Una':
+      'How: pay {coste} Energy and remove one card from your discard pile. '
+      'It leaves the game for good: it does not come back to the deck.',
   'reglas.meditar.l3':
       'How: pay {coste} Energy and remove {cartas} card(s) from your discard '
       'pile. They leave the game for good: they do not come back to the deck.',

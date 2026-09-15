@@ -561,33 +561,43 @@ class PlacaTitulo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        if (icono != null) ...[
-          Icon(icono, size: 18, color: kMaderaOscura),
-          const SizedBox(width: 8),
-        ],
-        // El título es traducible y la fuente de titular es ancha: sin acotar,
-        // un título largo empujaba la línea fuera de la pantalla.
-        Flexible(
-          child: Text(
-            texto,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              fontFamily: fuenteTitulo,
-              fontSize: 19,
-              fontWeight: FontWeight.bold,
-              color: kMaderaOscura,
+    // El título es traducible y la fuente de titular es ancha: sin acotar, un
+    // título largo empujaba la línea fuera de la pantalla.
+    //
+    // Y acotarlo con `Flexible` tampoco servía, aunque lo pareciera: `Flexible`
+    // y el `Expanded` de la línea son los DOS hijos flexibles de la misma Row,
+    // así que se repartían el hueco mitad y mitad y el título no podía pasar
+    // de la mitad del ancho por largo que fuera el ancho. «Cómo se juega» y
+    // «El templo completo» salían con puntos suspensivos hasta en un iPad de
+    // 1366. Con un `ConstrainedBox`, que no es flexible, el título se lleva lo
+    // que necesita —hasta tres cuartos— y la línea se queda con el resto
+    // exacto, que es lo que decía querer el comentario de antes.
+    return LayoutBuilder(
+      builder: (context, cons) => Row(
+        children: [
+          if (icono != null) ...[
+            Icon(icono, size: 18, color: kMaderaOscura),
+            const SizedBox(width: 8),
+          ],
+          ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: cons.maxWidth * .75),
+            child: Text(
+              texto,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontFamily: fuenteTitulo,
+                fontSize: 19,
+                fontWeight: FontWeight.bold,
+                color: kMaderaOscura,
+              ),
             ),
           ),
-        ),
-        const SizedBox(width: 10),
-        // La línea cede antes que el título, pero nunca desaparece del todo.
-        const Expanded(
-          child: Divider(color: kMadera, thickness: 1.5),
-        ),
-      ],
+          const SizedBox(width: 10),
+          // La línea cede antes que el título, pero nunca desaparece del todo.
+          const Expanded(child: Divider(color: kMadera, thickness: 1.5)),
+        ],
+      ),
     );
   }
 }

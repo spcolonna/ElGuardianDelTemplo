@@ -231,7 +231,13 @@ class _Camino extends StatelessWidget {
                         compacta: true,
                       ),
                       Pastilla(
-                        fmt(t('modos.jefesN'), {'n': c.cantidadJefes}),
+                        // Un solo jefe no es «1 jefes». El plural no se puede
+                        // armar pegándole una ese al número: en alemán y en
+                        // italiano tampoco, y en japonés no existe. Por eso son
+                        // dos claves y no una con sufijo.
+                        c.cantidadJefes == 1
+                            ? t('modos.jefes1')
+                            : fmt(t('modos.jefesN'), {'n': c.cantidadJefes}),
                         icono: Icons.local_fire_department,
                         color: kRojo,
                         compacta: true,

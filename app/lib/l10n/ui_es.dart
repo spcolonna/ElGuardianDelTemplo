@@ -60,6 +60,7 @@ const uiEs = <String, String>{
   'modos.empezar': 'Empezar',
   'modos.jefesAuto': 'Auto',
   'modos.energia': '{n} de Energía',
+  'modos.jefes1': 'Un jefe final',
   'modos.jefesN': '{n} jefes',
   'modos.peligros': '{n} peligros por fase',
   'modos.roboExtra': 'Carta extra: {n}',
@@ -246,47 +247,47 @@ const uiEs = <String, String>{
 
   // ----------------------------------------------- guion del tutorial
   'tutorial.p01':
-      'Esto es tu Energía. Es lo único que te mantiene en el juego: si baja'
-      'de cero, se terminó. Quedarte en cero no te elimina, pero el próximo'
+      'Esto es tu Energía. Es lo único que te mantiene en el juego: si baja '
+      'de cero, se terminó. Quedarte en cero no te elimina, pero el próximo '
       'golpe sí.',
   'tutorial.p02':
-      'Este es el peligro que te toca. El número grande es su Poder: es lo'
+      'Este es el peligro que te toca. El número grande es su Poder: es lo '
       'que tenés que igualar o superar sumando cartas.',
   'tutorial.p03':
       'El corazón roto es lo que perdés de Energía si no llegás a ese número.'
       'En este caso, dos.',
   'tutorial.p04':
-      'Y este es el número que más vas a mirar: cuántas cartas podés robar'
+      'Y este es el número que más vas a mirar: cuántas cartas podés robar '
       'GRATIS. Cuando se te acaban, cada carta extra cuesta Energía.',
   'tutorial.p05':
-      'Fijate en esta línea: parte la carta al medio. Arriba está el peligro'
+      'Fijate en esta línea: parte la carta al medio. Arriba está el peligro '
       'que enfrentás. Abajo, la técnica que ganás si lo vencés.',
   'tutorial.p06':
-      'Y sí, la mitad de abajo está impresa al revés. Es a propósito: cuando'
+      'Y sí, la mitad de abajo está impresa al revés. Es a propósito: cuando '
       'ganes, girás la carta media vuelta y esa mitad queda derecha. Eso es'
       'todo lo que significa "ganar una carta".',
   'tutorial.p07': 'Probemos. Robá tu primera carta.',
   'tutorial.p08':
-      'Ahí está: su Poder se sumó a tu total. Mirá la barra, te dice cuánto'
+      'Ahí está: su Poder se sumó a tu total. Mirá la barra, te dice cuánto '
       'te falta.',
   'tutorial.p09': 'Todavía no alcanza. Robá otra.',
   'tutorial.p10': 'Llegaste. Resolvé el combate.',
   'tutorial.p11':
-      'Ganaste, y esto es lo importante: la carta de peligro se da vuelta y'
+      'Ganaste, y esto es lo importante: la carta de peligro se da vuelta y '
       'la técnica del otro lado pasa a ser tuya. Así se construye el mazo.'
       'Seguí.',
   'tutorial.p12': 'Peligro nuevo, más duro. Robá tus cartas gratis.',
   'tutorial.p13':
-      'Salió basura. Acá se decide el juego: seguir robando cuesta 1 de'
+      'Salió basura. Acá se decide el juego: seguir robando cuesta 1 de '
       'Energía por carta, y no sabés qué va a salir. Esta vez rendite.',
   'tutorial.p14':
-      'Perdiste Energía y NO te llevaste la carta: rendirse nunca te da la'
+      'Perdiste Energía y NO te llevaste la carta: rendirse nunca te da la '
       'recompensa. Pero perder abre la única puerta para limpiar el mazo.'
       'Eliminá la Duda Existencial.',
   'tutorial.p15':
-      'Eso es meditar: pagás Energía y sacás una carta mala del juego para'
+      'Eso es meditar: pagás Energía y sacás una carta mala del juego para '
       'siempre. Un mazo más chico hace que las buenas salgan más seguido.\n\n'
-      'Una partida real son tres fases —Alba, Mediodía y Ocaso— y al final'
+      'Una partida real son tres fases —Alba, Mediodía y Ocaso— y al final '
       'llegan dos Campeones. Suerte.',
 
   // --------------------------------------------------------- reglas
@@ -378,6 +379,9 @@ const uiEs = <String, String>{
   'reglas.meditar.cuandoSiempre':
       'Cuándo: en el paso posterior a cualquier combate, lo hayas ganado o '
       'perdido.',
+  'reglas.meditar.l3Una':
+      'Cómo: pagá {coste} de Energía y eliminá una carta de tu pila de '
+      'descarte. Sale del juego para siempre: no vuelve al mazo.',
   'reglas.meditar.l3':
       'Cómo: pagá {coste} de Energía y eliminá {cartas} carta(s) de tu pila '
       'de descarte. Salen del juego para siempre: no vuelven al mazo.',

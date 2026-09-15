@@ -455,14 +455,14 @@ const textosTemploEs = TextosTema(
     'alba_impecable': TextoEncargo(
       titulo: 'El Alba impecable',
       nota:
-          'Si perdés contra un mosquito, no quiero saber nada del'
+          'Si perdés contra un mosquito, no quiero saber nada del '
           'resto. ',
       recompensa: 'Meditar sale gratis mañana',
     ),
     'sin_pagar_robos': TextoEncargo(
       titulo: 'Sin gastar de más',
       nota:
-          'La Energía no crece en el bambú. Arreglate con lo que te'
+          'La Energía no crece en el bambú. Arreglate con lo que te '
           'toca. ',
       recompensa: '+1 carta gratis en todos los peligros mañana',
     ),
@@ -474,7 +474,7 @@ const textosTemploEs = TextosTema(
     'partida_corta': TextoEncargo(
       titulo: 'Rápido y limpio',
       nota:
-          'El templo no se defiende solo, pero tampoco tenés todo el'
+          'El templo no se defiende solo, pero tampoco tenés todo el '
           'día. ',
       recompensa: '+3 de Energía inicial mañana',
     ),
@@ -491,14 +491,14 @@ const textosTemploEs = TextosTema(
     'jefes_sin_reintento': TextoEncargo(
       titulo: 'Los Campeones de una',
       nota:
-          'A los Campeones se los vence una vez. Repetir es de mala'
+          'A los Campeones se los vence una vez. Repetir es de mala '
           'educación. ',
       recompensa: '+3 de Energía inicial mañana',
     ),
     'sobrar_energia': TextoEncargo(
       titulo: 'Que sobre',
       nota:
-          'Quiero encontrar el templo en pie y a vos con ganas de'
+          'Quiero encontrar el templo en pie y a vos con ganas de '
           'barrer. ',
       recompensa: 'Tope de Energía +5 mañana',
     ),
@@ -510,7 +510,7 @@ const textosTemploEs = TextosTema(
     'victoria_ajustada': TextoEncargo(
       titulo: 'Al filo',
       nota:
-          'Ganar con cinco de Energía tiene más mérito. Y menos'
+          'Ganar con cinco de Energía tiene más mérito. Y menos '
           'sentido común. ',
       recompensa: '+4 de Energía inicial mañana',
     ),

@@ -85,10 +85,16 @@ List<BloqueReglas> reglasDe(Config c, Contenido contenido, TextosUi t) {
         t('reglas.meditar.cuandoSoloAlPerder')
       else
         t('reglas.meditar.cuandoSiempre'),
-      t.con('reglas.meditar.l3', {
-        'coste': c.costeMeditar,
-        'cartas': c.cartasPorMeditacion,
-      }),
+      // «eliminá 1 carta(s)» es lo que escribe un programa, no un reglamento.
+      // El paréntesis además no traduce: el alemán quiere Karte/Karten y el
+      // japonés no quiere ninguno de los dos.
+      if (c.cartasPorMeditacion == 1)
+        t.con('reglas.meditar.l3Una', {'coste': c.costeMeditar})
+      else
+        t.con('reglas.meditar.l3', {
+          'coste': c.costeMeditar,
+          'cartas': c.cartasPorMeditacion,
+        }),
       t('reglas.meditar.l4'),
       t('reglas.meditar.l5'),
       t('reglas.meditar.l6'),

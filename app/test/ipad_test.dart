@@ -42,6 +42,16 @@ final _enEspanol = <String, int>{};
 /// queda en true para cosas que en pantalla entran de sobra, como la palabra
 /// «Ajustes». Falsos positivos en un test de desborde son peores que no
 /// tenerlo: se aprende a ignorarlo.
+/// OJO CON LA UNIDAD: en `flutter test` no están cargadas ni Patrick Hand SC
+/// ni Atkinson. Todo se mide con una fuente de relleno donde cada glifo es un
+/// cuadrado del tamaño de la fuente, así que un ancho acá es «cantidad de
+/// caracteres por el cuerpo» y siempre es MÁS ancho que en el teléfono.
+///
+/// O sea que esto NO dice si un texto se recorta de verdad: para eso hay que
+/// mirar el aparato. Lo que sí dice, y es para lo que está, es si una
+/// traducción usa más caracteres que el original en la misma caja. Que es
+/// exactamente el modo de falla del alemán, y el único que un test puede ver
+/// sin tener las siete fuentes cargadas.
 bool _seComeTexto(RenderParagraph r) {
   if (!r.hasSize || r.size.width <= 0) return false;
   // El ancho es el que le DIERON, no el que terminó midiendo. Cuando el texto

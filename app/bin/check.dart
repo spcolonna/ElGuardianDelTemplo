@@ -620,6 +620,63 @@ void main() {
   }
   print('20) Español fuera de la capa de textos: $castellano  (esperado 0)');
 
+  // 21) Ningún literal partido se pega sin espacio.
+  //
+  // Dart concatena literales adyacentes sin agregar nada en el medio, así que
+  // una prosa larga partida en varias líneas para entrar en 80 columnas queda
+  // a merced de dónde cayó el corte. Si la línea termina en palabra y la
+  // siguiente empieza en palabra, el jugador lee «si bajade cero».
+  //
+  // No es hipotético: al mover el guion del tutorial de `tutorial.dart` a las
+  // claves se perdieron 34 espacios, en inglés Y en español, y ningún test lo
+  // vio porque el string existe, tiene la clave correcta y mide lo esperado.
+  // Sólo se ve leyendo, y para eso hay que saber el idioma.
+  final finDeLiteral = RegExp(r"""(['"])((?:[^'"\\]|\\.)*)\1\s*$""");
+  final iniDeLiteral = RegExp(r"""^(['"])((?:[^'"\\]|\\.)*)\1""");
+  // Resuelve los escapes para que un literal terminado en `\n` no cuente como
+  // terminado en la letra ene.
+  String real(String s) {
+    final b = StringBuffer();
+    for (var i = 0; i < s.length; i++) {
+      if (s[i] == r'\' && i + 1 < s.length) {
+        b.write(const {'n': '\n', 't': '\t'}[s[i + 1]] ?? s[i + 1]);
+        i++;
+      } else {
+        b.write(s[i]);
+      }
+    }
+    return b.toString();
+  }
+
+  var pegados = 0;
+  for (final f in Directory(
+    'lib',
+  ).listSync(recursive: true).whereType<File>()) {
+    if (!f.path.endsWith('.dart')) continue;
+    final lineas = f.readAsLinesSync();
+    for (var i = 0; i < lineas.length - 1; i++) {
+      final a = lineas[i].trimRight();
+      final b = lineas[i + 1].trim();
+      if (a.endsWith(',') || a.endsWith(';')) continue;
+      final ma = finDeLiteral.firstMatch(a);
+      final mb = iniDeLiteral.firstMatch(b);
+      if (ma == null || mb == null) continue;
+      final fin = real(ma[2]!);
+      final ini = real(mb[2]!);
+      if (fin.isEmpty || ini.isEmpty) continue;
+      final ok = RegExp(r'[\w]');
+      if (ok.hasMatch(fin[fin.length - 1]) && ok.hasMatch(ini[0])) {
+        print(
+          '   ${f.path}:${i + 1} se pegan: "...${fin.substring(fin.length - 12 < 0 ? 0 : fin.length - 12)}" + "${ini.substring(0, ini.length < 12 ? ini.length : 12)}..."',
+        );
+        pegados++;
+      }
+    }
+  }
+  print(
+    '21) Literales partidos que se pegan sin espacio: $pegados  (esperado 0)',
+  );
+
   // 19) La copia liviana está al día.
   //
   // Lo que se empaqueta no es el arte de `assets/{comic,cartas,ui}` sino la
