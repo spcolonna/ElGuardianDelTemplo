@@ -254,7 +254,7 @@ const uiEs = <String, String>{
       'Este es el peligro que te toca. El número grande es su Poder: es lo '
       'que tenés que igualar o superar sumando cartas.',
   'tutorial.p03':
-      'El corazón roto es lo que perdés de Energía si no llegás a ese número.'
+      'El corazón roto es lo que perdés de Energía si no llegás a ese número. '
       'En este caso, dos.',
   'tutorial.p04':
       'Y este es el número que más vas a mirar: cuántas cartas podés robar '
@@ -264,7 +264,7 @@ const uiEs = <String, String>{
       'que enfrentás. Abajo, la técnica que ganás si lo vencés.',
   'tutorial.p06':
       'Y sí, la mitad de abajo está impresa al revés. Es a propósito: cuando '
-      'ganes, girás la carta media vuelta y esa mitad queda derecha. Eso es'
+      'ganes, girás la carta media vuelta y esa mitad queda derecha. Eso es '
       'todo lo que significa "ganar una carta".',
   'tutorial.p07': 'Probemos. Robá tu primera carta.',
   'tutorial.p08':
@@ -274,7 +274,7 @@ const uiEs = <String, String>{
   'tutorial.p10': 'Llegaste. Resolvé el combate.',
   'tutorial.p11':
       'Ganaste, y esto es lo importante: la carta de peligro se da vuelta y '
-      'la técnica del otro lado pasa a ser tuya. Así se construye el mazo.'
+      'la técnica del otro lado pasa a ser tuya. Así se construye el mazo. '
       'Seguí.',
   'tutorial.p12': 'Peligro nuevo, más duro. Robá tus cartas gratis.',
   'tutorial.p13':
@@ -282,7 +282,7 @@ const uiEs = <String, String>{
       'Energía por carta, y no sabés qué va a salir. Esta vez rendite.',
   'tutorial.p14':
       'Perdiste Energía y NO te llevaste la carta: rendirse nunca te da la '
-      'recompensa. Pero perder abre la única puerta para limpiar el mazo.'
+      'recompensa. Pero perder abre la única puerta para limpiar el mazo. '
       'Eliminá la Duda Existencial.',
   'tutorial.p15':
       'Eso es meditar: pagás Energía y sacás una carta mala del juego para '

@@ -254,8 +254,8 @@ const uiEn = <String, String>{
       'Look at this line: it splits the card in half. The danger you are '
       'facing is on top. The technique you win is at the bottom.',
   'tutorial.p06':
-      'And yes, the bottom half is printed upside down. That is on purpose:'
-      'when you win, you turn the card around and that half reads right. That'
+      'And yes, the bottom half is printed upside down. That is on purpose: '
+      'when you win, you turn the card around and that half reads right. That '
       'is all "winning a card" means.',
   'tutorial.p07': 'Let us try. Draw your first card.',
   'tutorial.p08':

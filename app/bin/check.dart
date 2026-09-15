@@ -632,8 +632,13 @@ void main() {
   // claves se perdieron 34 espacios, en inglés Y en español, y ningún test lo
   // vio porque el string existe, tiene la clave correcta y mide lo esperado.
   // Sólo se ve leyendo, y para eso hay que saber el idioma.
-  final finDeLiteral = RegExp(r"""(['"])((?:[^'"\\]|\\.)*)\1\s*$""");
-  final iniDeLiteral = RegExp(r"""^(['"])((?:[^'"\\]|\\.)*)\1""");
+  // El literal puede tener la OTRA comilla adentro —«ganar una carta» va
+  // entre comillas dobles dentro de un literal simple— así que no alcanza con
+  // prohibir las dos: hay que prohibir sólo la que abrió. Con la versión
+  // anterior, esos literales no matcheaban y se salteaban en silencio, que es
+  // justo donde estaban dos de los seis pegados que quedaban.
+  final finDeLiteral = RegExp(r"""(['"])((?:\\.|(?!\1)[^\\])*)\1\s*$""");
+  final iniDeLiteral = RegExp(r"""^(['"])((?:\\.|(?!\1)[^\\])*)\1""");
   // Resuelve los escapes para que un literal terminado en `\n` no cuente como
   // terminado en la letra ene.
   String real(String s) {
@@ -665,8 +670,14 @@ void main() {
       final fin = real(ma[2]!);
       final ini = real(mb[2]!);
       if (fin.isEmpty || ini.isEmpty) continue;
-      final ok = RegExp(r'[\w]');
-      if (ok.hasMatch(fin[fin.length - 1]) && ok.hasMatch(ini[0])) {
+      // No alcanza con letra contra letra. «...a ese número.» pegado a «En
+      // este caso, dos.» da «número.En», que es igual de ilegible y encima
+      // más difícil de ver leyendo, porque el punto disimula. Así que cierra
+      // también con puntuación: después de un punto, una coma o dos puntos,
+      // una letra sin espacio es siempre un error.
+      final cierra = RegExp(r'[\w.,;:!?»)]');
+      final abre = RegExp(r'[\w¿¡«]');
+      if (cierra.hasMatch(fin[fin.length - 1]) && abre.hasMatch(ini[0])) {
         print(
           '   ${f.path}:${i + 1} se pegan: "...${fin.substring(fin.length - 12 < 0 ? 0 : fin.length - 12)}" + "${ini.substring(0, ini.length < 12 ? ini.length : 12)}..."',
         );
