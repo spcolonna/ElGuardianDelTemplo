@@ -43,17 +43,46 @@ cd app && dart run bin/export_csv.dart --tema=templo
 
 Español e inglés, con **dos capas separadas**:
 
-- `lib/l10n.dart` — textos de la interfaz. **Balance** y **Simulador** quedan sólo
-  en español a propósito: son herramientas internas de playtesting.
-- `lib/temas/templo/textos_es.dart` y `textos_en.dart` — el contenido del juego:
-  los 70 nombres y sabores de carta, las 23 viñetas y los 12 encargos. El inglés
-  es una **adaptación**, no una traducción literal.
+Siete: **es, en, pt-BR, it, de, ja, zh-Hans**. La lista vive en un solo lugar,
+`lib/idiomas.dart`, y todo lo demás deriva de ahí.
+
+- `lib/l10n/ui_<idioma>.dart` — textos de la interfaz, incluido el guion del
+  tutorial. **Balance** y **Simulador** quedan sólo en español a propósito: son
+  herramientas internas de playtesting.
+- `lib/temas/templo/textos_<idioma>.dart` — el contenido del juego: los 70
+  nombres y sabores de carta, las 23 viñetas, los 12 encargos y los 5 reversos.
+  Cada idioma es una **adaptación**, no una traducción literal: el humor no
+  sobrevive palabra por palabra.
 
 Los prompts de arte van siempre en inglés y viven en `lib/temas/templo/arte.dart`:
 no son para el jugador sino para el generador de imágenes, así que no se traducen.
 
-Por defecto sigue el idioma del sistema; se puede fijar en la pantalla de Reglas.
-`bin/check.dart` falla si a algún idioma le falta una clave.
+Por defecto sigue el idioma del sistema; se puede fijar en **Ajustes**. Un
+teléfono en `pt-PT` recibe el brasileño y uno en `zh-Hant` el simplificado: es
+preferible al inglés (ver `resolverIdioma`). `bin/check.dart` falla si a algún
+idioma le falta una clave o si le sobra un `{placeholder}`.
+
+### Las cartas
+
+El texto de las 50 cartas está horneado en el JPG, en español. No se hornea un
+juego por idioma —serían 10 MB cada uno— sino que se tapa la franja del texto y
+se vuelve a escribir encima, en el idioma activo: `lib/cartas_rotulo.dart` dice
+dónde y `lib/ui_carta.dart` lo dibuja. Pesa cero.
+
+### Las fuentes
+
+Patrick Hand SC y Atkinson Hyperlegible son latinas puras. Para ja y zh-Hans van
+dos Noto Sans **recortadas** a los signos que el juego escribe (0,96 MB entre las
+cuatro; enteras serían 26 MB, y Flutter no subsetea fuentes de texto).
+
+```bash
+dart run bin/export_glifos.dart   # qué signos hacen falta, por idioma
+python3 bin/fuentes.py            # recorta (necesita fonttools)
+```
+
+Los recortes y las listas van versionados: compilar el juego no necesita ninguno
+de los dos scripts. El chequeo 23 parsea el `cmap` y falla si falta un signo —un
+glifo que falta no tira ninguna excepción, se dibuja como un cuadradito vacío.
 
 ## Tutorial
 
@@ -61,7 +90,7 @@ Por defecto sigue el idioma del sistema; se puede fijar en la pantalla de Reglas
 mismo `Juego` con `barajar: false` y un mazo trucado, así que cada dinámica aparece
 cuando el guion la explica y no puede desincronizarse del juego real.
 
-Se muestra una vez, después del cómic de apertura. Se puede repetir desde Reglas.
+Se muestra una vez, después del cómic de apertura. Se puede repetir desde Ajustes.
 
 ## Splash y logo
 
@@ -76,8 +105,9 @@ El prompt del logo está en `../PROMPT_CARTA.md` y en el plan.
 - **Progreso** — timeline de misiones diarias sobre calendario real y el logro de la semana.
 - **Balance** — sliders de reglas, edición en vivo de las 55 cartas, y los interruptores de modos. Exportar/importar JSON.
 - **Simulador** — un bot juega N partidas y reporta % de victorias, turnos y en qué fase muere el jugador.
-- **Reglas** — hoja de reglas que se regenera con los valores actuales, más el
-  selector de idioma y el botón para repetir el tutorial.
+- **Reglas** — hoja de reglas que se regenera con los valores actuales.
+- **Ajustes** — sonido, el selector de idioma, el botón para repetir el tutorial,
+  la compra y las opciones de privacidad.
 
 ## Arquitectura: mecánica separada del tema
 

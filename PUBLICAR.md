@@ -123,12 +123,21 @@ En Ajustes hay una sección de Privacidad con el botón **Opciones de privacidad
 —que reabre el formulario, y que AdMob exige— y el enlace a la política. El
 botón solo aparece donde el formulario existe.
 
-`NSUserTrackingUsageDescription` está en el Info.plist, en español. Sin esa clave
-iOS no muestra el cartel: responde «denegado» sin preguntarle a nadie.
+`NSUserTrackingUsageDescription` está en `Runner/<idioma>.lproj/InfoPlist.strings`,
+en los siete, con el inglés de respaldo en el Info.plist. Sin esa clave iOS no
+muestra el cartel: responde «denegado» sin preguntarle a nadie. Estuvo un tiempo
+sólo en el plist y sólo en español, así que un japonés leía el cartel de Apple en
+castellano.
 
 **Falta tuyo:** crear y **publicar el mensaje de consentimiento en la consola de
-AdMob**, en español, y elegir los socios publicitarios. Sin eso publicado, el
-formulario no baja y el SDK no sirve avisos en Europa.
+AdMob**, y elegir los socios publicitarios. Sin eso publicado, el formulario no
+baja y el SDK no sirve avisos en Europa.
+
+⚠️ Ese mensaje **no está en el repositorio**: se redacta en la consola de AdMob
+(Privacidad y mensajes → tu mensaje de RGPD → Idiomas) y hoy tiene un solo
+idioma, el español. Es la **primera** pantalla que ve un jugador nuevo en Europa,
+antes que el cómic. Hay que cargarle los siete: es, en, pt-BR, it, de, ja y
+zh-Hans. El SDK elige solo según el teléfono.
 
 ### 2.6 SKAdNetwork — **[hecho]**
 
@@ -245,8 +254,9 @@ que se puede medir desde acá.
   rectángulo vacío. Ahora lleva el isotipo a 220 pt sobre el papel del propio
   logo, medido del borde de la imagen para que el cuadrado no se vea.
 - **`CFBundleDisplayName`** pasó de «Guardian Templo» a **«Guardián del Templo»**.
-- **`CFBundleDevelopmentRegion = es`** y `CFBundleLocalizations = [es, en]`. Sin
-  eso, una app escrita en español se lista como inglesa.
+- **`CFBundleDevelopmentRegion = es`** y `CFBundleLocalizations` con los siete
+  idiomas. Sin eso, una app escrita en español se lista como inglesa, y sin los
+  siete la ficha no ofrece los otros mercados.
 - **`description`** de `pubspec.yaml` ya no dice «A new Flutter project.».
 - **`platform :ios, '15.0'`** destapado en el Podfile. Andaba de casualidad, por
   el `IPHONEOS_DEPLOYMENT_TARGET` del proyecto, y hoy los dos dicen 15.
@@ -270,10 +280,15 @@ alfa en ninguno** — verificados uno por uno. Por ahí no va a haber rechazo.
    `docs/privacidad.html`.
 5. **Capturas**: iPhone 6.9" y iPad 13". Las puedo sacar del simulador; elegir
    cuáles y en qué orden es tuyo.
-6. **El texto de la ficha**: nombre, subtítulo, descripción y palabras clave, en
-   español. El idioma principal de la ficha va en español; el inglés se agrega
-   cuando puedas revisar los textos de las cartas.
-7. **Las declaraciones de privacidad** de App Store Connect. Lo que hay que
+6. **El texto de la ficha**: nombre, subtítulo, descripción y palabras clave. El
+   idioma principal va en español, y el juego ya habla **siete**, así que la
+   ficha puede llevar las siete localizaciones: es, en, pt-BR, it, de, ja,
+   zh-Hans. El borrador de los siete está en
+   [`TIENDA_FICHA.md`](TIENDA_FICHA.md) — hay que leerlos antes de pegarlos, que
+   es texto de venta y lo firma tu nombre.
+7. **El mensaje de consentimiento de AdMob en los siete idiomas** (ver 2.5). Hoy
+   está sólo en español y es la primera pantalla del juego en Europa.
+8. **Las declaraciones de privacidad** de App Store Connect. Lo que hay que
    tildar está abajo.
 
 ### Qué tildar en App Store Connect

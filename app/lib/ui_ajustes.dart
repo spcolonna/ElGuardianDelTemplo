@@ -314,6 +314,14 @@ class _Idiomas extends StatelessWidget {
             ),
             // Cada idioma se nombra en su propio idioma: un japonés busca
             // 日本語 en la lista, no «Japonés».
+            //
+            // Es la ÚNICA pantalla donde conviven los tres alfabetos, y por
+            // eso la única donde la fuente del juego no alcanza: en inglés,
+            // Atkinson no tiene 日本語, y en japonés la Noto recortada no
+            // tiene la ñ de «Español». Los dibuja la fuente del sistema, que
+            // para esto está. Por eso `bin/export_glifos.dart` no suma estos
+            // nombres a la lista de ningún idioma: pedírselos a las fuentes
+            // sería pedirles algo que no puede cumplir ninguna.
             for (final i in idiomasSoportados)
               SizedBox(width: ancho, child: opcion(i.codigo, i.nombreNativo)),
           ],
