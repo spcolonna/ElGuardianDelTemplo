@@ -358,7 +358,7 @@ class _Dato extends StatelessWidget {
               child: Text(
                 valor,
                 maxLines: 1,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: fuenteTitulo,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,

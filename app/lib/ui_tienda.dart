@@ -64,7 +64,7 @@ class BannerCompra extends StatelessWidget {
               Expanded(
                 child: Text(
                   t('tienda.titulo'),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: fuenteTitulo,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -163,7 +163,7 @@ class _HojaTiendaState extends State<_HojaTienda> {
           children: [
             Text(
               t('tienda.titulo'),
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: fuenteTitulo,
                 fontSize: 26,
                 fontWeight: FontWeight.bold,

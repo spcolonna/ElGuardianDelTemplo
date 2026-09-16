@@ -99,9 +99,8 @@ class PartidaScreen extends StatelessWidget {
       claveFondo: app.faseEscenica.name,
       // La música entra recién cuando el paisaje nuevo terminó de entrar: las
       // dos cosas juntas son un solo gesto de "cambió el momento del día".
-      onTransicion: () => app.audio.ponerPista(
-        pistaDeFase[app.faseEscenica] ?? Pista.alba,
-      ),
+      onTransicion: () =>
+          app.audio.ponerPista(pistaDeFase[app.faseEscenica] ?? Pista.alba),
       cuerpo: GameScreen(onSalir: volver),
     );
   }

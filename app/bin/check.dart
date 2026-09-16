@@ -1,5 +1,6 @@
 // Chequeos del motor: `dart run bin/check.dart`
 import 'dart:convert';
+import 'dart:typed_data';
 import 'dart:io';
 import 'dart:math';
 import 'package:guardian_templo/cartas_rotulo.dart';
@@ -722,6 +723,55 @@ void main() {
   }
   print('22) Cartas sin rótulo en algún idioma: $sinRotulo  (esperado 0)');
 
+  // 23) Ninguna fuente se queda sin un signo que su idioma escribe.
+  //
+  // Este es el chequeo que no se puede reemplazar mirando la pantalla. Un
+  // codepoint que la fuente no tiene se dibuja como un cuadradito vacío —un
+  // «tofu»— y no tira ninguna excepción: el widget se construye, el test pasa,
+  // el layout mide bien, y el único que se entera es un jugador japonés que ve
+  // un rectángulo donde iba una palabra.
+  //
+  // Se parsea el cmap del .ttf/.otf a mano, en Dart puro, contra la lista que
+  // escribe `bin/export_glifos.dart`. Formatos 4 y 12, que son los que usan
+  // las cinco fuentes del juego.
+  var sinGlifo = 0;
+  for (final idioma in codigosIdioma) {
+    final lista = File('fonts/glifos_$idioma.txt');
+    if (!lista.existsSync()) {
+      print('   $idioma: falta ${lista.path} (corré bin/export_glifos.dart)');
+      sinGlifo++;
+      continue;
+    }
+    final quiere = lista
+        .readAsLinesSync()
+        .where((l) => l.trim().isNotEmpty)
+        .map((l) => int.parse(l.trim(), radix: 16))
+        .toSet();
+    for (final archivo in _fuentesDe(idioma)) {
+      final f = File('fonts/$archivo');
+      if (!f.existsSync()) {
+        print('   $idioma: falta la fuente fonts/$archivo');
+        sinGlifo++;
+        continue;
+      }
+      final tiene = _cmapDe(f.readAsBytesSync());
+      final faltan = quiere.difference(tiene);
+      if (faltan.isNotEmpty) {
+        final muestra = faltan
+            .take(12)
+            .map(
+              (c) =>
+                  '${String.fromCharCode(c)} (U+${c.toRadixString(16).toUpperCase()})',
+            );
+        print(
+          '   $idioma/$archivo: faltan ${faltan.length} → ${muestra.join(', ')}',
+        );
+        sinGlifo += faltan.length;
+      }
+    }
+  }
+  print('23) Signos que alguna fuente no tiene: $sinGlifo  (esperado 0)');
+
   // 19) La copia liviana está al día.
   //
   // Lo que se empaqueta no es el arte de `assets/{comic,cartas,ui}` sino la
@@ -818,3 +868,102 @@ bool _mismos(Set<String> a, Set<String> b) =>
 /// Los `{placeholders}` que usa un texto.
 Set<String> _huecosDe(String texto) =>
     RegExp(r'\{(\w+)\}').allMatches(texto).map((m) => m[1]!).toSet();
+
+/// Las fuentes que este idioma va a usar de verdad.
+///
+/// Es la misma decisión que toma `fijarFuentes` en `lib/ui_kit.dart`, escrita
+/// una segunda vez a propósito: aquélla vive en la capa de Flutter y ésta
+/// corre en Dart pelado. Si alguien cambia una y se olvida de la otra, lo peor
+/// que pasa es que este chequeo mire la fuente equivocada, así que la lista
+/// nombra también el titular, que es el que más fácil se olvida.
+List<String> _fuentesDe(String idioma) {
+  final i = idiomasSoportados.where((x) => x.codigo == idioma).firstOrNull;
+  if (i != null && i.cjk) {
+    final base = i.lengua == 'ja' ? 'NotoSansJP' : 'NotoSansSC';
+    return ['$base-Cuerpo.otf', '$base-CuerpoBold.otf'];
+  }
+  return [
+    'PatrickHandSC-Regular.ttf',
+    'AtkinsonHyperlegible-Regular.ttf',
+    'AtkinsonHyperlegible-Bold.ttf',
+  ];
+}
+
+/// Los codepoints que una fuente sabe dibujar, leyendo su tabla `cmap`.
+///
+/// Dart puro y a mano porque no hay forma de preguntárselo a Flutter: el motor
+/// resuelve la fuente al pintar y, si le falta el glifo, pinta el cuadradito
+/// sin avisarle a nadie.
+Set<int> _cmapDe(List<int> bytes) {
+  final d = ByteData.view(Uint8List.fromList(bytes).buffer);
+  final puntos = <int>{};
+
+  // Un `.ttc` lleva varias fuentes adentro; ninguna de las cinco lo es, pero
+  // si algún día entra una, mejor fallar claro que leer basura.
+  if (d.getUint32(0) == 0x74746366) {
+    throw StateError('.ttc no soportado: extraé la fuente suelta');
+  }
+  final tablas = d.getUint16(4);
+  var cmap = -1;
+  for (var i = 0; i < tablas; i++) {
+    final reg = 12 + i * 16;
+    final etiqueta = String.fromCharCodes(bytes.sublist(reg, reg + 4));
+    if (etiqueta == 'cmap') cmap = d.getUint32(reg + 8);
+  }
+  if (cmap < 0) return puntos;
+
+  // De las subtablas se leen las UNICODE, y se leen TODAS: una fuente puede
+  // traer la 4 (hasta U+FFFF) y la 12 (el resto) y hacer falta las dos.
+  final n = d.getUint16(cmap + 2);
+  for (var i = 0; i < n; i++) {
+    final reg = cmap + 4 + i * 8;
+    final plataforma = d.getUint16(reg);
+    final codificacion = d.getUint16(reg + 2);
+    final esUnicode =
+        plataforma == 0 ||
+        (plataforma == 3 && (codificacion == 1 || codificacion == 10));
+    if (!esUnicode) continue;
+    final sub = cmap + d.getUint32(reg + 4);
+    final formato = d.getUint16(sub);
+    if (formato == 4) {
+      final segX2 = d.getUint16(sub + 6);
+      final finales = sub + 14;
+      final inicios = finales + segX2 + 2;
+      final deltas = inicios + segX2;
+      final rangos = deltas + segX2;
+      for (var s = 0; s < segX2 ~/ 2; s++) {
+        final fin = d.getUint16(finales + s * 2);
+        final ini = d.getUint16(inicios + s * 2);
+        if (ini == 0xFFFF) continue;
+        final delta = d.getUint16(deltas + s * 2);
+        final rango = d.getUint16(rangos + s * 2);
+        for (var c = ini; c <= fin && c != 0xFFFF; c++) {
+          int glifo;
+          if (rango == 0) {
+            glifo = (c + delta) & 0xFFFF;
+          } else {
+            final pos = rangos + s * 2 + rango + (c - ini) * 2;
+            if (pos + 1 >= bytes.length) continue;
+            glifo = d.getUint16(pos);
+            if (glifo != 0) glifo = (glifo + delta) & 0xFFFF;
+          }
+          if (glifo != 0) puntos.add(c);
+        }
+      }
+    } else if (formato == 12) {
+      final grupos = d.getUint32(sub + 12);
+      for (var g = 0; g < grupos; g++) {
+        final reg = sub + 16 + g * 12;
+        final ini = d.getUint32(reg);
+        final fin = d.getUint32(reg + 4);
+        // Un grupo puede ser enorme en una fuente entera; acá son recortes,
+        // pero el tope evita que un archivo raro cuelgue el chequeo.
+        if (fin - ini > 0x20000) continue;
+        for (var c = ini; c <= fin; c++) {
+          puntos.add(c);
+        }
+      }
+    }
+  }
+  return puntos;
+}

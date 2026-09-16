@@ -93,6 +93,8 @@ flutter:
   # 'Cuerpo'  Atkinson Hyperlegible — diseñada para legibilidad; importa
   #           porque acá el texto va en marrón sobre madera.
   fonts:
+    # Las latinas cubren es, en, pt-BR, it y de: son latinas puras, sin un
+    # solo kana ni un solo hanzi.
     - family: Titulo
       fonts:
         - asset: fonts/PatrickHandSC-Regular.ttf
@@ -100,6 +102,28 @@ flutter:
       fonts:
         - asset: fonts/AtkinsonHyperlegible-Regular.ttf
         - asset: fonts/AtkinsonHyperlegible-Bold.ttf
+          weight: 700
+    # Y estas dos, para ja y zh-Hans. Son Noto Sans recortada a los signos que
+    # el juego escribe de verdad (ver `bin/fuentes.py`): enteras pesan 26 MB,
+    # recortadas 0,96.
+    #
+    # Son DOS familias y no una aunque compartan miles de codepoints: varios
+    # hanzi se dibujan distinto según la región, y una fuente sola tendría que
+    # elegir una forma, que para la mitad de los jugadores sería la de otro
+    # país. Elige `fuenteCuerpoDe(idioma)`.
+    #
+    # El titular va en la misma familia en negrita: Patrick Hand SC es
+    # manuscrita y no existe nada equivalente en CJK, así que el titular se
+    # distingue por peso y no por tipografía.
+    - family: CuerpoJa
+      fonts:
+        - asset: fonts/NotoSansJP-Cuerpo.otf
+        - asset: fonts/NotoSansJP-CuerpoBold.otf
+          weight: 700
+    - family: CuerpoZh
+      fonts:
+        - asset: fonts/NotoSansSC-Cuerpo.otf
+        - asset: fonts/NotoSansSC-CuerpoBold.otf
           weight: 700
 
   # To add assets to your application, add an assets section, like this:

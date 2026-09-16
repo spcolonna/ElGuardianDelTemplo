@@ -569,7 +569,7 @@ class _AvisoMesa extends StatelessWidget {
                     children: [
                       Text(
                         titulo,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: fuenteTitulo,
                           fontSize: 17,
                           color: kTinta,
@@ -1961,7 +1961,7 @@ class _ChispaEnergia extends StatelessWidget {
               const SizedBox(width: 2),
               Text(
                 '${sube ? '+' : ''}$delta',
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: fuenteTitulo,
                   fontSize: 17,
                   fontWeight: FontWeight.bold,

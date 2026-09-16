@@ -76,7 +76,7 @@ class _ComicViewState extends State<ComicView> {
                       widget.textos.nombre,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: fuenteTitulo,
                         fontWeight: FontWeight.bold,
                         fontSize: 17,

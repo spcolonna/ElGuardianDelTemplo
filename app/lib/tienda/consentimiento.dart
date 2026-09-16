@@ -128,7 +128,10 @@ class Consentimiento {
       await ConsentForm.showPrivacyOptionsForm((_) {
         if (!cerrado.isCompleted) cerrado.complete();
       });
-      await cerrado.future.timeout(const Duration(seconds: 30), onTimeout: () {});
+      await cerrado.future.timeout(
+        const Duration(seconds: 30),
+        onTimeout: () {},
+      );
     } catch (_) {
       // Que el botón no explote nunca.
     }

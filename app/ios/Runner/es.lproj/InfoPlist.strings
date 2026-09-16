@@ -1,0 +1,2 @@
+/* El cartel de rastreo de iOS. Lo redacta Apple salvo esta línea. */
+"NSUserTrackingUsageDescription" = "Para mostrarte avisos que tengan algo que ver con vos. Si decís que no, el juego funciona igual.";

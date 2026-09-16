@@ -9,6 +9,7 @@ import 'config_store.dart';
 import 'data.dart';
 import 'engine.dart';
 import 'idiomas.dart';
+import 'ui_kit.dart';
 import 'l10n.dart';
 import 'modos/encargos.dart';
 import 'logros.dart';
@@ -105,6 +106,10 @@ class AppState extends ChangeNotifier {
     idiomaElegido = id;
     await prefs.guardarIdioma(id);
     contenido = contenidoDe(tema, idioma);
+    // ANTES de notificar: si se hiciera después, el primer frame del idioma
+    // nuevo se dibujaría con la fuente del anterior, y en japonés eso son
+    // cuadraditos.
+    fijarFuentes(idioma);
     notifyListeners();
   }
 
@@ -120,6 +125,7 @@ class AppState extends ChangeNotifier {
     // La config sale del archivo versionado, no de las preferencias.
     cfg = await ConfigStore.cargar(prefs.crudo);
     idiomaElegido = prefs.cargarIdioma();
+    fijarFuentes(idioma);
     tema = temaPorId(prefs.cargarTema());
     tutorialVisto = prefs.tutorialVisto;
     introVista = prefs.introVista;

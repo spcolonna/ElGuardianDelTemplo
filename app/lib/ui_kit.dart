@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'idiomas.dart';
 import 'ui_texturas.dart';
 
 /// Paleta y piezas de interfaz del juego, sacadas del mock: papel crema,
@@ -17,8 +18,43 @@ import 'ui_texturas.dart';
 
 /// Familias tipográficas. Van sueltas para poder usarlas en `TextStyle`
 /// puntuales sin depender del `Theme`.
-const fuenteTitulo = 'Titulo';
-const fuenteCuerpo = 'Cuerpo';
+///
+/// **No son constantes: dependen del idioma.** Patrick Hand SC y Atkinson
+/// Hyperlegible son latinas puras —les parseé el cmap: 507 y 342 glifos, ni un
+/// kana— así que en japonés y en chino cada letra saldría como un cuadradito.
+/// [fijarFuentes] las apunta a la familia CJK cuando hace falta.
+///
+/// Son variables de módulo y no un parámetro que se pasa de widget en widget
+/// porque el idioma es estado GLOBAL y cambiarlo reconstruye la app entera:
+/// hay treinta y tres lugares que nombran una familia, veintidós de ellos
+/// dentro de un `TextStyle` constante, y enhebrarles un locale a todos sería
+/// mucho código nuevo para decir lo mismo que dicen estas dos líneas.
+///
+/// El precio es que dejaron de ser `const`, y por eso los `TextStyle` que las
+/// usan tampoco lo son.
+String fuenteTitulo = 'Titulo';
+String fuenteCuerpo = 'Cuerpo';
+
+/// Apunta [fuenteTitulo] y [fuenteCuerpo] a la familia de este idioma.
+///
+/// La llama [AppState] al cargar y cada vez que se cambia de idioma, ANTES de
+/// notificar: si se llamara después, el primer frame del idioma nuevo se
+/// dibujaría con la fuente del anterior.
+///
+/// El titular en CJK es la misma familia en negrita. No es una concesión: no
+/// existe una Noto manuscrita equivalente a Patrick Hand SC, y una tipografía
+/// de titular elegida por parecido lejano se nota más que un cambio de peso.
+void fijarFuentes(String idioma) {
+  final i = idiomasSoportados.where((x) => x.codigo == idioma).firstOrNull;
+  if (i == null || !i.cjk) {
+    fuenteTitulo = 'Titulo';
+    fuenteCuerpo = 'Cuerpo';
+    return;
+  }
+  final familia = i.lengua == 'ja' ? 'CuerpoJa' : 'CuerpoZh';
+  fuenteTitulo = familia;
+  fuenteCuerpo = familia;
+}
 
 // ------------------------------------------------------------------ paleta
 const kPapel = Color(0xFFF7F1E1); // fondo
@@ -547,7 +583,7 @@ class PlacaNombre extends StatelessWidget {
         textAlign: TextAlign.center,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: fuenteTitulo,
           fontSize: 17,
           fontWeight: FontWeight.bold,
@@ -599,7 +635,7 @@ class PlacaTitulo extends StatelessWidget {
               child: Text(
                 texto,
                 maxLines: 1,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: fuenteTitulo,
                   fontSize: 19,
                   fontWeight: FontWeight.bold,

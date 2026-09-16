@@ -46,3 +46,8 @@ app.*.map.json
 
 # Restos de una comparación de goldens fallida. Son derivados.
 test/failures/
+
+# Las fuentes CJK originales: 26 MB que sólo usa bin/fuentes.py, y que el
+# script se baja solo. Lo que viaja en el juego son los recortes, que sí van
+# versionados.
+/fonts/fuente/

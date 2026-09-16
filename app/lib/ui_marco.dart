@@ -240,7 +240,7 @@ class _MarcoJuegoState extends State<MarcoJuego> {
                       widget.titulo,
                       textAlign: TextAlign.center,
                       maxLines: 1,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: fuenteTitulo,
                         fontSize: 30,
                         fontWeight: FontWeight.bold,

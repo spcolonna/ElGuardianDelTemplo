@@ -19,7 +19,9 @@ import 'l10n/ui_de.dart';
 import 'l10n/ui_en.dart';
 import 'l10n/ui_es.dart';
 import 'l10n/ui_it.dart';
+import 'l10n/ui_ja.dart';
 import 'l10n/ui_pt_br.dart';
+import 'l10n/ui_zh_hans.dart';
 
 class TextosUi {
   final Map<String, String> _m;
@@ -40,6 +42,8 @@ class TextosUi {
     'pt-BR': uiPtBr,
     'it': uiIt,
     'de': uiDe,
+    'ja': uiJa,
+    'zh-Hans': uiZhHans,
   };
 
   static Iterable<String> get idiomas => _mapas.keys;

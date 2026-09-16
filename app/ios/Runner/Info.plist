@@ -225,6 +225,11 @@
 	<array>
 		<string>es</string>
 		<string>en</string>
+		<string>pt-BR</string>
+		<string>it</string>
+		<string>de</string>
+		<string>ja</string>
+		<string>zh-Hans</string>
 	</array>
 	<key>CFBundleDisplayName</key>
 	<string>Guardián del Templo</string>
@@ -287,8 +292,12 @@
 	<false/>
 	<!-- El texto del cartel de seguimiento. Sin esta clave iOS no muestra el
 	     cartel: responde "denegado" sin preguntarle a nadie. -->
+	<!-- Éste es el RESPALDO, el que se ve si el teléfono está en un idioma que
+	     no hablamos. El que ve cada jugador sale de Runner/<idioma>.lproj/
+	     InfoPlist.strings, y son siete. Estaba sólo acá y en español, así que
+	     un japonés leía el cartel de rastreo de Apple en castellano. -->
 	<key>NSUserTrackingUsageDescription</key>
-	<string>Para mostrarte avisos que tengan algo que ver con vos. Si decís que no, el juego funciona igual.</string>
+	<string>To show you ads that have something to do with you. If you say no, the game works just the same.</string>
 	<!-- Aca iba UIRequiresFullScreen, y no va.
 	     La clave esta deprecada: desde iPadOS 26 el sistema la ignora y ya no
 	     se puede pedir la pantalla entera. Un iPad puede darle a la app la

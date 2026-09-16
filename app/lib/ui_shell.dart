@@ -575,7 +575,7 @@ class CartelColgante extends StatelessWidget {
           texto,
           textAlign: TextAlign.center,
           maxLines: 2,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: fuenteTitulo,
             fontSize: 25,
             fontWeight: FontWeight.bold,

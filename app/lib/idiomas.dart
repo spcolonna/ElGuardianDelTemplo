@@ -48,6 +48,8 @@ const idiomasSoportados = <Idioma>[
   Idioma('pt-BR', 'Português (BR)', 'pt'),
   Idioma('it', 'Italiano', 'it'),
   Idioma('de', 'Deutsch', 'de'),
+  Idioma('ja', '日本語', 'ja', cjk: true),
+  Idioma('zh-Hans', '简体中文', 'zh', escritura: 'Hans', cjk: true),
 ];
 
 /// Los códigos, en el mismo orden.

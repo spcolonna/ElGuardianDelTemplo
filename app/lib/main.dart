@@ -72,17 +72,17 @@ class _GuardianAppState extends State<GuardianApp> {
           .apply(bodyColor: kTinta, displayColor: kTinta)
           .copyWith(
             // Los títulos van en la manuscrita; el cuerpo en la legible.
-            displayLarge: const TextStyle(fontFamily: fuenteTitulo),
-            displayMedium: const TextStyle(fontFamily: fuenteTitulo),
-            headlineLarge: const TextStyle(fontFamily: fuenteTitulo),
-            headlineMedium: const TextStyle(fontFamily: fuenteTitulo),
-            headlineSmall: const TextStyle(
+            displayLarge: TextStyle(fontFamily: fuenteTitulo),
+            displayMedium: TextStyle(fontFamily: fuenteTitulo),
+            headlineLarge: TextStyle(fontFamily: fuenteTitulo),
+            headlineMedium: TextStyle(fontFamily: fuenteTitulo),
+            headlineSmall: TextStyle(
               fontFamily: fuenteTitulo,
               fontSize: 26,
               fontWeight: FontWeight.bold,
               color: kTinta,
             ),
-            titleLarge: const TextStyle(fontFamily: fuenteTitulo),
+            titleLarge: TextStyle(fontFamily: fuenteTitulo),
           ),
       iconTheme: const IconThemeData(color: kTinta),
       dividerColor: kMadera.withValues(alpha: .5),
@@ -104,7 +104,7 @@ class _GuardianAppState extends State<GuardianApp> {
           foregroundColor: kTinta,
           disabledBackgroundColor: kMadera.withValues(alpha: .35),
           disabledForegroundColor: kTintaSuave,
-          textStyle: const TextStyle(
+          textStyle: TextStyle(
             fontFamily: fuenteCuerpo,
             fontSize: 15,
             fontWeight: FontWeight.bold,
@@ -120,7 +120,7 @@ class _GuardianAppState extends State<GuardianApp> {
         style: OutlinedButton.styleFrom(
           backgroundColor: kPapelClaro,
           foregroundColor: kTinta,
-          textStyle: const TextStyle(
+          textStyle: TextStyle(
             fontFamily: fuenteCuerpo,
             fontSize: 15,
             fontWeight: FontWeight.bold,
@@ -135,7 +135,7 @@ class _GuardianAppState extends State<GuardianApp> {
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: kMaderaOscura,
-          textStyle: const TextStyle(
+          textStyle: TextStyle(
             fontFamily: fuenteCuerpo,
             fontSize: 15,
             fontWeight: FontWeight.bold,
@@ -151,13 +151,13 @@ class _GuardianAppState extends State<GuardianApp> {
       dialogTheme: DialogThemeData(
         backgroundColor: kPapelClaro,
         surfaceTintColor: Colors.transparent,
-        titleTextStyle: const TextStyle(
+        titleTextStyle: TextStyle(
           fontFamily: fuenteTitulo,
           fontSize: 21,
           fontWeight: FontWeight.bold,
           color: kTinta,
         ),
-        contentTextStyle: const TextStyle(
+        contentTextStyle: TextStyle(
           fontFamily: fuenteCuerpo,
           fontSize: 14.5,
           color: kTintaSuave,

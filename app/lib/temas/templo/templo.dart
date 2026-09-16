@@ -4,7 +4,9 @@ import 'textos_en.dart';
 import 'textos_de.dart';
 import 'textos_es.dart';
 import 'textos_it.dart';
+import 'textos_ja.dart';
 import 'textos_pt_br.dart';
+import 'textos_zh_hans.dart';
 
 /// Tema original: templo shaolin.
 ///
@@ -29,5 +31,7 @@ const temaTemplo = Tema(
     'pt-BR': textosTemploPtBr,
     'it': textosTemploIt,
     'de': textosTemploDe,
+    'ja': textosTemploJa,
+    'zh-Hans': textosTemploZhHans,
   },
 );

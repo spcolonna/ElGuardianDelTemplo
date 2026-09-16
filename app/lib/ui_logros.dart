@@ -193,7 +193,7 @@ class _Insignia extends StatelessWidget {
               Text(
                 tiene ? t(logro.claveTitulo) : t('logros.bloqueado'),
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: fuenteTitulo,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
