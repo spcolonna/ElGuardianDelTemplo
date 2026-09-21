@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- El nombre bajo el ícono. Va por idioma y dice lo mismo que la ficha
+         de la tienda en ese idioma: ver TIENDA_FICHA.md. Si acá dijera otra
+         cosa, el jugador descargaría un juego y encontraría otro en la
+         pantalla. El gemelo en iOS es ios/Runner/<idioma>.lproj/InfoPlist.strings.
+
+         Este archivo, sin sufijo, es el que se usa cuando el idioma del
+         teléfono no es ninguno de los siete: cae a inglés, igual que
+         `resolverIdioma` en Dart. El español vive en values-es.
+
+         `values-pt` y `values-zh` van sin región ni escritura a propósito:
+         así cualquier hablante de portugués recibe el de Brasil y cualquiera
+         de chino el simplificado, como hace la app por dentro. -->
+    <string name="app_name">Guardian of the Temple</string>
+</resources>

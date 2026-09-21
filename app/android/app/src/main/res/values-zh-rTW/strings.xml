@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Chino tradicional. Android no lo hace caer en values-zh: si esto no
+         estuviera, un teléfono de Taiwán o Hong Kong vería el nombre en inglés.
+         Igual que en la app, el tradicional recibe el simplificado. -->
+    <string name="app_name">寺庙守护者</string>
+</resources>
