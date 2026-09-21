@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- El ícono de Android 8 y arriba. No es un PNG: son capas, y el sistema les
+     aplica la máscara que use el teléfono (círculo, cuadrado redondeado, gota).
+     Por eso el dibujo vive en el 62% del medio y el resto es fondo liso: lo de
+     afuera se puede recortar y no pasa nada.
+
+     El frente es el emblema solo, sin el nombre escrito. El ícono de iOS sí lo
+     tiene, pero acá cualquier máscara se comería las letras, y el nombre igual
+     va abajo del ícono puesto por el sistema (ver values*/strings.xml).
+
+     Las capas las genera bin/iconos_android.py desde el arte que ya existe. -->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/fondo_icono" />
+    <foreground android:drawable="@mipmap/ic_launcher_foreground" />
+    <monochrome android:drawable="@mipmap/ic_launcher_monochrome" />
+</adaptive-icon>

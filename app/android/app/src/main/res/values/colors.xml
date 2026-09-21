@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- El crema del juego, el mismo que la splash de iOS en
+         ios/Runner/Base.lproj/LaunchScreen.storyboard. Va de fondo del ícono
+         y de la splash, para que abrir el juego sea una sola imagen que crece
+         y no un salto de color. -->
+    <color name="crema">#F9FAF4</color>
+    <color name="fondo_icono">#F9FAF4</color>
+</resources>
