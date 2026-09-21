@@ -1,9 +1,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Los permisos los aportan igual los SDK cuando Gradle mezcla los
+         manifiestos, pero escritos acá quedan a la vista: son los que hay que
+         declarar en el formulario de Seguridad de los datos de Play. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- El identificador de publicidad, que usa AdMob. Es lo único que el
+         juego deja salir del teléfono; está contado en docs/privacidad.html. -->
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+
     <application
         android:label="@string/app_name"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round">
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:allowBackup="false">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -48,6 +57,18 @@
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
+        </intent>
+        <!-- Sin esto, de Android 11 en adelante `canLaunchUrl` contesta que no
+             hay con qué abrir una página, y el botón de la política de
+             privacidad en Ajustes no hace nada: no se cae, no avisa, no pasa
+             nada. Es de los errores más difíciles de encontrar mirando el log. -->
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="https"/>
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="http"/>
         </intent>
     </queries>
 </manifest>

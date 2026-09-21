@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -5,9 +7,21 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+// La clave con la que se firma lo que va a Google Play. Vive fuera del repo y
+// las contraseñas quedan en android/key.properties, que está ignorado en dos
+// .gitignore: no se sube nunca. Cómo generarla está en PUBLICAR_ANDROID.md.
+val clavesDeFirma = Properties().apply {
+    val archivo = rootProject.file("key.properties")
+    if (archivo.exists()) archivo.inputStream().use { load(it) }
+}
+val hayClavePropia = clavesDeFirma.getProperty("storeFile") != null
+
 android {
     namespace = "com.sebastianperez.guardian_templo"
-    compileSdk = flutter.compileSdkVersion
+    // Clavados, no heredados de la version de Flutter que haya instalada. El
+    // targetSdk es lo que Play audita: no puede moverse solo porque alguien
+    // actualizo Flutter.
+    compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -20,23 +34,49 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.sebastianperez.guardian_templo"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
         // Fijo, no heredado: google_mobile_ads pide 23 o mas y
         // flutter.minSdkVersion cambia con la version del SDK de Flutter.
         minSdk = maxOf(23, flutter.minSdkVersion)
-        targetSdk = flutter.targetSdkVersion
+        targetSdk = 36
+        // Salen de la linea `version:` de pubspec.yaml, que es la unica
+        // fuente. Android lleva su propia cuenta de builds: se le pasa
+        // --build-number al armar el AAB.
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        if (hayClavePropia) {
+            create("subida") {
+                storeFile = file(clavesDeFirma.getProperty("storeFile"))
+                storePassword = clavesDeFirma.getProperty("storePassword")
+                keyAlias = clavesDeFirma.getProperty("keyAlias")
+                keyPassword = clavesDeFirma.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            if (hayClavePropia) {
+                signingConfig = signingConfigs.getByName("subida")
+            } else {
+                // Sin key.properties se firma con las claves de debug, para que
+                // `flutter run --release` ande en cualquier maquina. Google Play
+                // rechaza un AAB asi, y ese es justamente el punto: que falle en
+                // la subida y no que salga publicado sin firmar como corresponde.
+                logger.warn(
+                    "AVISO: no hay android/key.properties, se firma con las " +
+                    "claves de debug. Esto NO sirve para Google Play. " +
+                    "Ver PUBLICAR_ANDROID.md.")
+                signingConfig = signingConfigs.getByName("debug")
+            }
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro")
         }
     }
 }
