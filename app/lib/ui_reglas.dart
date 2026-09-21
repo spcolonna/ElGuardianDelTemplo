@@ -5,7 +5,9 @@ import 'app_state.dart';
 import 'l10n.dart';
 import 'models.dart';
 import 'reglas_texto.dart';
+import 'rutas.dart';
 import 'ui_common.dart';
+import 'ui_shell.dart';
 
 /// Hoja de reglas viva: se regenera con los valores actuales de Balance.
 class ReglasScreen extends StatelessWidget {
@@ -23,6 +25,26 @@ class ReglasScreen extends StatelessWidget {
         Text(
           t('reglas.ui.bajada'),
           style: const TextStyle(color: kTinta, fontSize: 13),
+        ),
+        const SizedBox(height: 14),
+        // La colección entra por acá y no por el patio: la tabla del marco da
+        // para tres accesos y ya están los tres. Además es el lugar donde el
+        // jugador viene a entender el juego, y mirar las cartas es eso.
+        // De borde a borde y en dorado, como el de comprar en la tienda: es
+        // la única acción de esta pantalla y tiene que leerse como tal. El
+        // `width` va explícito aunque el `ListView` ya lo estire, para que no
+        // dependa de quién sea el padre el día que esto se mueva de lugar.
+        SizedBox(
+          width: double.infinity,
+          child: BotonMadera(
+            texto: t('nav.contenido'),
+            icono: Icons.style,
+            principal: true,
+            onTap: () {
+              tocarUi(context);
+              Navigator.of(context).pushNamed(R.coleccion);
+            },
+          ),
         ),
         const SizedBox(height: 20),
         // La prosa la genera `reglas_texto.dart`, que es Dart puro y también

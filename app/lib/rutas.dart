@@ -6,6 +6,7 @@ import 'l10n.dart';
 import 'ui_admin.dart';
 import 'ui_ajustes.dart';
 import 'ui_arranque.dart';
+import 'ui_coleccion.dart';
 import 'ui_home.dart';
 import 'ui_logros.dart';
 import 'ui_modos.dart';
@@ -28,6 +29,7 @@ abstract final class R {
   static const logros = '/logros';
   static const progreso = '/progreso';
   static const reglas = '/reglas';
+  static const coleccion = '/coleccion';
   static const tutorial = '/tutorial';
   static const ajustes = '/ajustes';
 
@@ -58,6 +60,10 @@ Route<dynamic> generarRuta(RouteSettings ajustes) {
       cuerpo: ProgresoScreen(),
     ),
     R.reglas => const _EnShell(clave: 'nav.reglas', cuerpo: ReglasScreen()),
+    R.coleccion => const _EnShell(
+      clave: 'nav.contenido',
+      cuerpo: ColeccionScreen(),
+    ),
     R.tutorial => const TutorialRuta(),
     R.ajustes => const AjustesScreen(),
     // Una ruta desconocida (típico en web) vuelve al patio, no al arranque:

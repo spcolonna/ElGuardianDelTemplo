@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'app_state.dart';
 import 'idiomas.dart';
 import 'mecanica.dart';
-import 'modos/cansancio.dart';
 import 'ui_carta.dart';
 
 void main() => runApp(const _Hoja());
@@ -23,12 +22,7 @@ class _HojaState extends State<_Hoja> {
 
   @override
   Widget build(BuildContext context) {
-    final ids = <String>[
-      for (final p in mecPeligros) p.id,
-      for (final c in mazoCansancio) c.id,
-      for (final (id, _) in mecMazoInicial) id,
-      for (final j in mecJefes) j.id,
-    ];
+    final ids = cartasDeColeccion;
     estado.idiomaElegido = codigosIdioma[i % codigosIdioma.length];
     return MaterialApp(
       debugShowCheckedModeBanner: false,

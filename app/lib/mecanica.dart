@@ -174,3 +174,45 @@ String archivoCarta(String id) {
   // Las técnicas iniciales sí tienen carta propia: nunca fueron un peligro.
   return 'inicial_$id';
 }
+
+/// Las seis secciones en que se muestra la colección, en orden de partida.
+///
+/// [fase] es la del mazo cuando la sección ES un mazo de peligros, y sirve
+/// para que la interfaz la titule con `TextosTema.fase` en vez de inventar
+/// una traducción nueva para algo que el juego ya nombra.
+enum SeccionColeccion {
+  iniciales(null),
+  alba(Fase.alba),
+  mediodia(Fase.mediodia),
+  ocaso(Fase.ocaso),
+  jefes(Fase.jefes),
+  cansancio(null);
+
+  final Fase? fase;
+  const SeccionColeccion(this.fase);
+}
+
+/// Las 50 cartas que existen como arte, agrupadas y en orden de colección.
+///
+/// Son 50 y no 80 porque una técnica de recompensa no tiene carta propia: vive
+/// dada vuelta en la mitad de abajo de su peligro (ver [cartaRotada]). Quien
+/// necesite los 80 ids de juego tiene que armarlos aparte, a conciencia.
+///
+/// Vive acá, en Dart puro, para que la pantalla de colección y la hoja de
+/// contacto de `main_hoja.dart` no mantengan dos listas que se desalinean.
+List<(SeccionColeccion, List<String>)> get coleccionPorSeccion => [
+  (SeccionColeccion.iniciales, [for (final (id, _) in mecMazoInicial) id]),
+  for (final s in [
+    (SeccionColeccion.alba, Fase.alba),
+    (SeccionColeccion.mediodia, Fase.mediodia),
+    (SeccionColeccion.ocaso, Fase.ocaso),
+  ])
+    (s.$1, [for (final p in mecPeligros.where((p) => p.fase == s.$2)) p.id]),
+  (SeccionColeccion.jefes, [for (final j in mecJefes) j.id]),
+  (SeccionColeccion.cansancio, [for (final c in mazoCansancio) c.id]),
+];
+
+/// Las mismas 50, sin agrupar.
+List<String> get cartasDeColeccion => [
+  for (final (_, ids) in coleccionPorSeccion) ...ids,
+];
