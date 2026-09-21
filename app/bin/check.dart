@@ -902,6 +902,103 @@ void main() {
   if (sinCopia > 0 || vencidas > 0) {
     print('    Se arregla con: python3 bin/aligerar.py');
   }
+
+  // 25) Android dice lo mismo que iOS.
+  //
+  // El proyecto de Android no lee una línea de Dart: el nombre bajo el ícono,
+  // el identificador de AdMob y el del paquete están escritos a mano en XML y
+  // en Gradle. Nada avisa cuando se desalinean. Ya pasó una vez: siete idiomas
+  // en iOS y `guardian_templo` en Android, durante meses.
+  //
+  // Los dos primeros son silenciosos de distinta manera. El nombre equivocado
+  // lo ve el jugador y nadie más; el App ID equivocado hace que el SDK de
+  // AdMob tire una excepción al inicializarse y la app se caiga al arrancar,
+  // en release y en el teléfono de otro.
+  var androidTorcido = 0;
+  final res = 'android/app/src/main/res';
+  final manifiesto = File('android/app/src/main/AndroidManifest.xml');
+  final gradle = File('android/app/build.gradle.kts');
+  if (!manifiesto.existsSync() || !gradle.existsSync()) {
+    print('    FALTA el proyecto de Android');
+    androidTorcido++;
+  } else {
+    final xml = manifiesto.readAsStringSync();
+    final kts = gradle.readAsStringSync();
+    final ids = File('lib/tienda/ids.dart').readAsStringSync();
+
+    // El App ID de AdMob, que tiene que ser el mismo de los dos lados.
+    final enDart = RegExp(r"_appIdAndroid\s*=\s*'([^']+)'").firstMatch(ids)?[1];
+    final enXml = RegExp(
+      r'com\.google\.android\.gms\.ads\.APPLICATION_ID"\s*\n?\s*'
+      r'android:value="([^"]+)"',
+    ).firstMatch(xml)?[1];
+    if (enDart == null || enXml == null || enDart != enXml) {
+      print('    App ID de AdMob: ids.dart dice $enDart y el manifiesto $enXml');
+      androidTorcido++;
+    }
+
+    // El nombre sale de strings.xml y no de un literal en el manifiesto.
+    if (!xml.contains('android:label="@string/app_name"')) {
+      print('    El manifiesto no toma el nombre de values*/strings.xml');
+      androidTorcido++;
+    }
+
+    // Lo que dejó `flutter create` y nadie completó.
+    for (final f in [manifiesto, gradle]) {
+      if (f.readAsStringSync().contains('TODO')) {
+        print('    Queda un TODO del template en ${f.path}');
+        androidTorcido++;
+      }
+    }
+
+    // El paquete, que es lo que identifica la app en Play para siempre.
+    final appId = RegExp(r'applicationId\s*=\s*"([^"]+)"').firstMatch(kts)?[1];
+    final espacio = RegExp(r'namespace\s*=\s*"([^"]+)"').firstMatch(kts)?[1];
+    if (appId == null || appId != espacio) {
+      print('    applicationId ($appId) y namespace ($espacio) no coinciden');
+      androidTorcido++;
+    }
+  }
+
+  // Y el nombre, idioma por idioma, contra el que ya está aprobado en iOS.
+  // La carpeta de Android no se llama igual que la de iOS: Android quiere el
+  // cajón sin región para que toda una lengua caiga ahí, que es la misma
+  // regla que aplica `resolverIdioma`.
+  const cajonAndroid = <String, String>{
+    'en': 'values',
+    'es': 'values-es',
+    'pt-BR': 'values-pt',
+    'it': 'values-it',
+    'de': 'values-de',
+    'ja': 'values-ja',
+    'zh-Hans': 'values-zh',
+  };
+  for (final idioma in codigosIdioma) {
+    final cajon = cajonAndroid[idioma];
+    if (cajon == null) {
+      print('    $idioma no tiene carpeta de Android asignada en check.dart');
+      androidTorcido++;
+      continue;
+    }
+    final apple = File('ios/Runner/$idioma.lproj/InfoPlist.strings');
+    final android = File('$res/$cajon/strings.xml');
+    if (!apple.existsSync() || !android.existsSync()) {
+      print('    $idioma: falta ${!apple.existsSync() ? apple.path : android.path}');
+      androidTorcido++;
+      continue;
+    }
+    final aqui = RegExp(
+      r'"CFBundleDisplayName"\s*=\s*"([^"]+)"',
+    ).firstMatch(apple.readAsStringSync())?[1];
+    final alla = RegExp(
+      r'<string name="app_name">([^<]+)</string>',
+    ).firstMatch(android.readAsStringSync())?[1];
+    if (aqui != alla) {
+      print('    $idioma: iOS dice "$aqui" y Android "$alla"');
+      androidTorcido++;
+    }
+  }
+  print('25) Android desalineado con iOS: $androidTorcido  (esperado 0)');
 }
 
 /// Lee ancho y alto del encabezado, sin decodificar la imagen entera.
