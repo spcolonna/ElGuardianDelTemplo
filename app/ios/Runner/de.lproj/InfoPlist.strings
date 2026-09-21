@@ -1,2 +1,7 @@
 /* El cartel de rastreo de iOS. Lo redacta Apple salvo esta línea. */
 "NSUserTrackingUsageDescription" = "Um dir Werbung zu zeigen, die etwas mit dir zu tun hat. Sagst du nein, funktioniert das Spiel genauso.";
+
+/* El nombre bajo el ícono. Va por idioma: en castellano el juego se llama
+   como se llama, y en el resto del mundo en inglés, que es el idioma
+   de la ficha para los mercados que no son de habla hispana. */
+"CFBundleDisplayName" = "Guardian of the Temple";

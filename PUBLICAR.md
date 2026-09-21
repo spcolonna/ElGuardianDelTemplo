@@ -358,14 +358,14 @@ un archivo del repositorio.
 
 El archivo es `app/ios/Guardian.storekit` y ya está elegido en el esquema
 `Runner`. Declara un solo producto, `guardian_templo_completo`, no consumible,
-a 4,99 — el precio de acá no significa nada, el de verdad lo pone la tienda.
+a 3,99 — el precio de acá no significa nada, el de verdad lo pone la tienda.
 
 Para probar:
 
 1. `open app/ios/Runner.xcworkspace`
 2. Elegir el iPhone y darle a ▶. (Tiene que ser desde Xcode: `flutter run` no
    levanta el esquema, así que no aplica esta configuración.)
-3. En Ajustes de la app, el botón de compra tiene que decir **US$ 4,99** en vez
+3. En Ajustes de la app, el botón de compra tiene que decir **US$ 3,99** en vez
    de `—`. Si dice `—`, la configuración no se cargó.
 4. Comprar. Aparece la hoja de Apple, arriba dice **Environment: Xcode**. Se
    confirma con Face ID igual que una compra real.
