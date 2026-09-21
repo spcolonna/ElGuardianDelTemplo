@@ -93,12 +93,35 @@ tráfico inválido, y Google no suspende el aviso, suspende la cuenta entera.
 
 ## 5. La consola — **[tuyo]**
 
+### El orden, que es al revés que en Apple
+
+En App Store Connect se crea la app y el producto de compra **antes** de subir
+nada. En Play no se puede: la sección de monetización no aparece hasta que ya
+subiste un AAB, porque Google necesita ver el permiso de facturación dentro de
+un binario. Si la vas a buscar antes, no está, y parece un problema de la
+cuenta.
+
+1. Crear la aplicación: nombre, idioma predeterminado, app o juego, gratis o
+   de pago.
+2. Subir el AAB a la pista de prueba interna.
+3. Recién ahí, el producto de compra, la ficha, Seguridad de los datos y el
+   cuestionario de clasificación.
+
+Dos cosas del paso 1 no tienen vuelta atrás:
+
+- **Gratis.** El juego es gratis con una compra adentro. De pago a gratis se
+  puede cambiar; de gratis a pago, nunca.
+- **El nombre de paquete**, que no se tipea: se toma del primer AAB que subas y
+  queda para siempre. Va a ser `com.sebastianperez.guardian_templo`, que **no
+  es** el identificador de iOS (`com.sebastianperez.guardianTemplo`, en
+  camelCase). Cada tienda lleva el suyo y después no se emparejan.
+
 ### El producto de compra
 
 Uno solo, no consumible, y el identificador tiene que ser **exactamente**
 `guardian_templo_completo`: el mismo string que en App Store Connect y el que
 está escrito en `ids.dart`. Va en Monetización → Productos → Productos dentro
-de la aplicación.
+de la aplicación, que como decíamos recién aparece después de la primera subida.
 
 El precio, 3,99, se pone por mercado igual que en Apple.
 
