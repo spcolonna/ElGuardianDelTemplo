@@ -69,6 +69,12 @@ juego por idioma —serían 10 MB cada uno— sino que se tapa la franja del tex
 se vuelve a escribir encima, en el idioma activo: `lib/cartas_rotulo.dart` dice
 dónde y `lib/ui_carta.dart` lo dibuja. Pesa cero.
 
+**En español no se rotula nada**: el arte ya lo dice, y el parche es un color
+plano sobre un pergamino texturado, con otra tipografía y otro cuerpo. La carta
+se muestra como salió de imprenta. La regla vive en `rotulaEn`
+(`lib/cartas_rotulo.dart`) y la respetan también el chequeo 22 y
+`test/rotulo_test.dart`, para que los tres no puedan opinar distinto.
+
 ### Las fuentes
 
 Patrick Hand SC y Atkinson Hyperlegible son latinas puras. Para ja y zh-Hans van

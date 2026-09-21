@@ -17,6 +17,7 @@ import 'package:guardian_templo/modos/dificultad.dart';
 import 'package:guardian_templo/progreso.dart';
 import 'package:guardian_templo/temas/temas.dart';
 import 'package:guardian_templo/tutorial.dart';
+import 'package:guardian_templo/tutorial_zonas.dart';
 
 void main() {
   final con = contenidoPorDefecto();
@@ -709,6 +710,9 @@ void main() {
     for (final (id, _) in mecMazoInicial) id,
   };
   for (final idioma in codigosIdioma) {
+    // El español no rotula: la carta se muestra como salió de imprenta y no
+    // tiene placa que revisar. Ver `rotulaEn` en `lib/cartas_rotulo.dart`.
+    if (!rotulaEn(idioma)) continue;
     final textos = temaTemplo.textosDe(idioma);
     for (final id in idsDeCarta) {
       final placas = rotuloDe(archivoCarta(id), textos);
@@ -771,6 +775,90 @@ void main() {
     }
   }
   print('23) Signos que alguna fuente no tiene: $sinGlifo  (esperado 0)');
+
+  // 24) La placa del nombre no le pisa la iconografía a la carta.
+  //
+  // El parche que tapa el texto horneado es OPACO: donde cae, la carta deja de
+  // verse. Los números del Poder y del efecto no se traducen y por eso viven
+  // afuera de la placa, pero «afuera» es una constante escrita a mano, y las
+  // constantes se desalinean sin avisar. Ya pasó: Iniciales y Cansancio
+  // compartían un borde izquierdo de .215 medido sobre el sello rojo del
+  // Cansancio, y en las Iniciales —cuyo aro azul es más grande y llega a
+  // .299— la placa le entraba casi un tercio adentro. El nombre traducido se
+  // veía tapando el Poder.
+  //
+  // El chequeo cruza cada placa contra los rectángulos medidos de la
+  // iconografía de su familia y avisa cuánto se superponen. No mira los JPG:
+  // los rectángulos se midieron una vez sobre los quince (por la tinta azul
+  // del aro, el bermellón del sello y el blanco de la insignia) y quedaron
+  // escritos en `lib/cartas_rotulo.dart`.
+  //
+  // Los jefes también entran. Estuvieron afuera un tiempo —«son apaisados y su
+  // iconografía no está medida»— y ese hueco tapó un error de verdad: la placa
+  // del nombre arrancaba en 0,105 y le comía el borde al anillo del Poder, en
+  // las cinco cartas y en los siete idiomas. Un chequeo que no puede fallar es
+  // peor que ninguno: el precio de no medir fue no enterarse.
+  //
+  // Lo que se compara es la PLACA, que es una constante, así que el resultado es
+  // el mismo en todos los idiomas y alcanza con uno. Lo que sí depende del
+  // idioma es dónde aterriza el texto adentro de la placa: va centrado y
+  // `_TextoAjustado` sólo achica, nunca mueve, así que un nombre corto deja
+  // colchón a los dos lados y uno largo llega a las puntas. Por eso la placa
+  // tiene que estar limpia ELLA, no su contenido.
+  var pisadas = 0;
+  final iconosDe = <String, List<(String, RectN)>>{
+    'inicial': [
+      ('medallón del Poder', zonaPoderInicial),
+      ('insignia del efecto', zonaInsigniaInicial),
+    ],
+    'cansancio': [('medallón del Poder', zonaPoderCansancio)],
+    'jefe': [
+      ('anillo del Poder', zonaPoderJefe),
+      ('panel de daño y cartas', zonaIconosJefe),
+    ],
+    'peligro': [
+      ('medallón del Poder', zonasCarta[ZonaCarta.poderPeligro]!),
+      ('daño', zonasCarta[ZonaCarta.dano]!),
+      ('cartas gratis', zonasCarta[ZonaCarta.cartasGratis]!),
+      ('Poder de la técnica', zonasCarta[ZonaCarta.poderTecnica]!),
+      ('efecto de la técnica', zonasCarta[ZonaCarta.efectoTecnica]!),
+    ],
+  };
+  String? familiaDe(String archivo) {
+    if (archivo.startsWith('inicial_')) return 'inicial';
+    if (RegExp(r'^can\d+$').hasMatch(archivo)) return 'cansancio';
+    if (mecPeligros.any((p) => p.id == archivo)) return 'peligro';
+    if (mecJefes.any((j) => j.id == archivo)) return 'jefe';
+    return null;
+  }
+
+  final archivosDeCarta = {for (final id in idsDeCarta) archivoCarta(id)};
+  for (final archivo in archivosDeCarta) {
+    final familia = familiaDe(archivo);
+    if (familia == null) continue;
+    for (final placa in rotuloDe(archivo, temaTemplo.textosDe('es'))) {
+      // Girada, la placa de abajo ocupa el rectángulo espejado: es lo que
+      // hace `_placa` en `lib/ui_carta.dart` antes de dibujarla.
+      final arriba = placa.rotada ? 1 - placa.abajo : placa.arriba;
+      final abajo = arriba + (placa.abajo - placa.arriba);
+      for (final (nombre, z) in iconosDe[familia]!) {
+        final anchoComun =
+            (placa.der < z.der ? placa.der : z.der) -
+            (placa.izq > z.izq ? placa.izq : z.izq);
+        final altoComun =
+            (abajo < z.abajo ? abajo : z.abajo) -
+            (arriba > z.arriba ? arriba : z.arriba);
+        if (anchoComun > 0 && altoComun > 0) {
+          print(
+            '   $archivo: la placa tapa $nombre en '
+            '${(anchoComun * 1024).round()} x ${(altoComun * 1620).round()} px',
+          );
+          pisadas++;
+        }
+      }
+    }
+  }
+  print('24) Placas que tapan iconografía: $pisadas  (esperado 0)');
 
   // 19) La copia liviana está al día.
   //

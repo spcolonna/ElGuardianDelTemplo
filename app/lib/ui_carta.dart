@@ -124,7 +124,11 @@ class CartaView extends StatelessWidget {
     double ancho,
     double alto,
   ) {
-    final placas = rotuloDe(archivoCarta(id), AppScope.of(context).textos);
+    final app = AppScope.of(context);
+    // En español el arte YA dice lo que hay que leer: se muestra como salió de
+    // imprenta, sin un parche encima. Ver `rotulaEn` en `cartas_rotulo.dart`.
+    if (!rotulaEn(app.idioma)) return imagen;
+    final placas = rotuloDe(archivoCarta(id), app.textos);
     if (placas.isEmpty) return imagen;
     final divisor = mecPeligros.any((p) => p.id == archivoCarta(id));
     return Stack(
@@ -250,6 +254,97 @@ Rect zonaEnPantalla(ZonaCarta zona, Rect carta) {
 ///
 /// En la mesa las cartas se ven chicas por necesidad —la del peligro manda—,
 /// pero el jugador tiene que poder leer lo que jugó sin abrir la bitácora.
+/// La carta abierta, agrandable con dos dedos.
+///
+/// El zoom NO sobrevive a cerrar la vista, que es lo que uno espera de mirar
+/// una carta: el `TransformationController` vive en este `State` y el visor se
+/// destruye con el diálogo, así que la próxima apertura arranca en 1x. Si hace
+/// falta resetearlo antes —al girar la carta, por ejemplo— se le pasa uno de
+/// afuera con [control] y lo maneja quien lo creó.
+///
+/// Con `minScale: 1` y el `InteractiveViewer` acotado, en 1x el arrastre no
+/// mueve nada: recién cuando hay zoom empieza a pasear. Por eso los taps de
+/// cerrar y de girar siguen funcionando sin pelearse con el gesto.
+class CartaConZoom extends StatefulWidget {
+  final Widget child;
+  final TransformationController? control;
+
+  /// Si el doble toque vuelve la carta a 1x.
+  ///
+  /// Se apaga donde el toque simple ya hace algo con la carta —girarla, en la
+  /// colección—, porque los dos gestos empiezan igual y el simple gana: el
+  /// doble toque terminaría dando dos medias vueltas en vez de reencuadrar.
+  /// Ahí el reencuadre lo hace el que gira.
+  final bool dobleToqueReencuadra;
+
+  const CartaConZoom({
+    super.key,
+    required this.child,
+    this.control,
+    this.dobleToqueReencuadra = true,
+  });
+
+  @override
+  State<CartaConZoom> createState() => _CartaConZoomState();
+}
+
+class _CartaConZoomState extends State<CartaConZoom>
+    with SingleTickerProviderStateMixin {
+  late final TransformationController _tc =
+      widget.control ?? TransformationController();
+
+  // Se crea en `initState` y no con `late final`. Con `late final`, si nadie
+  // llega a tocar la carta, el primero en leerlo es el propio `dispose`, y
+  // crear un `AnimationController` con el elemento ya desactivado revienta:
+  // el mixin va a buscar el `TickerMode` de un ancestro que ya no está.
+  late final AnimationController _vuelta;
+  Animation<Matrix4>? _animacion;
+
+  @override
+  void initState() {
+    super.initState();
+    _vuelta = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 260),
+    );
+  }
+
+  @override
+  void dispose() {
+    _vuelta.dispose();
+    // Sólo se tira el que creó este widget. El de afuera es de otro.
+    if (widget.control == null) _tc.dispose();
+    super.dispose();
+  }
+
+  /// Vuelve a 1x animado. Es lo que hace el doble toque, y es la salida para
+  /// el que se perdió adentro de la carta.
+  void _reencuadrar() {
+    _animacion = Matrix4Tween(
+      begin: _tc.value,
+      end: Matrix4.identity(),
+    ).animate(CurvedAnimation(parent: _vuelta, curve: Curves.easeOutCubic));
+    _animacion!.addListener(() => _tc.value = _animacion!.value);
+    _vuelta.forward(from: 0);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onDoubleTap: widget.dobleToqueReencuadra ? _reencuadrar : null,
+      child: InteractiveViewer(
+        transformationController: _tc,
+        minScale: 1,
+        maxScale: 3.5,
+        // Sin esto la carta ampliada queda recortada por su propia caja, que
+        // es del tamaño de la carta en 1x.
+        clipBehavior: Clip.none,
+        child: widget.child,
+      ),
+    );
+  }
+}
+
 Future<void> mostrarCarta(
   BuildContext context, {
   required String id,
@@ -270,13 +365,15 @@ Future<void> mostrarCarta(
           onTap: () => Navigator.of(context).pop(),
           behavior: HitTestBehavior.opaque,
           child: Center(
-            child: CartaView(
-              id: id,
-              respaldo: respaldo,
-              // La carta no puede pasarse de alto en pantallas bajas.
-              ancho: ancho > alto * ratioCarta(id)
-                  ? alto * ratioCarta(id)
-                  : ancho,
+            child: CartaConZoom(
+              child: CartaView(
+                id: id,
+                respaldo: respaldo,
+                // La carta no puede pasarse de alto en pantallas bajas.
+                ancho: ancho > alto * ratioCarta(id)
+                    ? alto * ratioCarta(id)
+                    : ancho,
+              ),
             ),
           ),
         ),
