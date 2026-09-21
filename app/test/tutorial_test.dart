@@ -44,4 +44,72 @@ void main() {
       }
     }
   });
+
+  // El paso que pide tocar algo tiene que traer ese algo a la vista.
+  //
+  // En un teléfono bajo los botones de la mesa nacen debajo del pliegue, y el
+  // globo de texto del tutorial —que es fijo y está abajo— tapa todavía más.
+  // Sin el scroll automático el tutorial dice «robá una carta» señalando un
+  // botón que no se ve, y el jugador tiene que descubrir solo que hay que
+  // arrastrar.
+  //
+  // OJO: acá no se puede usar `pumpAndSettle`. El resalte late sin parar, así
+  // que nunca hay un frame en reposo y el test se cuelga para siempre.
+  testWidgets('el paso trae su objetivo a la vista', (t) async {
+    t.view.physicalSize = const Size(360, 640);
+    t.view.devicePixelRatio = 1.0;
+    addTearDown(t.view.reset);
+
+    final textos = TextosUi.de('es');
+    await t.pumpWidget(
+      MaterialApp(
+        home: AppScope(
+          state: AppState()..idiomaElegido = 'es',
+          child: Scaffold(body: TutorialScreen(onTerminar: () {})),
+        ),
+      ),
+    );
+    await t.pump();
+
+    final siguiente = find.widgetWithText(
+      FilledButton,
+      textos('tutorial.siguiente'),
+    );
+    final robar = find.widgetWithText(
+      FilledButton,
+      textos('juego.robarGratis'),
+    );
+
+    // Los seis primeros pasos son de leer: se avanza hasta `p07`, que es el
+    // primero que señala los botones.
+    for (var i = 0; i < 6; i++) {
+      await t.tap(siguiente);
+      await t.pump(const Duration(milliseconds: 600));
+    }
+
+    // El scroll se pide en el `addPostFrameCallback` del frame que acaba de
+    // dibujarse, así que la animación arranca DESPUÉS: sin este frame de más,
+    // el test mira la pantalla justo antes de que se mueva.
+    await t.pump();
+    await t.pump(const Duration(milliseconds: 600));
+
+    expect(robar, findsOneWidget, reason: 'no se llegó al paso de robar');
+
+    final pantalla = Offset.zero & const Size(360, 640);
+    final r = t.getRect(robar);
+    expect(
+      pantalla.contains(r.topLeft) && pantalla.contains(r.bottomRight),
+      isTrue,
+      reason: 'el botón a tocar quedó fuera de pantalla: $r',
+    );
+
+    // Y que haya hecho falta scrollear: si el objetivo ya se veía solo, el
+    // test de arriba pasaría sin probar nada.
+    final pos = t.widget<Scrollable>(find.byType(Scrollable).first).controller;
+    expect(
+      pos!.offset,
+      greaterThan(0),
+      reason: 'no scrolleó: el test no está probando lo que cree',
+    );
+  });
 }

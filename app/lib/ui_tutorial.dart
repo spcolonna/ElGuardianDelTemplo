@@ -26,7 +26,8 @@ class TutorialScreen extends StatefulWidget {
   State<TutorialScreen> createState() => _TutorialScreenState();
 }
 
-class _TutorialScreenState extends State<TutorialScreen> {
+class _TutorialScreenState extends State<TutorialScreen>
+    with SingleTickerProviderStateMixin {
   Juego? _j;
   Juego get j => _j!;
   int paso = 0;
@@ -36,6 +37,89 @@ class _TutorialScreenState extends State<TutorialScreen> {
   final _clavePila = GlobalKey();
   Rect? _rectCarta;
 
+  /// Una llave por cosa que el guion puede señalar, para poder traerla a la
+  /// vista. `carta` no está acá: ya tiene `_claveCarta`, que se usa además
+  /// para recortar el velo.
+  final _clavesFoco = {
+    for (final f in [
+      FocoTutorial.energia,
+      FocoTutorial.botones,
+      FocoTutorial.mesa,
+      FocoTutorial.descarte,
+    ])
+      f: GlobalKey(),
+  };
+
+  /// La mesa scrollea y el globo de texto de abajo tapa una parte. Sin esto el
+  /// tutorial dice «tocá tal botón» sobre un botón que está fuera de pantalla,
+  /// y el jugador tiene que adivinar que hay que scrollear.
+  final _scroll = ScrollController();
+
+  /// El paso del último intento de enfoque, y cuántos van.
+  ///
+  /// El tope es lo que evita pelearle al dedo del jugador: si scrollea a otro
+  /// lado, el tutorial no se lo devuelve para siempre. Dos alcanzan porque el
+  /// caso real que necesita un segundo intento es uno solo y es el primero:
+  /// se trae el botón a la vista mientras la imagen de la carta todavía no
+  /// cargó, y cuando carga la carta crece y lo empuja para abajo otra vez.
+  int? _pasoEnfocado;
+  int _intentosDeFoco = 0;
+
+  /// El latido del resalte. Uno solo para toda la pantalla: lo comparten el
+  /// marco de los botones y el del velo recortado.
+  late final AnimationController _pulso;
+
+  @override
+  void initState() {
+    super.initState();
+    _pulso = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1100),
+    );
+  }
+
+  @override
+  void dispose() {
+    _pulso.dispose();
+    _scroll.dispose();
+    super.dispose();
+  }
+
+  /// Trae a la vista lo que el paso está señalando.
+  ///
+  /// Se hace después del layout, porque antes el objetivo puede no existir
+  /// todavía: la mesa y el descarte son condicionales y aparecen recién cuando
+  /// la partida llega a ese punto. Sin contexto no hay nada que traer, y no
+  /// pasa nada: el paso siguiente lo intenta de nuevo.
+  void _enfocar(FocoTutorial foco) {
+    if (_pasoEnfocado != paso) {
+      _pasoEnfocado = paso;
+      _intentosDeFoco = 0;
+    }
+    if (_intentosDeFoco >= 2) return;
+
+    final clave = foco == FocoTutorial.carta ? _claveCarta : _clavesFoco[foco];
+    final ctx = clave?.currentContext;
+    if (ctx == null) return;
+
+    // Mientras algo se esté moviendo no se pide nada: volver a pedirlo en cada
+    // frame reiniciaría la animación y el scroll no llegaría nunca.
+    if (_scroll.hasClients && _scroll.position.isScrollingNotifier.value) {
+      return;
+    }
+    if (_seVe(ctx)) return;
+
+    _intentosDeFoco++;
+    Scrollable.ensureVisible(
+      ctx,
+      // Alto a propósito: el objetivo queda en el tercio de arriba, que es la
+      // parte que el globo de texto del tutorial no tapa.
+      alignment: .3,
+      duration: const Duration(milliseconds: 420),
+      curve: Curves.easeInOutCubic,
+    );
+  }
+
   // La partida se arma acá y no en initState porque necesita leer AppScope
   // (el tema y el idioma), y un InheritedWidget todavía no está disponible
   // durante initState. La guarda evita rearmarla en cada cambio de
@@ -43,6 +127,17 @@ class _TutorialScreenState extends State<TutorialScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    // Esto va ANTES de la salida temprana: el latido hay que sincronizarlo
+    // cada vez, la partida se arma una sola vez.
+    //
+    // Quien pidió menos movimiento en el sistema no quiere un latido eterno:
+    // se le deja el resalte encendido y quieto.
+    if (MediaQuery.disableAnimationsOf(context)) {
+      _pulso.stop();
+      _pulso.value = 1;
+    } else if (!_pulso.isAnimating) {
+      _pulso.repeat(reverse: true);
+    }
     if (_j != null) return;
     final app = AppScope.of(context);
     _j = Juego(
@@ -72,6 +167,18 @@ class _TutorialScreenState extends State<TutorialScreen> {
     if (_rectCarta != r) setState(() => _rectCarta = r);
   }
 
+  /// ¿El objetivo entra entero en la parte visible de la mesa?
+  ///
+  /// La cuenta es la misma que la del velo: se lo pasa a coordenadas de la
+  /// pila, que es exactamente el pedazo de pantalla que la mesa ocupa.
+  bool _seVe(BuildContext ctx) {
+    final caja = ctx.findRenderObject() as RenderBox?;
+    final pila = _clavePila.currentContext?.findRenderObject() as RenderBox?;
+    if (caja == null || pila == null) return false;
+    final r = pila.globalToLocal(caja.localToGlobal(Offset.zero)) & caja.size;
+    return r.top >= 0 && r.bottom <= pila.size.height;
+  }
+
   void _avanzar() {
     if (ultimo) {
       widget.onTerminar();
@@ -98,7 +205,10 @@ class _TutorialScreenState extends State<TutorialScreen> {
     final foco = actual.foco;
 
     // Después de cada layout se recalcula por si cambió el tamaño de pantalla.
-    WidgetsBinding.instance.addPostFrameCallback((_) => _medirCarta());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _medirCarta();
+      _enfocar(foco);
+    });
 
     final hueco =
         (foco == FocoTutorial.carta &&
@@ -147,6 +257,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
             key: _clavePila,
             children: [
               SingleChildScrollView(
+                controller: _scroll,
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -154,7 +265,9 @@ class _TutorialScreenState extends State<TutorialScreen> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: _Resalte(
+                        key: _clavesFoco[FocoTutorial.energia],
                         activo: foco == FocoTutorial.energia,
+                        pulso: _pulso,
                         child: Etiqueta(
                           '${app.textos.recurso} '
                           '${j.energia}/${j.cfg.energiaMaxima}',
@@ -178,13 +291,17 @@ class _TutorialScreenState extends State<TutorialScreen> {
                     _estado(t),
                     const SizedBox(height: 14),
                     _Resalte(
+                      key: _clavesFoco[FocoTutorial.botones],
                       activo: foco == FocoTutorial.botones,
+                      pulso: _pulso,
                       child: _botones(t),
                     ),
                     if (j.mesa.isNotEmpty) ...[
                       const SizedBox(height: 18),
                       _Resalte(
+                        key: _clavesFoco[FocoTutorial.mesa],
                         activo: foco == FocoTutorial.mesa,
+                        pulso: _pulso,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -215,7 +332,9 @@ class _TutorialScreenState extends State<TutorialScreen> {
                         j.estado == EstadoJuego.postCombate) ...[
                       const SizedBox(height: 18),
                       _Resalte(
+                        key: _clavesFoco[FocoTutorial.descarte],
                         activo: foco == FocoTutorial.descarte,
+                        pulso: _pulso,
                         child: _descarte(t),
                       ),
                     ],
@@ -227,7 +346,15 @@ class _TutorialScreenState extends State<TutorialScreen> {
               if (foco == FocoTutorial.carta)
                 Positioned.fill(
                   child: IgnorePointer(
-                    child: CustomPaint(painter: _Spotlight(hueco: hueco)),
+                    child: AnimatedBuilder(
+                      animation: _pulso,
+                      builder: (context, _) => CustomPaint(
+                        painter: _Spotlight(
+                          hueco: hueco,
+                          pulso: Curves.easeInOut.transform(_pulso.value),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
             ],
@@ -430,7 +557,11 @@ class _TutorialScreenState extends State<TutorialScreen> {
 /// Oscurece todo menos un rectángulo, que queda enmarcado en ámbar.
 class _Spotlight extends CustomPainter {
   final Rect? hueco;
-  const _Spotlight({required this.hueco});
+
+  /// 0 a 1, el mismo latido que el resalte de los botones. Sólo engrosa el
+  /// marco: el velo no se toca, que si parpadeara marearía.
+  final double pulso;
+  const _Spotlight({required this.hueco, required this.pulso});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -460,43 +591,67 @@ class _Spotlight extends CustomPainter {
       marco,
       Paint()
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 3
-        ..color = kOroBorde,
+        ..strokeWidth = 3 + 2.5 * pulso
+        ..color = kOroBorde.withValues(alpha: .70 + .30 * pulso),
     );
   }
 
   @override
-  bool shouldRepaint(_Spotlight v) => v.hueco != hueco;
+  bool shouldRepaint(_Spotlight v) => v.hueco != hueco || v.pulso != pulso;
 }
 
 /// Marco que resalta un widget (los pasos que hablan de botones, no de la
 /// carta). Convive con el spotlight.
 class _Resalte extends StatelessWidget {
   final bool activo;
+  final Animation<double> pulso;
   final Widget child;
-  const _Resalte({required this.activo, required this.child});
+  const _Resalte({
+    super.key,
+    required this.activo,
+    required this.pulso,
+    required this.child,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 220),
-      padding: const EdgeInsets.all(6),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: activo ? kOroBorde : Colors.transparent,
-          width: 2,
-        ),
-        boxShadow: activo
-            ? [
-                BoxShadow(
-                  color: kOroBorde.withValues(alpha: .25),
-                  blurRadius: 18,
-                ),
-              ]
-            : null,
+    return AnimatedBuilder(
+      animation: pulso,
+      builder: (context, hijo) {
+        final v = Curves.easeInOut.transform(pulso.value);
+        // Late el HALO y la escala, nunca el grosor del borde: el borde de un
+        // `Container` suma tamaño, así que animarlo relayoutearía el contenido
+        // sesenta veces por segundo y el botón de adentro bailaría.
+        return Transform.scale(
+          scale: activo ? 1 + .02 * v : 1,
+          child: Container(
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(
+                color: activo
+                    ? kOroBorde.withValues(alpha: .65 + .35 * v)
+                    : Colors.transparent,
+                width: 2,
+              ),
+              boxShadow: activo
+                  ? [
+                      BoxShadow(
+                        color: kOroBorde.withValues(alpha: .16 + .24 * v),
+                        blurRadius: 12 + 16 * v,
+                      ),
+                    ]
+                  : null,
+            ),
+            child: hijo,
+          ),
+        );
+      },
+      child: AnimatedOpacity(
+        duration: const Duration(milliseconds: 220),
+        opacity: activo ? 1 : 0.55,
+        child: child,
       ),
-      child: Opacity(opacity: activo ? 1 : 0.55, child: child),
     );
   }
 }
