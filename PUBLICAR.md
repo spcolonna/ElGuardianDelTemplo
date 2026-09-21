@@ -5,8 +5,9 @@ El estado de cada cosa está marcado: **[hecho]** es código que ya está en el
 repositorio, **[tuyo]** es algo que solo podés hacer vos porque necesita una
 cuenta, plata o una decisión.
 
-Android va aparte y todavía no está: firma con las claves de debug
-(`app/android/app/build.gradle.kts`, con el TODO puesto).
+Android va aparte, en [PUBLICAR_ANDROID.md](PUBLICAR_ANDROID.md). Lo que
+decidimos —la edad, la monetización, qué recoge AdMob— vale para las dos
+tiendas y está acá; lo que cambia de una a otra, allá.
 
 ---
 
@@ -80,15 +81,15 @@ los pasos en el encabezado:
 
 1. Crear la app en AdMob y copiar su App ID.
 2. Crear un bloque **intersticial** y copiar su ID.
-3. Poner `kIdsDePrueba = false`.
+3. Poner `kAnunciosDePrueba = false`.
 4. Repetir el App ID en `app/ios/Runner/Info.plist` (`GADApplicationIdentifier`)
    y en `app/android/app/src/main/AndroidManifest.xml`. Son archivos nativos y
    no leen Dart; si no coincide con `ids.dart`, el SDK tira una excepción y la
    app se cae al arrancar.
 
-**Orden importante:** no pongas `kIdsDePrueba = false` antes de que el producto
-de compra exista en App Store Connect. El botón de compra queda deshabilitado
-—que es lo correcto— pero avisa mal.
+**Orden importante:** no pongas `kComprasDePrueba = false` antes de que el
+producto exista en App Store Connect —y en Play Console, si vas a las dos—. El
+botón de compra queda deshabilitado, que es lo correcto, pero avisa mal.
 
 ### 2.3 El producto de compra — **[tuyo]**
 
@@ -150,16 +151,17 @@ y lo que se paga. Cuando Google agregue socios, hay que volver a pegarla.
 
 `docs/privacidad.html`, en español, versionada en este repositorio.
 
-**Falta tuyo, dos cosas:**
+**Falta tuyo:**
 
 1. **Encender GitHub Pages**: Settings → Pages → rama `main`, carpeta `/docs`.
    La URL que espera el código es
    `https://spcolonna.github.io/ElGuardianDelTemplo/privacidad.html`
    (constante `urlPoliticaDePrivacidad` en [ids.dart](app/lib/tienda/ids.dart)).
    Mientras no esté encendido, el botón de Ajustes abre un 404.
-2. **Poner una dirección de contacto** en el documento. La dejé marcada como
-   `[falta la dirección de contacto]` a propósito: publicar tu correo es una
-   decisión tuya. Apple y AdMob exigen que haya una.
+La dirección de contacto ya está puesta en el documento.
+
+**Play la exige igual**, y con el mismo bloqueo: sin Pages encendido, la ficha
+no pasa.
 
 ---
 

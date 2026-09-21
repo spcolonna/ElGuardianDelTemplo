@@ -312,9 +312,15 @@ para aprobar la app.
 
 ### Hoy anda con identificadores de prueba
 
-`lib/tienda/ids.dart` tiene `kIdsDePrueba = true`: los avisos son los de prueba
-públicos de Google —dicen «Test Ad»— y la compra se resuelve local, sin hablar
-con ninguna tienda. Anda entero sin cuenta de AdMob ni de las tiendas.
+`lib/tienda/ids.dart` tiene dos llaves separadas. `kAnunciosDePrueba = true`:
+los avisos son los de prueba públicos de Google —dicen «Test Ad»—. Y
+`kComprasDePrueba`, que cuando está en `true` resuelve la compra local, sin
+hablar con ninguna tienda. Con las dos en `true` anda entero sin cuenta de
+AdMob ni de las tiendas.
+
+La de los avisos es la que no se toca a la ligera: tocar un aviso real desde tu
+propia app es tráfico inválido, y Google no suspende el aviso, suspende la
+cuenta.
 
 Para producción, ese archivo tiene la lista de los cinco pasos. Dos de ellos son
 archivos nativos y no leen Dart: el App ID va **repetido** en
@@ -322,9 +328,11 @@ archivos nativos y no leen Dart: el App ID va **repetido** en
 coincide con el de `ids.dart`, el SDK tira una excepción y la app se cae al
 arrancar.
 
-**Antes de publicar** falta, y es tuyo: el keystore de release. Hoy
-`android/app/build.gradle.kts` firma con las debug keys y tiene el TODO puesto.
-Lo demás del camino a las tiendas está en [PUBLICAR.md](../PUBLICAR.md).
+**Antes de publicar** falta, y es tuyo: el keystore de subida. Sin
+`android/key.properties` se sigue firmando con las claves de debug y Gradle lo
+avisa por consola. El camino a las tiendas está en
+[PUBLICAR.md](../PUBLICAR.md) y en
+[PUBLICAR_ANDROID.md](../PUBLICAR_ANDROID.md).
 
 **La edad ya está decidida y son dos declaraciones distintas**, que se confunden
 seguido. La *clasificación* de la tienda sale de un cuestionario de contenido:
