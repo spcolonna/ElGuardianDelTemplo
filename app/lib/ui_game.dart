@@ -87,71 +87,102 @@ class _GameScreenState extends State<GameScreen> {
       context: context,
       backgroundColor: kPapelClaro,
       showDragHandle: true,
-      builder: (hoja) => SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // El estado del mazo es informativo: acá hay lugar para las
-              // etiquetas que en la barra no entraban.
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: [
-                  Pastilla(
-                    fmt(t('juego.mazo'), {'n': j.mazo.length}),
-                    icono: Icons.style,
-                  ),
-                  Pastilla(
-                    fmt(t('juego.descarte'), {'n': j.descarte.length}),
-                    icono: Icons.layers,
-                  ),
-                  Pastilla(
-                    fmt(t('juego.eliminadas'), {'n': j.eliminadas.length}),
-                    icono: Icons.delete_outline,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              _OpcionMenu(
-                icono: Icons.receipt_long,
-                texto: '${t('nav.bitacora')} (${j.log.length})',
-                onTap: () {
-                  Navigator.pop(hoja);
-                  showModalBottomSheet<void>(
-                    context: context,
-                    backgroundColor: kPapelClaro,
-                    showDragHandle: true,
-                    isScrollControlled: true,
-                    builder: (_) => FractionallySizedBox(
-                      heightFactor: .7,
-                      child: _Log(juego: j, ctrl: _logCtrl, ui: t),
+      // StatefulBuilder porque `Audio` no avisa cuando cambia: los dos
+      // interruptores de abajo son campos planos, y sin esto la palanca se
+      // mueve en la memoria pero no en la pantalla.
+      builder: (hoja) => StatefulBuilder(
+        builder: (hoja, redibujar) => SafeArea(
+          top: false,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // El estado del mazo es informativo: acá hay lugar para las
+                // etiquetas que en la barra no entraban.
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    Pastilla(
+                      fmt(t('juego.mazo'), {'n': j.mazo.length}),
+                      icono: Icons.style,
                     ),
-                  );
-                },
-              ),
-              _OpcionMenu(
-                icono: Icons.refresh,
-                texto: t('juego.nueva'),
-                onTap: () {
-                  Navigator.pop(hoja);
-                  app.nuevaPartida();
-                  _reiniciarSeguimiento();
-                  setState(() {});
-                },
-              ),
-              _OpcionMenu(
-                icono: Icons.home_outlined,
-                texto: t('nav.inicio'),
-                onTap: () {
-                  Navigator.pop(hoja);
-                  widget.onSalir();
-                },
-              ),
-            ],
+                    Pastilla(
+                      fmt(t('juego.descarte'), {'n': j.descarte.length}),
+                      icono: Icons.layers,
+                    ),
+                    Pastilla(
+                      fmt(t('juego.eliminadas'), {'n': j.eliminadas.length}),
+                      icono: Icons.delete_outline,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                _OpcionMenu(
+                  icono: Icons.receipt_long,
+                  texto: '${t('nav.bitacora')} (${j.log.length})',
+                  onTap: () {
+                    Navigator.pop(hoja);
+                    showModalBottomSheet<void>(
+                      context: context,
+                      backgroundColor: kPapelClaro,
+                      showDragHandle: true,
+                      isScrollControlled: true,
+                      builder: (_) => FractionallySizedBox(
+                        heightFactor: .7,
+                        child: _Log(juego: j, ctrl: _logCtrl, ui: t),
+                      ),
+                    );
+                  },
+                ),
+                _OpcionMenu(
+                  icono: Icons.refresh,
+                  texto: t('juego.nueva'),
+                  onTap: () {
+                    Navigator.pop(hoja);
+                    app.nuevaPartida();
+                    _reiniciarSeguimiento();
+                    setState(() {});
+                  },
+                ),
+                _OpcionMenu(
+                  icono: Icons.home_outlined,
+                  texto: t('nav.inicio'),
+                  onTap: () {
+                    Navigator.pop(hoja);
+                    widget.onSalir();
+                  },
+                ),
+                // Debajo de la línea, lo que no toca la partida. Estos dos no
+                // cierran la hoja: quien apaga la música casi siempre viene por
+                // los efectos también.
+                const Divider(height: 24, thickness: 1, color: kTintaSuave),
+                FilaInterruptor(
+                  texto: t('ajustes.musica'),
+                  icono: Icons.music_note,
+                  valor: app.audio.musicaActiva,
+                  onTap: () async {
+                    await app.audio.cambiarMusica(!app.audio.musicaActiva);
+                    redibujar(() {});
+                  },
+                ),
+                const SizedBox(height: 8),
+                FilaInterruptor(
+                  texto: t('ajustes.efectos'),
+                  icono: Icons.graphic_eq,
+                  valor: app.audio.efectosActivos,
+                  onTap: () async {
+                    await app.audio.cambiarEfectos(!app.audio.efectosActivos);
+                    // Al prender, que se oiga el resultado. Al apagar, `sonar`
+                    // ya es no-op, así que no hay nada que evitar.
+                    app.audio.sonar(Sfx.toque);
+                    redibujar(() {});
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
