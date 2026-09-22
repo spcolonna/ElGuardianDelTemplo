@@ -37,7 +37,7 @@ class _AjustesScreenState extends State<AjustesScreen> {
         children: [
           PlacaTitulo(t('nav.ajustes'), icono: Icons.volume_up),
           const SizedBox(height: 8),
-          _Toggle(
+          FilaInterruptor(
             texto: t('ajustes.musica'),
             icono: Icons.music_note,
             valor: app.audio.musicaActiva,
@@ -47,7 +47,7 @@ class _AjustesScreenState extends State<AjustesScreen> {
             },
           ),
           const SizedBox(height: 8),
-          _Toggle(
+          FilaInterruptor(
             texto: t('ajustes.efectos'),
             icono: Icons.graphic_eq,
             valor: app.audio.efectosActivos,
@@ -209,47 +209,6 @@ class _AjustesScreenState extends State<AjustesScreen> {
             t('ajustes.sobre'),
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 11.5, color: kTintaSuave),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _Toggle extends StatelessWidget {
-  final String texto;
-  final IconData icono;
-  final bool valor;
-  final VoidCallback onTap;
-  const _Toggle({
-    required this.texto,
-    required this.icono,
-    required this.valor,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return PanelPapel(
-      onTap: onTap,
-      child: Row(
-        children: [
-          Icon(icono, color: valor ? kTinta : kTintaSuave, size: 24),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              texto,
-              style: const TextStyle(
-                fontSize: 14.5,
-                fontWeight: FontWeight.w600,
-                color: kTinta,
-              ),
-            ),
-          ),
-          Icon(
-            valor ? Icons.toggle_on : Icons.toggle_off,
-            size: 36,
-            color: valor ? kVerde : kTintaSuave,
           ),
         ],
       ),

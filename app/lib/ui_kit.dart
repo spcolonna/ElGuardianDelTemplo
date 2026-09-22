@@ -595,6 +595,54 @@ class PlacaNombre extends StatelessWidget {
   }
 }
 
+/// Una fila con ícono, texto y un interruptor de prendido/apagado.
+///
+/// No es el `Switch` de Material: acá el estado se lee del color y de la
+/// palanca dibujada, sobre el mismo papel que el resto de la pantalla. Vive en
+/// el kit porque lo usan tanto Ajustes como el menú de la partida, y lo que no
+/// se puede es que el mismo control se vea distinto según desde dónde se llegue.
+class FilaInterruptor extends StatelessWidget {
+  final String texto;
+  final IconData icono;
+  final bool valor;
+  final VoidCallback onTap;
+  const FilaInterruptor({
+    super.key,
+    required this.texto,
+    required this.icono,
+    required this.valor,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return PanelPapel(
+      onTap: onTap,
+      child: Row(
+        children: [
+          Icon(icono, color: valor ? kTinta : kTintaSuave, size: 24),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              texto,
+              style: const TextStyle(
+                fontSize: 14.5,
+                fontWeight: FontWeight.w600,
+                color: kTinta,
+              ),
+            ),
+          ),
+          Icon(
+            valor ? Icons.toggle_on : Icons.toggle_off,
+            size: 36,
+            color: valor ? kVerde : kTintaSuave,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 /// Título de sección dentro de una pantalla. Distinto del cartel colgante,
 /// que titula la pantalla entera.
 class PlacaTitulo extends StatelessWidget {
