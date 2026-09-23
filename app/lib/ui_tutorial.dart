@@ -11,6 +11,23 @@ import 'tutorial.dart';
 import 'ui_carta.dart';
 import 'ui_common.dart';
 
+/// El aire que el botón de Saltar suma alrededor de su texto: el padding del
+/// `TextButton` más el hueco que lo separa del contador. Se usa para saber si
+/// el título entra sin tener que medirlo después de dibujarlo.
+const _kBotonSaltarAire = 44.0;
+
+/// Cuánto mide ese texto en una sola línea.
+double _anchoDe(String texto, TextStyle estilo) {
+  final tp = TextPainter(
+    text: TextSpan(text: texto, style: estilo),
+    textDirection: TextDirection.ltr,
+    maxLines: 1,
+  )..layout();
+  final ancho = tp.width;
+  tp.dispose();
+  return ancho;
+}
+
 /// Tutorial: una partida real con mazo trucado y un overlay que explica.
 ///
 /// Usa el mismo `Juego` que el juego de verdad (`barajar: false`), así que lo
@@ -76,13 +93,30 @@ class _TutorialScreenState extends State<TutorialScreen>
       vsync: this,
       duration: const Duration(milliseconds: 1100),
     );
+    // El agujero del velo se calcula en `build`, y el scroll que pide
+    // `_enfocar` lo maneja el `Scrollable` con su propio estado: no pasa por
+    //acá. Sin este listener el recuadro queda dibujado donde estaba la carta
+    // ANTES de moverse, que es lo que se veía en el paso 2.
+    _scroll.addListener(_remedirCuandoAsiente);
   }
 
   @override
   void dispose() {
+    _scroll.removeListener(_remedirCuandoAsiente);
     _pulso.dispose();
     _scroll.dispose();
     super.dispose();
+  }
+
+  /// Vuelve a medir la carta en el frame siguiente al que el scroll movió.
+  ///
+  /// Después y no en el acto: el listener corre mientras la posición se
+  /// actualiza, y ahí `localToGlobal` devolvería una transformación que
+  /// todavía no se pintó.
+  void _remedirCuandoAsiente() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _medirCarta();
+    });
   }
 
   /// Trae a la vista lo que el paso está señalando.
@@ -221,33 +255,60 @@ class _TutorialScreenState extends State<TutorialScreen>
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 12, 12, 0),
-          child: Row(
-            children: [
-              // El que cede es el título: el Expanded lo estira contra el
-              // resto del renglón, de paso empujando al botón contra el borde
-              // derecho, y si no entra se corta él en vez de desbordar.
-              Expanded(
-                child: Text(
-                  t('tutorial.titulo'),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
+          child: LayoutBuilder(
+            builder: (context, cs) {
+              const estiloTitulo = TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+              );
+              const estiloContador = TextStyle(
+                color: kTintaSuave,
+                fontSize: 13,
+              );
+              final contador = '${paso + 1}/${guionTutorial.length}';
+
+              // El título se muestra entero o no se muestra.
+              //
+              // Antes se recortaba con puntos suspensivos, y en alemán a 320 px
+              // «So wird gespielt» quedaba en dos letras: eso no es un título,
+              // es ruido. Lo que el jugador necesita sí o sí es en qué paso va
+              // y cómo salir, y esos dos nunca ceden.
+              final libre =
+                  cs.maxWidth -
+                  _anchoDe(contador, estiloContador) -
+                  _anchoDe(
+                    t('tutorial.saltar'),
+                    const TextStyle(fontSize: 14),
+                  ) -
+                  _kBotonSaltarAire;
+              final entra =
+                  _anchoDe(t('tutorial.titulo'), estiloTitulo) <= libre;
+
+              return Row(
+                children: [
+                  // El Spacer del caso angosto hace el mismo trabajo que el
+                  // Expanded: empuja al botón contra el borde derecho.
+                  if (entra)
+                    Expanded(
+                      child: Text(
+                        t('tutorial.titulo'),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: estiloTitulo,
+                      ),
+                    )
+                  else
+                    const Spacer(),
+                  const SizedBox(width: 12),
+                  Text(contador, style: estiloContador),
+                  // Sin flex: el botón va pegado a la derecha, como en el cómic.
+                  TextButton(
+                    onPressed: widget.onTerminar,
+                    child: Text(t('tutorial.saltar'), maxLines: 1),
                   ),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Text(
-                '${paso + 1}/${guionTutorial.length}',
-                style: const TextStyle(color: kTintaSuave, fontSize: 13),
-              ),
-              // Sin flex: el botón va pegado a la derecha, como en el cómic.
-              TextButton(
-                onPressed: widget.onTerminar,
-                child: Text(t('tutorial.saltar'), maxLines: 1),
-              ),
-            ],
+                ],
+              );
+            },
           ),
         ),
 
@@ -349,7 +410,7 @@ class _TutorialScreenState extends State<TutorialScreen>
                     child: AnimatedBuilder(
                       animation: _pulso,
                       builder: (context, _) => CustomPaint(
-                        painter: _Spotlight(
+                        painter: VeloRecortado(
                           hueco: hueco,
                           pulso: Curves.easeInOut.transform(_pulso.value),
                         ),
@@ -555,13 +616,13 @@ class _TutorialScreenState extends State<TutorialScreen>
 }
 
 /// Oscurece todo menos un rectángulo, que queda enmarcado en ámbar.
-class _Spotlight extends CustomPainter {
+class VeloRecortado extends CustomPainter {
   final Rect? hueco;
 
   /// 0 a 1, el mismo latido que el resalte de los botones. Sólo engrosa el
   /// marco: el velo no se toca, que si parpadeara marearía.
   final double pulso;
-  const _Spotlight({required this.hueco, required this.pulso});
+  const VeloRecortado({required this.hueco, required this.pulso});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -597,7 +658,7 @@ class _Spotlight extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_Spotlight v) => v.hueco != hueco || v.pulso != pulso;
+  bool shouldRepaint(VeloRecortado v) => v.hueco != hueco || v.pulso != pulso;
 }
 
 /// Marco que resalta un widget (los pasos que hablan de botones, no de la

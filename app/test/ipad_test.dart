@@ -24,6 +24,7 @@ import 'package:guardian_templo/ui_home.dart';
 import 'package:guardian_templo/ui_modos.dart';
 import 'package:guardian_templo/ui_progreso.dart';
 import 'package:guardian_templo/ui_shell.dart';
+import 'package:guardian_templo/ui_tutorial.dart';
 
 const _anchos = <double>[320, 507, 639, 834, 1024, 1366];
 
@@ -156,6 +157,21 @@ void main() {
 
   testWidgets('ajustes entra en cualquier ventana', (tester) async {
     await probar(tester, 'ajustes', () => const AjustesScreen());
+  });
+
+  // El tutorial es la primera pantalla que ve alguien que abre el juego, y
+  // hasta ahora era la única grande sin barrido de anchos: este mismo archivo
+  // lo apaga (`tutorialVisto = true`) para poder llegar a la mesa.
+  //
+  // La `UniqueKey` fuerza un `State` nuevo en cada vuelta: sin ella Flutter
+  // reusa el de la anterior, y el tutorial se queda con la partida armada en
+  // el primer idioma.
+  testWidgets('el tutorial entra en cualquier ventana', (tester) async {
+    await probar(
+      tester,
+      'tutorial',
+      () => TutorialScreen(key: UniqueKey(), onTerminar: () {}),
+    );
   });
 
   testWidgets('progreso entra en cualquier ventana', (tester) async {
