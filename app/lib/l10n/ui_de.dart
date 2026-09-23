@@ -176,6 +176,13 @@ const uiDe = <String, String>{
   'juego.rendirseConfirmarSub':
       'Du verlierst {n} Energie und die Gefahr behält ihre Technik. '
       'Das lässt sich nicht rückgängig machen.',
+  'juego.rendirseTeMata': 'Aufgeben beendet die Partie',
+  'juego.rendirseTeMataSub':
+      'Die Gefahr nimmt dir {n} Energie, und du hast {e}. Hier fällt der '
+      'Tempel: das lässt sich nicht rückgängig machen.',
+  'juego.rendirseAlBordeSub':
+      'Du verlierst {n} Energie und stehst bei null: noch auf den Beinen, '
+      'aber der nächste Schlag wirft dich um.',
   'juego.rendirseSeguir': 'Weiterkämpfen',
   'juego.continuarPeligro': 'Weiter',
   'juego.diario': 'Tagebuch des Neulings',

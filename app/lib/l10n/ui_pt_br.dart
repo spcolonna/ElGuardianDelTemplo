@@ -165,6 +165,13 @@ const uiPtBr = <String, String>{
   'juego.rendirseConfirmarSub':
       'Você perde {n} de Energia e o perigo fica com a técnica dele. '
       'Não tem volta.',
+  'juego.rendirseTeMata': 'Desistir encerra a partida',
+  'juego.rendirseTeMataSub':
+      'O perigo tira {n} de Energia e você tem {e}. O templo cai aqui: '
+      'não tem volta.',
+  'juego.rendirseAlBordeSub':
+      'Você perde {n} de Energia e fica em zero: continua de pé, mas o '
+      'próximo golpe te derruba.',
   'juego.rendirseSeguir': 'Continuar lutando',
   'juego.continuarPeligro': 'Continuar',
   'juego.diario': 'Diário do Novato',

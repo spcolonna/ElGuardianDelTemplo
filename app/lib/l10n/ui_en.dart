@@ -165,6 +165,13 @@ const uiEn = <String, String>{
   'juego.rendirseConfirmarSub':
       'You lose {n} Energy and the danger keeps its technique. '
       'There is no going back.',
+  'juego.rendirseTeMata': 'Giving up ends the run',
+  'juego.rendirseTeMataSub':
+      'The danger takes {n} Energy and you have {e}. The temple falls here: '
+      'there is no going back.',
+  'juego.rendirseAlBordeSub':
+      'You lose {n} Energy and drop to zero: still standing, but the next '
+      'blow takes you down.',
   'juego.rendirseSeguir': 'Keep fighting',
   'juego.continuarPeligro': 'Continue',
   'juego.diario': "Rookie's Diary",

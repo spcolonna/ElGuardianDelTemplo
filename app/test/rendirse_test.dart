@@ -223,4 +223,67 @@ void main() {
     expect(j.combatesPerdidos, 1);
     expect(j.estado, EstadoJuego.derrota);
   });
+
+  // El cartel tiene que decir si esto te deja afuera.
+  //
+  // El número del daño ya estaba a la vista, pero había que hacer la cuenta
+  // contra la Energía propia en el momento de más presión. Y son DOS casos:
+  // la derrota es `energia < 0` estricto, así que quedar en cero exacto no es
+  // perder. Los helpers de arriba arman las partidas con 200 de Energía justo
+  // para que rendirse nunca mate, o sea que este caso necesita la suya.
+  testWidgets('el cartel distingue morir, quedar al borde y seguir', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(414, 1200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+
+    /// Pone al jugador en un combate que está perdiendo, con la Energía que
+    /// [segunElDano] pida para el daño de ESE peligro, y abre el cartel.
+    ///
+    /// La Energía se calcula contra el daño y no se fija a mano porque el
+    /// primer peligro que se pierde no siempre pega lo mismo.
+    Future<Juego> conEnergia(int Function(int dano) segunElDano) async {
+      final j = enCombatePerdiendo();
+      j.energia = segunElDano(j.peligro!.dano);
+      await aLaMesa(tester, conJuego(j));
+      await tester.tap(find.text(ui('juego.rendirse')));
+      await tester.pumpAndSettle();
+      return j;
+    }
+
+    Future<void> cerrar() async {
+      await tester.tap(find.text(ui('juego.rendirseSeguir')));
+      await tester.pumpAndSettle();
+    }
+
+    // 1) El daño supera la Energía: esto termina la partida y hay que decirlo.
+    await conEnergia((dano) => dano - 1);
+    expect(
+      find.text(ui('juego.rendirseTeMata')),
+      findsOneWidget,
+      reason: 'no avisó que rendirse lo dejaba afuera',
+    );
+    await cerrar();
+
+    // 2) Justo en cero: sigue vivo, así que NO puede decir que pierde.
+    await conEnergia((dano) => dano);
+    expect(find.text(ui('juego.rendirseTeMata')), findsNothing);
+    expect(find.text(ui('juego.rendirseConfirmar')), findsOneWidget);
+    expect(
+      find.textContaining(ui('juego.rendirseAlBordeSub').split('{').first),
+      findsOneWidget,
+      reason: 'no avisó que quedaba en cero',
+    );
+    await cerrar();
+
+    // 3) Con aire de sobra, el cartel de siempre.
+    await conEnergia((dano) => dano + 5);
+    expect(find.text(ui('juego.rendirseTeMata')), findsNothing);
+    expect(
+      find.textContaining(ui('juego.rendirseConfirmarSub').split('{').first),
+      findsOneWidget,
+    );
+    await cerrar();
+  });
 }

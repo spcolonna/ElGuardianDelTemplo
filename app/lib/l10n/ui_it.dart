@@ -167,6 +167,13 @@ const uiIt = <String, String>{
   'juego.rendirseConfirmarSub':
       'Perdi {n} di Energia e il pericolo si tiene la sua tecnica. '
       'Non si torna indietro.',
+  'juego.rendirseTeMata': 'Arrendersi chiude la partita',
+  'juego.rendirseTeMataSub':
+      'Il pericolo ti toglie {n} di Energia e te ne restano {e}. Il tempio '
+      'cade qui: non si torna indietro.',
+  'juego.rendirseAlBordeSub':
+      'Perdi {n} di Energia e resti a zero: sei ancora in piedi, ma il '
+      'prossimo colpo ti abbatte.',
   'juego.rendirseSeguir': 'Continua a combattere',
   'juego.continuarPeligro': 'Continua',
   'juego.diario': 'Diario del Novizio',

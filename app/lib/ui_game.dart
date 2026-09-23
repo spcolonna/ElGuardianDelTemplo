@@ -1456,13 +1456,30 @@ class _Mesa extends StatelessWidget {
   /// Rendirse es la única jugada del combate que resta Energía sin devolver
   /// nada, y el botón comparte fila con el de robar. Se confirma diciendo el
   /// número exacto que se va a perder, que es el dato que hace dudar.
+  ///
+  /// Y si ese número te deja afuera, lo dice. Son dos casos distintos y no
+  /// uno: la derrota es `energia < 0` estricto, así que quedar en cero exacto
+  /// NO es perder —seguís en pie y el próximo golpe te tumba—. Avisar
+  /// «perdés» en ese caso sería mentir, y avisar lo mismo en los dos sería
+  /// enseñar mal una regla que el juego se tomó el trabajo de tener.
   Future<bool> _confirmarRendirse(BuildContext context, Juego j) async {
     final t = TextosUi.de(app.idioma);
     final dano = j.peligro?.dano ?? 0;
+    final teMata = j.energia < dano;
+    final alBorde = j.energia == dano;
     return confirmar(
       context,
-      titulo: t('juego.rendirseConfirmar'),
-      detalle: fmt(t('juego.rendirseConfirmarSub'), {'n': dano}),
+      titulo: t(teMata ? 'juego.rendirseTeMata' : 'juego.rendirseConfirmar'),
+      detalle: fmt(
+        t(
+          teMata
+              ? 'juego.rendirseTeMataSub'
+              : alBorde
+              ? 'juego.rendirseAlBordeSub'
+              : 'juego.rendirseConfirmarSub',
+        ),
+        {'n': dano, 'e': j.energia},
+      ),
       textoNo: t('juego.rendirseSeguir'),
       textoSi: t('juego.rendirse'),
     );

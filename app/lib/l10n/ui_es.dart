@@ -168,6 +168,13 @@ const uiEs = <String, String>{
   'juego.rendirseConfirmarSub':
       'Perdés {n} de Energía y el peligro se queda con su técnica. '
       'No hay vuelta atrás.',
+  'juego.rendirseTeMata': 'Rendirte termina la partida',
+  'juego.rendirseTeMataSub':
+      'El peligro te saca {n} de Energía y te quedan {e}. El templo cae acá: '
+      'no hay vuelta atrás.',
+  'juego.rendirseAlBordeSub':
+      'Perdés {n} de Energía y quedás en cero: seguís en pie, pero el '
+      'próximo golpe te tumba.',
   'juego.rendirseSeguir': 'Seguir peleando',
   'juego.continuarPeligro': 'Continuar',
   'juego.diario': 'Diario del Novato',
