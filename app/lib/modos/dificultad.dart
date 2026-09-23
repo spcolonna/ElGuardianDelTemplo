@@ -137,6 +137,25 @@ Config aplicarDificultad(Config base, Dificultad d) {
   return c;
 }
 
+/// Prende el Cansancio que pide el interruptor de la pantalla de modos.
+///
+/// El interruptor SUMA el Cansancio, no lo manda: en los tres niveles altos el
+/// preset ya lo trae puesto y apagarlo ahí sería jugar otro nivel con el
+/// nombre de éste, así que a esos no se les toca el disparo.
+///
+/// En los tres bajos el preset no dice nada, y ahí estaba el bug: prendía el
+/// modo pero dejaba `disparoCansancio` en su valor inicial, que es 0 —y 0 no
+/// es «apagado», es `finDeFase`—. Con el interruptor en Guardián entraban
+/// fatigas al cerrar cada fase y ninguna al rebarajar, que es lo contrario de
+/// la regla de mesa. Acá el interruptor da la regla de mesa, la misma que
+/// traen Sombra de Shifu y Shifu.
+void sumarCansancio(Config c, Dificultad dificultad) {
+  c.modoCansancio = true;
+  if (!dificultad.traeCansancio) {
+    c.disparoCansancio = DisparoCansancio.alRebarajar.index;
+  }
+}
+
 /// Lo que el jugador elige antes de empezar. Se persiste entre sesiones.
 class OpcionesPartida {
   Dificultad dificultad;
@@ -158,11 +177,7 @@ class OpcionesPartida {
   Config aplicar(Config base) {
     final c = aplicarDificultad(base, dificultad);
     if (jefes != null) c.cantidadJefes = jefes!;
-    // El interruptor SUMA el Cansancio, no lo manda: en los tres niveles
-    // altos el preset ya lo trae puesto y apagarlo ahí sería jugar otro nivel
-    // con el nombre de éste. En los tres bajos el preset no lo toca, así que
-    // el interruptor decide solo.
-    if (cansancio) c.modoCansancio = true;
+    if (cansancio) sumarCansancio(c, dificultad);
     c.modoEncargos = encargos;
     // El cansancio sin poder configurado no haría nada: le damos el valor
     // que `bin/sim_cansancio.dart` usa para medirlo.

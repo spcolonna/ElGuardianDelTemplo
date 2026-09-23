@@ -86,8 +86,7 @@ void main() {
           );
           // O sigue en el mazo, o el peligro que se reveló recién ya la robó.
           expect(
-            j.mazo.any((c) => c.uid == uid) ||
-                j.mesa.any((c) => c.uid == uid),
+            j.mazo.any((c) => c.uid == uid) || j.mesa.any((c) => c.uid == uid),
             isTrue,
             reason: 'semilla $semilla: no quedó en el mazo',
           );
@@ -246,5 +245,75 @@ void main() {
     // Y se va sola, sin dejar la mesa tapada.
     await tester.pump(const Duration(seconds: 5));
     expect(find.text(entrada), findsNothing);
+  });
+
+  // Cada disparo entra por SU puerta y no por la del otro.
+  //
+  // Hasta acá nada lo pedía: los tests contaban fatigas al final de la
+  // partida, y ahí `finDeFase` y `alRebarajar` cruzados dan números
+  // parecidos. Se podía invertir cualquiera de los dos getters del motor y la
+  // suite seguía verde, que es justo lo que hacía falta atrapar.
+  test('cada disparo del Cansancio entra sólo cuando le toca', () {
+    Config cfg(int disparo) => Config(
+      energiaInicial: 200,
+      energiaMaxima: 200,
+      modoCansancio: true,
+      poderCansancio: -1,
+      disparoCansancio: disparo,
+    );
+
+    /// Juega hasta terminar anotando, en cada paso, si la fatiga entró en el
+    /// mismo momento en que se barajó o en el que cambió de fase.
+    (int, int) fatigasPorPuerta(int disparo) {
+      final j = Juego(
+        cfg: cfg(disparo),
+        contenido: contenidoPorDefecto(),
+        rng: Random(7),
+      );
+      var alBarajar = 0, alCambiarDeFase = 0;
+      var pasos = 0;
+      while (pasos++ < 2000 && !j.terminado) {
+        final fatigas = j.cansancioAgregado;
+        final barajadas = j.vecesBarajado;
+        final fase = j.fase;
+
+        if (j.estado == EstadoJuego.enCombate &&
+            j.sumaMesa < j.poderPeligroEfectivo &&
+            j.puedeRobar) {
+          j.robar();
+        } else if (j.estado == EstadoJuego.enCombate) {
+          j.resolver();
+        } else {
+          j.continuar();
+        }
+
+        if (j.cansancioAgregado > fatigas) {
+          if (j.vecesBarajado > barajadas) {
+            alBarajar++;
+          } else if (j.fase != fase) {
+            alCambiarDeFase++;
+          } else {
+            fail('entró una fatiga sin barajar ni cambiar de fase');
+          }
+        }
+      }
+      return (alBarajar, alCambiarDeFase);
+    }
+
+    final porRebarajar = fatigasPorPuerta(DisparoCansancio.alRebarajar.index);
+    expect(porRebarajar.$1, greaterThan(0), reason: 'no entró al rebarajar');
+    expect(
+      porRebarajar.$2,
+      0,
+      reason: '`alRebarajar` no tiene que meter nada al cerrar fase',
+    );
+
+    final porFase = fatigasPorPuerta(DisparoCansancio.finDeFase.index);
+    expect(porFase.$2, greaterThan(0), reason: 'no entró al cerrar fase');
+    expect(
+      porFase.$1,
+      0,
+      reason: '`finDeFase` no tiene que meter nada al rebarajar',
+    );
   });
 }

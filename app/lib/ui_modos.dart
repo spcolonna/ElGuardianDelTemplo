@@ -62,6 +62,7 @@ class _ModosScreenState extends State<ModosScreen> {
               // El único camino gratis es el primero. Los otros tres se ven
               // enteros, con sus números: hay que mostrar lo que se compra.
               bloqueado: !abierto && d != Dificultad.aprendiz,
+              cansancioExtra: o.cansancio,
               base: app.cfg,
               t: t,
               onTap: () {
@@ -155,6 +156,12 @@ class _Camino extends StatelessWidget {
   final Dificultad dificultad;
   final bool elegido;
   final bool bloqueado;
+
+  /// Si el interruptor de la pantalla está prendido. La tarjeta tiene que
+  /// mostrar el Cansancio que el jugador va a tener, no sólo el que el camino
+  /// trae de fábrica: sin esto, prender el interruptor en Guardián no se veía
+  /// en ningún lado y la regla llegaba de sorpresa a mitad de partida.
+  final bool cansancioExtra;
   final dynamic base;
   final TextosUi t;
   final VoidCallback onTap;
@@ -165,12 +172,14 @@ class _Camino extends StatelessWidget {
     required this.base,
     required this.t,
     required this.onTap,
+    required this.cansancioExtra,
     this.bloqueado = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final c = aplicarDificultad(base, dificultad);
+    if (cansancioExtra) sumarCansancio(c, dificultad);
     final clave = dificultad.clave;
 
     return PanelPapel(

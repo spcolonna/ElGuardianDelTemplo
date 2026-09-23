@@ -106,6 +106,40 @@ void main() {
     expect(c.poderCansancio, -1, reason: 'el poder se completa igual');
   });
 
+  // Prender el interruptor no alcanza: hay que decir CUÁNDO entra la fatiga.
+  //
+  // `disparoCansancio` arranca en 0, y 0 no es «apagado»: es `finDeFase`. El
+  // interruptor prendía el modo y no tocaba el disparo, así que en Guardián
+  // daba la regla contraria a la de mesa —fatiga al cerrar cada fase, ninguna
+  // al rebarajar— y el jugador no tenía forma de enterarse.
+  test('el interruptor da la regla de mesa, no la de fin de fase', () {
+    final base = Config();
+
+    for (final d in [
+      Dificultad.aprendiz,
+      Dificultad.novato,
+      Dificultad.guardian,
+    ]) {
+      final c = OpcionesPartida(dificultad: d, cansancio: true).aplicar(base);
+      expect(
+        c.disparoCansancio,
+        DisparoCansancio.alRebarajar.index,
+        reason: '$d con el interruptor tiene que entrar al rebarajar',
+      );
+    }
+
+    // Y a los que ya lo traen no se les pisa el que eligieron.
+    final maestro = OpcionesPartida(
+      dificultad: Dificultad.maestro,
+      cansancio: true,
+    ).aplicar(base);
+    expect(
+      maestro.disparoCansancio,
+      DisparoCansancio.finDeFase.index,
+      reason: 'Maestro trae el suyo: el interruptor no manda',
+    );
+  });
+
   test('`ambos` mete fatiga al cerrar fase Y al rebarajar', () {
     // Sin barajar el mazo es determinístico, así que las cuentas cierran.
     int fatigasEn(int disparo) {
