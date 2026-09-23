@@ -2,12 +2,17 @@
 //
 // El título es traducible y comparte renglón con el contador de pasos y el
 // botón Saltar: sin acotarlo, en 360 px se pasaba 117 px por la derecha.
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:guardian_templo/app_state.dart';
 import 'package:guardian_templo/idiomas.dart';
 import 'package:guardian_templo/l10n.dart';
+import 'package:guardian_templo/engine.dart';
+import 'package:guardian_templo/tutorial.dart';
 import 'package:guardian_templo/tutorial_zonas.dart';
+import 'package:guardian_templo/temas/temas.dart';
 import 'package:guardian_templo/ui_carta.dart';
 import 'package:guardian_templo/ui_tutorial.dart';
 
@@ -223,6 +228,37 @@ void main() {
       conScroll,
       greaterThan(0),
       reason: 'ningun tamano necesito scroll: el test no prueba nada',
+    );
+  });
+
+  // El guión nombra números, y los números salen de la carta.
+  //
+  // Estuvieron desincronizados: el texto estaba escrito para un peligro de
+  // poder 2 y daño 2, pero salía uno de poder 1 y daño 1. El paso 3 decía
+  // «en este caso, dos» sobre una carta que mostraba 1, y el paso 9 decía
+  // «todavía no alcanza» cuando con la primera carta ya alcanzaba.
+  test('el primer peligro del tutorial es el que el guión cuenta', () {
+    final j = Juego(
+      cfg: configTutorial(),
+      contenido: contenidoTutorial(temaTemplo, 'es'),
+      rng: Random(1),
+      barajar: false,
+    );
+
+    expect(j.peligro!.dano, 2, reason: 'el paso 3 dice «en este caso, dos»');
+
+    j.robar();
+    expect(
+      j.sumaMesa < j.poderPeligroEfectivo,
+      isTrue,
+      reason: 'el paso 9 dice «todavía no alcanza» tras la primera carta',
+    );
+
+    j.robar();
+    expect(
+      j.sumaMesa >= j.poderPeligroEfectivo,
+      isTrue,
+      reason: 'el paso 10 dice «llegaste» tras la segunda',
     );
   });
 }

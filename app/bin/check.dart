@@ -308,7 +308,7 @@ void main() {
     'pierde=$pierde2 · puedeMeditar=${jt.puedeMeditar} · '
     'la Duda está en el descarte=$hayDuda',
   );
-  print('    (esperado alba1/true, alba8/true, true, true)');
+  print('    (esperado alba4/true, alba8/true, true, true)');
 
   // 11) Todas las cartas ilustradas tienen que medir lo mismo.
   final dir = Directory('assets/cartas');
@@ -933,7 +933,9 @@ void main() {
       r'android:value="([^"]+)"',
     ).firstMatch(xml)?[1];
     if (enDart == null || enXml == null || enDart != enXml) {
-      print('    App ID de AdMob: ids.dart dice $enDart y el manifiesto $enXml');
+      print(
+        '    App ID de AdMob: ids.dart dice $enDart y el manifiesto $enXml',
+      );
       androidTorcido++;
     }
 
@@ -983,7 +985,9 @@ void main() {
     final apple = File('ios/Runner/$idioma.lproj/InfoPlist.strings');
     final android = File('$res/$cajon/strings.xml');
     if (!apple.existsSync() || !android.existsSync()) {
-      print('    $idioma: falta ${!apple.existsSync() ? apple.path : android.path}');
+      print(
+        '    $idioma: falta ${!apple.existsSync() ? apple.path : android.path}',
+      );
       androidTorcido++;
       continue;
     }

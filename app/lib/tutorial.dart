@@ -68,8 +68,8 @@ class PasoTutorial {
 /// Ids de las cartas del mazo trucado, en el orden exacto en que se roban.
 /// Elegido para que cada dinámica aparezca cuando la explica el guion.
 const mazoTutorial = <String>[
-  'puno_torpe', // paso 4: primera carta, poder 1
-  'puno_torpe', // paso 6: llega a 2 y gana
+  'puno_torpe', // paso 7: primera carta, poder 1: todavía no alcanza
+  'puno_torpe', // paso 9: llega a 2 y gana
   'duda_existencial', // paso 8: sale una mala en el peligro difícil
   'respiracion_agitada',
   'puno_torpe',
@@ -80,7 +80,11 @@ const mazoTutorial = <String>[
 
 /// Ids de los peligros del tutorial, en orden.
 const peligrosTutorial = <String>[
-  'alba1', // Mosquito: poder 1, daño 1, 2 gratis → se gana fácil
+  // Poder 2 y daño 2 no son casualidad: son los números que el guión nombra.
+  // El paso 3 dice «el corazón roto… en este caso, dos» y el 9 dice
+  // «todavía no alcanza» después de la primera carta. Con un peligro de poder
+  // 1 el tutorial se contradecía con la carta que tenía delante.
+  'alba4', // Despertar Brusco: poder 2, daño 2, 3 gratis → se gana con dos
   'alba8', // Soga de Saltar Rota: poder 2, daño 2, 3 gratis → se pierde
 ];
 
