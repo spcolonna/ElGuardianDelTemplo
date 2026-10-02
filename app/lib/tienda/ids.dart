@@ -31,7 +31,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 /// propia app es tráfico inválido para Google y se castiga suspendiendo la
 /// cuenta entera, no la app. Se pone en `false` recién para el build que va a
 /// la tienda.
-const bool kAnunciosDePrueba = true;
+const bool kAnunciosDePrueba = false;
 
 /// Con esto en `true` la compra se resuelve local y al instante, sin hablar con
 /// ninguna tienda.
