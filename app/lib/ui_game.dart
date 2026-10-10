@@ -1031,7 +1031,9 @@ class _Mesa extends StatelessWidget {
                         'fase': app.textos.fase(j.fase),
                         'n': j.energia,
                       }),
-                style: const TextStyle(color: kTintaSuave),
+                textAlign: TextAlign.center,
+                // Tinta, no tinta suave: va directo sobre el paisaje.
+                style: const TextStyle(color: kTinta),
               ),
               const SizedBox(height: 16),
               Wrap(
