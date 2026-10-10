@@ -37,6 +37,11 @@ class Audio {
   bool efectosActivos = true;
   Pista? _pista;
 
+  /// La última pista que se pidió, suene o no. Con la música apagada `_pista`
+  /// queda en null, y sin esto al prenderla de nuevo siempre volvía la del
+  /// patio en vez de la de la fase en curso.
+  Pista? _deseada;
+
   Timer? _fade;
 
   /// Cada fundido se queda con su número. Si arranca otro mientras éste corre,
@@ -68,12 +73,16 @@ class Audio {
   /// el audio no puede empezar antes de que el jugador toque algo. Arrancarla
   /// acá haría que el primer intento falle en silencio.
   Future<void> pistaDeMenu() async {
+    // Apagada, igual se anota: al prenderla en el patio tiene que sonar la
+    // del patio, no la de la partida que se dejó.
+    if (!musicaActiva && _deseada != null) _deseada = Pista.home;
     if (_pista == null || _pista == Pista.home) return;
     await ponerPista(Pista.home);
   }
 
   /// Cambia la pista de fondo, con fundido. No hace nada si ya suena esa.
   Future<void> ponerPista(Pista p) async {
+    _deseada = p;
     if (!musicaActiva || _pista == p) return;
     final habia = _pista != null;
     _pista = p;
@@ -83,11 +92,18 @@ class Audio {
       if (habia) await _rampa(mia, desde: _volumenMusica, hasta: 0);
       if (mia != _generacion) return;
       await _musica.play(AssetSource('audio/musica_${p.name}.wav'), volume: 0);
+      // Si mientras cargaba la apagaron, que no quede sonando.
+      if (mia != _generacion) {
+        if (!musicaActiva) await _musica.stop();
+        return;
+      }
       await _rampa(mia, desde: 0, hasta: _volumenMusica);
     } catch (_) {
       // Sin audio disponible el juego sigue igual: nunca romper por un sonido.
       _pista = null;
-      await _musica.setVolume(_volumenMusica);
+      try {
+        await _musica.setVolume(_volumenMusica);
+      } catch (_) {}
     }
   }
 
@@ -120,9 +136,13 @@ class Audio {
   Future<void> pararMusica() async {
     _fade?.cancel();
     _generacion++;
-    await _musica.stop();
-    await _musica.setVolume(_volumenMusica);
     _pista = null;
+    try {
+      await _musica.stop();
+      await _musica.setVolume(_volumenMusica);
+    } catch (_) {
+      // Ídem.
+    }
   }
 
   Future<void> sonar(Sfx s) async {
@@ -134,12 +154,17 @@ class Audio {
     }
   }
 
+  /// Prende o apaga la música.
+  ///
+  /// El booleano cambia en el acto; cargar la pista y el fundido vienen
+  /// después. Quien dibuja la palanca **no espera** este Future: antes lo
+  /// esperaba y el interruptor tardaba un segundo en moverse.
   Future<void> cambiarMusica(bool v) async {
     musicaActiva = v;
-    await _prefs?.setBool(_claveMusica, v);
+    unawaited(_prefs?.setBool(_claveMusica, v));
     if (v) {
       // Vuelve a la pista de la fase en la que estaba, no siempre a Alba.
-      final volver = _pista ?? Pista.home;
+      final volver = _deseada ?? Pista.home;
       _pista = null;
       await ponerPista(volver);
     } else {

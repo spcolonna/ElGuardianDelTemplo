@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -41,9 +43,10 @@ class _AjustesScreenState extends State<AjustesScreen> {
             texto: t('ajustes.musica'),
             icono: Icons.music_note,
             valor: app.audio.musicaActiva,
-            onTap: () async {
-              await app.audio.cambiarMusica(!app.audio.musicaActiva);
-              if (mounted) setState(() {});
+            // Sin await: la palanca se mueve ya y la pista entra sola.
+            onTap: () {
+              unawaited(app.audio.cambiarMusica(!app.audio.musicaActiva));
+              setState(() {});
             },
           ),
           const SizedBox(height: 8),

@@ -163,8 +163,9 @@ class _GameScreenState extends State<GameScreen> {
                   texto: t('ajustes.musica'),
                   icono: Icons.music_note,
                   valor: app.audio.musicaActiva,
-                  onTap: () async {
-                    await app.audio.cambiarMusica(!app.audio.musicaActiva);
+                  // Sin await: la palanca se mueve ya y la pista entra sola.
+                  onTap: () {
+                    unawaited(app.audio.cambiarMusica(!app.audio.musicaActiva));
                     redibujar(() {});
                   },
                 ),
@@ -482,7 +483,17 @@ class _GameScreenState extends State<GameScreen> {
               onMenu: () => _abrirMenu(context, app, j, t),
             ),
             Expanded(
-              child: _Mesa(juego: j, app: app, onCambio: _refrescar),
+              child: _Mesa(
+                juego: j,
+                app: app,
+                onCambio: _refrescar,
+                onNueva: () {
+                  app.nuevaPartida();
+                  _reiniciarSeguimiento();
+                  setState(() {});
+                },
+                onSalir: widget.onSalir,
+              ),
             ),
           ],
         );
@@ -971,7 +982,18 @@ class _Mesa extends StatelessWidget {
   final Juego juego;
   final AppState app;
   final VoidCallback onCambio;
-  const _Mesa({required this.juego, required this.app, required this.onCambio});
+
+  /// Los dos botones del resumen final: los mismos que «Nueva partida» e
+  /// «Inicio» del menú, que hasta ahora era el único camino de salida.
+  final VoidCallback onNueva;
+  final VoidCallback onSalir;
+  const _Mesa({
+    required this.juego,
+    required this.app,
+    required this.onCambio,
+    required this.onNueva,
+    required this.onSalir,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -980,8 +1002,10 @@ class _Mesa extends StatelessWidget {
 
     if (j.terminado) {
       final gano = j.estado == EstadoJuego.victoria;
+      // Con scroll: con encargo y botones, en un teléfono chico y en alemán el
+      // resumen ya no entra entero.
       return Center(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -1063,6 +1087,24 @@ class _Mesa extends StatelessWidget {
                   color: app.semanaCompletadaReciente ? kJefe : kMediodia,
                 ),
               ],
+              const SizedBox(height: 24),
+              Wrap(
+                spacing: 12,
+                runSpacing: 10,
+                alignment: WrapAlignment.center,
+                children: [
+                  OutlinedButton.icon(
+                    onPressed: onSalir,
+                    icon: const Icon(Icons.home_outlined),
+                    label: Text(t('nav.inicio')),
+                  ),
+                  FilledButton.icon(
+                    onPressed: onNueva,
+                    icon: const Icon(Icons.refresh),
+                    label: Text(t('juego.nueva')),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
@@ -1614,12 +1656,14 @@ class _ResultadoEncargo extends StatelessWidget {
     final t = textos.encargos[encargo.id]!;
     final ok = encargo.cumplido(juego);
     final color = ok ? kAlba : kOcaso;
+    // Papel opaco y tinta oscura: el resumen va encima del paisaje con un velo
+    // al 45%, y con el recuadro al 10% la letra clara no se leía.
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: .10),
+        color: kPapelClaro,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: color.withValues(alpha: .4)),
+        border: Border.all(color: color, width: 1.5),
       ),
       child: Column(
         children: [
@@ -1632,9 +1676,14 @@ class _ResultadoEncargo extends StatelessWidget {
                 size: 18,
               ),
               const SizedBox(width: 8),
-              Text(
-                fmt(ui('encargo.titulo'), {'t': t.titulo}),
-                style: const TextStyle(fontWeight: FontWeight.bold),
+              Flexible(
+                child: Text(
+                  fmt(ui('encargo.titulo'), {'t': t.titulo}),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: kTinta,
+                  ),
+                ),
               ),
             ],
           ),
@@ -1644,7 +1693,7 @@ class _ResultadoEncargo extends StatelessWidget {
                 ? fmt(ui('encargo.cumplido'), {'r': t.recompensa})
                 : ui('encargo.fallado'),
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 12.5, color: kTintaSuave),
+            style: const TextStyle(fontSize: 13.5, color: kTinta),
           ),
         ],
       ),

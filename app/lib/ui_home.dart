@@ -55,7 +55,6 @@ class PatioScreen extends StatelessWidget {
                     AccesoTabla(
                       texto: t('nav.logros'),
                       icono: Icons.military_tech,
-                      destacado: app.logros.desbloqueados.isNotEmpty,
                       onTap: () => _ir(context, R.logros),
                     ),
                     AccesoTabla(
@@ -184,7 +183,6 @@ class PatioScreen extends StatelessWidget {
           AccesoMadera(
             texto: t('nav.logros'),
             icono: Icons.military_tech,
-            destacado: app.logros.desbloqueados.isNotEmpty,
             onTap: () => _ir(context, R.logros),
           ),
           AccesoMadera(
