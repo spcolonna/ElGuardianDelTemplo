@@ -15,7 +15,7 @@
 ///   2. Crear un bloque de anuncios **intersticial** y copiar su ID.
 ///   3. Crear el producto de compra —no consumible / no renovable— con el mismo
 ///      identificador en Play Console y en App Store Connect.
-///   4. Poner `kAnunciosDePrueba` y `kComprasDePrueba` en `false`.
+///   4. Dejar `kComprasDePrueba` en `false` y armar sin `ANUNCIOS_PRUEBA`.
 ///   5. Repetir el App ID en `android/app/src/main/AndroidManifest.xml` y en
 ///      `ios/Runner/Info.plist`, que son archivos nativos y no leen Dart.
 library;
@@ -27,11 +27,14 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 /// Con esto en `true` los anuncios son los de prueba de Google: dicen «Test Ad»,
 /// no pagan nada y, sobre todo, se pueden tocar sin riesgo.
 ///
-/// **Queda en `true` mientras probemos.** Tocar un anuncio de verdad en la
-/// propia app es tráfico inválido para Google y se castiga suspendiendo la
-/// cuenta entera, no la app. Se pone en `false` recién para el build que va a
-/// la tienda.
-const bool kAnunciosDePrueba = false;
+/// Tocar un anuncio de verdad en la propia app es tráfico inválido para Google
+/// y se castiga suspendiendo la cuenta entera, no la app.
+///
+/// Por defecto es `false`: el build de la tienda sale con avisos reales sin que
+/// nadie se acuerde de nada. Los builds que juegan testers —la prueba cerrada de
+/// Play, TestFlight— se arman con `--dart-define=ANUNCIOS_PRUEBA=true`, y ese
+/// binario **no se promueve nunca a producción**.
+const bool kAnunciosDePrueba = bool.fromEnvironment('ANUNCIOS_PRUEBA');
 
 /// Con esto en `true` la compra se resuelve local y al instante, sin hablar con
 /// ninguna tienda.
