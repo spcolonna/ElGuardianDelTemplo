@@ -18,6 +18,7 @@ import 'package:guardian_templo/ui_carta.dart';
 import 'package:guardian_templo/ui_common.dart';
 import 'package:guardian_templo/ui_game.dart';
 import 'package:guardian_templo/ui_intro.dart';
+import 'package:guardian_templo/ui_kit.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -242,9 +243,18 @@ void main() {
       reason: 'no es la carta que entró',
     );
 
-    // Y se va sola, sin dejar la mesa tapada.
+    // Mientras se lee, la mesa no se toca: un «Robar» a ciegas sacaba la
+    // carta que el jugador todavía estaba mirando.
+    bool algunoVivo() => tester
+        .widgetList<BotonMadera>(find.byType(BotonMadera))
+        .any((b) => b.onTap != null);
+    expect(app.juego!.estado, EstadoJuego.enCombate);
+    expect(algunoVivo(), isFalse, reason: 'se puede tocar con la carta encima');
+
+    // Y se va sola, sin dejar la mesa tapada, y los botones vuelven.
     await tester.pump(const Duration(seconds: 5));
     expect(find.text(entrada), findsNothing);
+    expect(algunoVivo(), isTrue, reason: 'los botones no volvieron');
   });
 
   // Cada disparo entra por SU puerta y no por la del otro.
@@ -288,9 +298,15 @@ void main() {
         }
 
         if (j.cansancioAgregado > fatigas) {
-          if (j.vecesBarajado > barajadas) {
+          final barajo = j.vecesBarajado > barajadas;
+          final cambio = j.fase != fase;
+          // Desde que el mazo se rehace al cerrar el turno, un mismo
+          // `continuar()` puede barajar Y cambiar de fase: ese paso no dice
+          // nada de qué puerta usó la fatiga, así que no se cuenta.
+          if (barajo && cambio) continue;
+          if (barajo) {
             alBarajar++;
-          } else if (j.fase != fase) {
+          } else if (cambio) {
             alCambiarDeFase++;
           } else {
             fail('entró una fatiga sin barajar ni cambiar de fase');
@@ -315,5 +331,45 @@ void main() {
       0,
       reason: '`finDeFase` no tiene que meter nada al rebarajar',
     );
+  });
+
+  test('si el mazo quedó en 0, se baraja al cerrar el turno y no al robar', () {
+    final j = Juego(
+      cfg: Config(
+        energiaInicial: 200,
+        energiaMaxima: 200,
+        modoCansancio: true,
+        poderCansancio: -1,
+        disparoCansancio: DisparoCansancio.alRebarajar.index,
+      ),
+      contenido: contenidoPorDefecto(),
+      rng: Random(3),
+    );
+    var pasos = 0;
+    var probados = 0;
+    while (pasos++ < 3000 && !j.terminado) {
+      if (j.estado == EstadoJuego.enCombate &&
+          j.sumaMesa < j.poderPeligroEfectivo &&
+          j.puedeRobar) {
+        j.robar();
+      } else if (j.estado == EstadoJuego.enCombate) {
+        j.resolver();
+      } else if (j.estado == EstadoJuego.postCombate) {
+        final vacio = j.mazo.isEmpty && j.descarte.isNotEmpty;
+        final barajadas = j.vecesBarajado;
+        final fatigas = j.cansancioAgregado;
+        j.continuar();
+        if (vacio && !j.terminado) {
+          probados++;
+          expect(j.vecesBarajado, barajadas + 1);
+          expect(j.descarte, isEmpty);
+          expect(j.cansancioAgregado, greaterThan(fatigas));
+          expect(j.mazo.any((c) => c.uid == j.ultimoCansancio!.uid), isTrue);
+        }
+      } else {
+        j.continuar();
+      }
+    }
+    expect(probados, greaterThan(0), reason: 'el mazo nunca quedó en 0');
   });
 }

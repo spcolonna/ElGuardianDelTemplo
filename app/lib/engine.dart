@@ -262,15 +262,22 @@ class Juego {
   }
 
   CartaCombate? _sacarDelMazo() {
+    // Lo normal es que el mazo ya llegue rehecho desde `continuar()`. Esto
+    // queda para cuando se agota en pleno combate y el jugador sigue robando.
     if (mazo.isEmpty) {
       if (descarte.isEmpty) return null;
-      mazo = barajar ? ([...descarte]..shuffle(rng)) : [...descarte];
-      descarte = [];
-      vecesBarajado++;
-      _log(textos('log.barajas'));
-      if (_cansancioAlBarajar) _agregarCansancio();
+      _rebarajar();
     }
     return mazo.removeAt(0);
+  }
+
+  /// El descarte vuelve a ser mazo, y si toca, entra el Cansancio.
+  void _rebarajar() {
+    mazo = barajar ? ([...descarte]..shuffle(rng)) : [...descarte];
+    descarte = [];
+    vecesBarajado++;
+    _log(textos('log.barajas'));
+    if (_cansancioAlBarajar) _agregarCansancio();
   }
 
   void _aplicarEfectos(CartaCombate c) {
@@ -518,6 +525,13 @@ class Juego {
   /// peligro automáticamente (no hace falta un click extra).
   void continuar() {
     if (estado != EstadoJuego.postCombate) return;
+
+    // Paso 6 del reglamento, «Fin del turno»: si el mazo se acabó, se baraja
+    // ahora, con las cartas de la mesa ya en el descarte y la meditación ya
+    // hecha. Antes se esperaba al próximo «Robar», y el Cansancio caía en el
+    // medio de un combate que el jugador ya había empezado a contar.
+    final ganoTodo = fase == Fase.jefes && jefeActual >= jefes.length;
+    if (!ganoTodo && mazo.isEmpty && descarte.isNotEmpty) _rebarajar();
 
     if (fase == Fase.jefes) {
       if (jefeActual >= jefes.length) {

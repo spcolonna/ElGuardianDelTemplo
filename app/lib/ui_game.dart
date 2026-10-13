@@ -487,6 +487,7 @@ class _GameScreenState extends State<GameScreen> {
                 juego: j,
                 app: app,
                 onCambio: _refrescar,
+                enPausa: _cansancioRevelado != null,
                 onNueva: () {
                   app.nuevaPartida();
                   _reiniciarSeguimiento();
@@ -987,12 +988,18 @@ class _Mesa extends StatelessWidget {
   /// «Inicio» del menú, que hasta ahora era el único camino de salida.
   final VoidCallback onNueva;
   final VoidCallback onSalir;
+
+  /// Mientras la carta de Cansancio está en pantalla los botones se apagan:
+  /// un «Robar» apretado a ciegas sacaba la carta que el jugador todavía
+  /// estaba leyendo, o lo rendía sin haber visto qué le cayó.
+  final bool enPausa;
   const _Mesa({
     required this.juego,
     required this.app,
     required this.onCambio,
     required this.onNueva,
     required this.onSalir,
+    this.enPausa = false,
   });
 
   @override
@@ -1338,7 +1345,7 @@ class _Mesa extends StatelessWidget {
         icono: icono,
         principal: principal,
         alto: principal ? 68 : 62,
-        onTap: onTap,
+        onTap: enPausa ? null : onTap,
       ),
     );
 
