@@ -486,6 +486,7 @@ const textosTemploEn = TextosTema(
     'sin_meditar': TextoEncargo(
       titulo: 'No meditating',
       nota: 'Meditation is overrated. Live with the deck you have.',
+      condicion: 'Win without meditating even once.',
       recompensa: '+2 starting Energy tomorrow',
     ),
     'terminar_fuerte': TextoEncargo(
@@ -493,32 +494,38 @@ const textosTemploEn = TextosTema(
       nota:
           'A guardian who wins and then collapses in the courtyard is no '
           'use to me.',
+      condicion: 'Win with {n} Energy or more.',
       recompensa: '+2 starting Energy tomorrow',
     ),
     'alba_impecable': TextoEncargo(
       titulo: 'A flawless Dawn',
       nota: "If a mosquito beats you, I don't want to hear about the rest.",
+      condicion: 'Win without losing a single fight at Dawn.',
       recompensa: 'Meditating is free tomorrow',
     ),
     'sin_pagar_robos': TextoEncargo(
       titulo: 'No overspending',
       nota: 'Energy does not grow on bamboo. Make do with what you get.',
+      condicion: 'Win without paying Energy to draw: free cards only.',
       recompensa: '+1 free card on every danger tomorrow',
     ),
     'purga_profunda': TextoEncargo(
       titulo: 'Clean up your technique',
       nota: 'Get rid of those doubts. All of them. Today.',
+      condicion: 'Win having removed {n} or more cards by meditating.',
       recompensa: 'Meditating removes 2 cards tomorrow',
     ),
     'partida_corta': TextoEncargo(
       titulo: 'Quick and clean',
       nota:
           "The temple won't defend itself, but you don't have all day either.",
+      condicion: 'Win shuffling the discard {n} times or fewer.',
       recompensa: '+3 starting Energy tomorrow',
     ),
     'pocas_derrotas': TextoEncargo(
       titulo: 'Lose less',
       nota: 'Losing three times is learning. Losing eight is something else.',
+      condicion: 'Win losing {n} fights or fewer.',
       recompensa: '+2 starting Energy tomorrow',
     ),
     'mediodia_limpio': TextoEncargo(
@@ -526,26 +533,31 @@ const textosTemploEn = TextosTema(
       nota:
           'The ones who come at noon get paid to show up. Make sure they '
           'do not get paid.',
+      condicion: 'Win without losing a single fight at Noon.',
       recompensa: '+1 free card on every danger tomorrow',
     ),
     'jefes_sin_reintento': TextoEncargo(
       titulo: 'Champions in one go',
       nota: 'Champions are beaten once. Repeating is bad manners.',
+      condicion: 'Win without losing a single fight against the Champions.',
       recompensa: '+3 starting Energy tomorrow',
     ),
     'sobrar_energia': TextoEncargo(
       titulo: 'Have some left over',
       nota: 'I want to find the temple standing and you still up for sweeping.',
+      condicion: 'Win with {n} Energy or more.',
       recompensa: 'Energy cap +5 tomorrow',
     ),
     'sin_curarse': TextoEncargo(
       titulo: 'Hold out unaided',
       nota: 'Sacred water is for fires, not for your excuses.',
+      condicion: 'Win without any card giving you Energy back.',
       recompensa: '+1 free card on every danger tomorrow',
     ),
     'victoria_ajustada': TextoEncargo(
       titulo: 'On the edge',
       nota: 'Winning on five Energy takes more merit. And less common sense.',
+      condicion: 'Win with {n} Energy or less.',
       recompensa: '+4 starting Energy tomorrow',
     ),
   },

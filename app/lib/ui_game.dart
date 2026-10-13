@@ -1663,7 +1663,9 @@ class _ResultadoEncargo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = textos.encargos[encargo.id]!;
-    final ok = encargo.cumplido(juego);
+    // Sólo cuenta ganando: así lo cobra `AppState`, y decir «Cumplido» en una
+    // derrota prometía un premio que mañana no llegaba.
+    final ok = juego.estado == EstadoJuego.victoria && encargo.cumplido(juego);
     final color = ok ? kAlba : kOcaso;
     // Papel opaco y tinta oscura: el resumen va encima del paisaje con un velo
     // al 45%, y con el recuadro al 10% la letra clara no se leía.
@@ -1695,6 +1697,12 @@ class _ResultadoEncargo extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          const SizedBox(height: 4),
+          Text(
+            condicionDe(encargo, t),
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 12.5, color: kTinta),
           ),
           const SizedBox(height: 6),
           Text(
@@ -1840,79 +1848,161 @@ class _FranjaEncargo extends StatelessWidget {
     if (texto == null) return const SizedBox.shrink();
     final cobrado = app.beneficioAplicado;
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (cobrado != null)
-          Container(
-            width: double.infinity,
-            color: kVerde.withValues(alpha: .22),
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+    // Papel opaco y tinta, como el resultado del final: antes era un velo al
+    // 22% sobre el paisaje, y el título solo («Que sobre») no decía qué había
+    // que hacer. Ahora va la condición con su número, y el detalle completo
+    // —la nota de Shifu y el premio— a un toque.
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10, 6, 10, 0),
+      child: Material(
+        color: kPapelClaro,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          side: const BorderSide(color: kOroBorde, width: 1.2),
+        ),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(10),
+          onTap: () => _detalle(context, e, texto, cobrado),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(10, 7, 6, 7),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(Icons.card_giftcard, size: 14, color: kVerde),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    fmt(t('encargo.beneficio'), {'b': cobrado}),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 11.5,
-                      fontWeight: FontWeight.w600,
-                      color: kVerde,
-                    ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 1),
+                  child: Icon(
+                    Icons.sticky_note_2_outlined,
+                    size: 18,
+                    color: kOroBorde,
                   ),
                 ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        fmt(t('encargo.titulo'), {'t': texto.titulo}),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: kTinta,
+                        ),
+                      ),
+                      Text(
+                        condicionDe(e, texto),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontSize: 12.5, color: kTinta),
+                      ),
+                      if (cobrado != null) ...[
+                        const SizedBox(height: 3),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(top: 1),
+                              child: Icon(
+                                Icons.card_giftcard,
+                                size: 14,
+                                color: kVerdeTinta,
+                              ),
+                            ),
+                            const SizedBox(width: 5),
+                            Expanded(
+                              child: Text(
+                                fmt(t('encargo.beneficio'), {'b': cobrado}),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  color: kVerdeTinta,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+                const Icon(Icons.info_outline, size: 18, color: kTintaSuave),
               ],
             ),
           ),
-        Container(
-          width: double.infinity,
-          color: kOro.withValues(alpha: .22),
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
-          child: Row(
+        ),
+      ),
+    );
+  }
+
+  void _detalle(
+    BuildContext context,
+    Encargo e,
+    TextoEncargo texto,
+    String? cobrado,
+  ) {
+    app.audio.sonar(Sfx.toque);
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: kPapelClaro,
+      showDragHandle: true,
+      builder: (hoja) => SafeArea(
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
-                padding: EdgeInsets.only(top: 1),
-                child: Icon(
-                  Icons.sticky_note_2_outlined,
-                  size: 15,
-                  color: kOroBorde,
+              Text(
+                fmt(t('encargo.titulo'), {'t': texto.titulo}),
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: kTinta,
                 ),
               ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      texto.titulo,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: kMaderaOscura,
-                      ),
-                    ),
-                    Text(
-                      fmt(t('modos.encargoPremio'), {'r': texto.recompensa}),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 11,
-                        color: kMaderaOscura,
-                      ),
-                    ),
-                  ],
+              const SizedBox(height: 10),
+              Text(
+                condicionDe(e, texto),
+                style: const TextStyle(fontSize: 15.5, color: kTinta),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                '"${texto.nota.trim()}"',
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontStyle: FontStyle.italic,
+                  color: kTintaSuave,
                 ),
               ),
+              const SizedBox(height: 12),
+              Text(
+                fmt(t('modos.encargoPremio'), {'r': texto.recompensa}),
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: kMaderaOscura,
+                ),
+              ),
+              if (cobrado != null) ...[
+                const SizedBox(height: 12),
+                Text(
+                  fmt(t('encargo.beneficio'), {'b': cobrado}),
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: kVerdeTinta,
+                  ),
+                ),
+              ],
             ],
           ),
         ),
-      ],
+      ),
     );
   }
 }

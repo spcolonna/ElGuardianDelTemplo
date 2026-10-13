@@ -70,6 +70,10 @@ const kNaranja = Color(0xFFE8863C);
 const kTurquesa = Color(0xFF6FC5D0);
 const kVerde = Color(0xFFA8C489);
 
+/// El verde para TEXTO sobre papel. `kVerde` es de relleno: como letra no se
+/// lee.
+const kVerdeTinta = Color(0xFF2E6B3D);
+
 /// Sombra corta y dura: el sello visual de toda la interfaz.
 List<BoxShadow> sombraPapel({double y = 2, double desenfoque = 0}) => [
   BoxShadow(

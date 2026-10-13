@@ -5,6 +5,7 @@ import 'l10n.dart';
 import 'modos/cansancio.dart';
 import 'modos/dificultad.dart';
 import 'modos/encargos.dart';
+import 'ui_common.dart' show condicionDe;
 import 'rutas.dart';
 import 'ui_kit.dart';
 import 'ui_shell.dart';
@@ -535,6 +536,11 @@ class _NotaDeHoy extends StatelessWidget {
         ),
         const SizedBox(height: 2),
         Text(
+          condicionDe(e, texto),
+          style: const TextStyle(fontSize: 12.5, height: 1.3, color: kTinta),
+        ),
+        const SizedBox(height: 4),
+        Text(
           texto.nota,
           style: const TextStyle(
             fontSize: 12,
@@ -547,7 +553,7 @@ class _NotaDeHoy extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Icon(Icons.card_giftcard, size: 14, color: kVerde),
+            const Icon(Icons.card_giftcard, size: 14, color: kVerdeTinta),
             const SizedBox(width: 6),
             Expanded(
               child: Text(
@@ -556,7 +562,7 @@ class _NotaDeHoy extends StatelessWidget {
                   fontSize: 12,
                   height: 1.3,
                   fontWeight: FontWeight.w600,
-                  color: kVerde,
+                  color: kVerdeTinta,
                 ),
               ),
             ),

@@ -220,7 +220,8 @@ void main() {
           .ancestor(of: titulo, matching: find.byType(Container))
           .first;
       final textos = find.descendant(of: recuadro, matching: find.byType(Text));
-      expect(textos, findsNWidgets(2));
+      // Título, condición y resultado.
+      expect(textos, findsNWidgets(3));
       for (final e in textos.evaluate()) {
         final w = e.widget as Text;
         final color = w.style?.color ?? DefaultTextStyle.of(e).style.color;

@@ -465,66 +465,79 @@ const textosTemploIt = TextosTema(
     'sin_meditar': TextoEncargo(
       titulo: 'Niente meditazione',
       nota: 'Meditare è sopravvalutato. Tienti il mazzo che hai.',
+      condicion: 'Vinci senza meditare nemmeno una volta.',
       recompensa: '+2 di Energia iniziale domani',
     ),
     'terminar_fuerte': TextoEncargo(
       titulo: 'Finisci intero',
       nota: 'Non mi serve un guardiano che vince e resta steso nel cortile.',
+      condicion: 'Vinci con {n} di Energia o più.',
       recompensa: '+2 di Energia iniziale domani',
     ),
     'alba_impecable': TextoEncargo(
       titulo: 'L\'Alba impeccabile',
       nota:
           'Se perdi contro una zanzara, del resto non voglio nemmeno sapere. ',
+      condicion: "Vinci senza perdere nessuno scontro dell'Alba.",
       recompensa: 'Meditare è gratis domani',
     ),
     'sin_pagar_robos': TextoEncargo(
       titulo: 'Senza sprecare',
       nota:
           'L\'Energia non cresce sul bambù. Arrangiati con quello che ti tocca. ',
+      condicion:
+          'Vinci senza pagare Energia per pescare: solo con le carte gratis.',
       recompensa: '+1 carta gratis su tutti i pericoli domani',
     ),
     'purga_profunda': TextoEncargo(
       titulo: 'Pulizia di tecnica',
       nota: 'Togliti di dosso quei dubbi. Tutti. Oggi.',
+      condicion: 'Vinci dopo aver eliminato {n} carte o più meditando.',
       recompensa: 'Meditare elimina 2 carte domani',
     ),
     'partida_corta': TextoEncargo(
       titulo: 'Veloce e pulito',
       nota:
           'Il tempio non si difende da solo, ma nemmeno tu hai tutto il giorno. ',
+      condicion: 'Vinci rimescolando gli scarti {n} volte o meno.',
       recompensa: '+3 di Energia iniziale domani',
     ),
     'pocas_derrotas': TextoEncargo(
       titulo: 'Perdi poco',
       nota: 'Perdere tre volte è imparare. Perdere otto è un\'altra cosa.',
+      condicion: 'Vinci perdendo {n} scontri o meno.',
       recompensa: '+2 di Energia iniziale domani',
     ),
     'mediodia_limpio': TextoEncargo(
       titulo: 'Il Mezzogiorno senza cadute',
       nota:
           'Quelli che salgono a mezzogiorno si fanno pagare. Che non incassino.',
+      condicion: 'Vinci senza perdere nessuno scontro del Mezzogiorno.',
       recompensa: '+1 carta gratis su tutti i pericoli domani',
     ),
     'jefes_sin_reintento': TextoEncargo(
       titulo: 'I Campioni al primo colpo',
       nota: 'I Campioni si battono una volta sola. Ripetere è maleducazione. ',
+      condicion: 'Vinci senza perdere nessuno scontro contro i Campioni.',
       recompensa: '+3 di Energia iniziale domani',
     ),
     'sobrar_energia': TextoEncargo(
       titulo: 'Che ne avanzi',
       nota:
           'Voglio trovare il tempio in piedi e te con la voglia di spazzare. ',
+      condicion: 'Vinci con {n} di Energia o più.',
       recompensa: 'Tetto di Energia +5 domani',
     ),
     'sin_curarse': TextoEncargo(
       titulo: 'Reggere senza aiuto',
       nota: 'L\'acqua sacra è per il fuoco, non per le tue scuse.',
+      condicion: 'Vinci senza che nessuna carta ti restituisca Energia.',
       recompensa: '+1 carta gratis su tutti i pericoli domani',
     ),
     'victoria_ajustada': TextoEncargo(
       titulo: 'Sul filo',
       nota: 'Vincere con cinque di Energia ha più merito. E meno buonsenso. ',
+      condicion: 'Vinci con {n} di Energia o meno.',
       recompensa: '+4 di Energia iniziale domani',
     ),
   },

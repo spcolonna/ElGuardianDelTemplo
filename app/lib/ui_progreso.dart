@@ -325,7 +325,8 @@ class _EncargoDeHoy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = TextosUi.de(AppScope.of(context).idioma);
-    final e = textos.encargos[encargoDelDia(hoy).id]!;
+    final encargo = encargoDelDia(hoy);
+    final e = textos.encargos[encargo.id]!;
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -352,6 +353,11 @@ class _EncargoDeHoy extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
+          Text(
+            condicionDe(encargo, e),
+            style: const TextStyle(fontSize: 14, height: 1.35),
+          ),
+          const SizedBox(height: 6),
           Text(
             '"${e.nota}"',
             style: const TextStyle(

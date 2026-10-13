@@ -446,62 +446,75 @@ const textosTemploPtBr = TextosTema(
     'sin_meditar': TextoEncargo(
       titulo: 'Nada de meditar',
       nota: 'Meditar é superestimado. Se vire com o baralho que você tem.',
+      condicion: 'Vença sem meditar nenhuma vez.',
       recompensa: '+2 de Energia inicial amanhã',
     ),
     'terminar_fuerte': TextoEncargo(
       titulo: 'Termine inteiro',
       nota: 'Não me serve um guardião que ganha e fica caído no pátio.',
+      condicion: 'Vença com {n} de Energia ou mais.',
       recompensa: '+2 de Energia inicial amanhã',
     ),
     'alba_impecable': TextoEncargo(
       titulo: 'O Amanhecer impecável',
       nota: 'Se você perde para um mosquito, não quero nem saber do resto. ',
+      condicion: 'Vença sem perder nenhum combate do Amanhecer.',
       recompensa: 'Meditar sai de graça amanhã',
     ),
     'sin_pagar_robos': TextoEncargo(
       titulo: 'Sem gastar demais',
       nota: 'Energia não nasce no bambu. Se vire com o que te toca. ',
+      condicion:
+          'Vença sem pagar Energia para comprar: só com as cartas grátis.',
       recompensa: '+1 carta grátis em todos os perigos amanhã',
     ),
     'purga_profunda': TextoEncargo(
       titulo: 'Faxina de técnica',
       nota: 'Tire essas dúvidas de cima de você. Todas. Hoje.',
+      condicion: 'Vença tendo eliminado {n} cartas ou mais ao meditar.',
       recompensa: 'Meditar elimina 2 cartas amanhã',
     ),
     'partida_corta': TextoEncargo(
       titulo: 'Rápido e limpo',
       nota:
           'O templo não se defende sozinho, mas você também não tem o dia todo. ',
+      condicion: 'Vença embaralhando o descarte {n} vezes ou menos.',
       recompensa: '+3 de Energia inicial amanhã',
     ),
     'pocas_derrotas': TextoEncargo(
       titulo: 'Perca pouco',
       nota: 'Perder três vezes é aprendizado. Perder oito é outra coisa.',
+      condicion: 'Vença perdendo {n} combates ou menos.',
       recompensa: '+2 de Energia inicial amanhã',
     ),
     'mediodia_limpio': TextoEncargo(
       titulo: 'O Meio-dia sem quedas',
       nota: 'Quem sobe ao meio-dia cobra para vir. Que não receba.',
+      condicion: 'Vença sem perder nenhum combate do Meio-dia.',
       recompensa: '+1 carta grátis em todos os perigos amanhã',
     ),
     'jefes_sin_reintento': TextoEncargo(
       titulo: 'Os Campeões de primeira',
       nota: 'Campeão se vence uma vez. Repetir é falta de educação. ',
+      condicion: 'Vença sem perder nenhum combate contra os Campeões.',
       recompensa: '+3 de Energia inicial amanhã',
     ),
     'sobrar_energia': TextoEncargo(
       titulo: 'Que sobre',
       nota: 'Quero encontrar o templo de pé e você com vontade de varrer. ',
+      condicion: 'Vença com {n} de Energia ou mais.',
       recompensa: 'Limite de Energia +5 amanhã',
     ),
     'sin_curarse': TextoEncargo(
       titulo: 'Aguentar sem ajuda',
       nota: 'A água sagrada é para o fogo, não para as suas desculpas.',
+      condicion: 'Vença sem que nenhuma carta te devolva Energia.',
       recompensa: '+1 carta grátis em todos os perigos amanhã',
     ),
     'victoria_ajustada': TextoEncargo(
       titulo: 'No limite',
       nota: 'Ganhar com cinco de Energia tem mais mérito. E menos bom senso. ',
+      condicion: 'Vença com {n} de Energia ou menos.',
       recompensa: '+4 de Energia inicial amanhã',
     ),
   },

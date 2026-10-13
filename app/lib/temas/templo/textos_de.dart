@@ -464,66 +464,80 @@ const textosTemploDe = TextosTema(
     'sin_meditar': TextoEncargo(
       titulo: 'Kein Meditieren',
       nota: 'Meditieren wird überschätzt. Komm mit dem Deck klar, das du hast.',
+      condicion: 'Gewinne, ohne ein einziges Mal zu meditieren.',
       recompensa: 'Morgen +2 Startenergie',
     ),
     'terminar_fuerte': TextoEncargo(
       titulo: 'Bleib heil',
       nota: 'Ein Wächter, der gewinnt und im Hof liegt, nützt mir nichts.',
+      condicion: 'Gewinne mit {n} Energie oder mehr.',
       recompensa: 'Morgen +2 Startenergie',
     ),
     'alba_impecable': TextoEncargo(
       titulo: 'Der makellose Morgen',
       nota:
           'Wenn du gegen eine Mücke verlierst, will ich vom Rest nichts hören. ',
+      condicion: 'Gewinne, ohne am Morgen einen Kampf zu verlieren.',
       recompensa: 'Morgen kostet Meditieren nichts',
     ),
     'sin_pagar_robos': TextoEncargo(
       titulo: 'Ohne zu verschwenden',
       nota:
           'Energie wächst nicht am Bambus. Komm mit dem aus, was du kriegst. ',
+      condicion:
+          'Gewinne, ohne Energie fürs Ziehen zu zahlen: nur mit Gratiskarten.',
       recompensa: 'Morgen +1 Gratiskarte bei allen Gefahren',
     ),
     'purga_profunda': TextoEncargo(
       titulo: 'Technik entrümpeln',
       nota: 'Wirf diese Zweifel raus. Alle. Heute.',
+      condicion:
+          'Gewinne, nachdem du beim Meditieren {n} oder mehr Karten entfernt hast.',
       recompensa: 'Morgen entfernt Meditieren 2 Karten',
     ),
     'partida_corta': TextoEncargo(
       titulo: 'Schnell und sauber',
       nota:
           'Der Tempel verteidigt sich nicht allein, aber du hast auch nicht den ganzen Tag. ',
+      condicion: 'Gewinne und mische die Ablage höchstens {n}-mal.',
       recompensa: 'Morgen +3 Startenergie',
     ),
     'pocas_derrotas': TextoEncargo(
       titulo: 'Verlier wenig',
       nota: 'Dreimal verlieren ist Lernen. Achtmal ist etwas anderes.',
+      condicion: 'Gewinne und verliere höchstens {n} Kämpfe.',
       recompensa: 'Morgen +2 Startenergie',
     ),
     'mediodia_limpio': TextoEncargo(
       titulo: 'Der Mittag ohne Niederlage',
       nota:
           'Wer mittags hochsteigt, nimmt Geld dafür. Sollen sie nichts kriegen.',
+      condicion: 'Gewinne, ohne am Mittag einen Kampf zu verlieren.',
       recompensa: 'Morgen +1 Gratiskarte bei allen Gefahren',
     ),
     'jefes_sin_reintento': TextoEncargo(
       titulo: 'Die Champions beim ersten Mal',
       nota: 'Champions schlägt man einmal. Wiederholen ist unhöflich. ',
+      condicion: 'Gewinne, ohne einen Kampf gegen die Champions zu verlieren.',
       recompensa: 'Morgen +3 Startenergie',
     ),
     'sobrar_energia': TextoEncargo(
       titulo: 'Lass was übrig',
       nota: 'Ich will den Tempel stehen sehen und dich mit Lust zum Fegen. ',
+      condicion: 'Gewinne mit {n} Energie oder mehr.',
       recompensa: 'Morgen Energieobergrenze +5',
     ),
     'sin_curarse': TextoEncargo(
       titulo: 'Ohne Hilfe durchhalten',
       nota: 'Das heilige Wasser ist fürs Feuer, nicht für deine Ausreden.',
+      condicion: 'Gewinne, ohne dass dir eine Karte Energie zurückgibt.',
       recompensa: 'Morgen +1 Gratiskarte bei allen Gefahren',
     ),
     'victoria_ajustada': TextoEncargo(
       titulo: 'Auf der Kippe',
       nota:
           'Mit fünf Energie zu gewinnen hat mehr Verdienst. Und weniger Verstand. ',
+      condicion: 'Gewinne mit {n} Energie oder weniger.',
       recompensa: 'Morgen +4 Startenergie',
     ),
   },

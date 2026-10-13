@@ -265,6 +265,19 @@ void main() {
           huecos++;
         }
       }
+      // La condición es lo que el jugador lee para saber qué hacer: si el
+      // encargo mide un número, el texto lo tiene que mostrar, y si no mide
+      // ninguno, un `{n}` suelto saldría como «0» en pantalla.
+      for (final e in encargos) {
+        final c = t.encargos[e.id]?.condicion ?? '';
+        if (c.trim().isEmpty) {
+          print('   FALTA la condición del encargo "${e.id}" en $idioma');
+          huecos++;
+        } else if (c.contains('{n}') != (e.n != 0)) {
+          print('   la condición de "${e.id}" en $idioma no muestra su número');
+          huecos++;
+        }
+      }
       for (final m in base.reversos.keys) {
         if (!t.reversos.containsKey(m)) {
           print('   FALTA reverso "$m" en $idioma');

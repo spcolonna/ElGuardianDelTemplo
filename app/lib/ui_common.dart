@@ -9,6 +9,7 @@ import 'ui_kit.dart';
 import 'ui_texturas.dart';
 
 import 'models.dart';
+import 'modos/encargos.dart';
 import 'temas/temas.dart';
 
 /// Colores de referencia, usados donde no hay un tema a mano (gráficos del
@@ -19,6 +20,10 @@ const kMediodia = Color(0xFFBE8A22);
 const kOcaso = Color(0xFFB2403C);
 const kJefe = Color(0xFF7048A8);
 const kCombate = Color(0xFF3C7BB0);
+
+/// Lo que pide el encargo, con su número puesto.
+String condicionDe(Encargo e, TextoEncargo texto) =>
+    fmt(texto.condicion, {'n': e.n});
 
 Color colorFase(Fase f) => colorFaseDe(temaTemplo, f);
 

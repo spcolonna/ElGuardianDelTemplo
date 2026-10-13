@@ -190,10 +190,15 @@ class TextoPanel {
 class TextoEncargo {
   final String titulo;
   final String nota;
+
+  /// Lo que hay que hacer, dicho llano y con el número: la nota es la voz de
+  /// Shifu y no alcanza para saber qué se mide. `{n}` es `Encargo.n`.
+  final String condicion;
   final String recompensa;
   const TextoEncargo({
     required this.titulo,
     required this.nota,
+    required this.condicion,
     required this.recompensa,
   });
 }

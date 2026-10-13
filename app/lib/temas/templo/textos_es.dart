@@ -445,11 +445,13 @@ const textosTemploEs = TextosTema(
     'sin_meditar': TextoEncargo(
       titulo: 'Nada de meditar',
       nota: 'Meditar está sobrevalorado. Aguantate el mazo que tenés.',
+      condicion: 'Ganá sin meditar ni una vez.',
       recompensa: '+2 de Energía inicial mañana',
     ),
     'terminar_fuerte': TextoEncargo(
       titulo: 'Terminá entero',
       nota: 'No me sirve un guardián que gana y queda tirado en el patio.',
+      condicion: 'Ganá con {n} de Energía o más.',
       recompensa: '+2 de Energía inicial mañana',
     ),
     'alba_impecable': TextoEncargo(
@@ -457,6 +459,7 @@ const textosTemploEs = TextosTema(
       nota:
           'Si perdés contra un mosquito, no quiero saber nada del '
           'resto. ',
+      condicion: 'Ganá sin perder ningún combate del Alba.',
       recompensa: 'Meditar sale gratis mañana',
     ),
     'sin_pagar_robos': TextoEncargo(
@@ -464,11 +467,14 @@ const textosTemploEs = TextosTema(
       nota:
           'La Energía no crece en el bambú. Arreglate con lo que te '
           'toca. ',
+      condicion:
+          'Ganá sin pagar Energía por robar: sólo con las cartas gratis.',
       recompensa: '+1 carta gratis en todos los peligros mañana',
     ),
     'purga_profunda': TextoEncargo(
       titulo: 'Limpieza de técnica',
       nota: 'Sacate de encima esas dudas. Todas. Hoy.',
+      condicion: 'Ganá habiendo eliminado {n} cartas o más al meditar.',
       recompensa: 'Meditar elimina 2 cartas mañana',
     ),
     'partida_corta': TextoEncargo(
@@ -476,16 +482,19 @@ const textosTemploEs = TextosTema(
       nota:
           'El templo no se defiende solo, pero tampoco tenés todo el '
           'día. ',
+      condicion: 'Ganá barajando el descarte {n} veces o menos.',
       recompensa: '+3 de Energía inicial mañana',
     ),
     'pocas_derrotas': TextoEncargo(
       titulo: 'Perdé poco',
       nota: 'Perder tres veces es aprendizaje. Perder ocho es otra cosa.',
+      condicion: 'Ganá perdiendo {n} combates o menos.',
       recompensa: '+2 de Energía inicial mañana',
     ),
     'mediodia_limpio': TextoEncargo(
       titulo: 'El Mediodía sin caídas',
       nota: 'Los que suben al mediodía cobran por venir. Que no cobren.',
+      condicion: 'Ganá sin perder ningún combate del Mediodía.',
       recompensa: '+1 carta gratis en todos los peligros mañana',
     ),
     'jefes_sin_reintento': TextoEncargo(
@@ -493,6 +502,7 @@ const textosTemploEs = TextosTema(
       nota:
           'A los Campeones se los vence una vez. Repetir es de mala '
           'educación. ',
+      condicion: 'Ganá sin perder ningún combate contra los Campeones.',
       recompensa: '+3 de Energía inicial mañana',
     ),
     'sobrar_energia': TextoEncargo(
@@ -500,11 +510,13 @@ const textosTemploEs = TextosTema(
       nota:
           'Quiero encontrar el templo en pie y a vos con ganas de '
           'barrer. ',
+      condicion: 'Ganá con {n} de Energía o más.',
       recompensa: 'Tope de Energía +5 mañana',
     ),
     'sin_curarse': TextoEncargo(
       titulo: 'Aguantar sin ayuda',
       nota: 'El agua sagrada es para el fuego, no para tus excusas.',
+      condicion: 'Ganá sin que ninguna carta te devuelva Energía.',
       recompensa: '+1 carta gratis en todos los peligros mañana',
     ),
     'victoria_ajustada': TextoEncargo(
@@ -512,6 +524,7 @@ const textosTemploEs = TextosTema(
       nota:
           'Ganar con cinco de Energía tiene más mérito. Y menos '
           'sentido común. ',
+      condicion: 'Ganá con {n} de Energía o menos.',
       recompensa: '+4 de Energía inicial mañana',
     ),
   },
