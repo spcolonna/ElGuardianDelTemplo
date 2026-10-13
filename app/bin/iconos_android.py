@@ -36,9 +36,10 @@ CREMA = (249, 250, 244)
 
 # El ícono adaptativo mide 108dp de lado, pero la máscara solo garantiza los
 # 66dp del medio. Todo lo que dibujemos afuera de eso lo puede recortar algún
-# teléfono, así que el emblema va al 62% y no más.
+# teléfono, así que el emblema va al 58% y no más: medido sin aire, eso deja
+# un par de dp de margen adentro del círculo de 66dp.
 LADO_DP = 108
-SEGURO = 0.62
+SEGURO = 0.58
 # La splash de iOS pone el emblema a 220pt; Android usa el mismo número en dp.
 SPLASH_DP = 220
 
@@ -54,9 +55,16 @@ def emblema_recortado():
     fondo = Image.new('RGB', im.size, CREMA)
     dif = ImageChops.difference(im, fondo).convert('L')
     alfa = dif.point(lambda v: 0 if v < 18 else min(255, (v - 18) * 8))
+    # La caja se mide con un umbral más alto que el alfa: el fondo trae una
+    # veladura casi crema a la izquierda del bastón que no se ve, pero que con
+    # el umbral bajo entraba en la caja y corría el dibujo a la derecha.
+    caja = dif.point(lambda v: 255 if v > 30 else 0).getbbox()
+    if caja:
+        mascara = Image.new('L', im.size, 0)
+        mascara.paste(255, caja)
+        alfa = ImageChops.multiply(alfa, mascara)
     con_alfa = im.convert('RGBA')
     con_alfa.putalpha(alfa)
-    caja = alfa.getbbox()
     return con_alfa.crop(caja) if caja else con_alfa
 
 

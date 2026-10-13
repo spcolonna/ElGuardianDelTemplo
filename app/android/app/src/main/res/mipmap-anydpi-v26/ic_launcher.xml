@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- El ícono de Android 8 y arriba. No es un PNG: son capas, y el sistema les
      aplica la máscara que use el teléfono (círculo, cuadrado redondeado, gota).
-     Por eso el dibujo vive en el 62% del medio y el resto es fondo liso: lo de
+     Por eso el dibujo vive en el 58% del medio y el resto es fondo liso: lo de
      afuera se puede recortar y no pasa nada.
 
      El frente es el emblema solo, sin el nombre escrito. El ícono de iOS sí lo
