@@ -4,6 +4,7 @@ import 'logros.dart';
 import 'models.dart';
 import 'modos/dificultad.dart';
 import 'progreso.dart';
+import 'resena.dart';
 
 /// Todo lo que persiste entre sesiones, en un solo lugar.
 ///
@@ -23,6 +24,9 @@ class Preferencias {
   static const _kLogros = 'guardian_logros_v1';
   static const _kOpciones = 'guardian_opciones_v1';
   static const _kComprado = 'guardian_comprado_v1';
+  static const _kSesiones = 'guardian_sesiones_v1';
+  static const _kResenas = 'guardian_resenas_pedidas_v1';
+  static const _kResenaUltima = 'guardian_resena_ultima_v1';
 
   SharedPreferences? _p;
 
@@ -101,6 +105,23 @@ class Preferencias {
   /// tienda, y se recupera con «Restaurar compra» en Ajustes.
   bool get comprado => _p?.getBool(_kComprado) ?? false;
   Future<void> marcarComprado(bool v) async => _p?.setBool(_kComprado, v);
+
+  // --------------------------------------------------------------- reseña
+  EstadoResena cargarResena() {
+    final ms = _p?.getInt(_kResenaUltima);
+    return EstadoResena(
+      sesiones: _p?.getInt(_kSesiones) ?? 0,
+      pedidas: _p?.getInt(_kResenas) ?? 0,
+      ultima: ms == null ? null : DateTime.fromMillisecondsSinceEpoch(ms),
+    );
+  }
+
+  Future<void> guardarResena(EstadoResena e) async {
+    await _p?.setInt(_kSesiones, e.sesiones);
+    await _p?.setInt(_kResenas, e.pedidas);
+    final u = e.ultima;
+    if (u != null) await _p?.setInt(_kResenaUltima, u.millisecondsSinceEpoch);
+  }
 
   // ------------------------------------------------------------- internos
   String _encode(Map<String, dynamic> m) =>

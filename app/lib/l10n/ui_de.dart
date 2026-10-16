@@ -485,4 +485,15 @@ const uiDe = <String, String>{
   'log.campeones':
       'Die Champions des Turniers erreichen den Tempel: {nombres}.',
   'log.y': 'und',
+  'ajustes.calificar': 'Spiel bewerten',
+  'ajustes.calificarSub': 'Eine Bewertung hilft anderen, den Tempel zu finden.',
+  'compartir.boton': 'Teilen',
+  'compartir.camino': 'Weg: {camino}',
+  'compartir.llegue': 'Ich hielt bis {fase} durch',
+  'compartir.gane': 'Ich habe den Tempel bis zum Schluss gehütet',
+  'compartir.firma': 'Ein Spiel von ORAKI',
+  'compartir.textoPerdio':
+      'Ich hielt bis {fase} durch und hütete Shifus Tempel… Kommst du weiter? {link}',
+  'compartir.textoGano':
+      'Ich habe Shifus Tempel bis zum Schluss gehütet, auf dem Weg {camino}… Traust du dich? {link}',
 };

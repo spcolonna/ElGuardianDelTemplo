@@ -167,6 +167,21 @@ class _AjustesScreenState extends State<AjustesScreen> {
             ),
           ),
 
+          const SizedBox(height: 8),
+          // Siempre a mano, y no solo el cuadro que aparece después de ganar:
+          // ese lo decide Apple y puede no mostrarse nunca.
+          PanelPapel(
+            onTap: () async {
+              tocarUi(context);
+              await app.abrirFichaDeLaTienda();
+            },
+            child: _FilaLegal(
+              icono: Icons.star_outline,
+              titulo: t('ajustes.calificar'),
+              bajada: t('ajustes.calificarSub'),
+            ),
+          ),
+
           const SizedBox(height: 20),
           PlacaTitulo(t('privacidad.titulo'), icono: Icons.shield_outlined),
           const SizedBox(height: 8),

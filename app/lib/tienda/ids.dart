@@ -99,6 +99,19 @@ const String idProductoCompleto = 'guardian_templo_completo';
 /// producción el precio real y su moneda los devuelve la tienda del jugador.
 const String precioDeMuestra = '—';
 
+/// El número del juego en la App Store, el que va en `apps.apple.com/app/id…`.
+///
+/// Lo usa «Calificar el juego» en Ajustes para abrir la ficha en iOS. En
+/// Android no hace falta: la ficha se busca por el nombre del paquete.
+const String kAppStoreId = '6809291329';
+
+/// El link que viaja cuando el jugador comparte su partida.
+///
+/// Por ahora el de la App Store, porque Android todavía está en prueba
+/// cerrada. Cuando salga en Play, cambiarlo acá —y solo acá— por un link que
+/// mande a cada uno a su tienda según el sistema.
+const String urlDescarga = 'https://apps.apple.com/app/id$kAppStoreId';
+
 /// La política de privacidad publicada.
 ///
 /// Apple la pide en la ficha de la App Store, Google la pide en Play Console, y

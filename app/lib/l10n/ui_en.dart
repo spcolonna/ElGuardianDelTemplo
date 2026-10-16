@@ -449,4 +449,15 @@ const uiEn = <String, String>{
   'log.campeones':
       'The Champions of the Tournament reach the temple: {nombres}.',
   'log.y': 'and',
+  'ajustes.calificar': 'Rate the game',
+  'ajustes.calificarSub': 'A review helps others find the temple.',
+  'compartir.boton': 'Share',
+  'compartir.camino': 'Path: {camino}',
+  'compartir.llegue': 'I held out until {fase}',
+  'compartir.gane': 'I guarded the temple to the very end',
+  'compartir.firma': 'A game by ORAKI',
+  'compartir.textoPerdio':
+      "I held out until {fase} guarding Shifu's temple… Can you get further? {link}",
+  'compartir.textoGano':
+      "I guarded Shifu's temple to the very end, on the {camino} path… Dare to try? {link}",
 };

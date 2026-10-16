@@ -378,4 +378,13 @@ const uiZhHans = <String, String>{
   'log.ocaso': '黄昏到了。真正的危机来了。',
   'log.campeones': '大赛的冠军到了寺门口：{nombres}。',
   'log.y': '和',
+  'ajustes.calificar': '为游戏评分',
+  'ajustes.calificarSub': '一条评价能帮更多人找到这座寺庙。',
+  'compartir.boton': '分享',
+  'compartir.camino': '路：{camino}',
+  'compartir.llegue': '我坚持到了{fase}',
+  'compartir.gane': '我守住了寺庙，直到最后',
+  'compartir.firma': 'ORAKI 出品',
+  'compartir.textoPerdio': '我守护师父的寺庙，坚持到了{fase}……你能走得更远吗？{link}',
+  'compartir.textoGano': '我走「{camino}」之路，把师父的寺庙守到了最后……你敢来试试吗？{link}',
 };

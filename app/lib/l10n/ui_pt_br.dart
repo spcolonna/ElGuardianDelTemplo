@@ -463,4 +463,15 @@ const uiPtBr = <String, String>{
   'log.ocaso': 'Cai o Anoitecer. O verdadeiro perigo chega.',
   'log.campeones': 'Os Campeões do Torneio chegam ao templo: {nombres}.',
   'log.y': 'e',
+  'ajustes.calificar': 'Avaliar o jogo',
+  'ajustes.calificarSub': 'Uma avaliação ajuda outros a encontrar o templo.',
+  'compartir.boton': 'Compartilhar',
+  'compartir.camino': 'Caminho: {camino}',
+  'compartir.llegue': 'Aguentei até {fase}',
+  'compartir.gane': 'Cuidei do templo até o fim',
+  'compartir.firma': 'Um jogo da ORAKI',
+  'compartir.textoPerdio':
+      'Aguentei até {fase} cuidando do templo do Shifu… Você chega mais longe? {link}',
+  'compartir.textoGano':
+      'Cuidei do templo do Shifu até o fim, pelo caminho {camino}… Você encara? {link}',
 };

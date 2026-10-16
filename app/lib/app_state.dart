@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:ui' show PlatformDispatcher;
 
 import 'package:flutter/material.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 import 'audio.dart';
 import 'config_store.dart';
@@ -17,10 +18,12 @@ import 'models.dart';
 import 'modos/dificultad.dart';
 import 'preferencias.dart';
 import 'progreso.dart';
+import 'resena.dart';
 import 'ui_texturas.dart';
 import 'temas/temas.dart';
 import 'tienda/anuncios.dart';
 import 'tienda/compra.dart';
+import 'tienda/ids.dart' show kAppStoreId;
 
 class AppState extends ChangeNotifier {
   final prefs = Preferencias();
@@ -77,6 +80,18 @@ class AppState extends ChangeNotifier {
   /// va consumiendo de a uno.
   final List<Logro> colaCelebracion = [];
 
+  /// Sesiones y pedidos de reseña. Ver `resena.dart`.
+  EstadoResena resena = EstadoResena();
+
+  /// El cuadro nativo de calificación. Es una variable para que los tests lo
+  /// cambien: el plugin no existe fuera del teléfono.
+  Future<void> Function() mostrarCuadroDeResena = _cuadroNativo;
+
+  static Future<void> _cuadroNativo() async {
+    final r = InAppReview.instance;
+    if (await r.isAvailable()) await r.requestReview();
+  }
+
   // ---------------------------------------------------------------- idioma
 
   /// Idioma efectivo: el que eligió el jugador, o el que sepamos leerle al
@@ -129,6 +144,8 @@ class AppState extends ChangeNotifier {
     tema = temaPorId(prefs.cargarTema());
     tutorialVisto = prefs.tutorialVisto;
     introVista = prefs.introVista;
+    resena = prefs.cargarResena()..sesiones += 1;
+    await prefs.guardarResena(resena);
     progreso.revisarCadena(DateTime.now());
     contenido = contenidoDe(tema, idioma);
     // La tienda primero: `Anuncios` le pregunta si tiene que existir.
@@ -142,6 +159,36 @@ class AppState extends ChangeNotifier {
   }
 
   Future<void> guardar() async => prefs.guardarProgreso(progreso);
+
+  /// Si ahora toca pedir la reseña. Se mira DESPUÉS de `registrarResultado`,
+  /// así la victoria que se acaba de ganar ya cuenta.
+  bool get correspondeResena => corresponderPedirResena(
+    estado: resena,
+    victorias: logros.cuenta('victorias'),
+    ahora: DateTime.now(),
+  );
+
+  /// Pide la reseña si corresponde. El pedido se anota antes de mostrar el
+  /// cuadro: Apple no avisa si lo mostró, así que se cuenta como gastado.
+  Future<void> pedirResena() async {
+    if (!correspondeResena) return;
+    resena
+      ..pedidas += 1
+      ..ultima = DateTime.now();
+    await prefs.guardarResena(resena);
+    try {
+      await mostrarCuadroDeResena();
+    } catch (_) {
+      // Sin tienda o sin plugin: no se pide y listo.
+    }
+  }
+
+  /// La ficha del juego en la tienda, para calificar cuando el jugador quiera.
+  Future<void> abrirFichaDeLaTienda() async {
+    try {
+      await InAppReview.instance.openStoreListing(appStoreId: kAppStoreId);
+    } catch (_) {}
+  }
 
   Future<void> guardarOpciones() async {
     _apretarOpcionesSiNoCompro();

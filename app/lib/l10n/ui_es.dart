@@ -462,4 +462,15 @@ const uiEs = <String, String>{
   'log.ocaso': 'Cae el Ocaso. El verdadero peligro llega.',
   'log.campeones': 'Los Campeones del Torneo llegan al templo: {nombres}.',
   'log.y': 'y',
+  'ajustes.calificar': 'Calificar el juego',
+  'ajustes.calificarSub': 'Una reseña ayuda a que otros encuentren el templo.',
+  'compartir.boton': 'Compartir',
+  'compartir.camino': 'Camino: {camino}',
+  'compartir.llegue': 'Aguanté hasta {fase}',
+  'compartir.gane': 'Cuidé el templo hasta el final',
+  'compartir.firma': 'Un juego de ORAKI',
+  'compartir.textoPerdio':
+      'Aguanté hasta {fase} cuidando el templo de Shifu… ¿Vos llegás más lejos? {link}',
+  'compartir.textoGano':
+      'Cuidé el templo de Shifu hasta el final, por el camino {camino}… ¿Vos te animás? {link}',
 };

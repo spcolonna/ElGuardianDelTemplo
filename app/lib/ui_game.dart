@@ -17,6 +17,7 @@ import 'ui_fogonazo.dart';
 import 'ui_common.dart';
 import 'temas/temas.dart';
 import 'ui_celebracion.dart';
+import 'ui_compartir.dart';
 import 'ui_intro.dart';
 import 'ui_tutorial.dart';
 
@@ -221,7 +222,26 @@ class _GameScreenState extends State<GameScreen> {
     });
   }
 
+  Timer? _resenaTimer;
+  bool _resenaRevisada = false;
+
+  /// Pide la reseña un rato después de que el resumen de una victoria queda a
+  /// la vista. Se llama recién cuando no hay cómic ni celebraciones encima:
+  /// encimar el cuadro de Apple con otra cosa no se lee.
+  void _programarResena(AppState app) {
+    final j = app.juego;
+    if (j == null || j.estado != EstadoJuego.victoria) return;
+    if (!app.correspondeResena) return;
+    _resenaTimer?.cancel();
+    _resenaTimer = Timer(const Duration(milliseconds: 1500), () {
+      if (!mounted || _comic != null || app.colaCelebracion.isNotEmpty) return;
+      app.pedirResena();
+    });
+  }
+
   void _reiniciarSeguimiento() {
+    _resenaTimer?.cancel();
+    _resenaRevisada = false;
     _faseVista = Fase.alba;
     _finalMostrado = false;
     _comic = null;
@@ -315,6 +335,7 @@ class _GameScreenState extends State<GameScreen> {
   void dispose() {
     _auto?.cancel();
     _avisoTimer?.cancel();
+    _resenaTimer?.cancel();
     _logCtrl.dispose();
     super.dispose();
   }
@@ -551,6 +572,12 @@ class _GameScreenState extends State<GameScreen> {
               ),
             ],
           );
+        }
+        // El resumen ya está a la vista, sin cómic ni celebraciones encima:
+        // recién ahora corre el reloj de la reseña.
+        if (j.terminado && !_resenaRevisada) {
+          _resenaRevisada = true;
+          _programarResena(app);
         }
         return conAvisos;
       },
@@ -1111,6 +1138,11 @@ class _Mesa extends StatelessWidget {
                     onPressed: onNueva,
                     icon: const Icon(Icons.refresh),
                     label: Text(t('juego.nueva')),
+                  ),
+                  OutlinedButton.icon(
+                    onPressed: () => abrirCompartir(context, app, j),
+                    icon: const Icon(Icons.ios_share),
+                    label: Text(t('compartir.boton')),
                   ),
                 ],
               ),

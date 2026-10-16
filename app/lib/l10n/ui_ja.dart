@@ -408,4 +408,13 @@ const uiJa = <String, String>{
   'log.ocaso': '夕暮れになりました。本当の危機が来ます。',
   'log.campeones': '大会の覇者が寺に着きました：{nombres}。',
   'log.y': 'と',
+  'ajustes.calificar': 'ゲームを評価する',
+  'ajustes.calificarSub': 'レビューがあると、ほかの人も寺院を見つけやすくなります。',
+  'compartir.boton': '共有',
+  'compartir.camino': '道：{camino}',
+  'compartir.llegue': '{fase}まで持ちこたえた',
+  'compartir.gane': '最後まで寺院を守り抜いた',
+  'compartir.firma': 'ORAKIのゲーム',
+  'compartir.textoPerdio': '師父の寺院を守って{fase}まで持ちこたえた…きみはもっと先へ行ける？ {link}',
+  'compartir.textoGano': '「{camino}」の道で、師父の寺院を最後まで守り抜いた…きみも挑戦する？ {link}',
 };

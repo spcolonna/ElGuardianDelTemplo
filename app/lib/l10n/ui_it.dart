@@ -466,4 +466,15 @@ const uiIt = <String, String>{
   'log.ocaso': 'Cala il Tramonto. Arriva il vero pericolo.',
   'log.campeones': 'I Campioni del Torneo arrivano al tempio: {nombres}.',
   'log.y': 'e',
+  'ajustes.calificar': 'Valuta il gioco',
+  'ajustes.calificarSub': 'Una recensione aiuta altri a trovare il tempio.',
+  'compartir.boton': 'Condividi',
+  'compartir.camino': 'Cammino: {camino}',
+  'compartir.llegue': 'Ho resistito fino a {fase}',
+  'compartir.gane': 'Ho custodito il tempio fino alla fine',
+  'compartir.firma': 'Un gioco di ORAKI',
+  'compartir.textoPerdio':
+      'Ho resistito fino a {fase} custodendo il tempio di Shifu… Tu arrivi più lontano? {link}',
+  'compartir.textoGano':
+      'Ho custodito il tempio di Shifu fino alla fine, sul cammino {camino}… Ci provi anche tu? {link}',
 };
