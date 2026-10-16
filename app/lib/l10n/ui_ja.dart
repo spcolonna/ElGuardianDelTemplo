@@ -114,7 +114,7 @@ const uiJa = <String, String>{
   'ajustes.titulo': '設定',
   'ajustes.musica': '音楽',
   'ajustes.efectos': '効果音',
-  'ajustes.sobre': '寺院の守り手 — 曲がった蓮',
+  'ajustes.sobre': '寺院の守り手 — Oraki Games',
   'patio.jugar': '遊ぶ',
   'patio.rachaCorta': '連続{a}/{b}',
   'nav.bitacora': '記録',

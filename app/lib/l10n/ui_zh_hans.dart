@@ -110,7 +110,7 @@ const uiZhHans = <String, String>{
   'ajustes.titulo': '设置',
   'ajustes.musica': '音乐',
   'ajustes.efectos': '音效',
-  'ajustes.sobre': '寺庙守护者 — 歪莲寺',
+  'ajustes.sobre': '寺庙守护者 — Oraki Games',
   'patio.jugar': '开玩',
   'patio.rachaCorta': '连胜{a}／{b}',
   'nav.bitacora': '战况',

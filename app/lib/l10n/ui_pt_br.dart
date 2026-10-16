@@ -113,7 +113,7 @@ const uiPtBr = <String, String>{
   'ajustes.titulo': 'Ajustes',
   'ajustes.musica': 'Música',
   'ajustes.efectos': 'Efeitos sonoros',
-  'ajustes.sobre': 'O Guardião do Templo — Lótus Torto',
+  'ajustes.sobre': 'O Guardião do Templo — Oraki Games',
   'patio.jugar': 'Jogar',
   'patio.rachaCorta': 'Sequência {a}/{b}',
   'nav.bitacora': 'Diário de bordo',

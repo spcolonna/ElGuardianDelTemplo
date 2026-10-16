@@ -117,7 +117,7 @@ const uiEs = <String, String>{
   'ajustes.titulo': 'Ajustes',
   'ajustes.musica': 'Música',
   'ajustes.efectos': 'Efectos de sonido',
-  'ajustes.sobre': 'El Guardián del Templo — Loto Torcido',
+  'ajustes.sobre': 'El Guardián del Templo — Oraki Games',
   'patio.jugar': 'Jugar',
   'patio.rachaCorta': 'Racha {a}/{b}',
   'nav.bitacora': 'Bitácora',

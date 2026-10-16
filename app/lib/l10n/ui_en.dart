@@ -116,7 +116,7 @@ const uiEn = <String, String>{
   'ajustes.titulo': 'Settings',
   'ajustes.musica': 'Music',
   'ajustes.efectos': 'Sound effects',
-  'ajustes.sobre': 'Guardian of the Temple — Loto Torcido',
+  'ajustes.sobre': 'Guardian of the Temple — Oraki Games',
   'patio.jugar': 'Play',
   'patio.rachaCorta': 'Streak {a}/{b}',
   'nav.bitacora': 'Log',

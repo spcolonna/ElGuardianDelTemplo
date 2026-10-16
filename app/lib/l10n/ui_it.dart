@@ -115,7 +115,7 @@ const uiIt = <String, String>{
   'ajustes.titulo': 'Impostazioni',
   'ajustes.musica': 'Musica',
   'ajustes.efectos': 'Effetti sonori',
-  'ajustes.sobre': 'Il Guardiano del Tempio — Loto Storto',
+  'ajustes.sobre': 'Il Guardiano del Tempio — Oraki Games',
   'patio.jugar': 'Gioca',
   'patio.rachaCorta': 'Serie {a}/{b}',
   'nav.bitacora': 'Diario di bordo',

@@ -124,7 +124,7 @@ const uiDe = <String, String>{
   'ajustes.titulo': 'Einstellungen',
   'ajustes.musica': 'Musik',
   'ajustes.efectos': 'Soundeffekte',
-  'ajustes.sobre': 'Der Wächter des Tempels — Schiefer Lotos',
+  'ajustes.sobre': 'Der Wächter des Tempels — Oraki Games',
   'patio.jugar': 'Spielen',
   'patio.rachaCorta': 'Serie {a}/{b}',
   'nav.bitacora': 'Logbuch',
