@@ -5,12 +5,13 @@ import 'audio.dart';
 import 'rutas.dart';
 import 'ui_common.dart';
 import 'ui_game.dart';
+import 'ui_marca.dart';
 import 'ui_shell.dart';
 import 'ui_splash.dart';
 import 'ui_texturas.dart';
 import 'ui_tutorial.dart';
 
-/// La ruta raíz: splash, y después el cómic de apertura y el tutorial, que
+/// La ruta raíz: la presentación de Oraki Games, el splash, y después el cómic de apertura y el tutorial, que
 /// sólo se ven la primera vez.
 ///
 /// Esto NO es navegación, es estado: por eso vive en una sola ruta en vez de
@@ -24,6 +25,7 @@ class ArranqueScreen extends StatefulWidget {
 }
 
 class _ArranqueScreenState extends State<ArranqueScreen> {
+  bool _marcaLista = false;
   bool _splashListo = false;
 
   @override
@@ -40,12 +42,27 @@ class _ArranqueScreenState extends State<ArranqueScreen> {
   Widget build(BuildContext context) {
     final app = AppScope.of(context);
 
+    // Primero el estudio, que continúa la pantalla de carga nativa, y
+    // después el loto: del oscuro de Oraki al crema del juego en un fundido.
     if (!_splashListo || !app.listo) {
       return Scaffold(
-        backgroundColor: kFondoSplash,
-        body: SplashScreen(
-          titulo: app.textos.nombre,
-          onTerminar: () => setState(() => _splashListo = true),
+        backgroundColor: kFondoMarca,
+        body: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 550),
+          switchInCurve: Curves.easeOut,
+          child: _marcaLista
+              ? ColoredBox(
+                  key: const ValueKey('splash'),
+                  color: kFondoSplash,
+                  child: SplashScreen(
+                    titulo: app.textos.nombre,
+                    onTerminar: () => setState(() => _splashListo = true),
+                  ),
+                )
+              : PresentacionOraki(
+                  key: const ValueKey('marca'),
+                  onTerminar: () => setState(() => _marcaLista = true),
+                ),
         ),
       );
     }
