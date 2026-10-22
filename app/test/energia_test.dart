@@ -12,48 +12,51 @@ import 'package:guardian_templo/engine.dart';
 import 'package:guardian_templo/models.dart';
 
 void main() {
-  test('resolver() no vuelve a aplicar los efectos de las cartas de la mesa', () {
-    // Energía alta para que nada tope y la partida llegue lejos.
-    final j = Juego(
-      cfg: Config(energiaInicial: 400, energiaMaxima: 400),
-      contenido: contenidoPorDefecto(),
-      rng: Random(11),
-    );
+  test(
+    'resolver() no vuelve a aplicar los efectos de las cartas de la mesa',
+    () {
+      // Energía alta para que nada tope y la partida llegue lejos.
+      final j = Juego(
+        cfg: Config(energiaInicial: 400, energiaMaxima: 400),
+        contenido: contenidoPorDefecto(),
+        rng: Random(11),
+      );
 
-    var combates = 0;
-    var vueltas = 0;
-    while (!j.terminado && vueltas++ < 4000) {
-      if (j.estado == EstadoJuego.enCombate) {
-        // Robar hasta poder ganar, o hasta que ya no se pueda robar más.
-        if (j.faltante > 0 && (j.gratisRestantes > 0 || j.energia > 20)) {
-          j.robar();
-          continue;
+      var combates = 0;
+      var vueltas = 0;
+      while (!j.terminado && vueltas++ < 4000) {
+        if (j.estado == EstadoJuego.enCombate) {
+          // Robar hasta poder ganar, o hasta que ya no se pueda robar más.
+          if (j.faltante > 0 && (j.gratisRestantes > 0 || j.energia > 20)) {
+            j.robar();
+            continue;
+          }
+
+          // Lo único que `resolver()` tiene derecho a mover.
+          final antes = j.energia;
+          final esperado = j.sumaMesa >= j.poderPeligroEfectivo
+              ? j.energiaSiGanaAcumulada
+              : -j.peligro!.dano;
+
+          j.resolver();
+          combates++;
+
+          expect(
+            j.energia - antes,
+            esperado,
+            reason:
+                'El combate $combates movió ${j.energia - antes} de Energía en '
+                'vez de $esperado: alguien está recobrando los efectos de la '
+                'mesa al resolver.',
+          );
         }
-
-        // Lo único que `resolver()` tiene derecho a mover.
-        final antes = j.energia;
-        final esperado = j.sumaMesa >= j.poderPeligroEfectivo
-            ? j.energiaSiGanaAcumulada
-            : -j.peligro!.dano;
-
-        j.resolver();
-        combates++;
-
-        expect(
-          j.energia - antes,
-          esperado,
-          reason:
-              'El combate $combates movió ${j.energia - antes} de Energía en '
-              'vez de $esperado: alguien está recobrando los efectos de la '
-              'mesa al resolver.',
-        );
+        j.continuar();
       }
-      j.continuar();
-    }
 
-    // Si no jugó nada, la prueba no probó nada.
-    expect(combates, greaterThan(10));
-  });
+      // Si no jugó nada, la prueba no probó nada.
+      expect(combates, greaterThan(10));
+    },
+  );
 
   test('ninguna carta sale dos veces antes de rebarajar', () {
     // La promesa del mazo: una carta jugada no vuelve hasta que se rebaraja.
@@ -82,7 +85,8 @@ void main() {
               expect(
                 vistas.add(j.mesa[k].uid),
                 isTrue,
-                reason: '${j.mesa[k].nombre} salió dos veces sin rebarajar '
+                reason:
+                    '${j.mesa[k].nombre} salió dos veces sin rebarajar '
                     '(semilla $s)',
               );
             }

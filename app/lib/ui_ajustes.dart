@@ -62,6 +62,25 @@ class _AjustesScreenState extends State<AjustesScreen> {
           ),
 
           const SizedBox(height: 20),
+          PlacaTitulo(t('ajustes.avisosTitulo'), icono: Icons.notifications),
+          const SizedBox(height: 8),
+          FilaInterruptor(
+            texto: t('ajustes.avisos'),
+            icono: Icons.local_fire_department,
+            valor: app.avisos == true,
+            onTap: () async {
+              final ok = await app.cambiarAvisos(app.avisos != true);
+              if (!context.mounted) return;
+              if (!ok) {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text(t('aviso.negado'))));
+              }
+              setState(() {});
+            },
+          ),
+
+          const SizedBox(height: 20),
           PlacaTitulo(t('ajustes.idioma'), icono: Icons.translate),
           const SizedBox(height: 8),
           _Idiomas(app: app, t: t, onCambio: () => setState(() {})),
@@ -96,7 +115,7 @@ class _AjustesScreenState extends State<AjustesScreen> {
           const SizedBox(height: 20),
           PlacaTitulo(t('tienda.titulo'), icono: Icons.lock_open),
           const SizedBox(height: 8),
-          if (!app.premium)
+          if (!app.comprado)
             const BannerCompra()
           else
             PanelPapel(

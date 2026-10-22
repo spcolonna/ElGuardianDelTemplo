@@ -206,9 +206,7 @@ const uiEn = <String, String>{
 
   'progreso.titulo': "The Guardian's Week",
   'progreso.explicacion':
-      'Win one game per day. The next day does not unlock until the date '
-      'changes. If a whole day goes by without a win, the chain breaks '
-      'and you start the seven over.',
+      'Win one game per day. The next day does not unlock until the date changes. Every seven days in a row completes a week and earns its reward, and the streak keeps counting. If a whole day goes by without a win, the chain breaks and goes back to zero.',
   'progreso.dia': 'Day {n}',
   'progreso.hecho': 'The temple held today.',
   'progreso.pendiente': 'The temple has not been defended today.',
@@ -460,4 +458,80 @@ const uiEn = <String, String>{
       "I held out until {fase} guarding Shifu's temple… Can you get further? {link}",
   'compartir.textoGano':
       "I guarded Shifu's temple to the very end, on the {camino} path… Dare to try? {link}",
+
+  // racha que sigue, sellos, templo abierto y recordatorios
+  'progreso.semanaN': 'Week {n}',
+  'progreso.rachaDias': 'Current streak {n}',
+  'progreso.sellos': 'Temple seals',
+  'progreso.sellosSub':
+      'Each completed week stamps a new one. They stay yours even if the streak breaks.',
+  'progreso.selloSemana': 'Week {n}',
+  'progreso.tuTitulo': 'Your title',
+  'progreso.tituloMaximo':
+      'There is no higher title. The temple already knows your name.',
+  'progreso.proximoTitulo': 'Next: “{t}” · weeks in a row: {n}',
+  'progreso.mejorTitulo': 'Highest you have held: {t}',
+  'progreso.premioTitulo': 'Weekly reward',
+  'progreso.premioGratis':
+      'Complete all seven days: a new seal and 24 hours with the whole temple open. Every path, the bosses and the modes, no ads.',
+  'progreso.premioComprado':
+      'Complete all seven days: a new seal and a blessing. Your first game the next day starts with {n} extra {r}.',
+  'templo.abierto': 'Temple open',
+  'templo.quedan': '{h} h {m} min left with everything open.',
+  'templo.quedanMin': '{m} min left with everything open.',
+  'celebra.sello': 'You stamped the {s}.',
+  'celebra.templo':
+      'And the temple stays open for 24 hours: every path, the bosses and the modes, no ads.',
+  'celebra.bendicion':
+      'And a blessing: tomorrow your first game starts with {n} extra {r}.',
+  'celebra.titulo': 'New title: {t}.',
+  'bendicion.franja': 'Weekly blessing: you started with {n} extra {r}.',
+  'aviso.ofrecer': 'Want a reminder so your streak does not break?',
+  'aviso.ofrecerSub':
+      'One reminder in the evening if you have not won that day yet, and little else.',
+  'aviso.si': 'Remind me',
+  'aviso.no': 'No thanks',
+  'aviso.negado':
+      'Your phone did not grant permission. You can turn it on in the system settings.',
+  'ajustes.avisosTitulo': 'Reminders',
+  'ajustes.avisos': 'Remind me to keep my streak',
+  'aviso.canal': 'Reminders',
+  'aviso.canalSub': 'Your daily streak and the open temple.',
+  'aviso.racha.titulo': 'The temple awaits',
+  'aviso.racha.cuerpo':
+      'Your streak is at {n}. Win a game today so it does not break.',
+  'aviso.semana.titulo': 'One day to finish the week',
+  'aviso.semana.cuerpo':
+      'Win today, complete all seven days and claim the reward.',
+  'aviso.vuelta1.titulo': 'The courtyard misses you',
+  'aviso.vuelta1.cuerpo': 'A game is waiting for you. Back to the temple?',
+  'aviso.vuelta2.titulo': 'The temple needs its guardian',
+  'aviso.vuelta2.cuerpo':
+      'Nobody has watched over it for days. One game is enough to start a new streak.',
+  'aviso.vuelta3.titulo': 'The temple still stands',
+  'aviso.vuelta3.cuerpo':
+      'Whenever you are ready, start a new week and stamp another seal.',
+  'aviso.templo.titulo': 'The temple is closing',
+  'aviso.templo.cuerpo':
+      'A few hours left with everything open. Try a harder path before it ends.',
+  'titulo.0': 'Visitor',
+  'titulo.1': 'Courtyard Sweeper',
+  'titulo.2': 'Water Bearer',
+  'titulo.3': 'Gatekeeper',
+  'titulo.4': 'Monk of the Dawn',
+  'titulo.5': 'Bell Ringer',
+  'titulo.6': 'Temple Custodian',
+  'titulo.7': 'Temple Legend',
+  'sello.loto': 'Lotus Seal',
+  'sello.alba': 'Dawn Seal',
+  'sello.bambu': 'Bamboo Seal',
+  'sello.campana': 'Bell Seal',
+  'sello.montana': 'Mountain Seal',
+  'sello.rio': 'River Seal',
+  'sello.llama': 'Flame Seal',
+  'sello.luna': 'Moon Seal',
+  'sello.viento': 'Wind Seal',
+  'sello.ocaso': 'Dusk Seal',
+  'sello.estrella': 'Star Seal',
+  'sello.shifu': 'Shifu Seal',
 };

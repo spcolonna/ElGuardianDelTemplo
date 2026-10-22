@@ -27,6 +27,7 @@ class Preferencias {
   static const _kSesiones = 'guardian_sesiones_v1';
   static const _kResenas = 'guardian_resenas_pedidas_v1';
   static const _kResenaUltima = 'guardian_resena_ultima_v1';
+  static const _kAvisos = 'guardian_avisos_v1';
 
   SharedPreferences? _p;
 
@@ -105,6 +106,11 @@ class Preferencias {
   /// tienda, y se recupera con «Restaurar compra» en Ajustes.
   bool get comprado => _p?.getBool(_kComprado) ?? false;
   Future<void> marcarComprado(bool v) async => _p?.setBool(_kComprado, v);
+
+  /// Si el jugador quiere los recordatorios. `null` = todavía no se le
+  /// preguntó, y entonces no se programa nada.
+  bool? get avisos => _p?.getBool(_kAvisos);
+  Future<void> guardarAvisos(bool v) async => _p?.setBool(_kAvisos, v);
 
   // --------------------------------------------------------------- reseña
   EstadoResena cargarResena() {

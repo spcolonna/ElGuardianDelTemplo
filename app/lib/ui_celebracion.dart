@@ -16,12 +16,16 @@ class CelebracionLogro extends StatefulWidget {
   final String textoBoton;
   final VoidCallback onCerrar;
 
+  /// Lo que entra en escala en el centro. Sin nada, la insignia de logro.
+  final Widget? emblema;
+
   const CelebracionLogro({
     super.key,
     required this.titulo,
     required this.subtitulo,
     required this.textoBoton,
     required this.onCerrar,
+    this.emblema,
   });
 
   @override
@@ -86,12 +90,14 @@ class _CelebracionLogroState extends State<CelebracionLogro>
                         child: Center(
                           child: Transform.scale(
                             scale: entrada,
-                            child: const IconoJuego(
-                              asset: insigniaLogro,
-                              respaldoIcono: Icons.military_tech,
-                              tamano: 92,
-                              colorRespaldo: kOroBorde,
-                            ),
+                            child:
+                                widget.emblema ??
+                                const IconoJuego(
+                                  asset: insigniaLogro,
+                                  respaldoIcono: Icons.military_tech,
+                                  tamano: 92,
+                                  colorRespaldo: kOroBorde,
+                                ),
                           ),
                         ),
                       ),

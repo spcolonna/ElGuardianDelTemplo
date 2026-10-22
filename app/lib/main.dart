@@ -22,19 +22,37 @@ class GuardianApp extends StatefulWidget {
   State<GuardianApp> createState() => _GuardianAppState();
 }
 
-class _GuardianAppState extends State<GuardianApp> {
+class _GuardianAppState extends State<GuardianApp> with WidgetsBindingObserver {
   final estado = AppState();
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     estado.cargar();
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     estado.audio.liberar();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState s) {
+    if (!estado.listo) return;
+    switch (s) {
+      // Se va: los días sin venir se cuentan desde acá.
+      case AppLifecycleState.paused:
+        estado.reprogramarAvisos();
+      // Vuelve, quizás otro día: la racha y el templo abierto se miran de
+      // nuevo, que con la app en segundo plano el reloj siguió andando.
+      case AppLifecycleState.resumed:
+        estado.progreso.revisarCadena(DateTime.now());
+        estado.tocar();
+      default:
+    }
   }
 
   @override

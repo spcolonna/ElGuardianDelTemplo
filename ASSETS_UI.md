@@ -182,6 +182,37 @@ dorada y viva, la otra apagada.
 > brillante" por **"De piedra gris apagada, sin brillo, como una talla sin
 > terminar"**. Tiene que ser reconociblemente la misma medalla.
 
+### 14. Los doce sellos del templo: `sello_<id>.png` — 512 × 512, con alfa
+
+Se gana uno por cada semana de racha completa y se ven en Progreso y en la
+celebración. Mientras no estén, la app dibuja un sello bermellón con un ícono:
+cada PNG que dejes lo reemplaza solo.
+
+**Los doce comparten la base**, y sólo cambia el emblema del centro:
+
+> Sello de tinta bermellón estampado sobre papel, visto de frente: un círculo de tinta roja intensa (#B23A2C) con el borde levemente irregular, como un sello de piedra apretado a mano, con un anillo fino de papel crema adentro y el emblema calado en el centro, en el color del papel. Textura de tinta con pequeñas fallas y granulado, como una estampa real. Estilo ilustración con línea de tinta y acuarela, a juego con las cartas del juego. Iluminación plana, sin sombras proyectadas. Fondo transparente: sólo el sello, nada del papel alrededor. Formato cuadrado 512x512 px, el sello ocupando el 92% del ancho. Sin texto, sin letras, sin números, sin kanji, sin logos, sin marcas de agua.
+
+Y al final, el emblema de cada uno:
+
+| archivo | nombre en el juego | emblema |
+|---|---|---|
+| `sello_loto.png` | Sello del Loto | una flor de loto abierta, vista de frente |
+| `sello_alba.png` | Sello del Alba | un sol naciendo sobre una línea de montañas |
+| `sello_bambu.png` | Sello del Bambú | tres cañas de bambú con hojas |
+| `sello_campana.png` | Sello de la Campana | una campana de templo colgada de una viga |
+| `sello_montana.png` | Sello de la Montaña | tres picos con una nube que los cruza |
+| `sello_rio.png` | Sello del Río | olas de río que corren en curva |
+| `sello_llama.png` | Sello de la Llama | la llama de una vela o de una lámpara |
+| `sello_luna.png` | Sello de la Luna | una luna creciente con dos estrellas chicas |
+| `sello_viento.png` | Sello del Viento | espirales de viento con hojas que vuelan |
+| `sello_ocaso.png` | Sello del Ocaso | un sol que se pone detrás del techo de una pagoda |
+| `sello_estrella.png` | Sello de la Estrella | una estrella de cuatro puntas brillando |
+| `sello_shifu.png` | Sello de Shifu | la silueta de un monje anciano meditando sentado |
+
+**Que se lea a 40 px.** El sello más chico de la grilla mide eso: el emblema
+tiene que ser una sola forma clara, sin detalle fino. Si el generador lo llena
+de adornos, pedí "emblema simple, de trazo grueso".
+
 ---
 
 ## Resumen para pegar en la carpeta
@@ -202,6 +233,7 @@ dorada y viva, la otra apagada.
 | `boton_volver.png` | 192 × 192 | sí |
 | `insignia_logro.png` | 512 × 512 | sí |
 | `insignia_bloqueada.png` | 512 × 512 | sí |
+| `sello_<id>.png` (doce) | 512 × 512 | sí |
 
 **Las medidas son exactas.** Un píxel de más y el estirado queda corrido sin que
 nada falle visiblemente — por eso existe el chequeo 14. Si el generador te

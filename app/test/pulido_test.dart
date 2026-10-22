@@ -229,11 +229,11 @@ void main() {
       }
 
       // La línea de debajo del título también va sobre el paisaje.
-    final linea = find.textContaining('Caíste en');
-    expect(linea, findsOneWidget);
-    expect(tester.widget<Text>(linea).style?.color, kTinta);
+      final linea = find.textContaining('Caíste en');
+      expect(linea, findsOneWidget);
+      expect(tester.widget<Text>(linea).style?.color, kTinta);
 
-    final caja = tester.widget<Container>(recuadro);
+      final caja = tester.widget<Container>(recuadro);
       final fondo = (caja.decoration as BoxDecoration).color!;
       expect(fondo.a, 1.0, reason: 'el recuadro deja ver el paisaje');
     },

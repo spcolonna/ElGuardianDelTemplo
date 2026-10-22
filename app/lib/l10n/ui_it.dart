@@ -212,9 +212,7 @@ const uiIt = <String, String>{
   // progreso
   'progreso.titulo': 'La settimana del Guardiano',
   'progreso.explicacion':
-      'Vinci una partita al giorno. Il giorno dopo non si sblocca finché non '
-      'cambia la data. Se passa un giorno intero senza vincere, la catena si '
-      'spezza e bisogna rifare tutti e sette.',
+      'Vinci una partita al giorno. Il giorno dopo non si sblocca finché non cambia la data. Ogni sette giorni di fila completi una settimana e ne ottieni il premio, e la serie continua a contare. Se passa un giorno intero senza vincere, la catena si spezza e torna a zero.',
   'progreso.dia': 'Giorno {n}',
   'progreso.hecho': 'Oggi il tempio ha retto.',
   'progreso.pendiente': 'Oggi il tempio non è ancora difeso.',
@@ -477,4 +475,81 @@ const uiIt = <String, String>{
       'Ho resistito fino a {fase} custodendo il tempio di Shifu… Tu arrivi più lontano? {link}',
   'compartir.textoGano':
       'Ho custodito il tempio di Shifu fino alla fine, sul cammino {camino}… Ci provi anche tu? {link}',
+
+  // racha que sigue, sellos, templo abierto y recordatorios
+  'progreso.semanaN': 'Settimana {n}',
+  'progreso.rachaDias': 'Serie attuale {n}',
+  'progreso.sellos': 'Sigilli del tempio',
+  'progreso.sellosSub':
+      'Ogni settimana completa ne imprime uno nuovo. Restano tuoi anche se la serie si spezza.',
+  'progreso.selloSemana': 'Settimana {n}',
+  'progreso.tuTitulo': 'Il tuo titolo',
+  'progreso.tituloMaximo':
+      'Non esiste un titolo più alto. Il tempio conosce già il tuo nome.',
+  'progreso.proximoTitulo': 'Prossimo: «{t}» · settimane di fila: {n}',
+  'progreso.mejorTitulo': 'Il più alto che hai avuto: {t}',
+  'progreso.premioTitulo': 'Premio della settimana',
+  'progreso.premioGratis':
+      'Completando i sette giorni: un sigillo nuovo e 24 ore con il tempio completo aperto. Tutti i cammini, i boss e le modalità, senza pubblicità.',
+  'progreso.premioComprado':
+      'Completando i sette giorni: un sigillo nuovo e una benedizione. La tua prima partita del giorno dopo parte con {n} di {r} in più.',
+  'templo.abierto': 'Tempio aperto',
+  'templo.quedan': 'Restano {h} h {m} min con tutto aperto.',
+  'templo.quedanMin': 'Restano {m} min con tutto aperto.',
+  'celebra.sello': 'Hai impresso il {s}.',
+  'celebra.templo':
+      'E il tempio resta aperto per 24 ore: tutti i cammini, i boss e le modalità, senza pubblicità.',
+  'celebra.bendicion':
+      'E una benedizione: domani la tua prima partita parte con {n} di {r} in più.',
+  'celebra.titulo': 'Nuovo titolo: {t}.',
+  'bendicion.franja':
+      'Benedizione della settimana: sei partito con {n} di {r} in più.',
+  'aviso.ofrecer': 'Vuoi un promemoria per non spezzare la serie?',
+  'aviso.ofrecerSub':
+      'Un promemoria verso sera se quel giorno non hai ancora vinto, e poco altro.',
+  'aviso.si': 'Avvisami',
+  'aviso.no': 'No, grazie',
+  'aviso.negado':
+      'Il telefono non ha dato il permesso. Puoi attivarlo nelle impostazioni di sistema.',
+  'ajustes.avisosTitulo': 'Promemoria',
+  'ajustes.avisos': 'Avvisami per non spezzare la serie',
+  'aviso.canal': 'Promemoria',
+  'aviso.canalSub': 'La serie giornaliera e il tempio aperto.',
+  'aviso.racha.titulo': 'Il tempio ti aspetta',
+  'aviso.racha.cuerpo':
+      'La tua serie è a {n}. Vinci una partita oggi perché non si spezzi.',
+  'aviso.semana.titulo': 'Un giorno per chiudere la settimana',
+  'aviso.semana.cuerpo':
+      'Vinci oggi, completa i sette giorni e prenditi il premio.',
+  'aviso.vuelta1.titulo': 'Il cortile sente la tua mancanza',
+  'aviso.vuelta1.cuerpo': 'C’è una partita che ti aspetta. Torni al tempio?',
+  'aviso.vuelta2.titulo': 'Il tempio ha bisogno del suo guardiano',
+  'aviso.vuelta2.cuerpo':
+      'Da giorni nessuno se ne prende cura. Basta una partita per iniziare una nuova serie.',
+  'aviso.vuelta3.titulo': 'Il tempio è ancora in piedi',
+  'aviso.vuelta3.cuerpo':
+      'Quando vuoi, inizia una nuova settimana e imprimi un altro sigillo.',
+  'aviso.templo.titulo': 'Il tempio sta per chiudere',
+  'aviso.templo.cuerpo':
+      'Restano poche ore con tutto aperto. Prova un cammino più difficile prima che finisca.',
+  'titulo.0': 'Visitatore',
+  'titulo.1': 'Spazzino del cortile',
+  'titulo.2': 'Portatore d’acqua',
+  'titulo.3': 'Custode della porta',
+  'titulo.4': 'Monaco dell’alba',
+  'titulo.5': 'Campanaro',
+  'titulo.6': 'Custode del tempio',
+  'titulo.7': 'Leggenda del tempio',
+  'sello.loto': 'Sigillo del Loto',
+  'sello.alba': 'Sigillo dell’Alba',
+  'sello.bambu': 'Sigillo del Bambù',
+  'sello.campana': 'Sigillo della Campana',
+  'sello.montana': 'Sigillo della Montagna',
+  'sello.rio': 'Sigillo del Fiume',
+  'sello.llama': 'Sigillo della Fiamma',
+  'sello.luna': 'Sigillo della Luna',
+  'sello.viento': 'Sigillo del Vento',
+  'sello.ocaso': 'Sigillo del Tramonto',
+  'sello.estrella': 'Sigillo della Stella',
+  'sello.shifu': 'Sigillo di Shifu',
 };

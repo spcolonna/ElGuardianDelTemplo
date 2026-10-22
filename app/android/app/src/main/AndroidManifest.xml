@@ -6,6 +6,13 @@
     <!-- El identificador de publicidad, que usa AdMob. Es lo único que el
          juego deja salir del teléfono; está contado en docs/privacidad.html. -->
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+    <!-- Los recordatorios de la racha. Son notificaciones locales: las arma
+         el teléfono y no sale nada. El permiso de notificar se pide recién
+         cuando el jugador dice que sí, y el de arranque es para volver a
+         programarlas después de reiniciar el teléfono. Sin alarma exacta: un
+         aviso de racha no necesita el minuto justo. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:label="@string/app_name"
@@ -35,6 +42,21 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!-- Los que muestran los recordatorios programados y los vuelven a
+             programar al reiniciar o actualizar la app. -->
+        <receiver
+            android:exported="false"
+            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
+        <receiver
+            android:exported="false"
+            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+            </intent-filter>
+        </receiver>
         <!-- AdMob. Tiene que ser el MISMO App ID que lib/tienda/ids.dart:
              si no coinciden, el SDK tira una excepcion al inicializarse y la
              app se cae al arrancar. Es el de la cuenta de AdMob del juego.

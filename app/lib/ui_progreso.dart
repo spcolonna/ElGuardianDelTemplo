@@ -8,6 +8,7 @@ import 'modos/encargos.dart';
 import 'progreso.dart';
 import 'temas/temas.dart';
 import 'ui_common.dart';
+import 'ui_sellos.dart';
 
 /// Timeline de misiones diarias sobre calendario real.
 class ProgresoScreen extends StatelessWidget {
@@ -20,6 +21,7 @@ class ProgresoScreen extends StatelessWidget {
     final hoy = DateTime.now();
     p.revisarCadena(hoy);
     final hecho = p.hoyCompletado(hoy);
+    final dias = p.diasEnSemana(hoy);
     final t = TextosUi.de(app.idioma);
 
     return ListView(
@@ -31,24 +33,34 @@ class ProgresoScreen extends StatelessWidget {
         ),
         const SizedBox(height: 24),
 
-        _Timeline(racha: p.racha, hoyHecho: hecho),
+        // La semana en curso de la cadena viva: la segunda arranca el día 8.
+        if (p.racha > 0) ...[
+          Text(
+            t.con('progreso.semanaN', {
+              'n': hecho && dias == Progreso.diasParaLogro
+                  ? p.semanasSeguidas
+                  : p.semanasSeguidas + 1,
+            }),
+            style: TextStyle(
+              fontFamily: fuenteTitulo,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: kMaderaOscura,
+            ),
+          ),
+          const SizedBox(height: 8),
+        ],
+        _Timeline(racha: dias, hoyHecho: hecho),
         const SizedBox(height: 24),
 
-        _EstadoDeHoy(hecho: hecho, racha: p.racha),
-        const SizedBox(height: 20),
-
-        if (p.logroActivo) const _Insignia(),
-        if (p.logroActivo) const SizedBox(height: 20),
-
+        _EstadoDeHoy(hecho: hecho, racha: dias % Progreso.diasParaLogro),
+        const SizedBox(height: 12),
         Wrap(
           spacing: 8,
           runSpacing: 8,
           children: [
             Etiqueta(
-              t.con('progreso.rachaActual', {
-                'a': p.racha,
-                'b': Progreso.diasParaLogro,
-              }),
+              t.con('progreso.rachaDias', {'n': p.racha}),
               icono: Icons.local_fire_department,
               color: p.racha > 0 ? kMediodia : null,
             ),
@@ -63,9 +75,29 @@ class ProgresoScreen extends StatelessWidget {
             ),
           ],
         ),
+        const SizedBox(height: 12),
+        _PremioDeLaSemana(app: app, t: t),
+        const SizedBox(height: 20),
+
+        _Titulo(p: p, t: t),
+        const SizedBox(height: 28),
+
+        PlacaTitulo(t('progreso.sellos'), icono: Icons.verified),
+        const SizedBox(height: 6),
+        Text(
+          t('progreso.sellosSub'),
+          style: const TextStyle(color: kTintaSuave, fontSize: 12.5),
+        ),
+        const SizedBox(height: 14),
+        GrillaSellos(
+          ganados: p.sellos,
+          nombre: (i) => i < p.sellos
+              ? t('sello.${idsSellos[i]}')
+              : t.con('progreso.selloSemana', {'n': i + 1}),
+        ),
         const SizedBox(height: 24),
 
-        if (app.cfg.modoEncargos) _EncargoDeHoy(hoy: hoy, textos: app.textos),
+        if (app.opciones.encargos) _EncargoDeHoy(hoy: hoy, textos: app.textos),
 
         const Divider(height: 40),
         SwitchListTile(
@@ -267,17 +299,27 @@ class _EstadoDeHoy extends StatelessWidget {
   }
 }
 
-class _Insignia extends StatelessWidget {
-  const _Insignia();
+/// El título que da la cadena viva, y cuánto falta para el siguiente.
+class _Titulo extends StatelessWidget {
+  final Progreso p;
+  final TextosUi t;
+  const _Titulo({required this.p, required this.t});
 
   @override
   Widget build(BuildContext context) {
-    final t = TextosUi.de(AppScope.of(context).idioma);
+    final nivel = p.nivelTitulo;
+    final faltan = p.semanasParaSubir;
+    final siguiente = faltan == null ? null : t('titulo.${nivel + 1}');
     return Container(
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
+        // Opaco: sobre el paisaje, un velo violeta dejaba el texto gris
+        // ilegible.
         gradient: LinearGradient(
-          colors: [kJefe.withValues(alpha: .28), kJefe.withValues(alpha: .06)],
+          colors: [
+            Color.alphaBlend(kJefe.withValues(alpha: .20), kPapelClaro),
+            kPapelClaro,
+          ],
         ),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: kJefe, width: 2),
@@ -285,10 +327,10 @@ class _Insignia extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const IconoJuego(
+          IconoJuego(
             asset: insigniaLogro,
             respaldoIcono: Icons.military_tech,
-            tamano: 34,
+            tamano: nivel == 0 ? 28 : 36,
             colorRespaldo: kOroBorde,
           ),
           const SizedBox(width: 14),
@@ -297,16 +339,96 @@ class _Insignia extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  t('progreso.logro'),
-                  style: const TextStyle(
-                    fontSize: 17,
+                  t('progreso.tuTitulo'),
+                  style: const TextStyle(color: kTinta, fontSize: 12),
+                ),
+                Text(
+                  t('titulo.$nivel'),
+                  style: TextStyle(
+                    fontFamily: fuenteTitulo,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
+                    color: kTinta,
                   ),
                 ),
                 const SizedBox(height: 3),
                 Text(
-                  t('progreso.logroSub'),
-                  style: const TextStyle(color: kTintaSuave, fontSize: 13),
+                  siguiente == null
+                      ? t('progreso.tituloMaximo')
+                      : t.con('progreso.proximoTitulo', {
+                          't': siguiente,
+                          'n': Progreso.semanasPorTitulo[nivel + 1],
+                        }),
+                  style: const TextStyle(color: kTinta, fontSize: 12.5),
+                ),
+                if (p.mejorNivelTitulo > nivel) ...[
+                  const SizedBox(height: 3),
+                  Text(
+                    t.con('progreso.mejorTitulo', {
+                      't': t('titulo.${p.mejorNivelTitulo}'),
+                    }),
+                    style: const TextStyle(color: kTinta, fontSize: 12),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Qué se gana al cerrar la semana, dicho antes de ganarlo: es lo que hace
+/// que el día cinco valga la pena.
+class _PremioDeLaSemana extends StatelessWidget {
+  final AppState app;
+  final TextosUi t;
+  const _PremioDeLaSemana({required this.app, required this.t});
+
+  @override
+  Widget build(BuildContext context) {
+    final p = app.progreso;
+    final hasta = p.temploAbiertoHasta;
+    final abierto = app.temploAbierto && hasta != null;
+    final texto = abierto
+        ? textoTiempoAbierto(t, hasta.difference(DateTime.now()))
+        : t.con(
+            app.comprado ? 'progreso.premioComprado' : 'progreso.premioGratis',
+            {'n': AppState.energiaDeBendicion, 'r': app.textos.recurso},
+          );
+    return Container(
+      padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
+      decoration: BoxDecoration(
+        color: abierto ? kOro.withValues(alpha: .22) : kPapelClaro,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: kOroBorde, width: 1.5),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(
+            abierto ? Icons.lock_open : Icons.card_giftcard,
+            color: kOroBorde,
+            size: 22,
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  t(abierto ? 'templo.abierto' : 'progreso.premioTitulo'),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    color: kTinta,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  texto,
+                  style: const TextStyle(fontSize: 12.5, color: kTinta),
                 ),
               ],
             ),
@@ -315,6 +437,15 @@ class _Insignia extends StatelessWidget {
       ),
     );
   }
+}
+
+/// «Quedan 5 h 20 min con todo abierto.» Lo usan Progreso y la tienda.
+String textoTiempoAbierto(TextosUi t, Duration queda) {
+  final h = queda.inHours;
+  final m = queda.inMinutes % 60;
+  return h > 0
+      ? t.con('templo.quedan', {'h': h, 'm': m})
+      : t.con('templo.quedanMin', {'m': m < 1 ? 1 : m});
 }
 
 class _EncargoDeHoy extends StatelessWidget {

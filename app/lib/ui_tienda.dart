@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'app_state.dart';
 import 'l10n.dart';
+import 'ui_progreso.dart' show textoTiempoAbierto;
 import 'ui_kit.dart';
 import 'ui_shell.dart';
 
@@ -48,7 +49,8 @@ class BannerCompra extends StatelessWidget {
   Widget build(BuildContext context) {
     final app = AppScope.of(context);
     final t = TextosUi.de(app.idioma);
-    if (app.premium) return const SizedBox.shrink();
+    if (app.comprado) return const SizedBox.shrink();
+    final hasta = app.progreso.temploAbiertoHasta;
 
     return PanelPapel(
       onTap: () => abrirTienda(context),
@@ -57,6 +59,27 @@ class BannerCompra extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // El templo abierto de la semana completa: se dice cuánto le queda,
+          // y que comprarlo es quedárselo.
+          if (app.temploAbierto && hasta != null) ...[
+            Row(
+              children: [
+                const Icon(Icons.timer_outlined, color: kVerdeTinta, size: 18),
+                const SizedBox(width: 6),
+                Expanded(
+                  child: Text(
+                    textoTiempoAbierto(t, hasta.difference(DateTime.now())),
+                    style: const TextStyle(
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w600,
+                      color: kVerdeTinta,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 6),
+          ],
           Row(
             children: [
               const Icon(Icons.lock_open, color: kMaderaOscura, size: 20),
@@ -139,7 +162,7 @@ class _HojaTiendaState extends State<_HojaTienda> {
     if (!mounted) return;
     setState(() {});
     // Comprado: la hoja ya no tiene nada que ofrecer.
-    if (widget.app.premium) Navigator.of(context).maybePop();
+    if (widget.app.comprado) Navigator.of(context).maybePop();
   }
 
   @override

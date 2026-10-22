@@ -213,9 +213,7 @@ const uiEs = <String, String>{
   // progreso
   'progreso.titulo': 'La semana del Guardián',
   'progreso.explicacion':
-      'Ganá una partida por día. El día siguiente no se habilita hasta que '
-      'cambie la fecha. Si pasa un día entero sin ganar, la cadena se '
-      'corta y hay que rehacer los siete.',
+      'Ganá una partida por día. El día siguiente no se habilita hasta que cambie la fecha. Cada siete días seguidos completás una semana y te llevás su premio, y la racha sigue contando. Si pasa un día entero sin ganar, la cadena se corta y vuelve a cero.',
   'progreso.dia': 'Día {n}',
   'progreso.hecho': 'El templo aguantó hoy.',
   'progreso.pendiente': 'El templo todavía no está defendido hoy.',
@@ -473,4 +471,81 @@ const uiEs = <String, String>{
       'Aguanté hasta {fase} cuidando el templo de Shifu… ¿Vos llegás más lejos? {link}',
   'compartir.textoGano':
       'Cuidé el templo de Shifu hasta el final, por el camino {camino}… ¿Vos te animás? {link}',
+
+  // racha que sigue, sellos, templo abierto y recordatorios
+  'progreso.semanaN': 'Semana {n}',
+  'progreso.rachaDias': 'Racha actual {n}',
+  'progreso.sellos': 'Sellos del templo',
+  'progreso.sellosSub':
+      'Cada semana completa estampa uno nuevo. Son tuyos aunque se corte la racha.',
+  'progreso.selloSemana': 'Semana {n}',
+  'progreso.tuTitulo': 'Tu título',
+  'progreso.tituloMaximo':
+      'No hay título más alto. El templo ya sabe tu nombre.',
+  'progreso.proximoTitulo': 'Próximo: «{t}» · semanas seguidas: {n}',
+  'progreso.mejorTitulo': 'El más alto que tuviste: {t}',
+  'progreso.premioTitulo': 'Premio de la semana',
+  'progreso.premioGratis':
+      'Al completar los siete días: un sello nuevo y 24 horas con el templo completo abierto. Todos los caminos, los jefes y los modos, sin avisos.',
+  'progreso.premioComprado':
+      'Al completar los siete días: un sello nuevo y una bendición. Tu primera partida del día siguiente arranca con {n} de {r} de más.',
+  'templo.abierto': 'Templo abierto',
+  'templo.quedan': 'Quedan {h} h {m} min con todo abierto.',
+  'templo.quedanMin': 'Quedan {m} min con todo abierto.',
+  'celebra.sello': 'Estampaste el {s}.',
+  'celebra.templo':
+      'Y el templo queda abierto 24 horas: todos los caminos, los jefes y los modos, sin avisos.',
+  'celebra.bendicion':
+      'Y una bendición: mañana tu primera partida arranca con {n} de {r} de más.',
+  'celebra.titulo': 'Nuevo título: {t}.',
+  'bendicion.franja':
+      'Bendición de la semana: arrancaste con {n} de {r} de más.',
+  'aviso.ofrecer': '¿Te aviso para no cortar la racha?',
+  'aviso.ofrecerSub':
+      'Un recordatorio a la tardecita si ese día todavía no ganaste, y poco más.',
+  'aviso.si': 'Avisame',
+  'aviso.no': 'No, gracias',
+  'aviso.negado':
+      'El teléfono no dio permiso. Lo podés activar en los ajustes del sistema.',
+  'ajustes.avisosTitulo': 'Recordatorios',
+  'ajustes.avisos': 'Avisarme para no cortar la racha',
+  'aviso.canal': 'Recordatorios',
+  'aviso.canalSub': 'La racha diaria y el templo abierto.',
+  'aviso.racha.titulo': 'El templo te espera',
+  'aviso.racha.cuerpo':
+      'Tu racha va en {n}. Ganá una partida hoy para que no se corte.',
+  'aviso.semana.titulo': 'Un día para cerrar la semana',
+  'aviso.semana.cuerpo':
+      'Ganá hoy, completá los siete días y llevate su premio.',
+  'aviso.vuelta1.titulo': 'El patio te extraña',
+  'aviso.vuelta1.cuerpo': 'Hay una partida esperándote. ¿Volvés al templo?',
+  'aviso.vuelta2.titulo': 'El templo necesita a su guardián',
+  'aviso.vuelta2.cuerpo':
+      'Hace días que nadie lo cuida. Una partida alcanza para empezar otra racha.',
+  'aviso.vuelta3.titulo': 'El templo sigue en pie',
+  'aviso.vuelta3.cuerpo':
+      'Cuando quieras, empezá una semana nueva y estampá otro sello.',
+  'aviso.templo.titulo': 'Se cierra el templo',
+  'aviso.templo.cuerpo':
+      'Te quedan unas horas con todo abierto. Probá un camino más difícil antes de que termine.',
+  'titulo.0': 'Visitante',
+  'titulo.1': 'Barrendero del patio',
+  'titulo.2': 'Portador de agua',
+  'titulo.3': 'Guardián de la puerta',
+  'titulo.4': 'Monje del alba',
+  'titulo.5': 'Campanero',
+  'titulo.6': 'Custodio del templo',
+  'titulo.7': 'Leyenda del templo',
+  'sello.loto': 'Sello del Loto',
+  'sello.alba': 'Sello del Alba',
+  'sello.bambu': 'Sello del Bambú',
+  'sello.campana': 'Sello de la Campana',
+  'sello.montana': 'Sello de la Montaña',
+  'sello.rio': 'Sello del Río',
+  'sello.llama': 'Sello de la Llama',
+  'sello.luna': 'Sello de la Luna',
+  'sello.viento': 'Sello del Viento',
+  'sello.ocaso': 'Sello del Ocaso',
+  'sello.estrella': 'Sello de la Estrella',
+  'sello.shifu': 'Sello de Shifu',
 };

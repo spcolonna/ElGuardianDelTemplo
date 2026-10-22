@@ -27,6 +27,9 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        // Lo pide flutter_local_notifications para programar los
+        // recordatorios con java.time en los Android viejos.
+        isCoreLibraryDesugaringEnabled = true
     }
 
     kotlinOptions {
@@ -35,9 +38,10 @@ android {
 
     defaultConfig {
         applicationId = "com.sebastianperez.guardian_templo"
-        // Fijo, no heredado: google_mobile_ads pide 23 o mas y
-        // flutter.minSdkVersion cambia con la version del SDK de Flutter.
-        minSdk = maxOf(23, flutter.minSdkVersion)
+        // Fijo, no heredado: flutter_local_notifications pide 24 o mas
+        // (google_mobile_ads, 23) y flutter.minSdkVersion cambia con la
+        // version del SDK de Flutter.
+        minSdk = maxOf(24, flutter.minSdkVersion)
         targetSdk = 36
         // Salen de la linea `version:` de pubspec.yaml, que es la unica
         // fuente. Android lleva su propia cuenta de builds: se le pasa
@@ -83,4 +87,8 @@ android {
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
 }

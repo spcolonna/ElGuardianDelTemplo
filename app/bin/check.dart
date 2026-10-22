@@ -15,6 +15,7 @@ import 'package:guardian_templo/l10n.dart';
 import 'package:guardian_templo/logros.dart';
 import 'package:guardian_templo/modos/dificultad.dart';
 import 'package:guardian_templo/progreso.dart';
+import 'package:guardian_templo/recordatorios.dart';
 import 'package:guardian_templo/temas/temas.dart';
 import 'package:guardian_templo/tutorial.dart';
 import 'package:guardian_templo/tutorial_zonas.dart';
@@ -121,6 +122,29 @@ void main() {
     '(esperado 0 y false)',
   );
   print('   Mejor racha conservada: ${p.mejorRacha}  (esperado 7)');
+
+  // La racha no se queda en 7: el día 8 abre la segunda semana, y el 14 la
+  // cierra con su premio.
+  final q = Progreso();
+  final premios = <int>[];
+  for (var i = 0; i < 14; i++) {
+    if (q.registrarVictoria(d1.add(Duration(days: i)))) premios.add(i + 1);
+  }
+  final dia8 = Progreso()..racha = 8;
+  print(
+    '   14 días -> racha ${q.racha}, semanas ${q.semanasCompletadas}, '
+    'premios los días $premios, sellos ${q.sellos}, título ${q.nivelTitulo} · '
+    'el día 8 marca ${dia8.diasEnSemana(d1)} de la semana  '
+    '(esperado 14, 2, [7, 14], 2, 2 y 1)',
+  );
+  final r = Progreso()..premiarSemana(d1, comprado: false);
+  final c = Progreso()..premiarSemana(d1, comprado: true);
+  print(
+    '   Premio sin compra: templo abierto ${r.temploAbierto(d1)} · '
+    'cerrado a las 24 h ${!r.temploAbierto(d1.add(const Duration(hours: 24)))} · '
+    'con compra: bendición mañana ${c.bendicionLista(d1.add(const Duration(days: 1)))} '
+    'y no hoy ${!c.bendicionLista(d1)}  (esperado true, true, true, true)',
+  );
 
   // 6) El encargo del día es determinístico.
   final e1 = encargoDelDia(DateTime(2026, 5, 4));
@@ -1016,6 +1040,34 @@ void main() {
     }
   }
   print('25) Android desalineado con iOS: $androidTorcido  (esperado 0)');
+
+  // 26) Los recordatorios: el de la racha sale el día que se corta, avisa
+  // cuando cierra la semana, y ninguno queda en el pasado.
+  final ahora = DateTime(2026, 3, 10, 12);
+  final viva = Progreso()
+    ..racha = 6
+    ..ultimoDiaGanado = DateTime(2026, 3, 9);
+  final avisos = planificarRecordatorios(
+    progreso: viva,
+    ahora: ahora,
+    comprado: false,
+  );
+  final deRacha = avisos.where((a) => a.id == 1).toList();
+  final enElPasado = avisos.where((a) => !a.cuando.isAfter(ahora)).length;
+  final avisosSinTexto = <String>[
+    for (final a in avisos)
+      for (final k in [a.claveTitulo, a.claveCuerpo])
+        if (!TextosUi.claves.contains(k)) k,
+    for (final i in [1, 2, 3])
+      for (final k in ['aviso.vuelta$i.titulo', 'aviso.racha.cuerpo'])
+        if (!TextosUi.claves.contains(k)) k,
+  ];
+  print(
+    '26) Recordatorios: racha ${deRacha.length == 1 && deRacha.first.cuando == DateTime(2026, 3, 10, horaDelAviso)} · '
+    'cierra semana ${deRacha.isNotEmpty && deRacha.first.clave == 'semana'} · '
+    'en el pasado $enElPasado · claves sin texto ${avisosSinTexto.length}  '
+    '(esperado true, true, 0, 0)',
+  );
 }
 
 /// Lee ancho y alto del encabezado, sin decodificar la imagen entera.
@@ -1037,7 +1089,7 @@ void main() {
 
 /// Medidas que el arte de interfaz tiene que respetar. Es el mismo contrato
 /// que declara `lib/ui_texturas.dart` y que documenta ASSETS_UI.md.
-const piezasEsperadas = <String, (int, int)>{
+final piezasEsperadas = <String, (int, int)>{
   'marco.png': (1024, 1536),
   'home.png': (670, 1132),
   'character.png': (349, 937),
@@ -1060,6 +1112,7 @@ const piezasEsperadas = <String, (int, int)>{
   'derrota.png': (512, 512),
   'boton_volver.png': (192, 192),
   'insignia_logro.png': (512, 512),
+  for (final id in idsSellos) 'sello_$id.png': (512, 512),
   'insignia_bloqueada.png': (512, 512),
 };
 

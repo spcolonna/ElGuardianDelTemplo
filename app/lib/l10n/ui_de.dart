@@ -222,9 +222,7 @@ const uiDe = <String, String>{
   // progreso
   'progreso.titulo': 'Die Woche des Wächters',
   'progreso.explicacion':
-      'Gewinn eine Partie pro Tag. Der nächste Tag wird erst frei, wenn das '
-      'Datum wechselt. Vergeht ein ganzer Tag ohne Sieg, reißt die Kette und '
-      'du musst alle sieben neu machen.',
+      'Gewinn eine Partie pro Tag. Der nächste Tag wird erst frei, wenn das Datum wechselt. Alle sieben Tage am Stück schließt du eine Woche ab und bekommst ihre Belohnung, und die Serie zählt weiter. Vergeht ein ganzer Tag ohne Sieg, reißt die Kette und fängt wieder bei null an.',
   'progreso.dia': 'Tag {n}',
   'progreso.hecho': 'Der Tempel hat heute gehalten.',
   'progreso.pendiente': 'Der Tempel ist heute noch nicht verteidigt.',
@@ -496,4 +494,80 @@ const uiDe = <String, String>{
       'Ich hielt bis {fase} durch und hütete Shifus Tempel… Kommst du weiter? {link}',
   'compartir.textoGano':
       'Ich habe Shifus Tempel bis zum Schluss gehütet, auf dem Weg {camino}… Traust du dich? {link}',
+
+  // racha que sigue, sellos, templo abierto y recordatorios
+  'progreso.semanaN': 'Woche {n}',
+  'progreso.rachaDias': 'Aktuelle Serie {n}',
+  'progreso.sellos': 'Siegel des Tempels',
+  'progreso.sellosSub':
+      'Jede abgeschlossene Woche drückt ein neues auf. Sie bleiben dir, auch wenn die Serie reißt.',
+  'progreso.selloSemana': 'Woche {n}',
+  'progreso.tuTitulo': 'Dein Titel',
+  'progreso.tituloMaximo':
+      'Einen höheren Titel gibt es nicht. Der Tempel kennt deinen Namen schon.',
+  'progreso.proximoTitulo': 'Nächster: „{t}“ · Wochen am Stück: {n}',
+  'progreso.mejorTitulo': 'Dein höchster bisher: {t}',
+  'progreso.premioTitulo': 'Belohnung der Woche',
+  'progreso.premioGratis':
+      'Wenn du alle sieben Tage schaffst: ein neues Siegel und 24 Stunden lang der ganze Tempel offen. Alle Wege, die Endgegner und die Modi, ohne Werbung.',
+  'progreso.premioComprado':
+      'Wenn du alle sieben Tage schaffst: ein neues Siegel und ein Segen. Deine erste Partie am nächsten Tag beginnt mit {n} {r} mehr.',
+  'templo.abierto': 'Tempel offen',
+  'templo.quedan': 'Noch {h} h {m} min ist alles offen.',
+  'templo.quedanMin': 'Noch {m} min ist alles offen.',
+  'celebra.sello': 'Du hast das {s} aufgedrückt.',
+  'celebra.templo':
+      'Und der Tempel bleibt 24 Stunden offen: alle Wege, die Endgegner und die Modi, ohne Werbung.',
+  'celebra.bendicion':
+      'Und ein Segen: Morgen beginnt deine erste Partie mit {n} {r} mehr.',
+  'celebra.titulo': 'Neuer Titel: {t}.',
+  'bendicion.franja': 'Segen der Woche: Du hast mit {n} {r} mehr angefangen.',
+  'aviso.ofrecer': 'Soll ich dich erinnern, damit die Serie nicht reißt?',
+  'aviso.ofrecerSub':
+      'Eine Erinnerung am frühen Abend, wenn du an dem Tag noch nicht gewonnen hast, und kaum mehr.',
+  'aviso.si': 'Erinnere mich',
+  'aviso.no': 'Nein, danke',
+  'aviso.negado':
+      'Das Telefon hat keine Erlaubnis gegeben. Du kannst sie in den Systemeinstellungen aktivieren.',
+  'ajustes.avisosTitulo': 'Erinnerungen',
+  'ajustes.avisos': 'Erinnern, damit die Serie nicht reißt',
+  'aviso.canal': 'Erinnerungen',
+  'aviso.canalSub': 'Die tägliche Serie und der offene Tempel.',
+  'aviso.racha.titulo': 'Der Tempel wartet auf dich',
+  'aviso.racha.cuerpo':
+      'Deine Serie steht bei {n}. Gewinn heute eine Partie, damit sie nicht reißt.',
+  'aviso.semana.titulo': 'Ein Tag bis zur ganzen Woche',
+  'aviso.semana.cuerpo':
+      'Gewinn heute, schaff alle sieben Tage und hol dir die Belohnung.',
+  'aviso.vuelta1.titulo': 'Der Hof vermisst dich',
+  'aviso.vuelta1.cuerpo': 'Eine Partie wartet auf dich. Zurück in den Tempel?',
+  'aviso.vuelta2.titulo': 'Der Tempel braucht seinen Wächter',
+  'aviso.vuelta2.cuerpo':
+      'Seit Tagen kümmert sich niemand um ihn. Eine Partie reicht, um eine neue Serie zu beginnen.',
+  'aviso.vuelta3.titulo': 'Der Tempel steht noch',
+  'aviso.vuelta3.cuerpo':
+      'Wann immer du willst: Fang eine neue Woche an und drück ein weiteres Siegel auf.',
+  'aviso.templo.titulo': 'Der Tempel schließt bald',
+  'aviso.templo.cuerpo':
+      'Nur noch ein paar Stunden ist alles offen. Versuch einen schwereren Weg, bevor es vorbei ist.',
+  'titulo.0': 'Besucher',
+  'titulo.1': 'Hofkehrer',
+  'titulo.2': 'Wasserträger',
+  'titulo.3': 'Torwächter',
+  'titulo.4': 'Mönch des Morgens',
+  'titulo.5': 'Glöckner',
+  'titulo.6': 'Hüter des Tempels',
+  'titulo.7': 'Legende des Tempels',
+  'sello.loto': 'Lotussiegel',
+  'sello.alba': 'Morgensiegel',
+  'sello.bambu': 'Bambussiegel',
+  'sello.campana': 'Glockensiegel',
+  'sello.montana': 'Bergsiegel',
+  'sello.rio': 'Flusssiegel',
+  'sello.llama': 'Flammensiegel',
+  'sello.luna': 'Mondsiegel',
+  'sello.viento': 'Windsiegel',
+  'sello.ocaso': 'Abendsiegel',
+  'sello.estrella': 'Sternsiegel',
+  'sello.shifu': 'Shifu-Siegel',
 };

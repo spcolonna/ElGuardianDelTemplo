@@ -88,7 +88,10 @@ void main() {
     // medio; hace falta que el título se ESTIRE para empujarlo al borde.
     for (final ancho in [360.0, 414.0, 800.0, 1280.0]) {
       await montar(tester, Size(ancho, 800), Secuencia.intro);
-      final boton = find.widgetWithText(TextButton, TextosUi.de('es')('comic.saltar'));
+      final boton = find.widgetWithText(
+        TextButton,
+        TextosUi.de('es')('comic.saltar'),
+      );
       expect(boton, findsOneWidget, reason: 'a $ancho px');
       expect(
         ancho - tester.getRect(boton).right,

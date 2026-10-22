@@ -215,6 +215,8 @@ class PatioScreen extends StatelessWidget {
 /// Los siete días de la semana en chico. La usan el patio y la pantalla de
 /// progreso, así que vive acá y no privada.
 class Semaforo extends StatelessWidget {
+  /// Días marcados de la semana en curso (`Progreso.diasEnSemana`), no la
+  /// racha entera: después del día 7 la fila vuelve a empezar.
   final int racha;
   final bool hoyHecho;
   final double tamano;
@@ -289,13 +291,18 @@ class _DatosPergamino extends StatelessWidget {
                 ? Icons.emoji_events
                 : Icons.local_fire_department,
             color: progreso.logroActivo ? kOroBorde : kNaranja,
-            valor: '${progreso.racha}/${Progreso.diasParaLogro}',
+            valor:
+                '${progreso.diasEnSemana(DateTime.now())}/${Progreso.diasParaLogro}',
             etiqueta: t('nav.progreso'),
             onTap: () {
               tocarUi(context);
               Navigator.of(context).pushNamed(R.progreso);
             },
-            pie: Semaforo(racha: progreso.racha, hoyHecho: hecho, tamano: 6),
+            pie: Semaforo(
+              racha: progreso.diasEnSemana(DateTime.now()),
+              hoyHecho: hecho,
+              tamano: 6,
+            ),
           ),
         ),
         Container(

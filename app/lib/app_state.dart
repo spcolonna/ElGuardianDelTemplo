@@ -16,8 +16,10 @@ import 'modos/encargos.dart';
 import 'logros.dart';
 import 'models.dart';
 import 'modos/dificultad.dart';
+import 'notificaciones.dart';
 import 'preferencias.dart';
 import 'progreso.dart';
+import 'recordatorios.dart';
 import 'resena.dart';
 import 'ui_texturas.dart';
 import 'temas/temas.dart';
@@ -34,9 +36,20 @@ class AppState extends ChangeNotifier {
   late final Tienda tienda = Tienda(prefs);
   late final Anuncios anuncios = Anuncios(tienda);
 
+  /// Los recordatorios para volver. Ver `recordatorios.dart`.
+  final notificaciones = Notificaciones();
+
   /// El jugador tiene el juego completo: los seis caminos, el selector
-  /// de jefes, los modos opcionales y ningún anuncio.
-  bool get premium => tienda.comprado;
+  /// de jefes, los modos opcionales y ningún anuncio. Lo tiene quien lo
+  /// compró, y por un día quien completó una semana de racha.
+  bool get premium => comprado || temploAbierto;
+
+  /// Lo compró de verdad. Lo que se le ofrece en la tienda depende de esto y
+  /// no de [premium]: con el templo abierto de prueba se le sigue ofreciendo.
+  bool get comprado => tienda.comprado;
+
+  /// El templo abierto que regala la semana completa, todavía vigente.
+  bool get temploAbierto => !comprado && progreso.temploAbierto(DateTime.now());
 
   Config cfg = Config();
   Tema tema = temaTemplo;
@@ -69,6 +82,15 @@ class AppState extends ChangeNotifier {
 
   /// La última victoria completó los 7 días.
   bool semanaCompletadaReciente = false;
+
+  /// Esta partida arrancó con la bendición de una semana completa.
+  bool bendicionAplicada = false;
+
+  /// Energía de más con que arranca la partida bendecida.
+  static const energiaDeBendicion = 3;
+
+  /// Si quiere los recordatorios; `null` = todavía no se le preguntó.
+  bool? avisos;
 
   /// Lo que el jugador eligió en la pantalla de modos.
   OpcionesPartida opciones = OpcionesPartida();
@@ -154,8 +176,43 @@ class AppState extends ChangeNotifier {
     unawaited(anuncios.iniciar());
     _apretarOpcionesSiNoCompro();
     await prefs.guardarProgreso(progreso);
+    avisos = prefs.avisos;
+    unawaited(reprogramarAvisos());
     listo = true;
     notifyListeners();
+  }
+
+  // ------------------------------------------------------------- avisos
+
+  /// Recalcula los recordatorios desde cero. Se llama al abrir, al terminar
+  /// una partida y al dejar el juego en segundo plano, que es cuando cuentan
+  /// los días sin venir.
+  Future<void> reprogramarAvisos() async {
+    if (avisos != true) return;
+    await notificaciones.reprogramar(
+      planificarRecordatorios(
+        progreso: progreso,
+        ahora: DateTime.now(),
+        comprado: comprado,
+      ),
+      TextosUi.de(idioma),
+    );
+  }
+
+  /// El jugador prende o apaga los recordatorios. Prenderlos pide el permiso
+  /// del sistema; devuelve false si lo negó, y entonces quedan apagados.
+  Future<bool> cambiarAvisos(bool v) async {
+    var ok = true;
+    if (v) ok = await notificaciones.pedirPermiso();
+    avisos = v && ok;
+    await prefs.guardarAvisos(avisos!);
+    if (avisos!) {
+      await reprogramarAvisos();
+    } else {
+      await notificaciones.cancelarTodo();
+    }
+    notifyListeners();
+    return ok;
   }
 
   Future<void> guardar() async => prefs.guardarProgreso(progreso);
@@ -211,7 +268,7 @@ class AppState extends ChangeNotifier {
   }
 
   void _alCambiarLaCompra() {
-    if (premium) anuncios.soltar();
+    if (comprado) anuncios.soltar();
     notifyListeners();
   }
 
@@ -245,10 +302,24 @@ class AppState extends ChangeNotifier {
     // le da tiempo de sobra para bajar, y así el jugador no espera nada.
     anuncios.precargar();
     final hoy = DateTime.now();
+    // Si el templo abierto se terminó con el juego abierto, la partida nueva
+    // ya es la de la versión gratis.
+    _apretarOpcionesSiNoCompro();
     final c = opciones.aplicar(cfg);
     beneficioAplicado = null;
     encargoActivo = null;
     semanaCompletadaReciente = false;
+    bendicionAplicada = false;
+
+    // La bendición de la semana: la cobra quien ya compró, en la primera
+    // partida de un día posterior. No cambia ninguna carta, sólo la Energía
+    // con que se arranca, como el beneficio de un encargo.
+    if (comprado && progreso.bendicionLista(hoy)) {
+      c.energiaInicial += energiaDeBendicion;
+      progreso.bendicionDel = null;
+      bendicionAplicada = true;
+      guardar();
+    }
 
     if (c.modoEncargos) {
       // Se cobra el beneficio del encargo cumplido en un día anterior.
@@ -284,6 +355,9 @@ class AppState extends ChangeNotifier {
 
     if (j.estado == EstadoJuego.victoria) {
       semanaCompletadaReciente = progreso.registrarVictoria(hoy);
+      if (semanaCompletadaReciente) {
+        progreso.premiarSemana(hoy, comprado: comprado);
+      }
       final e = encargoActivo;
       if (e != null && e.cumplido(j)) {
         progreso.encargoCumplidoId = e.id;
@@ -307,6 +381,7 @@ class AppState extends ChangeNotifier {
     prefs.guardarLogros(logros);
 
     guardar();
+    unawaited(reprogramarAvisos());
     notifyListeners();
   }
 

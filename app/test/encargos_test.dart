@@ -15,24 +15,27 @@ import 'package:guardian_templo/ui_modos.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  test('todos los encargos tienen título, nota y recompensa en cada idioma', () {
-    // Sin recompensa escrita, la franja de la partida promete un premio en
-    // blanco: el jugador cumple la condición sin saber qué gana.
-    for (final idioma in temaTemplo.idiomas) {
-      final textos = temaTemplo.textosDe(idioma);
-      for (final e in encargos) {
-        final t = textos.encargos[e.id];
-        expect(t, isNotNull, reason: '$idioma: falta el encargo ${e.id}');
-        expect(t!.titulo.trim(), isNotEmpty, reason: '${e.id} sin título');
-        expect(t.nota.trim(), isNotEmpty, reason: '${e.id} sin nota');
-        expect(
-          t.recompensa.trim(),
-          isNotEmpty,
-          reason: '${e.id} sin recompensa: el premio quedaría en blanco',
-        );
+  test(
+    'todos los encargos tienen título, nota y recompensa en cada idioma',
+    () {
+      // Sin recompensa escrita, la franja de la partida promete un premio en
+      // blanco: el jugador cumple la condición sin saber qué gana.
+      for (final idioma in temaTemplo.idiomas) {
+        final textos = temaTemplo.textosDe(idioma);
+        for (final e in encargos) {
+          final t = textos.encargos[e.id];
+          expect(t, isNotNull, reason: '$idioma: falta el encargo ${e.id}');
+          expect(t!.titulo.trim(), isNotEmpty, reason: '${e.id} sin título');
+          expect(t.nota.trim(), isNotEmpty, reason: '${e.id} sin nota');
+          expect(
+            t.recompensa.trim(),
+            isNotEmpty,
+            reason: '${e.id} sin recompensa: el premio quedaría en blanco',
+          );
+        }
       }
-    }
-  });
+    },
+  );
 
   test('el encargo del día es el mismo todo el día y cambia al siguiente', () {
     // Se puede mostrar antes de empezar justamente porque ya está decidido.
@@ -63,7 +66,9 @@ void main() {
     await app.tienda.comprar();
 
     await tester.pumpWidget(
-      MaterialApp(home: AppScope(state: app, child: const ModosScreen())),
+      MaterialApp(
+        home: AppScope(state: app, child: const ModosScreen()),
+      ),
     );
     await tester.pumpAndSettle();
 

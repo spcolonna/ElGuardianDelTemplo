@@ -14,10 +14,12 @@ import 'mecanica.dart';
 import 'models.dart';
 import 'ui_carta.dart';
 import 'ui_fogonazo.dart';
+import 'progreso.dart';
 import 'ui_common.dart';
 import 'temas/temas.dart';
 import 'ui_celebracion.dart';
 import 'ui_compartir.dart';
+import 'ui_sellos.dart';
 import 'ui_intro.dart';
 import 'ui_tutorial.dart';
 
@@ -547,13 +549,17 @@ class _GameScreenState extends State<GameScreen> {
         // partida de la semana pueden dispararse la de racha y varios logros
         // a la vez, y encimarlas se vería como un parpadeo.
         if (app.semanaCompletadaReciente && !_celebracionVista) {
+          final semana = app.progreso.semanasCompletadas;
           return Stack(
             children: [
               conAvisos,
               CelebracionLogro(
                 titulo: t('progreso.logroTitulo'),
-                subtitulo: t('progreso.logroSub'),
+                subtitulo: premioDeLaSemana(app, t),
                 textoBoton: t('comic.seguir'),
+                emblema: semana <= Progreso.totalSellos
+                    ? Sello(indice: semana - 1, ganado: true, tamano: 92)
+                    : null,
                 onCerrar: () => setState(() => _celebracionVista = true),
               ),
             ],
@@ -1114,8 +1120,8 @@ class _Mesa extends StatelessWidget {
                   app.semanaCompletadaReciente
                       ? t('juego.semanaCompleta')
                       : fmt(t('juego.diaMarcado'), {
-                          'a': app.progreso.racha,
-                          'b': 7,
+                          'a': app.progreso.diasEnSemana(DateTime.now()),
+                          'b': Progreso.diasParaLogro,
                         }),
                   icono: app.semanaCompletadaReciente
                       ? Icons.emoji_events
@@ -1146,6 +1152,13 @@ class _Mesa extends StatelessWidget {
                   ),
                 ],
               ),
+              // La primera victoria es cuando la racha empieza a importar:
+              // ahí, y sólo ahí, se ofrecen los recordatorios. Abajo de los
+              // botones, para no correrlos de donde el pulgar ya los busca.
+              if (gano && app.avisos == null) ...[
+                const SizedBox(height: 22),
+                _OfrecerAvisos(app: app, t: t),
+              ],
             ],
           ),
         ),
@@ -1157,6 +1170,8 @@ class _Mesa extends StatelessWidget {
     // las acciones quedan siempre al alcance del pulgar.
     return Column(
       children: [
+        if (app.bendicionAplicada && j.fase == Fase.alba)
+          _FranjaBendicion(t: t, recurso: app.textos.recurso),
         _FranjaEncargo(app: app, t: t),
         Expanded(child: _zonaCarta(context, j)),
         _franjaInferior(context, j),
@@ -2200,6 +2215,152 @@ class _ChispaEnergia extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// Lo que trae la semana completa, en el orden en que importa: el sello, el
+/// templo abierto o la bendición, y el título nuevo si lo hubo.
+String premioDeLaSemana(AppState app, TextosUi t) {
+  final p = app.progreso;
+  final semana = p.semanasCompletadas;
+  final partes = <String>[
+    if (semana >= 1 && semana <= Progreso.totalSellos)
+      fmt(t('celebra.sello'), {'s': t('sello.${idsSellos[semana - 1]}')}),
+    app.comprado
+        ? fmt(t('celebra.bendicion'), {
+            'n': AppState.energiaDeBendicion,
+            'r': app.textos.recurso,
+          })
+        : t('celebra.templo'),
+  ];
+  final nivel = p.nivelTitulo;
+  if (nivel > 0 && Progreso.semanasPorTitulo[nivel] == p.semanasSeguidas) {
+    partes.add(fmt(t('celebra.titulo'), {'t': t('titulo.$nivel')}));
+  }
+  return partes.join('\n');
+}
+
+/// La bendición de la semana, mientras dura el Alba de la partida bendecida.
+class _FranjaBendicion extends StatelessWidget {
+  final TextosUi t;
+  final String recurso;
+  const _FranjaBendicion({required this.t, required this.recurso});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10, 6, 10, 0),
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(10, 6, 10, 6),
+        decoration: BoxDecoration(
+          color: kPapelClaro,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: kOroBorde, width: 1.2),
+        ),
+        child: Row(
+          children: [
+            const Icon(Icons.auto_awesome, size: 16, color: kOroBorde),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                fmt(t('bendicion.franja'), {
+                  'n': AppState.energiaDeBendicion,
+                  'r': recurso,
+                }),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: kVerdeTinta,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// «¿Te aviso para no cortar la racha?», en el resumen de la victoria. Se
+/// contesta una sola vez; después vive en Ajustes.
+class _OfrecerAvisos extends StatefulWidget {
+  final AppState app;
+  final TextosUi t;
+  const _OfrecerAvisos({required this.app, required this.t});
+
+  @override
+  State<_OfrecerAvisos> createState() => _OfrecerAvisosState();
+}
+
+class _OfrecerAvisosState extends State<_OfrecerAvisos> {
+  bool _ocupado = false;
+
+  Future<void> _contestar(bool si) async {
+    setState(() => _ocupado = true);
+    final ok = await widget.app.cambiarAvisos(si);
+    if (!mounted) return;
+    if (si && !ok) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(widget.t('aviso.negado'))));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final t = widget.t;
+    return PanelPapel(
+      borde: kOroBorde,
+      padding: const EdgeInsets.fromLTRB(14, 12, 14, 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(
+                Icons.notifications_active_outlined,
+                color: kOroBorde,
+                size: 20,
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  t('aviso.ofrecer'),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    color: kTinta,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text(
+            t('aviso.ofrecerSub'),
+            style: const TextStyle(fontSize: 12.5, color: kTintaSuave),
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 6,
+            alignment: WrapAlignment.end,
+            children: [
+              TextButton(
+                onPressed: _ocupado ? null : () => _contestar(false),
+                child: Text(t('aviso.no')),
+              ),
+              FilledButton(
+                onPressed: _ocupado ? null : () => _contestar(true),
+                child: Text(t('aviso.si')),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
