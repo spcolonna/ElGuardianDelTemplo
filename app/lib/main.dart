@@ -45,10 +45,12 @@ class _GuardianAppState extends State<GuardianApp> with WidgetsBindingObserver {
     switch (s) {
       // Se va: los días sin venir se cuentan desde acá.
       case AppLifecycleState.paused:
+        estado.audio.alSalir();
         estado.reprogramarAvisos();
       // Vuelve, quizás otro día: la racha y el templo abierto se miran de
       // nuevo, que con la app en segundo plano el reloj siguió andando.
       case AppLifecycleState.resumed:
+        estado.audio.alVolver();
         estado.progreso.revisarCadena(DateTime.now());
         estado.tocar();
       default:

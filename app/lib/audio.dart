@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Efectos del juego. El nombre coincide con el archivo en `assets/audio/`:
@@ -18,7 +19,8 @@ enum Pista { home, alba, mediodia, ocaso, jefes }
 /// ritmo sonoro. Están para reemplazarse.
 ///
 /// En web el audio recién puede sonar **después de la primera interacción del
-/// usuario**, así que la música arranca al tocar JUGAR y no en el splash.
+/// usuario**, así que ahí la música arranca al tocar JUGAR. En el teléfono no
+/// hay esa traba y arranca apenas aparece el patio.
 class Audio {
   static const _claveMusica = 'guardian_audio_musica_v1';
   static const _claveEfectos = 'guardian_audio_efectos_v1';
@@ -51,6 +53,13 @@ class Audio {
 
   SharedPreferences? _prefs;
 
+  /// La app se fue a segundo plano con la música sonando: al volver, sigue.
+  bool _pausadaPorSalir = false;
+
+  /// Si el patio ya intentó arrancar la música. Se llama desde un `build`, y
+  /// sin esto un teléfono sin audio lo reintentaría en cada repintado.
+  bool _patioIntento = false;
+
   Future<void> iniciar(SharedPreferences? prefs) async {
     _prefs = prefs;
     musicaActiva = prefs?.getBool(_claveMusica) ?? true;
@@ -60,6 +69,40 @@ class Audio {
     // minutos seguidos y tiene que poder ignorarse.
     await _musica.setVolume(_volumenMusica);
     await _efectos.setReleaseMode(ReleaseMode.stop);
+    // En Android cada reproductor pide el foco de audio al sonar, y el que lo
+    // pierde se pausa: el primer efecto le sacaba el foco a la música y la
+    // cortaba hasta el próximo cambio de pista. Los efectos no lo piden.
+    try {
+      await _efectos.setAudioContext(
+        AudioContext(
+          android: const AudioContextAndroid(
+            usageType: AndroidUsageType.game,
+            contentType: AndroidContentType.sonification,
+            audioFocus: AndroidAudioFocus.none,
+          ),
+        ),
+      );
+    } catch (_) {}
+  }
+
+  /// La app pasó a segundo plano: la música se calla. Android, a diferencia
+  /// de iOS, la dejaba sonando con el juego minimizado.
+  Future<void> alSalir() async {
+    if (_pista == null || _pausadaPorSalir) return;
+    _pausadaPorSalir = true;
+    try {
+      await _musica.pause();
+    } catch (_) {}
+  }
+
+  /// La app volvió: la música sigue donde quedó, si seguía prendida.
+  Future<void> alVolver() async {
+    if (!_pausadaPorSalir) return;
+    _pausadaPorSalir = false;
+    if (!musicaActiva || _pista == null) return;
+    try {
+      await _musica.resume();
+    } catch (_) {}
   }
 
   /// Arranca la música si corresponde. Llamar desde una interacción del
@@ -73,6 +116,14 @@ class Audio {
   /// el audio no puede empezar antes de que el jugador toque algo. Arrancarla
   /// acá haría que el primer intento falle en silencio.
   Future<void> pistaDeMenu() async {
+    // En el teléfono el patio puede arrancarla: sin esto la primera pista que
+    // se oía era la del patio recién al tocar JUGAR, un segundo antes de que
+    // la partida la cambiara por la de Alba.
+    if (!kIsWeb && !_patioIntento && _pista == null) {
+      _patioIntento = true;
+      await ponerPista(Pista.home);
+      return;
+    }
     // Apagada, igual se anota: al prenderla en el patio tiene que sonar la
     // del patio, no la de la partida que se dejó.
     if (!musicaActiva && _deseada != null) _deseada = Pista.home;
@@ -84,6 +135,7 @@ class Audio {
   Future<void> ponerPista(Pista p) async {
     _deseada = p;
     if (!musicaActiva || _pista == p) return;
+    _pausadaPorSalir = false;
     final habia = _pista != null;
     _pista = p;
     final mia = ++_generacion;
