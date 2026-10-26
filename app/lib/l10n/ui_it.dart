@@ -52,6 +52,7 @@ const uiIt = <String, String>{
   'logros.contador': '{a} di {b} sbloccati',
   'logros.bloqueado': 'Non ci sei ancora riuscito.',
   'logros.nuevo': 'Obiettivo sbloccato!',
+  'logros.gameCenter': 'Vedi in Game Center',
   'modos.titulo': 'Prima di cominciare',
   'modos.dificultad': 'Il cammino',
   'modos.jefes': 'Boss finali',

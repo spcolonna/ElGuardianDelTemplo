@@ -60,6 +60,7 @@ const uiDe = <String, String>{
   'logros.contador': '{a} von {b} freigeschaltet',
   'logros.bloqueado': 'Noch nicht geschafft.',
   'logros.nuevo': 'Erfolg freigeschaltet!',
+  'logros.gameCenter': 'In Game Center ansehen',
   'modos.titulo': 'Bevor es losgeht',
   'modos.dificultad': 'Der Weg',
   'modos.jefes': 'Endgegner',

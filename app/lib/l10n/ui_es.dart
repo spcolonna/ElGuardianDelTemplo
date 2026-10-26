@@ -55,6 +55,7 @@ const uiEs = <String, String>{
   'logros.contador': '{a} de {b} desbloqueados',
   'logros.bloqueado': 'Todavía no lo conseguiste.',
   'logros.nuevo': '¡Logro desbloqueado!',
+  'logros.gameCenter': 'Ver en Game Center',
   'modos.titulo': 'Antes de empezar',
   'modos.dificultad': 'El camino',
   'modos.jefes': 'Jefes finales',

@@ -81,6 +81,12 @@ class _LogrosScreenState extends State<LogrosScreen> {
                     ),
                   ),
                 ),
+                if (app.gameCenter.autenticado)
+                  IconButton(
+                    tooltip: t('logros.gameCenter'),
+                    icon: const Icon(Icons.leaderboard, color: kMaderaOscura),
+                    onPressed: app.gameCenter.mostrar,
+                  ),
               ],
             ),
           ),

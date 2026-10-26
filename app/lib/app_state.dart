@@ -9,6 +9,7 @@ import 'audio.dart';
 import 'config_store.dart';
 import 'data.dart';
 import 'engine.dart';
+import 'game_center.dart';
 import 'idiomas.dart';
 import 'ui_kit.dart';
 import 'l10n.dart';
@@ -38,6 +39,7 @@ class AppState extends ChangeNotifier {
 
   /// Los recordatorios para volver. Ver `recordatorios.dart`.
   final notificaciones = Notificaciones();
+  final gameCenter = GameCenter();
 
   /// El jugador tiene el juego completo: los seis caminos, el selector
   /// de jefes, los modos opcionales y ningún anuncio. Lo tiene quien lo
@@ -178,8 +180,20 @@ class AppState extends ChangeNotifier {
     await prefs.guardarProgreso(progreso);
     avisos = prefs.avisos;
     unawaited(reprogramarAvisos());
+    unawaited(_entrarAGameCenter());
     listo = true;
     notifyListeners();
+  }
+
+  // ---------------------------------------------------------- game center
+
+  /// Entra a Game Center sin frenar el arranque y le manda lo que el jugador
+  /// ya tenía: los logros ganados antes de que existiera la integración no se
+  /// pierden.
+  Future<void> _entrarAGameCenter() async {
+    if (!await gameCenter.autenticar()) return;
+    notifyListeners();
+    await gameCenter.sincronizar(logros, progreso.mejorRacha);
   }
 
   // ------------------------------------------------------------- avisos
@@ -277,6 +291,7 @@ class AppState extends ChangeNotifier {
   Future<void> revisarLogros() async {
     evaluarLogros(progreso: progreso, estado: logros);
     await prefs.guardarLogros(logros);
+    unawaited(gameCenter.sincronizar(logros, progreso.mejorRacha));
   }
 
   /// El admin guarda un override local; el archivo se actualiza a mano
@@ -379,6 +394,7 @@ class AppState extends ChangeNotifier {
       ).where((l) => l.celebrable),
     );
     prefs.guardarLogros(logros);
+    unawaited(gameCenter.sincronizar(logros, progreso.mejorRacha));
 
     guardar();
     unawaited(reprogramarAvisos());

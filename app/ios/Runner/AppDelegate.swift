@@ -16,5 +16,8 @@ import UserNotifications
 
   func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
     GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
+    if let r = engineBridge.pluginRegistry.registrar(forPlugin: "GameCenter") {
+      GameCenter.registrar(con: r.messenger())
+    }
   }
 }

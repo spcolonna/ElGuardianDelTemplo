@@ -50,6 +50,7 @@ const uiZhHans = <String, String>{
   'logros.contador': '已解锁{a}／{b}',
   'logros.bloqueado': '你还没做到。',
   'logros.nuevo': '解锁了一项成就！',
+  'logros.gameCenter': '在 Game Center 中查看',
   'modos.titulo': '开始之前',
   'modos.dificultad': '路',
   'modos.jefes': '最终对手',

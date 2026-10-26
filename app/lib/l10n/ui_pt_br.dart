@@ -51,6 +51,7 @@ const uiPtBr = <String, String>{
   'logros.contador': '{a} de {b} desbloqueadas',
   'logros.bloqueado': 'Você ainda não conseguiu.',
   'logros.nuevo': 'Conquista desbloqueada!',
+  'logros.gameCenter': 'Ver no Game Center',
   'modos.titulo': 'Antes de começar',
   'modos.dificultad': 'O caminho',
   'modos.jefes': 'Chefes finais',

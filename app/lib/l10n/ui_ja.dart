@@ -54,6 +54,7 @@ const uiJa = <String, String>{
   'logros.contador': '{b}件中{a}件を達成',
   'logros.bloqueado': 'まだ達成していません。',
   'logros.nuevo': '記録を達成しました！',
+  'logros.gameCenter': 'Game Centerで見る',
   'modos.titulo': '始める前に',
   'modos.dificultad': '道',
   'modos.jefes': '最終決戦の相手',

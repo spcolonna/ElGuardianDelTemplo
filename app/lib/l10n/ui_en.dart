@@ -54,6 +54,7 @@ const uiEn = <String, String>{
   'logros.contador': '{a} of {b} unlocked',
   'logros.bloqueado': 'Not earned yet.',
   'logros.nuevo': 'Achievement unlocked!',
+  'logros.gameCenter': 'View in Game Center',
   'modos.titulo': 'Before you start',
   'modos.dificultad': 'The path',
   'modos.jefes': 'Final bosses',
