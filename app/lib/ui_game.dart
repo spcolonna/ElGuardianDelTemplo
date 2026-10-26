@@ -1331,6 +1331,12 @@ class _Mesa extends StatelessWidget {
     // hueco del indicador de inicio queda transparente y el paisaje sigue
     // hasta el borde de la pantalla, en vez de cortarse contra un bloque de
     // papel opaco que ocupaba media pulgada de nada.
+    //
+    // Pero el hueco de abajo SÍ se respeta: en Android con la barra de tres
+    // botones, la barra del sistema tapaba Robar y Rendirse. El margen de
+    // abajo de los botones se funde con ese hueco (el mayor de los dos, no
+    // la suma), así en iPhone la franja casi no crece.
+    final abajo = math.max(10.0, MediaQuery.viewPaddingOf(context).bottom);
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -1364,7 +1370,7 @@ class _Mesa extends StatelessWidget {
                 ),
               ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
+              padding: EdgeInsets.fromLTRB(12, 10, 12, abajo),
               child: _acciones(context, j),
             ),
           ],
