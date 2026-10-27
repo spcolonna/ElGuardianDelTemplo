@@ -510,7 +510,10 @@ class _GameScreenState extends State<GameScreen> {
                 juego: j,
                 app: app,
                 onCambio: _refrescar,
-                enPausa: _cansancioRevelado != null,
+                // También mientras el Cansancio del cambio de fase espera que
+                // termine el paisaje: si no, se podía robar antes de verlo.
+                enPausa:
+                    _cansancioRevelado != null || _cansancioPendiente != null,
                 onNueva: () {
                   app.nuevaPartida();
                   _reiniciarSeguimiento();
